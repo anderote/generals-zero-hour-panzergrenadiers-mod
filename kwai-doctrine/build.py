@@ -169,7 +169,7 @@ HEALTH_TARGETS = [
     (P + "Tank\\Buildings\\IndustrialPlant.ini", "zzyzzzz_StatTune.big",
      "Tank_ChinaIndustrialPlant", "3000", VEH, VA, None),
     (P + "Tank\\Buildings\\InternetCenter.ini", "zzyzzzz_StatTune.big",
-     "Tank_ChinaInternetCenter", "8000", VEH, VA, None),
+     "Tank_ChinaInternetCenter", "20000", VEH, VA, None),
     (P + "Tank\\Buildings\\NuclearSilo.ini", "zzyzzzz_StatTune.big",
      "Tank_ChinaNuclearMissileLauncher", "8000", VEH, VA, None),
     (P + "Tank\\Buildings\\PowerPlant.ini", "zzyzzzz_StatTune.big",

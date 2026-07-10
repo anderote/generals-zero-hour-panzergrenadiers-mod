@@ -1,0 +1,1578 @@
+;;;;; FROM Weapon.ini
+Weapon JS7TankGun
+  PrimaryDamage           = 250.0
+  PrimaryDamageRadius     = 5.0
+  SecondaryDamage         = 150.0
+  SecondaryDamageRadius   = 35.0
+  ScatterRadiusVsInfantry = 13.0
+  AttackRange             = 250.0
+  DamageType              = ARMOR_PIERCING
+  DeathType               = EXTRA_5
+  WeaponSpeed             = 400                           ; dist/sec 
+  WeaponRecoil            = 5                            ; angle to deflect the model when firing
+  ProjectileObject        = GolemTankShell
+  FireFX                  = WeaponFX_GolemTankGunNoTracer
+  VeterancyFireFX         = HEROIC WeaponFX_HeroicGolemTankGunNoTracer
+  ProjectileDetonationFX  = WeaponFX_Shockwave_SCUDMissileDetonationExplosive    ;WeaponFX_GenericHeavyTankShellDetonation
+  ProjectileDetonationOCL = OCL_GolemExplosiveDamageToInfantry
+  RadiusDamageAffects     = ALLIES ENEMIES NEUTRALS NOT_AIRBORNE
+  ClipSize                = 1                    ; how many shots in a Clip (0 == infinite)
+  ClipReloadTime          = 8000              ; how long to reload a Clip, msec
+  AutoReloadsClip         = Yes
+  AutoReloadWhenIdle      = 8001
+  ProjectileCollidesWith  = STRUCTURES WALLS 
+  AntiAirborneVehicle     = No
+  AntiAirborneInfantry    = No
+  ShowsAmmoPips           = Yes
+  WeaponBonus             = PLAYER_UPGRADE DAMAGE 125% ; UraniumShells
+End
+
+;;;;; FROM Weapon.ini
+Weapon JS7TankGunUpgraded
+  PrimaryDamage           = 250.0
+  PrimaryDamageRadius     = 5.0
+  SecondaryDamage         = 150.0
+  SecondaryDamageRadius   = 35.0
+  ScatterRadiusVsInfantry = 13.0
+  AttackRange             = 250.0
+  DamageType              = ARMOR_PIERCING
+  DeathType               = EXTRA_5
+  WeaponSpeed             = 400                           ; dist/sec 
+  WeaponRecoil            = 5                            ; angle to deflect the model when firing
+  ProjectileObject        = GolemTankShell
+  FireFX                  = WeaponFX_GolemTankGunNoTracer
+  VeterancyFireFX         = HEROIC WeaponFX_HeroicGolemTankGunNoTracer
+  ProjectileDetonationFX  = WeaponFX_Shockwave_SCUDMissileDetonationExplosive    ;WeaponFX_GenericHeavyTankShellDetonation
+  ProjectileDetonationOCL = OCL_GolemExplosiveDamageToInfantry
+  RadiusDamageAffects     = ALLIES ENEMIES NEUTRALS NOT_AIRBORNE
+  ClipSize                = 1                    ; how many shots in a Clip (0 == infinite)
+  ClipReloadTime          = 7000              ; how long to reload a Clip, msec
+  AutoReloadsClip         = Yes
+  AutoReloadWhenIdle      = 7001
+  ProjectileCollidesWith  = STRUCTURES WALLS 
+  AntiAirborneVehicle     = No
+  AntiAirborneInfantry    = No
+  ShowsAmmoPips           = Yes
+  WeaponBonus             = PLAYER_UPGRADE DAMAGE 125% ; UraniumShells
+End
+
+;;;;; FROM Weapon.ini
+Weapon InfectedJS7TankGun
+  PrimaryDamage           = 250.0
+  PrimaryDamageRadius     = 5.0
+  SecondaryDamage         = 150.0
+  SecondaryDamageRadius   = 35.0
+  ScatterRadiusVsInfantry = 13.0
+  AttackRange             = 250.0
+  DamageType              = ARMOR_PIERCING
+  DeathType               = EXTRA_5
+  WeaponSpeed             = 400                           ; dist/sec 
+  WeaponRecoil            = 5                            ; angle to deflect the model when firing
+  ProjectileObject        = GolemTankShell
+  FireFX                  = WeaponFX_GolemTankGunNoTracer
+  VeterancyFireFX         = HEROIC WeaponFX_HeroicGolemTankGunNoTracer
+  ProjectileDetonationFX  = WeaponFX_Shockwave_SCUDMissileDetonationExplosive    ;WeaponFX_GenericHeavyTankShellDetonation
+  ProjectileDetonationOCL = OCL_LeechInfectionCarBomb
+  RadiusDamageAffects     = ALLIES ENEMIES NEUTRALS NOT_AIRBORNE
+  ClipSize                = 1                    ; how many shots in a Clip (0 == infinite)
+  ClipReloadTime          = 8000              ; how long to reload a Clip, msec
+  AutoReloadsClip         = Yes
+  AutoReloadWhenIdle      = 8001
+  ProjectileCollidesWith  = STRUCTURES WALLS 
+  AntiAirborneVehicle     = No
+  AntiAirborneInfantry    = No
+  ShowsAmmoPips           = Yes
+  PreAttackDelay          = 750
+  PreAttackType           = PER_SHOT ; Do the delay every single shot
+End
+
+;;;;; FROM Weapon.ini
+Weapon GolemHeavyMachineGunGun
+  PrimaryDamage         = 3.0
+  PrimaryDamageRadius   = 2.0             ; 0 primary radius means "hits only intended victim"
+  AttackRange           = 290.0
+  DamageType            = GATTLING
+  DeathType             = NORMAL
+  WeaponSpeed           = 9999.0          ; dist/sec (huge value == effectively instant)
+  ProjectileObject      = GuardTowerMG3Projectile
+  FireFX                = WeaponFX_GolemMachineGunFire
+  VeterancyFireFX       = HEROIC WeaponFX_HeroicGolemMachineGunFire
+  RadiusDamageAffects   = ALLIES ENEMIES NEUTRALS
+  DelayBetweenShots     = 100
+  ClipSize              = 20
+  ClipReloadTime        = 4000
+  AutoReloadsClip       = Yes
+  AutoReloadWhenIdle    = 4001
+  AntiAirborneVehicle   = No
+  AntiAirborneInfantry  = No
+  AntiGround            = Yes
+  ProjectileDetonationFX = GenericBulletIpmactFX
+End
+
+;;;;; FROM Weapon.ini
+Weapon GolemHeavyMachineGunGunAir
+  PrimaryDamage         = 6.0
+  PrimaryDamageRadius   = 0.0       ; 0 primary radius means "hits only intended victim"
+  AttackRange           = 290.0
+  DamageType            = GATTLING
+  DeathType             = NORMAL
+  WeaponSpeed           = 999999.0          ; dist/sec (huge value == effectively instant)
+  ProjectileObject      = NONE
+  FireFX                = WeaponFX_TunguskaGunFireAir
+  VeterancyFireFX       = HEROIC WeaponFX_HeroicTunguskaGunFireAir
+  FireSound             = GolemHeavyMachinegunWeapon
+  RadiusDamageAffects   = ALLIES ENEMIES NEUTRALS
+  DelayBetweenShots     = 100
+  ClipSize              = 20
+  ClipReloadTime        = 4000
+  AutoReloadsClip       = Yes
+  AutoReloadWhenIdle    = 4001
+  AntiAirborneVehicle   = Yes
+  AntiAirborneInfantry  = Yes
+  AntiGround            = No
+End
+
+;;;;; FROM Weapon.ini
+Weapon Tank_ChinaCommandTankCannonAPFSDS
+  PrimaryDamage           = 600.0
+  PrimaryDamageRadius     = 1.0
+  ScatterRadiusVsInfantry = 15.0
+  AttackRange             = 250.0
+  MinimumAttackRange      = 35.0
+  MinTargetPitch          = -15                         ; we may not target anything outside of this pitch range
+  MaxTargetPitch          = 15                          ; dittof
+  AcceptableAimDelta      = 3
+  DamageType              = LAND_MINE
+  DeathType               = NORMAL
+  WeaponSpeed             = 650                           ; dist/sec 
+  WeaponRecoil            = 5                            ; angle to deflect the model when firing
+  ProjectileObject        = APFSDSShell
+  FireFX                  = WeaponFX_LatrunArtilleryGun
+  VeterancyFireFX         = HEROIC WeaponFX_HeroicLatrunArtilleryGun
+  ProjectileDetonationFX  = FX_KeneticMissileImpactExplosion
+  ProjectileDetonationOCL = OCL_LOSATMissileMetalImpact
+  FireOCL                 = OCL_APFSDSFire
+  FireSound               = WarMasterTankFire
+  RadiusDamageAffects     = ALLIES ENEMIES NEUTRALS
+  ClipSize                = 1
+  ClipReloadTime          = 10000
+  ProjectileCollidesWith  = STRUCTURES WALLS 
+  AntiAirborneVehicle     = No
+  ShockWaveAmount         = 10.0 ; represents the shockwave amount. The larger the amount, the greater and more dramatic the shockwave effect    
+  ShockWaveRadius         = 5.0 ; should be no more than the primary/secondary damage radius, whichever is larger.
+  ShockWaveTaperOff       = 0.33    ; 0.33 means at the shockwave edge, the shockwave amount is 33%.
+  ShowsAmmoPips           = Yes
+  WeaponBonus             = PLAYER_UPGRADE DAMAGE 125% ; UraniumShells
+  WeaponBonus             = GARRISONED RANGE        125%
+End
+
+;;;;; FROM Weapon.ini
+Weapon Tank_ChinaCommandTankCannonHESH
+  PrimaryDamage           = 300.0
+  PrimaryDamageRadius     = 25.0
+  SecondaryDamage         = 150.0
+  SecondaryDamageRadius   = 40.0
+  ScatterRadiusVsInfantry = 15.0
+  AttackRange             = 250.0
+  MinimumAttackRange      = 35.0
+  MinTargetPitch          = -15                         ; we may not target anything outside of this pitch range
+  MaxTargetPitch          = 15                          ; dittof
+  AcceptableAimDelta      = 3
+  DamageType              = EXPLOSION
+  DeathType               = EXTRA_5
+  WeaponSpeed             = 650                           ; dist/sec 
+  WeaponRecoil            = 5                            ; angle to deflect the model when firing
+  ProjectileObject        = GuardianCannonTracer
+  FireFX                  = WeaponFX_GenericTankGunNoTracerSmall
+  VeterancyFireFX         = HEROIC WeaponFX_HeroicGenericTankGunNoTracerSmall
+  ProjectileDetonationFX  = FX_HowitzerExplosion
+  ProjectileDetonationOCL = OCL_MBTHighExplosiveStun
+  FireSound               = WarMasterTankFire
+  RadiusDamageAffects     = ALLIES ENEMIES NEUTRALS
+  ClipSize                = 1
+  ClipReloadTime          = 10000
+  ProjectileCollidesWith  = STRUCTURES WALLS 
+  AntiAirborneVehicle     = No
+  ShockWaveAmount         = 30.0 ; represents the shockwave amount. The larger the amount, the greater and more dramatic the shockwave effect    
+  ShockWaveRadius         = 45.0 ; should be no more than the primary/secondary damage radius, whichever is larger.
+  ShockWaveTaperOff       = 0.33    ; 0.33 means at the shockwave edge, the shockwave amount is 33%.
+  ShowsAmmoPips           = Yes
+  WeaponBonus             = PLAYER_UPGRADE DAMAGE 125% ; UraniumShells
+  WeaponBonus             = GARRISONED RANGE        125%
+End
+
+;;;;; FROM Weapon.ini
+Weapon GolemTankViewShakeDummyWeapon
+  PrimaryDamage = 1.0
+  PrimaryDamageRadius = 0.0
+  FireFX  = WeaponFX_GolemViewShakeDummyFX
+  RadiusDamageAffects = NEUTRALS
+  ClipSize = 1
+  AutoReloadsClip = No 
+End
+
+;;;;; FROM Weapon.ini
+Weapon GolemTankHighExplosiveMeleeDamageWeaponForCounteringHeavyInfantryWithAnEvenLongerNameWTF
+  PrimaryDamage               = 500.0            
+  PrimaryDamageRadius         = 30.0      
+  AttackRange                 = 15.0
+  DamageType                  = MELEE
+  DeathType                   = EXTRA_5
+  WeaponSpeed                 = 600                     ;  dist/sec 
+  DelayBetweenShots           = 1
+  ClipSize                    = 1
+  AutoReloadsClip             = No
+  RadiusDamageAffects         = ENEMIES NEUTRALS ALLIES
+End
+
+;;;;; FROM Weapon.ini
+Weapon MainBattleTankHighExplosiveMeleeDamageWeaponForCounteringHeavyInfantryWithAnEvenLongerNameWTF
+  PrimaryDamage               = 500.0            
+  PrimaryDamageRadius         = 25.0      
+  AttackRange                 = 15.0
+  DamageType                  = MELEE
+  DeathType                   = EXTRA_5
+  WeaponSpeed                 = 600                     ;  dist/sec 
+  DelayBetweenShots           = 1
+  ClipSize                    = 1
+  AutoReloadsClip             = No
+  RadiusDamageAffects         = ENEMIES NEUTRALS ALLIES
+End
+
+;;;;; FROM Weapon.ini
+Weapon MainBattleTankHighExplosiveStunWeaponWithAModeratelyLongName
+  PrimaryDamage               = 1500.0            
+  PrimaryDamageRadius         = 25.0      
+  AttackRange                 = 15.0
+  DamageType                  = SUBDUAL_VEHICLE
+  DeathType                   = NORMAL
+  WeaponSpeed                 = 600                     ;  dist/sec 
+  DelayBetweenShots           = 1
+  ClipSize                    = 1
+  AutoReloadsClip             = No
+  RadiusDamageAffects         = ENEMIES NEUTRALS ALLIES
+End
+
+;;;;; FROM Weapon.ini
+Weapon GuardTowerMachineGunTracerEffect
+  PrimaryDamage          = 0.0 
+  ClipSize               = 1
+  AutoReloadsClip        = No
+  FireFX                 = WeaponFX_HeavyMachineGunTracerEffect
+End
+
+;;;;; FROM Weapon.ini
+Weapon RussianRepairedVehicleHullTertiaryUnmanWeapon
+  PrimaryDamage = 1.0            
+  PrimaryDamageRadius = 5.0
+  RadiusDamageAffects = ALLIES NEUTRALS
+  DamageType = WATER
+  ClipSize = 1
+  AutoReloadsClip = No 
+End
+
+;;;;; FROM Armor.ini
+Armor JS7TankArmor
+  Armor = FALLING            100%
+  Armor = JET_MISSILES    125%
+  Armor = ARMOR_PIERCING      80%
+  Armor = HEALING            100%
+  Armor = STEALTHJET_MISSILES 90%
+  Armor = INFANTRY_MISSILE    85%
+  Armor = EXPLOSION           60%
+  Armor = AURORA_BOMB         150%
+  Armor = CRUSH               50%      ;tanks are extra-hard to crush
+  Armor = SMALL_ARMS          30%
+  Armor = GATTLING            12%      ;resistant to gattling tank
+  Armor = COMANCHE_VULCAN     40%
+  Armor = FLAME               25%
+  Armor = RADIATION           50%      ;Radiation does less damage to tanks. 
+  Armor = MICROWAVE            0%
+  Armor = POISON              15%      ;Poison does a little damage, just for balance reasons.  
+  Armor = SNIPER               0%
+  Armor = MELEE                0%      ;tanks don't generally take much damage other than paint damage from MELEE weapons
+  Armor = LASER                0%      ;lasers are anti-personnel and anti-projectile only (for point defense laser)
+  Armor = HAZARD_CLEANUP       0%      ;Not harmed by cleaning weapons
+  Armor = PARTICLE_BEAM      200%      ;
+  Armor = KILL_PILOT         100%  
+  Armor = SURRENDER            0%      ;Capture type weapons are effective only against infantry.
+  Armor = SUBDUAL_MISSILE      0%
+  Armor = SUBDUAL_VEHICLE    100%
+  Armor = SUBDUAL_BUILDING     0%
+  Armor = SUBDUAL_UNRESISTABLE 100%
+  Armor = HACK                 0%      ;Special damage should not be used for regulair weapons
+  Armor = DEPLOY               0%   ;Special damage should not be used for regulair weapons
+  Armor = PENALTY              0%
+End
+
+;;;;; FROM Armor.ini
+Armor LolGitGudFuckerPlayMoreIS7
+  Armor = FALLING            100%
+  Armor = JET_MISSILES    125%
+  Armor = ARMOR_PIERCING      77%
+  Armor = HEALING            100%
+  Armor = STEALTHJET_MISSILES 90%
+  Armor = INFANTRY_MISSILE    83%
+  Armor = EXPLOSION           60%
+  Armor = AURORA_BOMB         150%
+  Armor = CRUSH               50%      ;tanks are extra-hard to crush
+  Armor = SMALL_ARMS          25%
+  Armor = GATTLING            10%      ;resistant to gattling tank
+  Armor = COMANCHE_VULCAN     35%
+  Armor = FLAME               25%
+  Armor = RADIATION           50%      ;Radiation does less damage to tanks. 
+  Armor = MICROWAVE            0%
+  Armor = POISON              15%      ;Poison does a little damage, just for balance reasons.  
+  Armor = SNIPER               0%
+  Armor = MELEE                0%      ;tanks don't generally take much damage other than paint damage from MELEE weapons
+  Armor = LASER                0%      ;lasers are anti-personnel and anti-projectile only (for point defense laser)
+  Armor = HAZARD_CLEANUP       0%      ;Not harmed by cleaning weapons
+  Armor = PARTICLE_BEAM      200%      ;
+  Armor = KILL_PILOT         100%  
+  Armor = SURRENDER            0%      ;Capture type weapons are effective only against infantry.
+  Armor = SUBDUAL_MISSILE      0%
+  Armor = SUBDUAL_VEHICLE    100%
+  Armor = SUBDUAL_BUILDING     0%
+  Armor = SUBDUAL_UNRESISTABLE 100%
+  Armor = HACK                 0%      ;Special damage should not be used for regulair weapons
+  Armor = DEPLOY               0%   ;Special damage should not be used for regulair weapons
+  Armor = PENALTY              0%
+End
+
+;;;;; FROM Armor.ini
+Armor ChinaCommandTankArmor
+  Armor = INFANTRY_MISSILE   75%
+  Armor = LAND_MINE           0%
+  Armor = FALLING             100%
+  Armor = CRUSH               0%      ;tanks are extra-hard to crush
+  Armor = SMALL_ARMS         22%
+  Armor = GATTLING            5%      ;resistant to gattling tank
+  Armor = JET_MISSILES        90%
+  Armor = STEALTHJET_MISSILES 50%
+  Armor = COMANCHE_VULCAN    20%
+  Armor = FLAME              20%
+  Armor = RADIATION           5%      ;Radiation does less damage to tanks. 
+  Armor = MICROWAVE           0%
+  Armor = POISON              5%      ;Poison does a little damage, just for balance reasons.  
+  Armor = SNIPER              0%
+  Armor = MELEE               0%      ;tanks don't generally take much damage other than paint damage from MELEE weapons
+  Armor = LASER               0%      ;lasers are anti-personel and anti-projectile only (for point defense laser)
+  Armor = HAZARD_CLEANUP      0%      ;Not harmed by cleaning weapons
+  Armor = PARTICLE_BEAM     180%      ;
+  Armor = KILL_PILOT          0%      ;Jarmen Kell uses against vehicles only.
+  Armor = SURRENDER           0%      ;Capture type weapons are effective only against infantry.
+  Armor = SUBDUAL_MISSILE     0%
+  Armor = SUBDUAL_VEHICLE    70%
+  Armor = SUBDUAL_BUILDING    0%
+  Armor = HACK                0%   ;Only for the pilot sniper weapon from jarmenkell
+  Armor = PENALTY          0%
+End
+
+;;;;; FROM Locomotor.ini
+Locomotor JS7Locomotor
+  Surfaces            = GROUND
+  Speed               = 35   ; in dist/sec
+  SpeedDamaged        = 25   ; in dist/sec
+  TurnRate            = 70   ; in degrees/sec
+  TurnRateDamaged     = 70   ; in degrees/sec
+  Acceleration        = 15   ; in dist/(sec^2)
+  AccelerationDamaged = 15   ; in dist/(sec^2)
+  Braking             = 50   ; in dist/(sec^2)
+  MinTurnSpeed        = 0    ; in dist/sec
+  ZAxisBehavior       = NO_Z_MOTIVE_FORCE
+  Appearance          = TREADS
+
+  AccelerationPitchLimit = 2              ; Angle limit how far chassis will lift or roll from acceleration.
+  DecelerationPitchLimit = 1.5            ; Angle limit how far chassis will dip from deceleration.
+  PitchStiffness = 0.10                   ;  stiffness of the "springs" in the suspension forward & back.
+  RollStiffness = 0.025                   ;  stiffness of the "springs" in the suspension side to side.
+  PitchDamping = 0.30                     ;  How fast it damps.  0=perfect spring, bounces forever.  1=glued to terrain.
+  RollDamping = 0.25                      ;  How fast it damps.  0=perfect spring, bounces forever.  1=glued to terrain.
+  ForwardAccelerationPitchFactor = 0.2    ; How much acceleration will cause the front to lift, or dip for stops.
+  LateralAccelerationRollFactor = 0.33    ;  How much cornering will cause the chassis to roll.
+End
+
+;;;;; FROM Locomotor.ini
+Locomotor JS7LocomotorUpgraded
+  Surfaces            = GROUND
+  Speed               = 40   ; in dist/sec
+  SpeedDamaged        = 28   ; in dist/sec
+  TurnRate            = 70   ; in degrees/sec
+  TurnRateDamaged     = 70   ; in degrees/sec
+  Acceleration        = 15   ; in dist/(sec^2)
+  AccelerationDamaged = 15   ; in dist/(sec^2)
+  Braking             = 50   ; in dist/(sec^2)
+  MinTurnSpeed        = 0    ; in dist/sec
+  ZAxisBehavior       = NO_Z_MOTIVE_FORCE
+  Appearance          = TREADS
+
+  AccelerationPitchLimit = 2              ; Angle limit how far chassis will lift or roll from acceleration.
+  DecelerationPitchLimit = 1.5            ; Angle limit how far chassis will dip from deceleration.
+  PitchStiffness = 0.10                   ;  stiffness of the "springs" in the suspension forward & back.
+  RollStiffness = 0.025                   ;  stiffness of the "springs" in the suspension side to side.
+  PitchDamping = 0.30                     ;  How fast it damps.  0=perfect spring, bounces forever.  1=glued to terrain.
+  RollDamping = 0.25                      ;  How fast it damps.  0=perfect spring, bounces forever.  1=glued to terrain.
+  ForwardAccelerationPitchFactor = 0.2    ; How much acceleration will cause the front to lift, or dip for stops.
+  LateralAccelerationRollFactor = 0.33    ;  How much cornering will cause the chassis to roll.
+End
+
+;;;;; FROM Locomotor.ini
+Locomotor ChinaCommandTankLocomotor
+  Surfaces            = GROUND
+  Speed               = 25   ; in dist/sec
+  SpeedDamaged        = 25   ; in dist/sec
+  TurnRate            = 80   ; in degrees/sec
+  TurnRateDamaged     = 80   ; in degrees/sec
+  Acceleration        = 15   ; in dist/(sec^2)
+  AccelerationDamaged = 15   ; in dist/(sec^2)
+  Braking             = 50   ; in dist/(sec^2)
+  ZAxisBehavior       = NO_Z_MOTIVE_FORCE
+  Appearance          = TREADS
+
+  AccelerationPitchLimit = 2              ; Angle limit how far chassis will lift or roll from acceleration.
+  DecelerationPitchLimit = 2              ; Angle limit how far chassis will dip from deceleration.
+  PitchStiffness = 0.05                   ;  stiffness of the "springs" in the suspension forward & back.
+  RollStiffness = 0.05                    ;  stiffness of the "springs" in the suspension side to side.
+  PitchDamping = 0.5                      ;  How fast it damps.  0=perfect spring, bounces forever.  1=glued to terrain.
+  RollDamping = 0.3                       ;  How fast it damps.  0=perfect spring, bounces forever.  1=glued to terrain.
+  ForwardAccelerationPitchFactor = 0.5    ; How much acceleration will cause the front to lift, or dip for stops.
+  LateralAccelerationRollFactor = 0.33    ;  How much cornering will cause the chassis to roll.
+End
+
+;;;;; FROM Locomotor.ini
+Locomotor ChinaCommandTankLocomotorUpgraded
+  Surfaces            = GROUND
+  Speed               = 33   ; in dist/sec
+  SpeedDamaged        = 33   ; in dist/sec
+  TurnRate            = 80   ; in degrees/sec
+  TurnRateDamaged     = 80   ; in degrees/sec
+  Acceleration        = 25   ; in dist/(sec^2)
+  AccelerationDamaged = 25   ; in dist/(sec^2)
+  Braking             = 50   ; in dist/(sec^2)
+  ZAxisBehavior       = NO_Z_MOTIVE_FORCE
+  Appearance          = TREADS
+
+  AccelerationPitchLimit = 2              ; Angle limit how far chassis will lift or roll from acceleration.
+  DecelerationPitchLimit = 2              ; Angle limit how far chassis will dip from deceleration.
+  PitchStiffness = 0.05                   ;  stiffness of the "springs" in the suspension forward & back.
+  RollStiffness = 0.05                    ;  stiffness of the "springs" in the suspension side to side.
+  PitchDamping = 0.5                      ;  How fast it damps.  0=perfect spring, bounces forever.  1=glued to terrain.
+  RollDamping = 0.3                       ;  How fast it damps.  0=perfect spring, bounces forever.  1=glued to terrain.
+  ForwardAccelerationPitchFactor = 0.5    ; How much acceleration will cause the front to lift, or dip for stops.
+  LateralAccelerationRollFactor = 0.33    ;  How much cornering will cause the chassis to roll.
+End
+
+;;;;; FROM Locomotor.ini
+Locomotor GSPScramblerDroneLocomotor
+  Surfaces = AIR
+  Speed = 999                ; in dist/sec
+  MinSpeed = 1               ; in dist/sec
+  TurnRate = 999             ; in degrees/sec
+  Acceleration = 999         ; in dist/(sec^2)
+  Lift = 100                 ; in dist/(sec^2)
+  Braking = 5000             ; in dist/(sec^2)
+  MinTurnSpeed = 360         ; in dist/sec
+  PreferredHeight = 3
+  AllowAirborneMotiveForce = Yes
+  ZAxisBehavior = RELATIVE_TO_HIGHEST_LAYER  
+  Appearance = HOVER
+  Apply2DFrictionWhenAirborne = Yes
+  CloseEnoughDist3D = Yes   ; This allows the parachute to fly over the target and come back
+End
+
+;;;;; FROM Object/WeaponObjects.ini
+Object APFSDSShell
+  ; *** ART Parameters ***
+  Draw = W3DModelDraw ModuleTag_01
+    ConditionState = NONE
+      Model = EXLosat
+      ParticleSysBone = None JetContrailThin
+    End
+  End
+
+  ; ***DESIGN parameters ***
+  DisplayName       = OBJECT:TankShell
+  EditorSorting     = SYSTEM
+  ArmorSet
+    Armor = ProjectileArmor
+  End
+  VisionRange = 0.0  
+
+  ; *** ENGINEERING Parameters ***
+  KindOf = PROJECTILE
+  Body = ActiveBody ModuleTag_02
+    MaxHealth       = 100.0
+    InitialHealth   = 100.0
+  End
+  Behavior = DestroyDie ModuleTag_03
+    ;nothing
+  End
+  Behavior = DumbProjectileBehavior ModuleTag_04
+    ; To tweak a Bezier path, please see GS
+    FirstHeight = 10  ; Height of Bezier control points above highest intervening terrain
+    SecondHeight = 10
+    FirstPercentIndent = 50% ; Percentage of shot distance control points are placed
+    SecondPercentIndent = 90%
+    FlightPathAdjustDistPerSecond   = 100 ; Can allow a max speed this can attempt to follow a target. Units are their velocity we can tag.
+  End
+  Behavior = PhysicsBehavior ModuleTag_05
+    Mass = 0.01   ; we can't have a zero mass, but we want it pretty tiny...
+  End
+  Behavior = WeaponBonusUpgrade ModuleTag_06 
+    TriggeredBy = Upgrade_ChinaUraniumShells
+  End
+
+  Geometry = Sphere
+  GeometryIsSmall = Yes
+  GeometryMajorRadius = 1.0
+  Scale = 0.80
+End
+
+;;;;; FROM Object/WeaponObjects.ini
+Object GolemTankShell
+
+  ; *** ART Parameters ***
+  Draw = W3DModelDraw ModuleTag_01
+    ConditionState = NONE
+      Model = AVTankShel
+      ParticleSysBone = None GenericTankShellLargeTrail
+    End
+  End
+
+  ; ***DESIGN parameters ***
+  DisplayName       = OBJECT:TankShell
+  EditorSorting     = SYSTEM
+  ArmorSet
+    Armor = ProjectileArmor
+  End
+  VisionRange = 0.0  
+
+  ; *** ENGINEERING Parameters ***
+  KindOf = PROJECTILE
+  Body = ActiveBody ModuleTag_02
+    MaxHealth       = 100.0
+    InitialHealth   = 100.0
+  End
+
+  Behavior = DestroyDie ModuleTag_03
+    ;nothing
+  End
+    
+  Behavior = DumbProjectileBehavior ModuleTag_04
+    ; To tweak a Bezier path, please see GS
+    FirstHeight = 10  ; Height of Bezier control points above highest intervening terrain
+    SecondHeight = 10
+    FirstPercentIndent = 50% ; Percentage of shot distance control points are placed
+    SecondPercentIndent = 90%
+    FlightPathAdjustDistPerSecond   = 100 ; Can allow a max speed this can attempt to follow a target. Units are their velocity we can tag.
+  End
+  
+  Behavior = DeletionUpdate ModuleTag_305
+    MinLifetime = 2500   ; min lifetime in msec
+    MaxLifetime = 2500   ; max lifetime in msec 
+  End
+  
+  Behavior = FireWeaponUpdate ModuleTag_ViewShake01
+    Weapon = GolemTankViewShakeDummyWeapon
+  End
+
+  Behavior = PhysicsBehavior ModuleTag_05
+    Mass = 0.01   ; we can't have a zero mass, but we want it pretty tiny...
+  End
+
+  Geometry = Sphere
+  GeometryIsSmall = Yes
+  GeometryMajorRadius = 1.0
+  Scale = 1.06
+
+End
+
+;;;;; FROM Object/WeaponObjects.ini
+Object GuardTowerMG3Projectile
+
+  ; ***DESIGN parameters ***
+  DisplayName       = OBJECT:TankShell
+  EditorSorting     = SYSTEM
+  ArmorSet
+    Armor = ProjectileArmor
+  End
+
+  ; *** ENGINEERING Parameters ***
+  KindOf = PROJECTILE ALWAYS_VISIBLE NO_COLLIDE
+  Body = ActiveBody ModuleTag_02
+    MaxHealth       = 999.0
+    InitialHealth   = 999.0
+  End
+
+; ---- begin Projectile death behaviors
+  Behavior = InstantDeathBehavior DeathModuleTag_01
+    DeathTypes = ALL
+    FX         = WeaponFX_GuardTowerMachineGunImpact
+  End
+; ---- end Projectile death behaviors
+    
+  Behavior = DumbProjectileBehavior ModuleTag_04
+    DetonateCallsKill = Yes
+    FirstHeight = 250  ; Height of Bezier control points above highest intervening terrain
+    SecondHeight = 300
+    FirstPercentIndent = 0% ; Percentage of shot distance control points are placed
+    SecondPercentIndent = 100%
+    FlightPathAdjustDistPerSecond   = 9999 ; Can allow a max speed this can attempt to follow a target. Units are their velocity we can tag.
+  End
+  
+  Behavior = FireWeaponUpdate ModuleTag_ParticleBulletTracer01
+    Weapon = GuardTowerMachineGunTracerEffect
+  End
+
+  Behavior = PhysicsBehavior ModuleTag_05
+    Mass = 0.01   ; we can't have a zero mass, but we want it pretty tiny...
+  End
+
+End
+
+;;;;; FROM Object/WeaponObjects.ini
+Object GuardianCannonTracer
+  Draw = W3DModelDraw ModuleTag_01
+    ConditionState = NONE
+      Model = NONE
+    End
+  End
+  ; ***DESIGN parameters ***
+  DisplayName       = OBJECT:TankShell
+  EditorSorting     = SYSTEM
+  ArmorSet
+    Armor = ProjectileArmor
+  End
+  VisionRange = 0.0  
+
+  ; *** ENGINEERING Parameters ***
+  KindOf = PROJECTILE
+  Body = ActiveBody ModuleTag_02
+    MaxHealth       = 100.0
+    InitialHealth   = 100.0
+  End
+
+  Behavior = DestroyDie ModuleTag_03
+    ;nothing
+  End
+    
+  Behavior = DumbProjectileBehavior ModuleTag_04
+    ; To tweak a Bezier path, please see GS
+    FirstHeight = 10  ; Height of Bezier control points above highest intervening terrain
+    SecondHeight = 10
+    FirstPercentIndent = 50% ; Percentage of shot distance control points are placed
+    SecondPercentIndent = 90%
+    FlightPathAdjustDistPerSecond   = 100 ; Can allow a max speed this can attempt to follow a target. Units are their velocity we can tag.
+  End
+
+  Behavior = PhysicsBehavior ModuleTag_05
+    Mass = 0.01   ; we can't have a zero mass, but we want it pretty tiny...
+  End
+
+  Behavior = WeaponBonusUpgrade ModuleTag_06 
+    TriggeredBy = Upgrade_ChinaUraniumShells
+  End
+
+  Geometry = Sphere
+  GeometryIsSmall = Yes
+  GeometryMajorRadius = 1.0
+End
+
+;;;;; FROM Object/WeaponObjects.ini
+Object ChinaMainBattleTankStun
+
+  KindOf = NO_COLLIDE
+  EditorSorting = SYSTEM
+
+  Behavior = LifetimeUpdate ModuleTag_04
+    MinLifetime = 2   ; min lifetime in msec
+    MaxLifetime = 2   ; max lifetime in msec
+  End
+
+  Behavior = FireWeaponUpdate ModuleTag_STUN
+    Weapon = MainBattleTankHighExplosiveStunWeaponWithAModeratelyLongName
+  End
+
+  ;Set phasers from stun to kill???
+  Behavior = FireWeaponUpdate ModuleTag_KILL
+    Weapon = MainBattleTankHighExplosiveMeleeDamageWeaponForCounteringHeavyInfantryWithAnEvenLongerNameWTF
+  End
+  
+  Geometry            = SPHERE
+  GeometryMajorRadius = 1.0
+  GeometryIsSmall     = Yes
+
+End
+
+;;;;; FROM Object/WeaponObjects.ini
+Object Tank_ChinaTankGolemMeleeKill
+
+  KindOf = NO_COLLIDE
+  EditorSorting = SYSTEM
+
+  Behavior = LifetimeUpdate ModuleTag_04
+    MinLifetime = 2   ; min lifetime in msec
+    MaxLifetime = 2   ; max lifetime in msec
+  End
+
+  ;Set phasers from stun to kill???
+  Behavior = FireWeaponUpdate ModuleTag_KILL
+    Weapon = GolemTankHighExplosiveMeleeDamageWeaponForCounteringHeavyInfantryWithAnEvenLongerNameWTF
+  End
+  
+  Geometry            = SPHERE
+  GeometryMajorRadius = 1.0
+  GeometryIsSmall     = Yes
+
+End
+
+;;;;; FROM Object/WeaponObjects.ini
+Object RussianGolemShtoraBlindingGrenade
+
+  ; *** ART Parameters ***
+  Draw = W3DModelDraw ModuleTag_01
+    ConditionState = None
+      Model = AVClusterB
+      Animation = AVClusterB.AVClusterB
+      AnimationMode = LOOP
+      Flags = RANDOMSTART 
+      AnimationSpeedFactorRange = 1.0 1.8
+      ParticleSysBone = None TigerGrenadeSmokeTrail 
+    End
+  End
+
+  ; ***DESIGN parameters ***
+  DisplayName       = OBJECT:TankShell
+  EditorSorting     = SYSTEM
+  ArmorSet
+    Armor = ProjectileArmor
+  End
+  VisionRange = 0.0  
+
+  ; *** ENGINEERING Parameters ***
+  KindOf = PROJECTILE PRELOAD CANNOT_RETALIATE
+  Body = ActiveBody ModuleTag_02
+    MaxHealth       = 100.0
+    InitialHealth   = 100.0
+  End
+
+  Behavior = DestroyDie ModuleTag_03
+  End
+  
+  Behavior = FXListDie ModuleTag_045
+    DeathFX = WeaponFX_ShtoraBlindingGrenadeDetonation
+  End
+    
+  Behavior = MissileAIUpdate ModuleTag_05
+    TryToFollowTarget       = Yes 
+    FuelLifetime            = 0
+    InitialVelocity         = 140                ; in dist/sec
+    IgnitionDelay           = 99999999
+    DistanceToTravelBeforeTurning = 25
+    DistanceToTargetForLock = 99999999  ; If it gets within 100 of the target, it kills the target.
+  End
+  Locomotor = SET_NORMAL FreeFallLocomotor
+
+  Behavior = PhysicsBehavior ModuleTag_07
+    Mass = 2.5  ; we can't have a zero mass, but we want it pretty tiny...
+  End
+
+  Behavior = LifetimeUpdate ModuleTag_04
+    MinLifetime = 400   ; min lifetime in msec
+    MaxLifetime = 600  ; max lifetime in msec
+  End
+
+  Geometry = Sphere
+  GeometryIsSmall = Yes
+  GeometryMajorRadius = 1.0
+  Scale = 2.1
+
+End
+
+;;;;; FROM Object/System.ini
+Object RussianVehicleNeutralHullKillObject ;this object gets spawned when a russian vehicle is destroyed to kill it after having become neutral
+
+  ArmorSet
+    Conditions      = None
+    Armor           = InvulnerableAllArmor
+    DamageFX        = EmptyDamageFX
+  End
+ 
+  ; *** ENGINEERING Parameters ***
+  Body = ActiveBody ModuleTag_02
+    MaxHealth = 1.0
+    InitialHealth = 1.0
+  End
+  
+  ; ***DESIGN parameters ***
+  EditorSorting   = SYSTEM
+  Side            = ChinaTankGeneral
+
+  KindOf = NO_COLLIDE IMMOBILE UNATTACKABLE
+  
+  Behavior = LifetimeUpdate ModuleTag_04
+    MinLifetime = 50
+    MaxLifetime = 50
+  End
+  
+  Behavior = FireWeaponWhenDeadBehavior ModuleTag_05
+    DeathWeapon   = RussianRepairedVehicleHullTertiaryUnmanWeapon
+    StartsActive  = Yes
+  End
+
+  Behavior = DestroyDie ModuleTag_06
+  End
+  
+End
+
+;;;;; FROM Object/Hulk.ini
+Object ChinaCommandTankHulk
+
+  ; *** ART Parameters ***
+  Draw                = W3DModelDraw ModuleTag_01
+    OkToChangeModelColor = Yes
+    ConditionState    = NONE
+      Model           = NVBtMstrBl_D
+    End
+  End
+
+  Draw                = W3DModelDraw ModuleTag_Barrel01
+    OkToChangeModelColor = Yes
+    ConditionState    = NONE
+      Model           = NVBtMstrBlB1_D
+    End
+  End
+
+  ; ***DESIGN parameters ***
+  EditorSorting       = DEBRIS
+
+  ; *** ENGINEERING Parameters ***
+  KindOf              =  NO_COLLIDE HULK
+
+  Behavior                  = PhysicsBehavior ModuleTag_03
+    Mass                    = 100.0
+    AllowBouncing           = Yes
+    KillWhenRestingOnGround = Yes
+  End
+  Behavior = LifetimeUpdate ModuleTag_04
+    MinLifetime = 1500   ; min lifetime in msec
+    MaxLifetime = 1600   ; max lifetime in msec
+  End
+
+  Behavior = SlowDeathBehavior ModuleTag_05
+    SinkDelay        = 1500
+    SinkRate            = 3     ; in Dist/Sec
+    DestructionDelay = 8000
+  End
+
+End
+
+;;;;; FROM ObjectCreationList.ini
+ObjectCreationList OCL_APFSDSFire
+ CreateDebris
+    ModelNames = AVScrap2 AVScrap3 AVScrap4 AVScrap5
+    Count = 4
+    Offset = X:14 Y:0 Z:7
+    ;MinForceMagnitude = 9
+    ;MaxForceMagnitude = 12
+    MinForcePitch = 10
+    MaxForcePitch = 45
+    Mass = 5.0
+    Disposition = LIKE_EXISTING   ;SEND_IT_FLYING
+    DispositionIntensity = 1.0
+  End
+End
+
+;;;;; FROM ObjectCreationList.ini
+ObjectCreationList OCL_GolemExplosiveDamageToInfantry
+  CreateObject
+    ObjectNames = Tank_ChinaTankGolemMeleeKill
+  End
+End
+
+;;;;; FROM ObjectCreationList.ini
+ObjectCreationList OCL_MBTHighExplosiveStun
+  CreateObject
+    ObjectNames = ChinaMainBattleTankStun
+  End
+End
+
+;;;;; FROM ObjectCreationList.ini
+ObjectCreationList OCL_SkyShieldShellExplosionDetonationEffect
+  Attack
+    WeaponSlot = PRIMARY
+    NumberOfShots = 1
+  End
+End
+
+;;;;; FROM ObjectCreationList.ini
+ObjectCreationList OCL_UniversalAbbilityTrigger
+  CreateObject
+    ObjectNames = UsingAbbilityTriggerObject
+    Disposition = LIKE_EXISTING
+  End
+End
+
+;;;;; FROM FXList.ini
+FXList GenericBulletIpmactFX
+  ParticleSystem
+    Name = BulletImpactDebris
+    InitialDelay = 0 0 UNIFORM   ;In milliseconds
+    Offset = X:0.0 Y:0.0 Z:0.0
+  End 
+End
+
+;;;;; FROM FXList.ini
+FXList WeaponFX_GolemMachineGunFire
+  LightPulse 
+    Color = R:128 G:128 B:64
+    Radius = 20 
+    IncreaseTime = 0 
+    DecreaseTime = 100
+  End
+  ParticleSystem 
+    Name = GattlingCannonLenzflareIntense
+    OrientToObject = Yes
+    Offset = X:0.0 Y:0.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = FallingShells
+    OrientToObject = Yes
+    Offset = X:-8.0 Y:0.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = SentryDroneMuzzleFlash
+    OrientToObject = Yes
+    Offset = X:8.0 Y:0.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = InfantryStruckSmallArmsSmoke
+    OrientToObject = Yes
+    Offset = X:0.0 Y:0.0 Z:0.0
+  End
+  Sound
+    Name = GolemHeavyMachinegunWeapon
+  End
+End
+
+;;;;; FROM FXList.ini
+FXList WeaponFX_GolemTankGunNoTracer
+  LightPulse 
+    Color = R:255 G:255 B:128 
+    Radius = 15 
+    IncreaseTime = 0 
+    DecreaseTime = 500
+  End
+  ParticleSystem 
+    Name = TankMuzzleFlashSmoke
+    OrientToObject = Yes
+  End
+  ParticleSystem 
+    Name = TankMuzzleFlashFlame
+    OrientToObject = Yes
+  End
+  ParticleSystem 
+    Name = TankMuzzleFlare
+    OrientToObject = Yes
+  End
+  ParticleSystem 
+    Name = TankMuzzleWave
+    OrientToObject = Yes
+    CreateAtGroundHeight = Yes
+  End
+  ParticleSystem 
+    Name = TankSmallMuzzleFlashSmoke
+    OrientToObject = Yes
+    RotateZ = 100
+    Offset = X:-5.0 Y:5.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = TankSmallMuzzleFlashFlame
+    OrientToObject = Yes
+    RotateZ = 100
+    Offset = X:-5.0 Y:5.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = TankSmallMuzzleFlare
+    OrientToObject = Yes
+    RotateZ = 100
+    Offset = X:-5.0 Y:5.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = TankSmallMuzzleFlashSmoke
+    OrientToObject = Yes
+    RotateZ = -100
+    Offset = X:-5.0 Y:-5.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = TankSmallMuzzleFlashFlame
+    OrientToObject = Yes
+    RotateZ = -100
+    Offset = X:-5.0 Y:-5.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = TankSmallMuzzleFlare
+    OrientToObject = Yes
+    RotateZ = -100
+    Offset = X:-5.00 Y:-5.0 Z:0.0
+  End
+  Sound
+    Name = GolemTankCannonWeapon
+  End
+End
+
+;;;;; FROM FXList.ini
+FXList WeaponFX_GolemViewShakeDummyFX
+  ViewShake 
+    Type = NORMAL
+  End
+End
+
+;;;;; FROM FXList.ini
+FXList WeaponFX_GuardTowerMachineGunImpact
+  Sound
+    Name = GuardTowerMg3MachinegunBulletWhistle
+  End
+End
+
+;;;;; FROM FXList.ini
+FXList WeaponFX_HeavyMachineGunTracerEffect
+  ParticleSystem 
+    Name = HeavyMachineGunTracerLensFlare
+    OrientToObject = Yes
+  End
+End
+
+;;;;; FROM FXList.ini
+FXList WeaponFX_HeroicGolemMachineGunFire
+  LightPulse 
+    Color = R:255 G:255 B:128 
+    Radius = 20 
+    IncreaseTime = 0 
+    DecreaseTime = 300
+  End
+  ParticleSystem 
+    Name = HeroicGattlingCannonLenzflare
+    OrientToObject = Yes
+    Offset = X:0.0 Y:0.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = FallingShells
+    OrientToObject = Yes
+    Offset = X:-8.0 Y:0.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = SentryDroneMuzzleFlash
+    OrientToObject = Yes
+    Offset = X:8.0 Y:0.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = InfantryStruckSmallArmsSmoke
+    OrientToObject = Yes
+    Offset = X:0.0 Y:0.0 Z:0.0
+  End
+  Sound
+    Name = GolemHeavyMachinegunWeapon
+  End
+End
+
+;;;;; FROM FXList.ini
+FXList WeaponFX_HeroicGolemTankGunNoTracer
+  LightPulse 
+    Color = R:128 G:0 B:0
+    Radius = 15 
+    IncreaseTime = 0 
+    DecreaseTime = 500
+  End
+  ParticleSystem 
+    Name = HeroicTankMuzzleFlashSmoke
+    OrientToObject = Yes
+  End
+  ParticleSystem 
+    Name = HeroicTankMuzzleFlashFlame
+    OrientToObject = Yes
+  End
+  ParticleSystem 
+    Name = HeroicTankMuzzleFlare
+    OrientToObject = Yes
+  End
+  ParticleSystem 
+    Name = TankMuzzleWave
+    OrientToObject = Yes
+    CreateAtGroundHeight = Yes
+  End
+  ParticleSystem 
+    Name = TankSmallMuzzleFlashSmoke
+    OrientToObject = Yes
+    RotateZ = 100
+    Offset = X:-5.0 Y:5.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = TankSmallMuzzleFlashFlame
+    OrientToObject = Yes
+    RotateZ = 100
+    Offset = X:-5.0 Y:5.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = HeroicTankSmallMuzzleFlare
+    OrientToObject = Yes
+    RotateZ = 100
+    Offset = X:-5.0 Y:5.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = TankSmallMuzzleFlashSmoke
+    OrientToObject = Yes
+    RotateZ = -100
+    Offset = X:-5.0 Y:-5.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = TankSmallMuzzleFlashFlame
+    OrientToObject = Yes
+    RotateZ = -100
+    Offset = X:-5.0 Y:-5.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = HeroicTankSmallMuzzleFlare
+    OrientToObject = Yes
+    RotateZ = -100
+    Offset = X:-5.00 Y:-5.0 Z:0.0
+  End
+  Sound
+    Name = GolemTankCannonWeapon
+  End
+End
+
+;;;;; FROM FXList.ini
+FXList WeaponFX_HeroicLatrunArtilleryGun
+  ViewShake 
+    Type = NORMAL
+  End
+  LightPulse 
+    Color = R:255 G:255 B:128 
+    Radius = 15 
+    IncreaseTime = 0 
+    DecreaseTime = 500
+  End
+  ParticleSystem 
+    Name = TankSmallMuzzleFlashSmoke
+    OrientToObject = Yes
+  End
+  ParticleSystem 
+    Name = TankSmallMuzzleFlashFlame
+    OrientToObject = Yes
+  End
+  ParticleSystem 
+    Name = HeroicTankSmallMuzzleFlare
+    OrientToObject = Yes
+  End
+End
+
+;;;;; FROM FXList.ini
+FXList WeaponFX_HeroicTunguskaGunFireAir
+  LightPulse 
+    Color = R:255 G:255 B:128 
+    Radius = 20 
+    IncreaseTime = 0 
+    DecreaseTime = 300
+  End
+  ParticleSystem 
+    Name = HeroicGattlingCannonLenzflare
+    OrientToObject = Yes
+    Offset = X:0.0 Y:0.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = FallingShells
+    OrientToObject = Yes
+    Offset = X:-8.0 Y:0.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = SentryDroneMuzzleFlash
+    OrientToObject = Yes
+    Offset = X:8.0 Y:0.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = InfantryStruckSmallArmsSmoke
+    OrientToObject = Yes
+    Offset = X:0.0 Y:0.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = HeavyMachineGunTracerLensFlareHeroic
+    OrientToObject = Yes
+  End
+End
+
+;;;;; FROM FXList.ini
+FXList WeaponFX_LatrunArtilleryGun
+  ViewShake 
+    Type = NORMAL
+  End
+  LightPulse 
+    Color = R:255 G:255 B:128 
+    Radius = 15 
+    IncreaseTime = 0 
+    DecreaseTime = 500
+  End
+  ParticleSystem 
+    Name = TankSmallMuzzleFlashSmoke
+    OrientToObject = Yes
+  End
+  ParticleSystem 
+    Name = TankSmallMuzzleFlashFlame
+    OrientToObject = Yes
+  End
+  ParticleSystem 
+    Name = TankSmallMuzzleFlare
+    OrientToObject = Yes
+  End
+End
+
+;;;;; FROM FXList.ini
+FXList WeaponFX_TunguskaGunFireAir
+  LightPulse 
+    Color = R:128 G:128 B:64
+    Radius = 20 
+    IncreaseTime = 0 
+    DecreaseTime = 100
+  End
+  ParticleSystem 
+    Name = GattlingCannonLenzflareIntense
+    OrientToObject = Yes
+    Offset = X:0.0 Y:0.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = FallingShells
+    OrientToObject = Yes
+    Offset = X:-8.0 Y:0.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = SentryDroneMuzzleFlash
+    OrientToObject = Yes
+    Offset = X:8.0 Y:0.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = InfantryStruckSmallArmsSmoke
+    OrientToObject = Yes
+    Offset = X:0.0 Y:0.0 Z:0.0
+  End
+  ParticleSystem 
+    Name = HeavyMachineGunTracerLensFlare
+    OrientToObject = Yes
+  End
+End
+
+;;;;; FROM FXList.ini
+FXList WeaponFX_ShtoraBlindingGrenadeDetonation
+  LightPulse 
+    Color = R:255 G:255 B:255
+    Radius = 30 
+    IncreaseTime = 0 
+    DecreaseTime = 2333
+  End
+  ParticleSystem
+    Name = ShtoraDetonationFlash
+  End
+  ParticleSystem
+    Name = ShtoraDetonationSparks
+  End
+  Sound
+    Name = GolemShtoraBlindingGrenadeExplosion
+  End
+End
+
+;;;;; FROM ParticleSystem.ini
+ParticleSystem BulletImpactDebris
+  Priority = WEAPON_EXPLOSION
+  IsOneShot = No
+  Shader = ALPHA
+  Type = PARTICLE
+  ParticleName = EXDrtExp01.tga
+  AngleZ = -15.00 15.00
+  AngularRateZ = 0.00 0.05
+  AngularDamping = 0.99 0.99
+  VelocityDamping = 1.00 1.00
+  Gravity = -0.10
+  PerParticleAttachedSystem = BulletImpactDust
+  Lifetime = 50.00 50.00
+  SystemLifetime = 1
+  Size = 0.5 0.5
+  StartSizeRate = 0.00 0.00
+  SizeRate = 0.30 0.60
+  SizeRateDamping = 0.98 0.95
+  Alpha1 = 1.00 1.00 0
+  Alpha2 = 0.00 0.00 50
+  Alpha3 = 0.00 0.00 0
+  Alpha4 = 0.00 0.00 0
+  Alpha5 = 0.00 0.00 0
+  Alpha6 = 0.00 0.00 0
+  Alpha7 = 0.00 0.00 0
+  Alpha8 = 0.00 0.00 0
+  Color1 = R:249 G:220 B:132 0
+  Color2 = R:0 G:0 B:0 0
+  Color3 = R:0 G:0 B:0 0
+  Color4 = R:0 G:0 B:0 0
+  Color5 = R:0 G:0 B:0 0
+  Color6 = R:0 G:0 B:0 0
+  Color7 = R:0 G:0 B:0 0
+  Color8 = R:0 G:0 B:0 0
+  ColorScale = -1.00 -1.00
+  BurstDelay = 0.00 0.00
+  BurstCount = 5.00 5.00
+  InitialDelay = 0.00 0.00
+  DriftVelocity = X:0.00 Y:0.00 Z:0.00
+  VelocityType = CYLINDRICAL
+  VelCylindricalRadial = 0.10 0.20
+  VelCylindricalNormal = 1.50 2.50
+  VolumeType = CYLINDER
+  VolCylinderRadius = 0.50
+  VolCylinderLength = 1.50
+  IsHollow = No
+  IsGroundAligned = No
+  IsEmitAboveGroundOnly = Yes
+  IsParticleUpTowardsEmitter = No
+  WindMotion = Unused
+  WindAngleChangeMin = 0.149924
+  WindAngleChangeMax = 0.449946
+  WindPingPongStartAngleMin = 0.000000
+  WindPingPongStartAngleMax = 0.785398
+  WindPingPongEndAngleMin = 5.497787
+  WindPingPongEndAngleMax = 6.283185
+End
+
+;;;;; FROM ParticleSystem.ini
+ParticleSystem GenericTankShellLargeTrail
+  Priority = CRITICAL
+  IsOneShot = No
+  Shader = ADDITIVE
+  Type = STREAK
+  ParticleName = EXContrail.tga
+  AngleZ = 0.00 0.00
+  AngularRateZ = 0.00 0.00
+  AngularDamping = 0.00 0.00
+  VelocityDamping = 0.93 0.94
+  Gravity = 0.00
+  Lifetime = 12.00 12.00
+  SystemLifetime = 0
+  Size = 0.10 0.20
+  StartSizeRate = 0.00 0.00
+  SizeRate = 0.30 0.50
+  SizeRateDamping = 0.96 0.99
+  Color1 = R:0 G:0 B:0 0
+  Color2 = R:0 G:0 B:0 1
+  Color3 = R:255 G:207 B:117 2
+  Color4 = R:35 G:33 B:29 3
+  Color5 = R:0 G:0 B:0 12
+  ColorScale = 0.00 0.00
+  BurstDelay = 0.60 0.60
+  BurstCount = 1.00 1.00
+  InitialDelay = 0.00 0.00
+  DriftVelocity = X:0.00 Y:0.00 Z:-0.20
+  VelocityType = ORTHO
+  VelOrthoX = -2.00 -2.00
+  VelOrthoY = 0.00 0.00
+  VelOrthoZ = 0.00 0.00
+  VolumeType = LINE
+  VolLineStart = X:8.00 Y:0.00 Z:0.00
+  VolLineEnd = X:8.00 Y:0.00 Z:0.00
+  IsHollow = No
+  IsGroundAligned = No
+  IsEmitAboveGroundOnly = No
+  IsParticleUpTowardsEmitter = No
+End
+
+;;;;; FROM ParticleSystem.ini
+ParticleSystem GolemShtoraActiveEffect
+  Priority = CRITICAL
+  IsOneShot = No
+  Shader = ADDITIVE
+  Type = PARTICLE
+  ParticleName = EXECMRing.tga
+  AngleZ = 0.00 0.00
+  AngularRateZ = 0.00 0.00
+  AngularDamping = 0.00 0.00
+  VelocityDamping = 0.00 0.00
+  Gravity = 0.00
+  Lifetime = 10.00 10.00
+  SystemLifetime = 0
+  Size = 1.50 1.50
+  StartSizeRate = 0.00 0.00
+  SizeRate = 0.60 0.60
+  SizeRateDamping = 1.0 1.0
+  Color1 = R:255 G:155 B:155 0
+  Color2 = R:255 G:155 B:155 10
+  Color3 = R:0 G:0 B:0 10
+  ColorScale = 0.00 0.00
+  BurstDelay = 4.00 4.00
+  BurstCount = 1.00 1.00
+  InitialDelay = 0.00 0.00
+  DriftVelocity = X:0.00 Y:0.00 Z:0.00
+  VelocityType = ORTHO
+  VelOrthoX = 0.00 0.00
+  VelOrthoY = 0.00 0.00
+  VelOrthoZ = 0.00 0.00
+  VolumeType = POINT
+  IsHollow = Yes
+  IsGroundAligned = No
+  IsEmitAboveGroundOnly = Yes
+  IsParticleUpTowardsEmitter = No
+End
+
+;;;;; FROM ParticleSystem.ini
+ParticleSystem HeavyMachineGunTracerLensFlare
+  Priority = CRITICAL
+  IsOneShot = No
+  Shader = ADDITIVE
+  Type = PARTICLE
+  ParticleName = TracerCore.tga
+  AngleZ = 0.00 7.00
+  AngularRateZ = 0.00 0.00
+  AngularDamping = 0.00 0.00
+  VelocityDamping = 1.15 1.30
+  Gravity = 0.00
+  Lifetime = 10.00 14.00
+  SystemLifetime = 1
+  PerParticleAttachedSystem = HeavyMachineGunTracerTrail
+  Size = 1.00 2.00
+  StartSizeRate = 0.00 0.00
+  SizeRate = 0.25 0.40
+  SizeRateDamping = 0.80 0.85
+  Color1 = R:1 G:1 B:1 0
+  Color2 = R:0 G:0 B:0 20
+  ColorScale = 0.00 0.00
+  BurstDelay = 0.00 0.00
+  BurstCount = 1.00 1.00
+  InitialDelay = 0.00 0.00
+  DriftVelocity = X:0.00 Y:0.00 Z:0.00
+  VelocityType = ORTHO
+  VelOrthoX = 5.00 8.00
+  VelOrthoY = -0.10 0.10
+  VelOrthoZ = -0.10 0.10
+  VolumeType = CYLINDER
+  VolCylinderRadius = 0.00
+  VolCylinderLength = 0.00
+  IsHollow = Yes
+  IsGroundAligned = No
+  IsEmitAboveGroundOnly = Yes
+  IsParticleUpTowardsEmitter = No
+End
+
+;;;;; FROM ParticleSystem.ini
+ParticleSystem HeavyMachineGunTracerLensFlareHeroic
+  Priority = CRITICAL
+  IsOneShot = No
+  Shader = ADDITIVE
+  Type = PARTICLE
+  ParticleName = TracerCore.tga
+  AngleZ = 0.00 7.00
+  AngularRateZ = 0.00 0.00
+  AngularDamping = 0.00 0.00
+  VelocityDamping = 1.15 1.30
+  Gravity = 0.00
+  Lifetime = 10.00 14.00
+  SystemLifetime = 1
+  PerParticleAttachedSystem = HeavyMachineGunTracerTrailHeroic
+  Size = 1.00 2.00
+  StartSizeRate = 0.00 0.00
+  SizeRate = 0.25 0.40
+  SizeRateDamping = 0.80 0.85
+  Color1 = R:1 G:1 B:1 0
+  Color2 = R:0 G:0 B:0 20
+  ColorScale = 0.00 0.00
+  BurstDelay = 0.00 0.00
+  BurstCount = 1.00 1.00
+  InitialDelay = 0.00 0.00
+  DriftVelocity = X:0.00 Y:0.00 Z:0.00
+  VelocityType = ORTHO
+  VelOrthoX = 5.00 8.00
+  VelOrthoY = -0.10 0.10
+  VelOrthoZ = -0.10 0.10
+  VolumeType = CYLINDER
+  VolCylinderRadius = 0.00
+  VolCylinderLength = 0.00
+  IsHollow = Yes
+  IsGroundAligned = No
+  IsEmitAboveGroundOnly = Yes
+  IsParticleUpTowardsEmitter = No
+  WindMotion = Unused
+  WindAngleChangeMin = 0.149924
+  WindAngleChangeMax = 0.449946
+  WindPingPongStartAngleMin = 0.000000
+  WindPingPongStartAngleMax = 0.785398
+  WindPingPongEndAngleMin = 5.497787
+  WindPingPongEndAngleMax = 6.283185
+End
+
+;;;;; FROM ParticleSystem.ini
+ParticleSystem ShtoraDetonationFlash
+  Priority = CRITICAL
+  IsOneShot = No
+  Shader = ADDITIVE
+  Type = PARTICLE
+  ParticleName = EXStarGlow.tga
+  AngleZ = -20.00 20.00
+  AngularRateZ = 0.00 0.00
+  AngularDamping = 0.00 0.00
+  VelocityDamping = 0.20 0.20
+  Gravity = 0.00
+  Lifetime = 15.00 15.00
+  SystemLifetime = 1
+  Size = 1.00 1.00
+  StartSizeRate = 0.00 0.00
+  SizeRate = 12.00 18.00
+  SizeRateDamping = 0.99 0.99
+  Color1 = R:0 G:0 B:0 0
+  Color2 = R:255 G:255 B:255 1
+  Color3 = R:0 G:0 B:0 15
+  ColorScale = 0.00 0.00
+  BurstDelay = 1.00 1.00
+  BurstCount = 3.00 3.00
+  InitialDelay = 0.00 0.00
+  DriftVelocity = X:0.00 Y:0.00 Z:0.00
+  VelocityType = ORTHO
+  VelOrthoX = 0.00 0.00
+  VelOrthoY = 0.00 0.00
+  VelOrthoZ = 0.00 0.00
+  VolumeType = POINT
+  IsHollow = Yes
+  IsGroundAligned = No
+  IsEmitAboveGroundOnly = Yes
+  IsParticleUpTowardsEmitter = No
+End
+
+;;;;; FROM ParticleSystem.ini
+ParticleSystem ShtoraDetonationSparks
+  Priority = CRITICAL
+  IsOneShot = No
+  Shader = ADDITIVE
+  Type = PARTICLE
+  ParticleName = EXLnzFlar2.tga
+  AngleZ = 0.00 7.00
+  AngularRateZ = 0.00 0.00
+  AngularDamping = 0.00 0.00
+  VelocityDamping = 1.15 1.30
+  Gravity = 0.00
+  Lifetime = 7.00 9.00
+  SystemLifetime = 10
+  PerParticleAttachedSystem = ShtoraDetonationSparksTrail
+  Size = 6.00 7.00
+  StartSizeRate = 0.00 0.00
+  SizeRate = 0.25 0.40
+  SizeRateDamping = 0.80 0.85
+  Color1 = R:255 G:255 B:255 0
+  Color2 = R:0 G:0 B:0 20
+  Color8 = R:0 G:0 B:0 0
+  ColorScale = 0.00 0.00
+  BurstDelay = 99999.00 99999.00
+  BurstCount = 25.00 30.00
+  InitialDelay = 0.00 0.00
+  DriftVelocity = X:0.00 Y:0.00 Z:0.00
+  VelocityType = SPHERICAL
+  VelSpherical = 3.00 6.00
+  VolumeType = SPHERE
+  VolSphereRadius = 1.00
+  IsHollow = Yes
+  IsGroundAligned = No
+  IsEmitAboveGroundOnly = Yes
+  IsParticleUpTowardsEmitter = No
+End
+
+;;;;; MISSING ParticleSystem ShtoraDetonationSparksTrail

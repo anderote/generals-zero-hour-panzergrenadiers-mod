@@ -126,11 +126,15 @@ def main():
         data, src = effective(path)
         txt = data.decode('latin-1')
         if path.endswith('InternetCenter.ini'):
-            # User wants up to 10 hacker centers. Original EA comment warns of
-            # bugs; applied anyway per request — revert here if trouble appears.
-            txt, n = re.subn(r'MaxSimultaneousOfType = 1\b', 'MaxSimultaneousOfType = 10', txt, count=1)
-            assert n == 1, 'InternetCenter: MaxSimultaneousOfType = 1 not found'
-            report.append('Tank_ChinaInternetCenter: MaxSimultaneousOfType 1 -> 10 [src ' + src + ']')
+            # Limit stays 1 (heeding the EA in-file warning). Instead: one
+            # mega-center — 30 hacker slots (was 8) and 5x health (20000).
+            txt, n = re.subn(r'(InternetHackContain.*?Slots\s*=\s*)8\b', r'\g<1>30', txt, count=1, flags=re.S)
+            assert n == 1, 'InternetCenter: Slots = 8 not found'
+            txt, n2 = hp_line.subn(lambda m: m.group(1) + '20000', txt)
+            assert n2 >= 1, 'InternetCenter: no health lines'
+            report.append('Tank_ChinaInternetCenter: Slots 8 -> 30, health -> 20000 (5x) [src ' + src + ']')
+            entries.append(BigEntry(path, txt.encode('latin-1')))
+            continue  # skip the generic 2x below
         hits = []
         def scale(m):
             v = float(m.group(2)) * KWAI_STRUCT_SCALE

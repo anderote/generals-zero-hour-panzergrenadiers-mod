@@ -1,0 +1,11 @@
+CONTROLBAR:ToolTipFanaticUseBombVest
+"Attack a selected target using the bomb vest."
+END
+
+MINIGAME:GLAMiniWarningFast
+"WARNING: \n The Workers have robbed a shoe store! Some of them are wearing Nikes, making them much faster!"
+END
+
+MINIGAME:GLAMiniWarningStrong
+"WARNING: \n The Workers managed to get Kevlar armor! Some of them are much stronger now!"
+END
