@@ -1,0 +1,14 @@
+ModificationType: Mod
+Name: 'C&C Shockwave'
+Version: 1.201 GenLauncher Fix 1
+SimpleDownloadLink: https://onedrive.live.com/embed?cid=AFB01C08E053A64E&resid=AFB01C08E053A64E%21627&authkey=ABswhOzCtE_6Q8U
+UIImageSourceLink: https://i.imgur.com/qpew4dL.png
+DiscordLink: https://discord.gg/REcbv37
+ModDBLink: https://www.moddb.com/mods/cc-shockwave
+NewsLink: https://www.moddb.com/mods/cc-shockwave/articles
+DependenceName: ''
+S3HostLink: gen.insave.ovh:9000
+S3BucketName: shockwave
+S3FolderName: shockwave-individual-files
+S3HostPublicKey: ''
+S3HostSecretKey: ''

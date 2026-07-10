@@ -1,0 +1,213 @@
+MATCHED TANK OBJECTS (24):
+   ChinaTankBattleMaster_Var1
+   ChinaTankDragon
+   ChinaTankECM
+   ChinaTankGattling
+   ChinaTankOverlord
+   Infa_ChinaTankGattling
+   Infa_ChinaTankOverlord
+   Infa_ChinaVehicleNukeLauncher
+   Nuke_ChinaTankBattleMaster
+   Nuke_ChinaTankDevastator
+   Nuke_ChinaTankDragon
+   Nuke_ChinaTankGattling
+   Nuke_ChinaTankOverlord
+   Spec_ChinaTankBattleMaster
+   Spec_ChinaTankDragon
+   Spec_ChinaTankGattling
+   Spec_ChinaVehicleSeismicTank
+   Tank_ChinaReaperTank_Real
+   Tank_ChinaTankBattleMaster
+   Tank_ChinaTankDragon
+   Tank_ChinaTankECM
+   Tank_ChinaTankEmperor
+   Tank_ChinaTankGattling
+   Tank_ChinaTankWarMaster
+
+HEALTH (MaxHealth x1.2):
+  ChinaTankBattleMaster_Var1                    400.0 -> 480.0
+  ChinaTankDragon                               280.0 -> 336.0
+  ChinaTankECM                                  300.0 -> 360.0
+  ChinaTankGattling                             300.0 -> 360.0
+  ChinaTankOverlord                            1100.0 -> 1320.0
+  Infa_ChinaTankOverlord                       1100.0 -> 1320.0
+  Infa_ChinaTankGattling                        220.0 -> 264.0
+  Infa_ChinaVehicleNukeLauncher                 380.0 -> 456.0
+  Nuke_ChinaTankBattleMaster                    400.0 -> 480.0
+  Nuke_ChinaTankDevastator                      800.0 -> 960.0
+  Nuke_ChinaTankGattling                        300.0 -> 360.0
+  Nuke_ChinaTankOverlord                       1100.0 -> 1320.0
+  Nuke_ChinaTankDragon                          280.0 -> 336.0
+  Spec_ChinaTankDragon                          320.0 -> 384.0
+  Spec_ChinaTankGattling                        300.0 -> 360.0
+  Spec_ChinaTankBattleMaster                    480.0 -> 576.0
+  Spec_ChinaVehicleSeismicTank                 1100.0 -> 1320.0
+  Tank_ChinaTankBattleMaster                    400.0 -> 480.0
+  Tank_ChinaTankDragon                          280.0 -> 336.0
+  Tank_ChinaTankECM                             300.0 -> 360.0
+  Tank_ChinaTankEmperor                        1100.0 -> 1320.0
+  Tank_ChinaTankGattling                        350.0 -> 420.0
+  Tank_ChinaReaperTank_Real                     700.0 -> 840.0
+  Tank_ChinaTankWarMaster                       580.0 -> 696.0
+
+ATTACK RANGE (x1.1):
+  AdvancedGattlingTankGun                                 150.0 -> 165.0
+  AdvancedGattlingTankGunAir                              350.0 -> 385.0
+  AdvancedGattlingTankGunHeroic                           150.0 -> 165.0
+  BattleFortressGattlingGun                               170.0 -> 187.0
+  BattleFortressGattlingGunHeroic                         170.0 -> 187.0
+  BattleMasterTankGun                                     150.0 -> 165.0
+  BattleMasterTankGunUpgraded                             150.0 -> 165.0
+  ChainGun55mmslugeatingWeaponwithalongname               175.0 -> 192.5
+  ChainGun55mmslugeatingWeaponwithalongnameHeroic         175.0 -> 192.5
+  ChainGun55mmslugeatingWeaponwithalongname_AP            175.0 -> 192.5
+  ChainGun55mmslugeatingWeaponwithalongname_APHeroic      175.0 -> 192.5
+  DevastatorCannonGun                                     140.0 -> 154.0
+  DevastatorCannonGun_Upgraded                            140.0 -> 154.0
+  DragonTankFireWallWeapon                                 25.0 -> 27.5
+  DragonTankFireWallWeaponUpgraded                         25.0 -> 27.5
+  DragonTankFlameWeapon                                    75.0 -> 82.5
+  DragonTankFlameWeaponUpgraded                            75.0 -> 82.5
+  DragonTankNapalmPuddleWeapon                             50.0 -> 55.0
+  ECMTankVehicleDisabler                                  200.0 -> 220.0
+  GattlingAPCGun                                          150.0 -> 165.0
+  GattlingAPCGunAir                                       230.0 -> 253.0
+  GattlingAPCGunHeroic                                    150.0 -> 165.0
+  GattlingTankGun                                         150.0 -> 165.0
+  GattlingTankGunAir                                      350.0 -> 385.0
+  GattlingTankGunHeroic                                   150.0 -> 165.0
+  Infa_BattleMasterTankGun                                150.0 -> 165.0
+  LeangFlameFireballWeapon                                150.0 -> 165.0
+  LeangFlameFireballWeaponUpgraded                        150.0 -> 165.0
+  LeangFlameTankWeapon                                    120.0 -> 132.0
+  LeangFlameTankWeaponUpgraded                            120.0 -> 132.0
+  NukeAdvancedGattlingTankGun                             150.0 -> 165.0
+  NukeAdvancedGattlingTankGunAir                          350.0 -> 385.0
+  NukeAdvancedGattlingTankGunHeroic                       150.0 -> 165.0
+  NukeGattlingTankGun                                     150.0 -> 165.0
+  NukeGattlingTankGunAir                                  350.0 -> 385.0
+  NukeGattlingTankGunHeroic                               150.0 -> 165.0
+  Nuke_BattleMasterTankGun                                150.0 -> 165.0
+  Nuke_BattleMasterTankGunUpgraded                        150.0 -> 165.0
+  Nuke_OverlordTankGun                                    175.0 -> 192.5
+  Nuke_OverlordTankGunUpgraded                            175.0 -> 192.5
+  OverlordTankGun                                         175.0 -> 192.5
+  RadTankBeamWeapon                                       100.0 -> 110.0
+  RadTankBeamWeaponBuildingClearer                        100.0 -> 110.0
+  RadTankDropReactorWeapon                                120.0 -> 132.0
+  RavageRamjetShellWeapon                                 250.0 -> 275.0
+  RavageTankGun                                           150.0 -> 165.0
+  SeismicTankWeapon                                         1.0 -> 1.1
+  Spec_GattlingTankGun                                    150.0 -> 165.0
+  Spec_GattlingTankGunHeroic                              150.0 -> 165.0
+  Tank_BattleMasterTankGun                                150.0 -> 165.0
+  Tank_BattleMasterTankGunUpgraded                        150.0 -> 165.0
+  Tank_ECMTankVehicleDisabler                             300.0 -> 330.0
+  Tank_NapalmRocketPod                                    160.0 -> 176.0
+  Tank_OverlordTankGun                                    175.0 -> 192.5
+  Tank_WarMasterTankGun                                   160.0 -> 176.0
+  UpgradedGattlingAPCGun                                  150.0 -> 165.0
+  UpgradedGattlingAPCGunAir                               230.0 -> 253.0
+  UpgradedGattlingAPCGunHeroic                            150.0 -> 165.0
+
+LOCOMOTOR SPEED (x1.05):
+  AnvilTankLocomotor                               55 -> 57.75
+  BattleFortressLocomotor                          35 -> 36.75
+  BattleMasterLocomotor                            28 -> 29.4
+  DevastatorFussionLocomotor                       43 -> 45.15
+  DevastatorLocomotor                              33 -> 34.65
+  DragonLocomotor                                  30 -> 31.5
+  GattlingAPCLocomotor                             50 -> 52.5
+  GattlingTankLocomotor                            40 -> 42
+  Infa_BattleMasterLocomotor                       35 -> 36.75
+  NuclearBattleMasterLocomotor                     37 -> 38.85
+  NuclearOverlordLocomotor                         30 -> 31.5
+  NuclearWarMasterLocomotor                        34 -> 35.7
+  Nuclear_ReaperLocomotor                          40 -> 42
+  Nuke_BattleMasterLocomotor                       45 -> 47.25
+  Nuke_FusionBattleMasterLocomotor                 50 -> 52.5
+  Nuke_OverlordLocomotor                           40 -> 42
+  OverlordLocomotor                                20 -> 21
+  RadTankFusionLocomotor                           47 -> 49.35
+  RadTankLocomotor                                 40 -> 42
+  RavageTankLocomotor                              30 -> 31.5
+  ReaperLocomotor                                  30 -> 31.5
+  TroopCrawlerWaterLocomotor                       35 -> 36.75
+  WarMasterLocomotor                               25 -> 26.25
+
+SKIPPED DUMMY WEAPONS: BattleFortressAADummyWeapon, GattlingBuildingGunAirDummy, Nuke_GattlingBuildingGunAirDummy, Spec_GattlingTankAirDummy, SupportVehicleDummyWeapon, Tank_ECMTankVehicleDummyWeapon, Tank_GattlingBuildingGunAirDummy, Tank_OverlordTankGun_Dummy
+
+WEAPON SPILLOVER (users that are NOT matched tanks):
+  BattleMasterTankGun: CINE_ChinaTankBattleMaster
+  DragonTankFireWallWeapon: CINE_ChinaTankDragon
+  DragonTankFireWallWeaponUpgraded: CINE_ChinaTankDragon
+  DragonTankFlameWeapon: CINE_ChinaTankDragon
+  DragonTankFlameWeaponUpgraded: CINE_ChinaTankDragon
+  OverlordTankGun: CINE_ChinaTankOverlord
+
+LOCOMOTOR SPILLOVER (users that are NOT matched tanks):
+  GattlingTankLocomotor: Armor_AmericaTankMicrowave
+  NuclearBattleMasterLocomotor: CINE_ChinaTankBattleMaster
+  NuclearOverlordLocomotor: CINE_ChinaTankOverlord
+  OverlordLocomotor: Mech_Executioner
+  TroopCrawlerWaterLocomotor: ChinaVehicleTroopCrawler, Demo_GLAVehicleBRDM1, Infa_ChinaVehicleTroopCrawler, Nuke_ChinaVehicleTroopCrawler, Salv_GLAVehicleTechnical, Salv_GLAVehicleToxinTruck, Spec_ChinaVehicleTroopCrawler, Tank_ChinaVehicleTroopCrawler
+
+LOCOMOTOR CONDITIONS SEEN:
+  AnvilTankLocomotor: SET_NORMAL
+  BattleFortressLocomotor: SET_NORMAL
+  BattleMasterLocomotor: SET_NORMAL
+  DevastatorFussionLocomotor: SET_NORMAL_UPGRADED
+  DevastatorLocomotor: SET_NORMAL
+  DragonLocomotor: SET_NORMAL
+  GattlingAPCLocomotor: SET_NORMAL
+  GattlingTankLocomotor: SET_NORMAL
+  Infa_BattleMasterLocomotor: SET_NORMAL
+  NuclearBattleMasterLocomotor: SET_NORMAL_UPGRADED
+  NuclearOverlordLocomotor: SET_NORMAL, SET_NORMAL_UPGRADED
+  NuclearWarMasterLocomotor: SET_NORMAL_UPGRADED
+  Nuclear_ReaperLocomotor: SET_NORMAL_UPGRADED
+  Nuke_BattleMasterLocomotor: SET_NORMAL
+  Nuke_FusionBattleMasterLocomotor: SET_NORMAL_UPGRADED
+  Nuke_OverlordLocomotor: SET_NORMAL_UPGRADED
+  OverlordLocomotor: SET_NORMAL
+  RadTankFusionLocomotor: SET_NORMAL_UPGRADED
+  RadTankLocomotor: SET_NORMAL
+  RavageTankLocomotor: SET_NORMAL
+  ReaperLocomotor: SET_NORMAL
+  TroopCrawlerWaterLocomotor: SET_NORMAL
+  WarMasterLocomotor: SET_NORMAL
+
+WARNINGS:
+   none
+
+FILES IN ARCHIVE (26):
+     478522  Data\INI\Locomotor.ini
+       8463  Data\INI\Object\China\Infantry\Vehicles\BattleFortress.ini
+      23218  Data\INI\Object\China\Infantry\Vehicles\GattlingAPC.ini
+       9377  Data\INI\Object\China\Infantry\Vehicles\TigerShark.ini
+      16119  Data\INI\Object\China\Nuke\Vehicles\BattleMaster.ini
+      13456  Data\INI\Object\China\Nuke\Vehicles\Devastator.ini
+      22428  Data\INI\Object\China\Nuke\Vehicles\GattlingTank.ini
+      25882  Data\INI\Object\China\Nuke\Vehicles\Overlord.ini
+       8640  Data\INI\Object\China\Nuke\Vehicles\RADTank.ini
+      10810  Data\INI\Object\China\SpecialWeapons\Vehicles\DragonTank.ini
+      10353  Data\INI\Object\China\SpecialWeapons\Vehicles\GattlingTank.ini
+      14360  Data\INI\Object\China\SpecialWeapons\Vehicles\RavageTank.ini
+       9025  Data\INI\Object\China\SpecialWeapons\Vehicles\SeismicTank.ini
+      10215  Data\INI\Object\China\Tank\Vehicles\BattleMaster.ini
+      11022  Data\INI\Object\China\Tank\Vehicles\DragonTank.ini
+       6383  Data\INI\Object\China\Tank\Vehicles\ECMTank.ini
+      10953  Data\INI\Object\China\Tank\Vehicles\Emperor.ini
+      21571  Data\INI\Object\China\Tank\Vehicles\GattlingTank.ini
+      34868  Data\INI\Object\China\Tank\Vehicles\Reaper.ini
+       9997  Data\INI\Object\China\Tank\Vehicles\WarMaster.ini
+      19710  Data\INI\Object\China\Vanilla\Vehicles\BattleMaster.ini
+      10941  Data\INI\Object\China\Vanilla\Vehicles\DragonTank.ini
+       6160  Data\INI\Object\China\Vanilla\Vehicles\ECMTank.ini
+      20695  Data\INI\Object\China\Vanilla\Vehicles\GattlingTank.ini
+      12165  Data\INI\Object\China\Vanilla\Vehicles\Overlord.ini
+    1172080  Data\INI\Weapon.ini
+
+INSTALLED:
+   /Users/andrewcote/GeneralsX/mods/ShockWave/zzx_ChinaTankBuff.big
+   /Users/andrewcote/GeneralsX/mods/ShockWaveSPE/zzx_ChinaTankBuff.big

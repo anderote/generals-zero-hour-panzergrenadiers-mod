@@ -1,0 +1,51 @@
+ModificationType: Mod
+Name: World War 2
+Version: 0.28
+SimpleDownloadLink: http://cncww2.ru/download/genlauncher/ww2GenLauncher.zip
+#UIImageSourceLink: https://cdn.discordapp.com/attachments/500003252625080330/1051066194586775552/launcher_500x100_orig.jpg
+#UIImageSourceLink: https://cdn.discordapp.com/attachments/500003252625080330/1051066194368675851/launcher_500x100_0279.jpg
+#UIImageSourceLink: https://cdn.discordapp.com/attachments/500003252625080330/1049500461746634832/launcher_500x100_tournament.jpg
+UIImageSourceLink: http://cncww2.ru/download/genlauncher/launcher_500x100_orig.jpg
+#UIImageSourceLink: http://cncww2.ru/download/genlauncher/launcher_500x100_0276_animation.png
+DiscordLink: https://discord.com/invite/mFZVBuZ
+ModDBLink: https://www.moddb.com/mods/ww2
+NewsLink: http://cncww2.ru/news/latest
+DependenceName: ''
+S3HostLink: gen.insave.ovh:9000
+S3BucketName: ww2
+S3FolderName: prod
+S3HostPublicKey: ''
+S3HostSecretKey: ''
+NetworkInfo: https://www.moddb.com/mods/ww2/tutorials/how-to-play-at-world-war-ii-in-generals-on-line
+Deprecated: false
+ColorsInformation:
+# v1
+#  GenLauncherBorderColor: '#354221'
+#  GenLauncherInactiveBorder: '#a29f9f'
+#  GenLauncherInactiveBorder2: '#354221'
+#  GenLauncherActiveColor: '#515736'
+#  GenLauncherDarkFillColor: '#515736'
+#  GenLauncherDarkBackGround: '#101010'
+#  GenLauncherLightBackGround: '#101010'
+#  GenLauncherDefaultTextColor: White
+#  GenLauncherDownloadTextColor: White
+#  GenLauncherListBoxSelectionColor2: '#242714'
+#  GenLauncherListBoxSelectionColor1: '#242714'
+#  GenLauncherButtonSelectionColor: '#354221'
+#  GenLauncherBackgroundImageLink: http://cncww2.ru/download/genlauncher/GlBg.png
+# v2
+  GenLauncherBorderColor: '#354221'
+  GenLauncherInactiveBorder: '#a29f9f'
+  GenLauncherInactiveBorder2: '#354221'
+  GenLauncherActiveColor: '#990000'
+  GenLauncherDarkFillColor: '#132712'
+  GenLauncherDarkBackGround: '#101010'
+  GenLauncherLightBackGround: '#141613'
+  GenLauncherDefaultTextColor: White
+  GenLauncherDownloadTextColor: White
+  GenLauncherListBoxSelectionColor2: '#132712'
+  GenLauncherListBoxSelectionColor1: '#132712'
+  GenLauncherButtonSelectionColor: '#686c5e'
+  GenLauncherBackgroundImageLink: https://cdn.discordapp.com/attachments/500003252625080330/1031318358496387092/GlBg.png
+#  GenLauncherBackgroundImageLink: http://cncww2.ru/download/genlauncher/GlBg.png
+SupportLink : https://www.donationalerts.com/r/generals_world_war_2

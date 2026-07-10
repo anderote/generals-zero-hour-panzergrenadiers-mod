@@ -1,0 +1,16 @@
+ModificationType: Patch
+Name: Anti Thesis Patch
+Version: 0.6.5
+SimpleDownloadLink: https://www.dropbox.com/scl/fi/0ckr39h91hptknqc35my9/AntiThesisPatch-ROTR-V0.6.5.zip?rlkey=idpfh47dicz1mve88g5vg8gio&st=6oyyoybr&dl=1
+UIImageSourceLink: ''
+DiscordLink: ''
+ModDBLink: ''
+NewsLink: https://www.moddb.com/mods/rise-of-the-reds-anti-thesis-patch
+DependenceName: Rise Of The Reds
+S3HostLink: gen.insave.ovh:9000
+S3BucketName: atp
+S3FolderName: atp-files
+S3HostPublicKey: ''
+S3HostSecretKey: ''
+NetworkInfo: ''
+

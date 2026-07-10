@@ -1,0 +1,16 @@
+ModificationType: Mod
+Name: Condition Zero
+Version: 0.915.1
+SimpleDownloadLink: ''
+UIImageSourceLink: https://i.imgur.com/hYl87tV.jpg
+DiscordLink: https://discord.gg/7NsTfDD
+ModDBLink: https://www.moddb.com/mods/command-and-conquer-condition-zero
+NewsLink: https://www.moddb.com/mods/command-and-conquer-condition-zero/downloads/condition-zero-version-09
+DependenceName: ''
+S3HostLink: gen.insave.ovh:9000
+S3BucketName: conditionzero
+S3FolderName: Mod
+S3HostPublicKey: ''
+S3HostSecretKey: ''
+NetworkInfo: https://www.moddb.com/company/no-life-studios/tutorials/how-to-play-nls-mods-online
+SupportLink: https://ko-fi.com/nolifestudios

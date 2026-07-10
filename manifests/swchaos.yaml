@@ -1,0 +1,15 @@
+ModificationType: Mod
+Name: Shockwave Chaos Mod
+Version: 48.2
+SimpleDownloadLink: https://onedrive.live.com/embed?cid=D84831F6F741F926&resid=D84831F6F741F926%21113&authkey=APw75j_JikuLrB4
+UIImageSourceLink: https://i.imgur.com/0pO2FMU.png
+DiscordLink: https://discord.gg/7NsTfDD
+ModDBLink: https://www.moddb.com/mods/cc-shockwave-chaos
+NewsLink: ''
+DependenceName: ''
+S3HostLink: gen.insave.ovh:9000
+S3BucketName: shockwavechaos
+S3FolderName: scm
+S3HostPublicKey: ''
+S3HostSecretKey: ''
+

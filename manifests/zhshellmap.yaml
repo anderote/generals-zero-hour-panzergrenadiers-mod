@@ -1,0 +1,15 @@
+ModificationType: Patch
+Name: Zero Hour Shell Map Remastered
+Version: 1.05 GenLauncherFix 3
+SimpleDownloadLink: https://gen.insave.ovh/tbredux/Shellmap1.zip
+UIImageSourceLink: ''
+DiscordLink: ''
+ModDBLink: ''
+NewsLink: ''
+DependenceName: C&C Generals Version 2.0
+S3HostLink: gen.insave.ovh:9000
+S3BucketName: ''
+S3FolderName: ''
+S3HostPublicKey: ''
+S3HostSecretKey: ''
+NetworkInfo: ''

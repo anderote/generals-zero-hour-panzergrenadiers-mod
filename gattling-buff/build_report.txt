@@ -1,0 +1,54 @@
+HEALTH (x1.15 on current; vanilla -> tank-buff -> now):
+  ChinaTankGattling              360.0 ->   414.0   (vanilla 300, total x1.380)
+  Nuke_ChinaTankGattling         360.0 ->   414.0   (vanilla 300, total x1.380)
+  Spec_ChinaTankGattling         360.0 ->   414.0   (vanilla 300, total x1.380)
+  Tank_ChinaTankGattling         420.0 ->   483.0   (vanilla 350, total x1.380)
+  Infa_ChinaTankGattling         264.0 ->   304.0   (vanilla 220, total x1.382)
+
+WEAPONS (range x1.2, damage x1.2, delay /1.1):
+  AdvancedGattlingTankGun              range  165.0-> 198.0 (van 150, x1.32)  dmg 15.00->18.00  delay 400->364
+  AdvancedGattlingTankGunAir           range  385.0-> 462.0 (van 350, x1.32)  dmg 12.00->14.40  delay 400->364
+  AdvancedGattlingTankGunHeroic        range  165.0-> 198.0 (van 150, x1.32)  dmg 15.00->18.00  delay 400->364
+  GattlingAPCGun                       range  165.0-> 198.0 (van 150, x1.32)  dmg 10.00->12.00  delay 400->364
+  GattlingAPCGunAir                    range  253.0-> 303.6 (van 230, x1.32)  dmg  8.00-> 9.60  delay 400->364
+  GattlingAPCGunHeroic                 range  165.0-> 198.0 (van 150, x1.32)  dmg 10.00->12.00  delay 400->364
+  GattlingTankGun                      range  165.0-> 198.0 (van 150, x1.32)  dmg 15.00->18.00  delay 400->364
+  GattlingTankGunAir                   range  385.0-> 462.0 (van 350, x1.32)  dmg 12.00->14.40  delay 400->364
+  GattlingTankGunHeroic                range  165.0-> 198.0 (van 150, x1.32)  dmg 15.00->18.00  delay 400->364
+  NukeAdvancedGattlingTankGun          range  165.0-> 198.0 (van 150, x1.32)  dmg 15.00->18.00  delay 400->364
+  NukeAdvancedGattlingTankGunAir       range  385.0-> 462.0 (van 350, x1.32)  dmg 12.00->14.40  delay 400->364
+  NukeAdvancedGattlingTankGunHeroic    range  165.0-> 198.0 (van 150, x1.32)  dmg 15.00->18.00  delay 400->364
+  NukeGattlingTankGun                  range  165.0-> 198.0 (van 150, x1.32)  dmg 15.00->18.00  delay 400->364
+  NukeGattlingTankGunAir               range  385.0-> 462.0 (van 350, x1.32)  dmg 12.00->14.40  delay 400->364
+  NukeGattlingTankGunHeroic            range  165.0-> 198.0 (van 150, x1.32)  dmg 15.00->18.00  delay 400->364
+  Spec_GattlingTankGun                 range  165.0-> 198.0 (van 150, x1.32)  dmg 18.75->22.50  delay 400->364
+  Spec_GattlingTankGunAir              range  350.0-> 420.0 (van 350, x1.20)  dmg 10.00->12.00  delay 400->364
+  Spec_GattlingTankGunHeroic           range  165.0-> 198.0 (van 150, x1.32)  dmg 18.75->22.50  delay 400->364
+  UpgradedGattlingAPCGun               range  165.0-> 198.0 (van 150, x1.32)  dmg 10.00->12.00  delay 400->364
+  UpgradedGattlingAPCGunAir            range  253.0-> 303.6 (van 230, x1.32)  dmg  8.00-> 9.60  delay 400->364
+  UpgradedGattlingAPCGunHeroic         range  165.0-> 198.0 (van 150, x1.32)  dmg 10.00->12.00  delay 400->364
+
+DUMMY: Spec_GattlingTankAirDummy kept at 350 (shared with Helix/Sentinel);
+       new Spec_GattlingTankAirDummyBuffed @ 420 used by Spec_ChinaTankGattling only.
+
+DIFF SUMMARY:
+  Data\INI\Object\China\Infantry\Vehicles\GattlingAPC.ini: 2 lines changed
+  Data\INI\Object\China\Nuke\Vehicles\GattlingTank.ini: 2 lines changed
+  Data\INI\Object\China\SpecialWeapons\Vehicles\GattlingTank.ini: 4 lines changed
+  Data\INI\Object\China\Tank\Vehicles\GattlingTank.ini: 2 lines changed
+  Data\INI\Object\China\Vanilla\Vehicles\GattlingTank.ini: 2 lines changed
+  Data\INI\Weapon.ini: 63 stat lines changed + 25-line dummy clone inserted
+
+FILES IN ARCHIVE (6):
+      23218  Data\INI\Object\China\Infantry\Vehicles\GattlingAPC.ini
+      22428  Data\INI\Object\China\Nuke\Vehicles\GattlingTank.ini
+      10365  Data\INI\Object\China\SpecialWeapons\Vehicles\GattlingTank.ini
+      21571  Data\INI\Object\China\Tank\Vehicles\GattlingTank.ini
+      20695  Data\INI\Object\China\Vanilla\Vehicles\GattlingTank.ini
+    1173325  Data\INI\Weapon.ini
+
+INSTALLED:
+   /Users/andrewcote/GeneralsX/mods/ShockWave/zzyz_GattlingBuff.big
+   /Users/andrewcote/GeneralsX/mods/ShockWaveSPE/zzyz_GattlingBuff.big
+
+ALL VERIFICATIONS PASSED

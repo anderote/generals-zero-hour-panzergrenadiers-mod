@@ -1,0 +1,14 @@
+ModificationType: Mod
+Name: C&C Generals Continue
+Version: 3.52
+SimpleDownloadLink: https://www.moddb.com/mods/generalszero-hour-continue/downloads/continue-v352-full-version
+UIImageSourceLink: https://i.imgur.com/k58urlZ.jpeg
+DiscordLink: https://discord.gg/8rbKcvnZx9
+ModDBLink: https://www.moddb.com/mods/generalszero-hour-continue
+NewsLink: https://www.moddb.com/mods/generalszero-hour-continue/news/continue-v35russian-faction-introduce
+DependenceName: ''
+S3HostLink: gen.insave.ovh:9000
+S3BucketName: gencon
+S3FolderName: gencon
+S3HostPublicKey: ''
+S3HostSecretKey: ''

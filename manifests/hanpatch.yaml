@@ -1,0 +1,18 @@
+ModificationType: Patch
+Name: Hanpatch
+Version: 32.2
+SimpleDownloadLink : https://gen.insave.ovh/rotr/hanpatch/Hanpatch%20v32.2.zip
+DiscordLink: https://discord.gg/REcbv37
+ModDBLink: https://www.moddb.com/mods/rise-of-the-reds-hanpatch
+NewsLink: https://docs.google.com/document/d/1ZMlVFDPf4SDD5Y6vYatOCtaudBBl32gdWg-YrswvnGo
+DependenceName: Rise of the Reds
+S3HostLink: gen.insave.ovh:9000
+S3BucketName: rotr
+S3FolderName: hanpatch-individual-files
+S3HostPublicKey: ''
+S3HostSecretKey: ''
+
+
+
+
+

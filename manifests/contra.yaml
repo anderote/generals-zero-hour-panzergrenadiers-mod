@@ -1,0 +1,32 @@
+ModificationType: Mod
+Name: Contra
+Version: 10.0.2 Beta 2 Patch 1
+SimpleDownloadLink: https://gen.insave.ovh/contra/mod/ContraLatestBasic.rar
+UIImageSourceLink: https://i.imgur.com/BpDlJUt.png
+DiscordLink: https://discord.gg/015E6KXXHmdWFXCtt
+ModDBLink: https://www.moddb.com/mods/contra
+NewsLink: https://www.moddb.com/mods/contra/articles
+DependenceName: ''
+S3HostLink: gen.insave.ovh:9000
+S3BucketName: contra
+S3FolderName: contra-individual-files
+S3HostPublicKey: ''
+S3HostSecretKey: ''
+NetworkInfo: https://github.com/ContraMod/Launcher/blob/master/Online%20Instructions.md
+SupportLink: https://www.paypal.com/paypalme/Contramod
+ColorsInformation:
+  GenLauncherBorderColor: '#f7e75a'
+  GenLauncherInactiveBorder: '#808080'
+  GenLauncherInactiveBorder2: '#915000'
+  GenLauncherActiveColor: '#ffd700'
+  GenLauncherDarkFillColor: '#633000'
+  GenLauncherDarkBackGround: '#000000'
+  GenLauncherLightBackGround: '#cc000000'
+  GenLauncherDefaultTextColor: '#ffffff'
+  GenLauncherDownloadTextColor: '#000000'
+  GenLauncherListBoxSelectionColor2: '#b36c3b0b'
+  GenLauncherListBoxSelectionColor1: '#b36c3b0b'
+  GenLauncherButtonSelectionColor: '#cc7b4b00'
+  GenLauncherBackgroundImageLink: https://i.imgur.com/IAPoiOt.png
+
+

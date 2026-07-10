@@ -1,0 +1,46 @@
+ModificationType: Mod
+Name: C&C Tiberian Dawn Redux
+Version: 1.5.5 GenLauncherFix 2.4
+SimpleDownloadLink: https://onedrive.live.com/embed?cid=8788D1B668C9AF2A&resid=8788D1B668C9AF2A%21522&authkey=AGhDkg2fgLVFgdU
+UIImageSourceLink: https://media.moddb.com/images/members/1/236/235607/genlauncherbanner.2.2.png
+DiscordLink: https://discord.gg/FjFhmCQRx9
+ModDBLink: https://www.moddb.com/mods/command-conquer-tiberian-dawn-redux
+NewsLink: https://www.moddb.com/mods/command-conquer-tiberian-dawn-redux/articles
+DependenceName: ''
+S3HostLink: gen.insave.ovh:9000
+S3BucketName: tbredux
+S3FolderName: redux
+S3HostPublicKey: ''
+S3HostSecretKey: ''
+NetworkInfo: https://www.moddb.com/mods/command-conquer-tiberian-dawn-redux/tutorials/online-gameplay-for-cc-tiberian-dawnred-alert-redux
+Deprecated: false
+ColorsInformation:
+  GenLauncherBorderColor: '#3da300'
+  GenLauncherInactiveBorder: '#787978'
+  GenLauncherInactiveBorder2: '#3d5b33'
+  GenLauncherActiveColor: '#ffde00'
+  GenLauncherDarkFillColor: '#2f571a'
+  GenLauncherDarkBackGround: '#000000'
+  GenLauncherLightBackGround: '#000000'
+  GenLauncherDefaultTextColor: White
+  GenLauncherDownloadTextColor: White
+  GenLauncherListBoxSelectionColor2: '#2f571a'
+  GenLauncherListBoxSelectionColor1: '#3d5b33'
+  GenLauncherButtonSelectionColor: '#22dc14'
+  GenLauncherBackgroundImageLink: https://media.moddb.com/images/members/1/236/235607/GlBg.3.png
+SupportLink: https://cash.app/$jtmyers88
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

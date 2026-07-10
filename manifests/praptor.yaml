@@ -1,0 +1,16 @@
+ModificationType: Mod
+Name: Project Raptor
+Version: V10 Alpha 0.3
+SimpleDownloadLink: ''
+UIImageSourceLink: https://i.imgur.com/Zb0nNCG.jpg
+DiscordLink: https://discord.gg/7NsTfDD
+ModDBLink: https://www.moddb.com/mods/project-raptor
+NewsLink: https://www.moddb.com/mods/project-raptor/news/project-raptor-v10-alpha-v03
+DependenceName: ''
+S3HostLink: gen.insave.ovh:9000
+S3BucketName: projectraptor
+S3FolderName: Mod
+S3HostPublicKey: ''
+S3HostSecretKey: ''
+NetworkInfo: https://www.moddb.com/company/no-life-studios/tutorials/how-to-play-nls-mods-online
+SupportLink: https://ko-fi.com/nolifestudios

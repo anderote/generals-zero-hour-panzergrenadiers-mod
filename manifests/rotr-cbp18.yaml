@@ -1,0 +1,14 @@
+ModificationType: Addon
+Name: Controlbar Pro 18 Button
+Version: v1
+SimpleDownloadLink: https://gen.insave.ovh/rotr/rotr-cbp-18button/Rotr_ControlBar_18.zip
+UIImageSourceLink: ''
+DiscordLink: https://discord.gg/REcbv37
+ModDBLink: https://www.moddb.com/mods/rise-of-the-reds
+NewsLink: 
+DependenceName: Rise of the Reds
+S3HostLink: gen.insave.ovh:9000
+S3BucketName: ''
+S3FolderName: ''
+S3HostPublicKey: ''
+S3HostSecretKey: ''

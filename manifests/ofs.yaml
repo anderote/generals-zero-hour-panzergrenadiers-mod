@@ -1,0 +1,14 @@
+ModificationType: Mod
+Name: Operation Firestorm
+Version: Alpha 0.3.17.1
+SimpleDownloadLink: https://gen.insave.ovh/operationfirestorm/mod/OFS_Alpha_0_3_17a.7z
+UIImageSourceLink: https://raw.githubusercontent.com/Andreas-W/ofs/main/OFS_GenlauncherBanner.png
+DiscordLink: https://discord.gg/7NsTfDD
+ModDBLink: https://www.moddb.com/mods/operation-firestorm
+NewsLink: ''
+DependenceName: ''
+S3HostLink: gen.insave.ovh:9000
+S3BucketName: operationfirestorm
+S3FolderName: ofs-individual-files
+S3HostPublicKey: ''
+S3HostSecretKey: ''

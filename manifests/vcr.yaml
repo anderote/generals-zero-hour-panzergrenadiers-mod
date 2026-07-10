@@ -1,0 +1,14 @@
+ModificationType: Addon
+Name: Vanilla Campaigns Remastered
+Version: 1.87
+SimpleDownloadLink: https://www.dropbox.com/scl/fi/qykr48ae5n4oti9owyhj6/VCR-Vanilla-Campaigns-Remastered-Public-v.1.87.big?rlkey=c0vk3l0tjq4l2ccb8yxxz8jcc&st=tsz1fj5a&dl=1
+UIImageSourceLink: ''
+DiscordLink: ''
+ModDBLink: ''
+NewsLink: 'https://docs.google.com/document/d/1NdmwfmHvc0PSfq5pi18LSctKQJzzPYf0/edit?usp=sharing&ouid=115439914228425694031&rtpof=true&sd=true'
+DependenceName: Hanpatch
+S3HostLink: 'gen.insave.ovh:9000'
+S3BucketName: 'vcr'
+S3FolderName: 'Vanilla Campaigns Remastered'
+S3HostPublicKey: ''
+S3HostSecretKey: ''

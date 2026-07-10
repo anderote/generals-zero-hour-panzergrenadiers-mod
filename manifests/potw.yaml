@@ -1,0 +1,14 @@
+ModificationType: Mod
+Name: The Power of the west
+Version: 1.7.5.0
+SimpleDownloadLink: https://www.moddb.com/downloads/mirror/237715/128/4a7abb9d44dd9a4a5dfd1f013160a255/?referer=https%3A%2F%2Fwww.moddb.com%2Fmods%2Fthe-power-of-the-west%2Fdownloads
+UIImageSourceLink: https://media.moddb.com/cache/images/groups/1/29/28971/thumb_620x2000/GenLauncher.jpg
+DiscordLink: https://discord.gg/r3c87Q8
+ModDBLink: https://www.moddb.com/mods/the-power-of-the-west
+NewsLink: https://drive.google.com/file/d/1MV4YaMOangl-OUjyUHQM8jzVHNnfM3Cr/view?usp=sharing
+DependenceName: ''
+S3HostLink: gen.insave.ovh:9000
+S3BucketName: tpotw
+S3FolderName: TPOTWFile
+S3HostPublicKey: ''
+S3HostSecretKey: ''

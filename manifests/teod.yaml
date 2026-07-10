@@ -1,0 +1,33 @@
+ModificationType: Mod
+Name: The End of Days
+Version: 0.98.6 Patch 11
+SimpleDownloadLink:
+UIImageSourceLink: https://i.imgur.com/x5M8Kvg.png
+DiscordLink: https://discord.com/invite/aCtu7UG
+ModDBLink: https://www.moddb.com/mods/the-end-of-days
+NewsLink: https://docs.google.com/document/d/1O7xeMCq5nxaaDea3MuV2fzwX7A10hNg65DGt0nLTN6Y/edit?usp=sharing
+DependenceName: ''
+S3HostLink: gen.insave.ovh:9000
+S3BucketName: teod
+S3FolderName: teod-individual-files
+S3HostPublicKey: ''
+S3HostSecretKey: ''
+NetworkInfo: https://docs.google.com/document/d/1yxiXdO37mOrWvaXDYdo3bEVPjIIU4lNyF0hhtFKGmPM/edit
+Deprecated: false
+ColorsInformation:
+  GenLauncherBorderColor: '#6c3636'
+  GenLauncherInactiveBorder: '#a29f9f'
+  GenLauncherInactiveBorder2: '#6c3636'
+  GenLauncherActiveColor: '#c53838'
+  GenLauncherDarkFillColor: '#c53838'
+  GenLauncherDarkBackGround: '#000000'
+  GenLauncherLightBackGround: '#000000'
+  GenLauncherDefaultTextColor: White
+  GenLauncherDownloadTextColor: White
+  GenLauncherListBoxSelectionColor2: '#36ff2730'
+  GenLauncherListBoxSelectionColor1: '#36ff2730'
+  GenLauncherButtonSelectionColor: '#6c3636'
+  GenLauncherBackgroundImageLink: https://i.imgur.com/m8MgquM.png
+
+
+

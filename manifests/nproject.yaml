@@ -1,0 +1,39 @@
+ModificationType: Mod
+Name: NProject Mod
+Version: 2.11
+SimpleDownloadLink: https://gen.insave.ovh/nproject/mod/n5p29-nprojectbeta-v211.zip
+UIImageSourceLink: https://i.imgur.com/XVhG6uQ.jpg
+DiscordLink: https://discord.gg/7NsTfDD
+ModDBLink: https://www.moddb.com/mods/nproject-mod
+NewsLink: https://www.moddb.com/mods/nproject-mod/news/nproject-mod-211-released
+DependenceName: ''
+S3HostLink: gen.insave.ovh:9000
+S3BucketName: nproject
+S3FolderName: npm
+S3HostPublicKey: ''
+S3HostSecretKey: ''
+NetworkInfo: https://www.moddb.com/company/no-life-studios/tutorials/how-to-play-nls-mods-online
+SupportLink: https://ko-fi.com/nolifestudios
+ColorsInformation:
+  GenLauncherBorderColor: '#c80000'
+  GenLauncherInactiveBorder: '#a9a9a9'
+  GenLauncherInactiveBorder2: '#773333'
+  GenLauncherActiveColor: '#baff0c'
+  GenLauncherDarkFillColor: '#530000'
+  GenLauncherDarkBackGround: '#000000'
+  GenLauncherLightBackGround: '#000000'
+  GenLauncherDefaultTextColor: '#ffffff'
+  GenLauncherDownloadTextColor: '#000000'
+  GenLauncherListBoxSelectionColor2: '#320000'
+  GenLauncherListBoxSelectionColor1: '#320000'
+  GenLauncherButtonSelectionColor: '#af0000'
+  GenLauncherBackgroundImageLink: https://i.imgur.com/xnTxZK4.png
+
+
+
+
+
+
+
+
+
