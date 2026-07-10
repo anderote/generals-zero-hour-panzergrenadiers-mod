@@ -110,9 +110,10 @@ Weapon ShwBattleMasterCoaxMGWeapon
   AcceptableAimDelta      = 10
   DamageType              = SMALL_ARMS
   DeathType               = NORMAL
-  WeaponSpeed             = 600
-  ProjectileObject        = GenericMachinegunProjectile
-  ProjectileDetonationFX  = WeaponFX_GenericBulletImpact
+  ; Hitscan like vanilla vehicle MGs: no ProjectileObject. The ported
+  ; GenericMachinegunProjectile flew a ballistic arc (visibly fired upward);
+  ; instant-hit + tracer FireFX renders along the gun axis instead.
+  WeaponSpeed             = 999999.0
   FireFX                  = WeaponFX_GenericMachineGunFire
   VeterancyFireFX         = HEROIC WeaponFX_GenericMachineGunFireWithRedTracers
   FireSound               = BattleMasterMachineGunFire
@@ -120,7 +121,6 @@ Weapon ShwBattleMasterCoaxMGWeapon
   DelayBetweenShots       = 65
   ClipSize                = 30
   ClipReloadTime          = 5000
-  ProjectileCollidesWith  = ENEMIES STRUCTURES WALLS SHRUBBERY
   PreAttackType           = PER_CLIP
   PreAttackDelay          = 2000
 End
@@ -391,8 +391,7 @@ def main():
             "FXList WeaponFX_GenericBulletImpact exists")
     require(re.search(r"^AudioEvent BattleMasterMachineGunFire\s*$", sounds, re.M),
             "AudioEvent BattleMasterMachineGunFire exists")
-    require(re.search(r"^Object GenericMachinegunProjectile\s*$", tracers, re.M),
-            "Object GenericMachinegunProjectile exists")
+    # hitscan since the straight-up-fire fix: no projectile object referenced
 
     print("== verify: block balance")
     for path in MODIFIED:
