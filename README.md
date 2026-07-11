@@ -58,6 +58,18 @@ veterancy ladder running on a custom engine fork.
 - **Crash diagnostics**: uncaught exceptions now report stage, logic frame, the exact
   object template + module being updated, exception type, and a throw-site backtrace
   (macOS stack dumps were empty stubs upstream — fixed)
+- **Container-death crash family fixed at the root**: `destroyObject()` defers teardown,
+  leaving dead riders in the contain list that get re-placed and dereferenced; guarded at
+  the source (`removeFromContainViaIterator` on `isDestroyed()`) plus downstream null-guards,
+  with a full call-tree audit
+- **Command & Control batch**: combat stances (aggressive/guard/hold-fire, `DefaultUnitStance`
+  per producer), multi-select buildings bulk-build, guard-a-moving-unit escort, BAR-style
+  line/formation move (RMB drag) — each dispatched as a proper networked message
+- **QoL batch**: `RequiredUpgrade` prereqs, vision scaling with veterancy, per-unit kill
+  counters, single-unit stats panel, shift-click ×5 queueing, hackers-hack-anywhere
+- **Engine batch 4**: multi-point waypoints (shift-click) + patrol loop, persistent vehicle
+  wrecks (`WreckLifetimeScale`), drawable weapon tracers (`ExtraTracers`) — all
+  determinism-safe (see [MULTIPLAYER_COMPATIBILITY.md](MULTIPLAYER_COMPATIBILITY.md))
 
 ### Graphics (engine branch `feature/graphics-quality` + `fx-enhance` layer)
 
@@ -217,23 +229,40 @@ zzz-ZZZZZZZVehicleKit        2-slot bays (gattlings/scout/artillery); coax MGs
 zzz-ZZZZZZZVetInsignia       rank 5-8 insignia art (stars + chevrons)
 zzz-ZZZZZZZWEconomy          China infantry 50% cost / 2x speed; 900-vision scouts;
                              UAV ungated on all 15 command centers; 30-slot queues
+zzz-...ZZ Panzergrenadier     Panzergrenadier infantry (replaces Red Guard)
+zzz-...Z0 GrenadierResearch   Industrial-Plant research: Panzergrenadiers / Waffen
+                              Grenadiers / Emperor's Guard — battle tanks roll off pre-crewed
+zzz-...Z1 DropLadder          three parachute drop powers (Grenadier / Panzergrenadier /
+                              Panzer Waffen), crewed tank variants at set ranks
+zzz-...ZZ0 EmperorDefense     Emperor hull PDL, ABM interceptor array, projected energy
+                              shield, fleet-shield regen aura (War Factory page 2)
+zzz-...ZZZ0 TeslaFinish       RA Redux Tesla Tank (bundled art); tesla-FX harmonization;
+                              plain Overlord swapped out of the buildable roster
+zzz-...ZZZZ0 ShellKwai        Kwai main-menu shellmap recast (123 placements → Kwai roster)
 zzz_ControlBarPro*.big       Control Bar Pro UI (FAS & xezon)
 zzzz_FXEnhance               explosion overhaul: light pulses + scaled particle systems
                              (composes the FX INIs of every layer below — see rebuild rule)
 ```
 
-## Roadmap (specified, in the pipeline)
+## Roadmap
 
-Grenadier research chain (Panzergrenadiers / Waffen Grenadiers / Emperor's Guard — crewed
-vehicles off the production line, Tank Hunters renamed Panzerjägers) · Panzergrenadier unit
-(replaces Kwai's Red Guard) · a three-tier parachute drop ladder (up to 2 Emperors + 4
-Battlemasters + escorts, all crewed, arriving at Heroic rank) · engine batch 2
-(RequiredUpgrade, vision-scaling veterancy, kill counters, rank-gated abilities, hull-module
-gating, shift-click x5 queueing, hackers-hack-anywhere, a single-unit stats panel) · the
-Emperor defense suite (hull PDL, ABM interceptor array, projected energy shield; small
-shields fleet-wide) · tesla family harmonization · Edge of Tomorrow data wiring · and the
-Research Directorate arc: a Research Lab generating research points spent in a dedicated
-science-tab tree with permanent unlocks that survive building loss.
+**Shipped since the original roadmap:** grenadier research chain (Panzergrenadiers / Waffen
+Grenadiers / Emperor's Guard — crewed vehicles off the production line, Tank Hunters renamed
+Panzerjägers) · Panzergrenadier unit · the three-tier parachute drop ladder (up to 2 Emperors
++ 4 Battlemasters + escorts, all crewed, arriving at Heroic rank) · the QoL / Command & Control
+engine batches (RequiredUpgrade, vision-scaling veterancy, kill counters, shift-click ×5,
+hackers-hack-anywhere, stats panel, combat stances, multi-select build, guard-moving-unit,
+line-move) · engine batch 4 (waypoints/patrol, persistent wrecks, weapon tracers) · the Emperor
+defense suite (hull PDL, ABM interceptor array, projected energy shield, fleet-wide regen aura)
+· tesla-family FX harmonization · RA Redux Tesla Tank · plain-Overlord removal · a Research
+Overview reference ([RESEARCH_OVERVIEW.md](final-polish/RESEARCH_OVERVIEW.md)) · Kwai shellmap
+recast · a full [multiplayer/replay determinism audit](MULTIPLAYER_COMPATIBILITY.md) (PASS).
+
+**Still in the pipeline:** Edge of Tomorrow data wiring · a true in-game Research Overview
+*panel* (needs a new `GUICommandType` + `.wnd` + engine callback — the doc is the pure-data
+floor) · the waypoint drag-preview ghost line · the full crewed-Emperor/tesla shellmap
+showcase (World Builder) · and the Research Directorate arc: a Research Lab generating research
+points spent in a dedicated science-tab tree with permanent unlocks that survive building loss.
 
 **Every layer embeds full copies of the files it modifies from the layers beneath it.**
 Rebuild order therefore matters: rebuilding a lower layer requires rebuilding every layer
