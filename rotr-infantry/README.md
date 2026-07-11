@@ -25,13 +25,15 @@ asserted against the real listings of both mod dirs at build time
 
 ## ⚠ TWO-PHASE DESIGN (read this before merging)
 
-The main pipeline is actively evolving — **two layers landed in the live
-mod dirs while this branch was being built** (`zzz-ZZZZZZZKwaiPDL.big`,
-then `zzz-ZZZZZZZLKwaiInfantry.big`, which took Barracks slots 6–8): the
-build absorbed both automatically, and the slot-conflict guard in
-`integrate.py` caught the Barracks change in a live dry run.  To stay
-merge-safe regardless of what lands in between, this port ships in two
-phases:
+The main pipeline is actively evolving — **four layers landed in the
+live mod dirs while this branch was being built** (`zzz-ZZZZZZZKwaiPDL`,
+`zzz-ZZZZZZZLKwaiInfantry` — which took Barracks slots 6–8 —
+`zzz-ZZZZZZZTTeslaCoil` and `zzz-ZZZZZZZVetInsignia`): the build
+absorbed them automatically, the slot-conflict guard in `integrate.py`
+caught the Barracks change in a live dry run, and the verifier now
+flags that **TeslaCoil sorts after us and bakes 6 shared files without
+our appends** (see merge-day step 5).  To stay merge-safe regardless of
+what lands in between, this port ships in two phases:
 
 **Phase 1 — `build.py` (already run; output committed).**
 The archive contains everything **except command-set wiring**:
@@ -90,94 +92,168 @@ python3 integrate.py [--shmel-slot 9] [--shock-slot 10] [--install]
    (barracks sets discovered, slots taken, verification green).
    If slots 9/10 are taken by then: `--shmel-slot N --shock-slot M`.
 4. Re-run with `--install` to copy into both mod dirs.
-5. **Rebuild-order note (permanent):** like every layer that bakes shared
+5. **Rebuild every layer that sorts after this archive and bakes shared
+   INI files** — currently `zzz-ZZZZZZZTTeslaCoil.big` (its baked
+   Weapon.ini / ParticleSystem.ini / OCL / CommandSet / CommandButton /
+   Generals.str were built without our appends and will mask this port
+   until rebuilt on top of the installed archive; the verifier prints
+   an explicit WARNING listing such layers).  `zzz-ZZZZZZZVetInsignia`
+   is mapped-images-only and unaffected.
+6. **Rebuild-order note (permanent):** like every layer that bakes shared
    files, this becomes the last INI layer.  If ANY lower layer is rebuilt
    later, re-run `integrate.py --install` afterwards.  Conversely, lower
    layers' builds must not see this archive — delete
    `zzz-ZZZZZZZRotrInfantry.big` from both mod dirs first, rebuild the
    lower chain, then re-run `integrate.py --install`.
-6. Uninstall = delete `zzz-ZZZZZZZRotrInfantry.big` from both mod dirs.
+7. Uninstall = delete `zzz-ZZZZZZZRotrInfantry.big` from both mod dirs
+   (then rebuild the later-sorting layers once more so their baked
+   shared files drop our appends).
 
 ---
 
 ## Shock Trooper tesla rework (the tesla gun is now the unit)
 
-Per the follow-up spec the rocket-rifle mode was **removed outright**
-(not disproportionately risky: the donor's dual-mode draw was replaced by
-a tesla-only draw generated from the donor's RIDER2 condition states, and
-the nine `ModuleTag_Transform01..09` rider/switch modules were stripped —
-the RiderChangeContain machinery, both mode-switch buttons/weapons/OCLs,
-the mode-trigger slave objects, the rocket rifle + guided missile + their
-locomotors/FX all dropped from the closure).  The unit renders the
-`RITslTrp*_SKN` tesla model in all three skins, always.
+Per the follow-up spec the rocket-rifle mode was **removed outright**:
+the donor's dual-mode draw was replaced by a tesla-only draw generated
+from the donor's RIDER2 condition states (all three skins + the
+buildable shell's preview draw), the nine `ModuleTag_Transform01..09`
+rider/switch modules were stripped, and the rocket rifle, guided
+missile, both mode-switch buttons/weapons/OCLs, the mode-trigger slave
+objects, two locomotors and the `RIShkTrp*` skins/anims left the
+closure.
 
-Every volley (one zap every **1.2 s**, all three slots fired together at
-the same victim — donor turret idiom, `ControlledWeaponSlots = SECONDARY
-TERTIARY` + `ShareWeaponReloadTime`) delivers, at range 140:
+### The engine facts that shaped the weapon (source evidence)
 
-| Slot | Weapon | Numbers | Why |
-|---|---|---|---|
-| PRIMARY | `ShockTrooperTeslaWeapon` (heroic 80) | **60 ARMOR_PIERCING**, radius 5, `TeslaTrooperLaserBeam` bolt from the `MUZZLE01` skeleton bone (verified present in `NIGATT_SKL`) | the anti-tank component.  **Armor-table finding: base `TankArmor` takes 0% MELEE** — the donor's MELEE beam dealt literally nothing to tanks here; AP = 100% vs `TankArmor`, 10% vs `HumanArmor` |
-| SECONDARY | `ShockTrooperTeslaSubdualWeapon` (heroic 325) | **250 SUBDUAL_UNRESISTABLE**, radius 10, enemies/neutrals only | **temporary vehicle stun**: engine (`ActiveBody.cpp`) accumulates subdual until it *passes MaxHealth* → `DISABLED_SUBDUED`, then it decays at the target's own `SubdualDamageHealRate/Amount`.  Base ShockWave vehicles broadly define caps (486 bodies; Kwai's own Advanced ECM Tank uses this exact damage type).  E.g. Battlemaster (660 HP, cap 1130, decay 100/s): disabled after ~4 sustained zaps, stays stunned up to ~4.7 s after fire shifts |
-| TERTIARY | `ShockTrooperTeslaArcWeapon` (heroic 140) | **110 FLAME, radius 20**, `DeathType = BURNED`, hitscan projectile, enemies/neutrals only | **one-shot + ignite vs infantry**: `HumanArmor` takes 150% FLAME → 165 post-armor, killing every standard infantry (100–140 HP incl. buffed 120-HP Red Guards) while heroes (Lotus 200, Burton/Jarmen 300) survive — the documented "no unrealistic hero one-shot" line.  Victims die the `OCL_FlamingInfantry` burning death; radius 20 fries clusters |
+- **A unit only ever fires its ONE current weapon.**
+  `AIAttackFireWeaponState::update` calls `obj->fireCurrentWeapon(...)`
+  (AIStates.cpp:5258), which fires `m_weaponSet.getCurWeapon()` only
+  (Object.cpp:1529-1549).  Multi-slot "volleys" from a single body or
+  turret do not exist (the only all-slots loop is for LINKED multi-
+  turret POSITION attacks, AIStates.cpp:5306-5318).  The initial
+  three-slot volley design was therefore impossible; worse, the weapon
+  chooser (`WeaponSet::chooseBestWeaponForTarget`, WeaponSet.cpp:802)
+  picks the highest `estimateWeaponDamage`, and a subdual weapon
+  estimates ~full damage vs any vehicle with a subdual cap
+  (ActiveBody.cpp `estimateDamage`) — the unit would have locked onto
+  the zero-health-damage stun beam against tanks forever.
+- **A turret only aims the current weapon.**  `TurretAI::
+  setTurretTargetObject` refuses any target while the owner's current
+  weapon is not on that turret (TurretAI.cpp:559) — the donor turret
+  idiom routes aiming, it does not parallel-fire.  The unit's internal
+  turret was **removed** (the impact node keeps its own).
+- **Detonation OCLs run at the projectile, not the shooter.**
+  `ObjectCreationList::create(ocl, sourceObj, ...)` (Weapon.cpp:952-955)
+  is invoked with the PROJECTILE as source when it detonates — so the
+  warhead machinery is container-agnostic.
+- **`VeterancyProjectileDetonationOCL` exists** (Weapon.cpp:200, same
+  per-vet parser ShockWave already uses for the Grenadier's
+  `VeterancyFireOCL`) — correcting this README's earlier claim that
+  per-rank detonation OCLs were an engine gap.
+- **Armor tables** (effective Armor.ini): `TankArmor` MELEE 0% (the
+  donor beam literally could not hurt tanks here), **EXPLOSION 100% on
+  BOTH `TankArmor` and `HumanArmor`**, FLAME 150% vs humans / 25% vs
+  tanks, `SUBDUAL_UNRESISTABLE` 100% vs TankArmor, **0% vs HumanArmor**.
 
-**Chain lightning (shipped, option (a)):** the arc weapon's hitscan
-projectile detonation (`ProjectileDetonationOCL`, the donor smoke-pellet
-delivery pattern — a plain `FireOCL` would spawn at the *shooter*)
-spawns an invisible 1.1–1.3 s **`ShockTrooperTeslaChainNode`** at the
-impact point: `CAN_ATTACK UNATTACKABLE NO_COLLIDE IMMOBILE`, auto-acquire
-(vision 90) with a 3600°/s turret (immobile-defence idiom, so it never
-needs to face its victim), zapping `ShockTrooperTeslaChainZap` — 100
-FLAME, radius 12, range 90, `DeathType BURNED`, drawn with the same
-`TeslaTrooperLaserBeam` bolt objects → a real, visible arc from the
-impact point to 1–2 further enemies.  The chain zap has no `FireOCL` of
-its own (depth-1, no infinite chaining).  Impact FX is the donor's own
-`FX_ShockTrooperElectricRocketExplosion` (electric blast + debris).
+### The weapon (one slot, everything in the warhead)
 
-**Rank scaling:** implemented through the engine's only per-veterancy
-weapon-variant step, the HERO weapon set: heroic Shock Troopers fire
-`OCL_ShockTrooperTeslaChainHeroic`, which spawns **two** offset
-**longer-lived (1.4–1.6 s)** heroic nodes zapping a stronger
-`HeroicShockTrooperTeslaChainZap` (120 FLAME) with the red
-`HeroicTeslaTrooperLaserBeam` bolts — i.e. base rank ≈ 1 arc, heroic ≈
-2–3 arcs.  Finer VETERAN/ELITE steps are **not achievable in data**:
-`WeaponSet Conditions` accepts only `HERO` among veterancy levels, and
-the Weapon template has no per-rank OCL field (only
-`VeterancyProjectileExhaust`/`VeterancyFireFX`, which cannot change the
-detonation OCL).  An engine-side `VeterancyProjectileDetonationOCL`
-would unlock true per-rank chaining.
+`ShockTrooperTeslaWeapon` — **150 EXPLOSION, radius 20, range 140, one
+bolt every 2.4 s**, `DeathType = BURNED`, fired from the `MUZZLE01`
+launch bone; the bolt is `ShockTrooperTeslaBoltProjectile` (speed 400,
+near-flat trajectory, crackling `TeslaTrooperFlare` trail), detonating
+in the donor's `FX_ShockTrooperElectricRocketExplosion` electric blast:
 
-**No anti-air (spec):** every tesla weapon (beam / subdual / arc / chain
-zaps, base + heroic) explicitly sets `AntiGround = Yes`,
-`AntiAirborneVehicle = No`, `AntiAirborneInfantry = No` (the engine
-default is ground-only, but the masks are pinned and the tooltip says
-"Cannot attack aircraft").
+- **vs infantry**: 150 (EXPLOSION = 100%) one-shots every standard
+  infantryman (100-140 HP incl. buffed Red Guards) in a 20-radius blast;
+  heroes at 200-300 HP survive (the documented no-unrealistic-hero-
+  one-shot line).  `BURNED` death = they go up in flames
+  (`OCL_FlamingInfantry`).
+- **vs vehicles**: 150/2.4 s = **62.5 dps** — respectable, not token
+  (plus splash from chain zaps).
+- **STUN**: the warhead spawns an impact node whose `FireWeaponUpdate`
+  (fire-field idiom, FireWeaponUpdate.cpp:101 fires at the node's own
+  position) radiates `ShockTrooperTeslaStunPulse` — **220
+  SUBDUAL_UNRESISTABLE, radius 16, every 450 ms** for the node's
+  1.1-1.3 s life (~2-3 pulses per bolt).  Vehicles accumulate subdual
+  until it passes MaxHealth → `DISABLED_SUBDUED` (ActiveBody.cpp:1330,
+  onSubdualChange), decaying at the target's own heal rate: a
+  Battlemaster (660 HP, cap 1130, decay 100/s) is stunned after ~2
+  sustained volleys (~5 s of fire) and stays stunned up to ~4.7 s after
+  fire shifts; light vehicles stun off the first bolt.  Infantry are
+  immune (HumanArmor 0%).
+- **CHAIN LIGHTNING**: the same node auto-acquires (vision 90, 3600°/s
+  internal turret so it never needs to face) and zaps
+  `ShockTrooperTeslaChainZap` — 100 FLAME, radius 12, range 90, `BURNED`
+  — drawn with the real `TeslaTrooperLaserBeam` bolt objects: visible
+  arcs from the impact point to 1-2 further enemies, one-shotting
+  standard infantry (100 x 1.5 = 150 post-armor).  Depth-1 (the zap has
+  no OCL of its own — no infinite chaining).
+- **Rank scaling**: `VeterancyProjectileDetonationOCL = HEROIC
+  OCL_ShockTrooperTeslaChainHeroic` on the same weapon — heroic bolts
+  spawn **two** longer-lived (1.4-1.6 s) nodes with stronger pulses
+  (280) and red heroic-bolt zaps (120 FLAME).  VETERAN/ELITE OCL steps
+  are also possible with this field (single-line knobs) but only HEROIC
+  is used, keeping the vanilla feel.
+- **No anti-air** (spec): every tesla weapon pins `AntiGround = Yes`,
+  `AntiAirborneVehicle/Infantry = No`; the tooltip says so.
+- **XP note**: the 150-damage warhead is the trooper's own weapon, so
+  kills level him; node stun/chain kills credit the node (bonus
+  damage, no XP) — acceptable, documented.
 
-**Command set:** with both switch buttons gone the unit set is just
-attack-move / guard / stop.  DPS picture vs a 660-HP Battlemaster:
-~50 AP + ~23 flame-splash ≈ 73 dps → dead in ~9 s, stunned from ~5 s in —
-strong but short-ranged (140) and artillery/aircraft-helpless; priced
-$800 (coordinator range $700–900).
+**Tesla-family harmonization (landed)**: the RA-Redux **Tesla Coil**
+(`zzz-ZZZZZZZTTeslaCoil.big`) shipped mid-branch with the authentic RA
+tesla zap audio — our tesla gun and chain zaps now use its
+`TeslaCoilWeapon` sound event (**soft dependency**: if that layer is
+ever uninstalled the zaps go silent — single-line knob back to
+`AvengerPointDefenseLaserPulse` in `work/portlib.py`).
 
-**Tesla-family visual note:** an RA-Redux **Tesla Coil** is being ported
-concurrently (main repo, `tesla-coil/`) as the family visual reference.
-Our bolts are ROTR's `W3DLaserDraw` textured cylinders (`Tesla1..8.dds`,
-15-unit width, 60–90 ms flashes) + `TeslaTrooperFlare` muzzle/target
-flares, with `AvengerPointDefenseLaserPulse` as the zap sound — if the
-coil's bolt FX / charge audio read differently in-game, harmonize in a
-later pass (bolt textures, widths and the zap sound are single-line
-knobs in `work/portlib.py`); deliberately not blocked on here.
+**Command set**: attack-move / guard / stop only.  Cost **$800 / 10 s**
+(coordinator range $700-900): 62 dps AT + stun + infantry deletion,
+balanced by range 140 and total air/artillery helplessness.
 
----
+## Contained / garrisoned fire (verified against engine source)
 
-## What was ported (closure: 101 new top-level blocks)
+Requirement: Shock Troopers must fire from garrisoned buildings, China
+bunkers and the stack's tank bays (Battlemaster/Emperor
+`PassengersAllowedToFire` seats).  Static verification:
+
+1. **KindOf gates pass.**  `GarrisonContain::isValidContainerFor` only
+   rejects `KINDOF_NO_GARRISON` passengers (GarrisonContain.cpp:567) on
+   top of the `OpenContain` allow/forbid masks (OpenContain.cpp:931-938),
+   and garrison's default allow-mask is `INFANTRY`
+   (GarrisonContain.cpp:70).  The trooper is `INFANTRY`, carries no
+   `NO_GARRISON`/`AIRCRAFT`/`VEHICLE`/`BOAT` bits, and the stack's bays
+   admit exactly that (effective Emperor bay: `AllowInsideKindOf =
+   INFANTRY`, `ForbidInsideKindOf = AIRCRAFT VEHICLE BOAT`,
+   `PassengersAllowedToFire` present on Battlemaster/Emperor/bunkers).
+   `ATTACK_NEEDS_LINE_OF_SIGHT` matches the vanilla Tank Hunter — which
+   fires projectiles from garrisons all day — KindOf-for-KindOf.
+2. **The firing path is the proven vanilla one.**  With the internal
+   turret REMOVED (see above), a contained trooper attacks exactly like
+   a garrisoned Tank Hunter: the aim state moves him to the container's
+   `FIREPOINT` bones (`attemptBestFirePointPosition`,
+   AIStates.cpp:4941-4955; `OpenContain::putObjAtNextFirePoint`,
+   OpenContain.cpp:1278) and `fireCurrentWeapon` launches the bolt from
+   there.  Garrisoned range bonus: the weapon keeps the donor's
+   `WeaponBonus = GARRISONED RANGE 145% / DAMAGE 125%` lines
+   (140 → 203 range from buildings).  Had the turret stayed, contained
+   fire would have been hostage to the turret gate
+   (TurretAI.cpp:559) — removing it was required by the volley findings
+   anyway.
+3. **The warhead is container-agnostic.**  The stun/chain node spawns
+   from the PROJECTILE's detonation (Weapon.cpp:952:
+   `ObjectCreationList::create(ocl, sourceObj=projectile, ...)`), whose
+   position is the impact point — the shooter's containment never
+   enters that code path.  (A `FireOCL` would have spawned at the
+   garrisoned shooter — that is why the bolt is a projectile.)
+
+## What was ported (closure: 99 new top-level blocks)
 
 | Where | Blocks |
 |---|---|
 | `Object\China\Tank\Infantry\RotrShmelTrooper.ini` | 10 — unit, thermobaric rocket, smoke/anti-toxin projectiles (+2 heroic reskins), anti-toxin foam, smoke screen, burning-embers fire field, generic hit-scan pellet projectile |
-| `Object\China\Tank\Infantry\RotrShockTrooper.ini` | 25 — buildable shell + `_Var1..3` skins (tesla-only draws), 2 chain nodes, tesla beam + 8 bolts, heroic beam + 8 heroic bolts, tesla-death infantry |
+| `Object\China\Tank\Infantry\RotrShockTrooper.ini` | 26 — buildable shell + `_Var1..3` skins (tesla-only draws), tesla bolt projectile, 2 stun/chain nodes, tesla beam + 8 bolts, heroic beam + 8 heroic bolts, tesla-death infantry |
 | `MappedImages\HandCreated\RotrInfantryMappedImages.INI` | 6 cameos (unit + portrait + 2 Shmel ability icons) |
-| `Weapon.ini` append | 18 (3 Shmel launchers + 2 heroic + pellets + fire-field weapons + smoke/foam field weapons; tesla beam/subdual/arc + heroic trio + 2 chain zaps) |
+| `Weapon.ini` append | 15 (3 Shmel launchers + 2 heroic + pellets + fire-field weapons + smoke/foam field weapons; tesla gun + 2 stun pulses + 2 chain zaps) |
 | `Armor.ini` append | 2 (`ShockTrooperArmor`, `InvulnerableArmorAll`) |
 | `Locomotor.ini` append | 2 |
 | `FXList.ini` append | 7 (incl. the **thermobaric `WeaponFX_ShmelRocketExplosion`** + upgraded variant, electric arc impact, tesla die FX) |
@@ -230,7 +306,7 @@ supports it).
 | `ShockTrooperVoice{Select,Move,Attack,AttackTesla,Fear,Create,Garrison}` | `PyroVoice{…}` (`AttackTesla`→`Attack`) | ShockWave China suited flame trooper — heavy-suit flavor |
 | `ShmelRocketLauncherWeapon` | `TankHunterWeapon` | |
 | `ShmelRocketExplosion` | `ExplosionFire` | thermobaric fireball |
-| tesla zap `FireSound` (beam + chain, authored weapons) | `AvengerPointDefenseLaserPulse` | closest electric zap in base; family-harmonization knob |
+| tesla zap `FireSound` (gun + chain, authored weapons) | `TeslaCoilWeapon` | the RA tesla zap from the `zzz-ZZZZZZZTTeslaCoil` layer (soft dependency; fallback knob: `AvengerPointDefenseLaserPulse`) |
 | `ShockTrooperRocketElectricExplosion` | `ExplosionPatriotEMP` | arc impact (inside `FX_ShockTrooperElectricRocketExplosion`) |
 | `InfantryTeslaDeathShock` | `ExplosionPatriotEMP` | tesla death zap |
 | `MoleBombDirstSound` | `ExplosionDirt` | smoke rocket ground burst |
@@ -306,14 +382,14 @@ transferred: ~9 MB for 20 W3D + 37 textures + the 760 KB Generals.str.
   it innate instead, set `StartsActive = Yes` and drop `TriggeredBy` on
   `ModuleTag_MoreBoom01` in `RotrShmelTrooper.ini`.
 - Sound flavor knobs: `ExplosionDaisyCutter` is a beefier (fuel-air!)
-  alternative for `ShmelRocketExplosion`'s remap; the tesla zap
-  (`AvengerPointDefenseLaserPulse`) is the weakest approximation — real
-  ROTR audio, or the RA-Redux Tesla Coil's charge/zap audio once that
-  port lands, is the better long-term fix (single-line knob in
+  alternative for `ShmelRocketExplosion`'s remap; the tesla zaps now use
+  the Tesla Coil layer's authentic `TeslaCoilWeapon` (soft dependency —
+  single-line fallback to `AvengerPointDefenseLaserPulse` in
   `work/portlib.py`).
 - Shock Trooper balance knobs (all in `work/portlib.py` `AUTHORED` /
-  `SHOCK_COST`): beam 60 AP, subdual 250, arc 110 FLAME r20, chain 100
-  FLAME r12, 1.2 s cadence, $800/10 s.
+  `SHOCK_COST`): warhead 150 EXPLOSION r20 @ 2.4 s, stun pulse 220
+  SUBDUAL r16 @ 450 ms (heroic 280), chain zap 100 FLAME r12 (heroic
+  120), node life 1.1-1.3 s (heroic 1.4-1.6 s x2), $800/10 s.
 
 ## Build-time verification (all enforced; build fails loudly)
 
@@ -333,7 +409,7 @@ transferred: ~9 MB for 20 W3D + 37 textures + the 760 KB Generals.str.
   (`SUBDUAL_UNRESISTABLE`, `MELEE`, `EXTRA_*` all verified in use there).
 - Art: every model / animation (incl. skeletons) / texture /
   W3D-internal texture / cameo page resolves in archive ∪ base archives.
-- No identifier collisions: all 101 new block names word-checked against
+- No identifier collisions: all 99 new block names word-checked against
   the full base INI space.
 - Block balance: every shipped chunk re-parses with zero stray content.
 - **The game was deliberately not launched** (static verification only).
@@ -357,12 +433,15 @@ port/reuse/drop audit this port was designed from).
 ## Known limitations
 
 - **Not game-tested** (side branch; static verification only).  First
-  in-game checks to do: tesla beam rendering (`W3DLaserDraw` bolts from
-  the `MUZZLE01` bone), the chain node actually auto-acquiring and
-  arcing to a second victim, vehicle stun onset/duration under sustained
-  fire, one-shot-ignite on standard infantry vs hero survival, that the
-  unit refuses air targets, smoke-screen pellet spread, anti-toxin field
-  actually clearing toxins, fire-field spawning after Black Napalm.
+  in-game checks to do: the bolt projectile's flat flight + electric
+  burst, the chain node auto-acquiring and arcing (`W3DLaserDraw`
+  bolts) to a second victim, vehicle stun onset/duration under
+  sustained fire, one-shot-ignite on standard infantry vs hero
+  survival, **firing from a garrisoned building / China bunker /
+  Battlemaster-Emperor bay** (enter, attack, fire-point placement,
+  garrison range bonus), that the unit refuses air targets,
+  smoke-screen pellet spread, anti-toxin field actually clearing
+  toxins, fire-field spawning after Black Napalm.
 - Phase-1 archive is inert by design; units are unreachable until
   `integrate.py` runs.
 - Voice/weapon audio are base-ShockWave approximations (table above).

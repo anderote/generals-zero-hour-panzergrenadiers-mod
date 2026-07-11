@@ -155,79 +155,29 @@ Weapon PyroFireWalFieldWeapon
 End
 
 Weapon ShockTrooperTeslaWeapon
-  ; tesla shock beam: the anti-vehicle component (AP because base
-  ; TankArmor takes 0% MELEE damage -- the donor value was dead)
-  PrimaryDamage           = 60.0
-  PrimaryDamageRadius     = 5.0
-  AttackRange             = 140.0
-  DamageType              = ARMOR_PIERCING
-  DeathType               = POISONED_GAMMA ; tesla death animation
-  WeaponSpeed             = 99999
-  LaserName               = TeslaTrooperLaserBeam
-  LaserBoneName           = MUZZLE01
-  FireSound               = AvengerPointDefenseLaserPulse
-  DelayBetweenShots       = 1200
-  AntiGround              = Yes
-  AntiAirborneVehicle     = No
-  AntiAirborneInfantry    = No
-  WeaponBonus             = GARRISONED RANGE  145%
-  WeaponBonus             = GARRISONED DAMAGE 125%
-  WeaponBonus             = PLAYER_UPGRADE RANGE  145%
-  WeaponBonus             = PLAYER_UPGRADE DAMAGE 125%
-End
-
-Weapon ShockTrooperTeslaSubdualWeapon
-  ; subdual buildup rider: vehicles accumulate this until it
-  ; passes their MaxHealth -> DISABLED_SUBDUED for a few seconds
-  ; (decays at the target body's SubdualDamageHealRate/Amount)
-  PrimaryDamage           = 250.0
-  PrimaryDamageRadius     = 10.0
-  AttackRange             = 140.0
-  DamageType              = SUBDUAL_UNRESISTABLE
-  DeathType               = POISONED_GAMMA
-  WeaponSpeed             = 99999
-  LaserName               = TeslaTrooperLaserBeam
-  LaserBoneName           = MUZZLE01
-  DelayBetweenShots       = 1200
-  RadiusDamageAffects     = ENEMIES NEUTRALS
-  AntiGround              = Yes
-  AntiAirborneVehicle     = No
-  AntiAirborneInfantry    = No
-End
-
-Weapon ShockTrooperTeslaArcWeapon
-  ; anti-infantry fry + chain trigger: FLAME one-shots standard
-  ; infantry (<=110.0*1.5 HP) and BURNED lights them up; the hitscan
-  ; projectile detonation spawns the chain-lightning node
-  PrimaryDamage           = 110.0
+  ; the tesla gun: a crackling bolt projectile with an electric
+  ; burst warhead.  EXPLOSION = 100% vs both TankArmor and
+  ; HumanArmor (the donor's MELEE was 0% vs TankArmor here), so
+  ; one warhead one-shots standard infantry (kills <=150 HP;
+  ; heroes at 200-300 HP survive) AND deals ~62 dps to vehicles.
+  ; DeathType BURNED lights victims up (OCL_FlamingInfantry).
+  ; The detonation OCL spawns the stun/chain node at the impact
+  ; point (container-agnostic: detonation OCLs are created
+  ; relative to the PROJECTILE, not the possibly-garrisoned
+  ; shooter -- Weapon.cpp:952).
+  PrimaryDamage           = 150.0
   PrimaryDamageRadius     = 20.0
   AttackRange             = 140.0
-  DamageType              = FLAME
+  DamageType              = EXPLOSION
   DeathType               = BURNED
-  WeaponSpeed             = 99999
-  ProjectileObject        = GenericHitScanProjectile
+  WeaponSpeed             = 400
+  ProjectileObject        = ShockTrooperTeslaBoltProjectile
   ProjectileDetonationFX  = FX_ShockTrooperElectricRocketExplosion
   ProjectileDetonationOCL = OCL_ShockTrooperTeslaChain
-  DelayBetweenShots       = 1200
+  VeterancyProjectileDetonationOCL = HEROIC OCL_ShockTrooperTeslaChainHeroic
+  FireSound               = TeslaCoilWeapon ; RA tesla zap from the zzz-ZZZZZZZTTeslaCoil layer (family harmonization; soft dependency, see README)
+  DelayBetweenShots       = 2400
   RadiusDamageAffects     = ENEMIES NEUTRALS
-  AntiGround              = Yes
-  AntiAirborneVehicle     = No
-  AntiAirborneInfantry    = No
-End
-
-Weapon HeroicShockTrooperTeslaWeapon
-  ; tesla shock beam: the anti-vehicle component (AP because base
-  ; TankArmor takes 0% MELEE damage -- the donor value was dead)
-  PrimaryDamage           = 80.0
-  PrimaryDamageRadius     = 5.0
-  AttackRange             = 140.0
-  DamageType              = ARMOR_PIERCING
-  DeathType               = POISONED_GAMMA ; tesla death animation
-  WeaponSpeed             = 99999
-  LaserName               = HeroicTeslaTrooperLaserBeam
-  LaserBoneName           = MUZZLE01
-  FireSound               = AvengerPointDefenseLaserPulse
-  DelayBetweenShots       = 1200
   AntiGround              = Yes
   AntiAirborneVehicle     = No
   AntiAirborneInfantry    = No
@@ -237,39 +187,40 @@ Weapon HeroicShockTrooperTeslaWeapon
   WeaponBonus             = PLAYER_UPGRADE DAMAGE 125%
 End
 
-Weapon HeroicShockTrooperTeslaSubdualWeapon
-  ; subdual buildup rider: vehicles accumulate this until it
-  ; passes their MaxHealth -> DISABLED_SUBDUED for a few seconds
-  ; (decays at the target body's SubdualDamageHealRate/Amount)
-  PrimaryDamage           = 325.0
-  PrimaryDamageRadius     = 10.0
-  AttackRange             = 140.0
+Weapon ShockTrooperTeslaStunPulse
+  ; subdual stun pulse radiated by the impact node
+  ; (FireWeaponUpdate fires it at the node's own position).
+  ; Vehicles accumulate subdual until it passes their MaxHealth
+  ; -> DISABLED_SUBDUED, then it decays at the target body's own
+  ; heal rate (temporary stun).  HumanArmor takes 0%
+  ; SUBDUAL_UNRESISTABLE, so infantry are unaffected.
+  PrimaryDamage           = 220.0
+  PrimaryDamageRadius     = 16.0
+  AttackRange             = 20.0
   DamageType              = SUBDUAL_UNRESISTABLE
   DeathType               = POISONED_GAMMA
   WeaponSpeed             = 99999
-  LaserName               = HeroicTeslaTrooperLaserBeam
-  LaserBoneName           = MUZZLE01
-  DelayBetweenShots       = 1200
+  DelayBetweenShots       = 450
   RadiusDamageAffects     = ENEMIES NEUTRALS
   AntiGround              = Yes
   AntiAirborneVehicle     = No
   AntiAirborneInfantry    = No
 End
 
-Weapon HeroicShockTrooperTeslaArcWeapon
-  ; anti-infantry fry + chain trigger: FLAME one-shots standard
-  ; infantry (<=140.0*1.5 HP) and BURNED lights them up; the hitscan
-  ; projectile detonation spawns the chain-lightning node
-  PrimaryDamage           = 140.0
-  PrimaryDamageRadius     = 20.0
-  AttackRange             = 140.0
-  DamageType              = FLAME
-  DeathType               = BURNED
+Weapon HeroicShockTrooperTeslaStunPulse
+  ; subdual stun pulse radiated by the impact node
+  ; (FireWeaponUpdate fires it at the node's own position).
+  ; Vehicles accumulate subdual until it passes their MaxHealth
+  ; -> DISABLED_SUBDUED, then it decays at the target body's own
+  ; heal rate (temporary stun).  HumanArmor takes 0%
+  ; SUBDUAL_UNRESISTABLE, so infantry are unaffected.
+  PrimaryDamage           = 280.0
+  PrimaryDamageRadius     = 16.0
+  AttackRange             = 20.0
+  DamageType              = SUBDUAL_UNRESISTABLE
+  DeathType               = POISONED_GAMMA
   WeaponSpeed             = 99999
-  ProjectileObject        = GenericHitScanProjectile
-  ProjectileDetonationFX  = FX_ShockTrooperElectricRocketExplosion
-  ProjectileDetonationOCL = OCL_ShockTrooperTeslaChainHeroic
-  DelayBetweenShots       = 1200
+  DelayBetweenShots       = 450
   RadiusDamageAffects     = ENEMIES NEUTRALS
   AntiGround              = Yes
   AntiAirborneVehicle     = No
@@ -285,7 +236,7 @@ Weapon ShockTrooperTeslaChainZap
   DeathType               = BURNED
   WeaponSpeed             = 99999
   LaserName               = TeslaTrooperLaserBeam
-  FireSound               = AvengerPointDefenseLaserPulse
+  FireSound               = TeslaCoilWeapon ; harmonized with the Tesla Coil layer
   DelayBetweenShots       = 500
   RadiusDamageAffects     = ENEMIES NEUTRALS
   AntiGround              = Yes
@@ -302,7 +253,7 @@ Weapon HeroicShockTrooperTeslaChainZap
   DeathType               = BURNED
   WeaponSpeed             = 99999
   LaserName               = HeroicTeslaTrooperLaserBeam
-  FireSound               = AvengerPointDefenseLaserPulse
+  FireSound               = TeslaCoilWeapon ; harmonized with the Tesla Coil layer
   DelayBetweenShots       = 500
   RadiusDamageAffects     = ENEMIES NEUTRALS
   AntiGround              = Yes

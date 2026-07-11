@@ -119,18 +119,38 @@ def verify_all(archive_fp, frag_texts, dbyname, phase2=False,
         listing = [f for f in os.listdir(d) if f.lower().endswith(".big")]
         listing = sorted(set(listing) | {name}, key=str.lower)
         i = listing.index(name)
-        # we bake full effective copies of the shared INI files, so we must
-        # be the LAST layer except the ControlBarPro camera/UI archives
-        stragglers = [f for f in listing[i + 1:]
-                      if not f.lower().startswith("zzz_controlbarpro")]
-        if stragglers:
-            err("%s is not the last INI layer in %s (followed by %s)"
-                % (name, d, stragglers))
         if not any("kwaiuav" in f.lower() for f in listing[:i]):
             err("%s does not sort after zzz-ZZZZZZKwaiUAV.big in %s" % (name, d))
         if not [f for f in listing[i + 1:] if f.lower().startswith("zzz_controlbarpro")]:
             err("%s does not sort before zzz_ControlBarPro* in %s" % (name, d))
-    print("  ok: archive is the last INI layer (before ControlBarPro only) in both mod dirs")
+        # Layers sorting after us that bake their own copies of our shared
+        # fixed-name files will MASK our appends until they are rebuilt on
+        # top of an installed copy of this archive (e.g. the TeslaCoil
+        # layer that landed mid-branch).  Non-fatal by design: the merge-day
+        # order is integrate.py --install FIRST, then rebuild those layers.
+        our_shared = {("data\\ini\\" + f).lower() for f in (
+            "Weapon.ini", "Armor.ini", "Locomotor.ini", "FXList.ini",
+            "ParticleSystem.ini", "ObjectCreationList.ini",
+            "CommandSet.ini", "CommandButton.ini")} | {"data\\generals.str"}
+        for f in listing[i + 1:]:
+            if f.lower().startswith("zzz_controlbarpro") or f == name:
+                continue
+            fp = os.path.join(d, f)
+            if not os.path.exists(fp):
+                continue
+            overlap = [e.path for e in read_big(fp)
+                       if e.path.lower() in our_shared
+                       and b"appended by rotr-infantry" not in e.data]
+            if overlap:
+                print("  WARNING: %s sorts after us in %s and bakes %d shared "
+                      "file(s) WITHOUT our appends (%s ...) -- it will mask "
+                      "this port until rebuilt on top of the installed "
+                      "archive.  Merge-day order: integrate.py --install "
+                      "FIRST, then rebuild %s."
+                      % (f, os.path.basename(d), len(overlap),
+                         overlap[0], f))
+    print("  ok: sort anchors hold (after KwaiUAV, before ControlBarPro); "
+          "later-layer shared-file masking checked")
 
     # ---- base INI space
     edefs, ebyname = load_tree(os.path.join(HERE, "effective", "Data", "INI"))

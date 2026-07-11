@@ -1,11 +1,11 @@
 {
  "baked_shared_sources": {
-  "Data\\INI\\Weapon.ini": "zzz-ZZZZZZZLKwaiInfantry.big",
+  "Data\\INI\\Weapon.ini": "zzz-ZZZZZZZTTeslaCoil.big",
   "Data\\INI\\Armor.ini": "zzz-ZZZZZZZLKwaiInfantry.big",
   "Data\\INI\\Locomotor.ini": "zzz-ZZZZZZZLKwaiInfantry.big",
   "Data\\INI\\FXList.ini": "zzz-ZZZZZZZLKwaiInfantry.big",
-  "Data\\INI\\ParticleSystem.ini": "zzz-ZZZZZZZLKwaiInfantry.big",
-  "Data\\INI\\ObjectCreationList.ini": "zzz-ZZZZZZZLKwaiInfantry.big"
+  "Data\\INI\\ParticleSystem.ini": "zzz-ZZZZZZZTTeslaCoil.big",
+  "Data\\INI\\ObjectCreationList.ini": "zzz-ZZZZZZZTTeslaCoil.big"
  },
  "art_shipped": [
   "Art\\Textures\\EXRedGrdnt.dds",

@@ -161,6 +161,7 @@ OBJECT_FILES = {
         ("Object", "RussiaInfantryShockTrooper_Var1"),
         ("ObjectReskin", "RussiaInfantryShockTrooper_Var2"),
         ("ObjectReskin", "RussiaInfantryShockTrooper_Var3"),
+        ("Object", "ShockTrooperTeslaBoltProjectile"),
         ("Object", "ShockTrooperTeslaChainNode"),
         ("Object", "ShockTrooperTeslaChainNodeHeroic"),
         ("Object", "TeslaTrooperLaserBeam"),
@@ -184,11 +185,8 @@ SHARED_APPENDS = {
         "RussianSmokeGrenadeSmokeScreenWeapon",
         "PyroFireWalFieldWeapon",
         "ShockTrooperTeslaWeapon",
-        "ShockTrooperTeslaSubdualWeapon",
-        "ShockTrooperTeslaArcWeapon",
-        "HeroicShockTrooperTeslaWeapon",
-        "HeroicShockTrooperTeslaSubdualWeapon",
-        "HeroicShockTrooperTeslaArcWeapon",
+        "ShockTrooperTeslaStunPulse",
+        "HeroicShockTrooperTeslaStunPulse",
         "ShockTrooperTeslaChainZap",
         "HeroicShockTrooperTeslaChainZap",
     ],
@@ -235,10 +233,15 @@ CRYO_TAG = "ModuleTag_03231"
 # =====================================================================
 # Shock Trooper tesla rework: authored blocks (override donor where the
 # same name exists).  Design notes in README ("Shock Trooper rework").
-# Armor math (effective Armor.ini): TankArmor MELEE 0% / AP 100% /
-# FLAME 25%; HumanArmor AP 10% / FLAME 150%.  Hence AP beam for vehicles,
-# FLAME arc for the infantry one-shot (110 * 1.5 = 165 post-armor).
-# All weapons explicitly cannot target aircraft.
+#
+# ENGINE-DRIVEN SHAPE (file:line evidence in the README garrison
+# section): a unit only ever fires its ONE current weapon
+# (Object::fireCurrentWeapon), so the unit carries a single EXPLOSION
+# warhead weapon (100% vs both TankArmor and HumanArmor) delivered by a
+# projectile; the impact node then radiates the subdual stun pulse
+# (FireWeaponUpdate, fire-field idiom) and auto-acquires chain-lightning
+# zaps.  No turret on the unit -> contained/garrisoned firing takes the
+# exact vanilla garrisoned-infantry code path.
 # =====================================================================
 _ANTI_AIR_OFF = ("  AntiGround              = Yes\n"
                  "  AntiAirborneVehicle     = No\n"
@@ -251,61 +254,101 @@ _BONUS_LINES = (
     "  WeaponBonus             = PLAYER_UPGRADE DAMAGE 125%%\n")
 
 
-def _tesla_beam(name, dmg, laser):
+def _tesla_gun(name):
     return ("Weapon %s\n"
-            "  ; tesla shock beam: the anti-vehicle component (AP because base\n"
-            "  ; TankArmor takes 0%% MELEE damage -- the donor value was dead)\n"
-            "  PrimaryDamage           = %s\n"
-            "  PrimaryDamageRadius     = 5.0\n"
+            "  ; the tesla gun: a crackling bolt projectile with an electric\n"
+            "  ; burst warhead.  EXPLOSION = 100%% vs both TankArmor and\n"
+            "  ; HumanArmor (the donor's MELEE was 0%% vs TankArmor here), so\n"
+            "  ; one warhead one-shots standard infantry (kills <=150 HP;\n"
+            "  ; heroes at 200-300 HP survive) AND deals ~62 dps to vehicles.\n"
+            "  ; DeathType BURNED lights victims up (OCL_FlamingInfantry).\n"
+            "  ; The detonation OCL spawns the stun/chain node at the impact\n"
+            "  ; point (container-agnostic: detonation OCLs are created\n"
+            "  ; relative to the PROJECTILE, not the possibly-garrisoned\n"
+            "  ; shooter -- Weapon.cpp:952).\n"
+            "  PrimaryDamage           = 150.0\n"
+            "  PrimaryDamageRadius     = 20.0\n"
             "  AttackRange             = 140.0\n"
-            "  DamageType              = ARMOR_PIERCING\n"
-            "  DeathType               = POISONED_GAMMA ; tesla death animation\n"
-            "  WeaponSpeed             = 99999\n"
-            "  LaserName               = %s\n"
-            "  LaserBoneName           = MUZZLE01\n"
-            "  FireSound               = AvengerPointDefenseLaserPulse\n"
-            "  DelayBetweenShots       = 1200\n" +
+            "  DamageType              = EXPLOSION\n"
+            "  DeathType               = BURNED\n"
+            "  WeaponSpeed             = 400\n"
+            "  ProjectileObject        = ShockTrooperTeslaBoltProjectile\n"
+            "  ProjectileDetonationFX  = FX_ShockTrooperElectricRocketExplosion\n"
+            "  ProjectileDetonationOCL = OCL_ShockTrooperTeslaChain\n"
+            "  VeterancyProjectileDetonationOCL = HEROIC OCL_ShockTrooperTeslaChainHeroic\n"
+            "  FireSound               = TeslaCoilWeapon ; RA tesla zap from the zzz-ZZZZZZZTTeslaCoil layer (family harmonization; soft dependency, see README)\n"
+            "  DelayBetweenShots       = 2400\n"
+            "  RadiusDamageAffects     = ENEMIES NEUTRALS\n" +
             _ANTI_AIR_OFF + _BONUS_LINES +
-            "End\n") % (name, dmg, laser)
+            "End\n") % name
 
 
-def _tesla_subdual(name, dmg, laser):
+def _stun_pulse(name, dmg):
     return ("Weapon %s\n"
-            "  ; subdual buildup rider: vehicles accumulate this until it\n"
-            "  ; passes their MaxHealth -> DISABLED_SUBDUED for a few seconds\n"
-            "  ; (decays at the target body's SubdualDamageHealRate/Amount)\n"
+            "  ; subdual stun pulse radiated by the impact node\n"
+            "  ; (FireWeaponUpdate fires it at the node's own position).\n"
+            "  ; Vehicles accumulate subdual until it passes their MaxHealth\n"
+            "  ; -> DISABLED_SUBDUED, then it decays at the target body's own\n"
+            "  ; heal rate (temporary stun).  HumanArmor takes 0%%\n"
+            "  ; SUBDUAL_UNRESISTABLE, so infantry are unaffected.\n"
             "  PrimaryDamage           = %s\n"
-            "  PrimaryDamageRadius     = 10.0\n"
-            "  AttackRange             = 140.0\n"
+            "  PrimaryDamageRadius     = 16.0\n"
+            "  AttackRange             = 20.0\n"
             "  DamageType              = SUBDUAL_UNRESISTABLE\n"
             "  DeathType               = POISONED_GAMMA\n"
             "  WeaponSpeed             = 99999\n"
-            "  LaserName               = %s\n"
-            "  LaserBoneName           = MUZZLE01\n"
-            "  DelayBetweenShots       = 1200\n"
+            "  DelayBetweenShots       = 450\n"
             "  RadiusDamageAffects     = ENEMIES NEUTRALS\n" +
             _ANTI_AIR_OFF +
-            "End\n") % (name, dmg, laser)
+            "End\n") % (name, dmg)
 
 
-def _tesla_arc(name, dmg, ocl):
-    return ("Weapon %s\n"
-            "  ; anti-infantry fry + chain trigger: FLAME one-shots standard\n"
-            "  ; infantry (<=%s*1.5 HP) and BURNED lights them up; the hitscan\n"
-            "  ; projectile detonation spawns the chain-lightning node\n"
-            "  PrimaryDamage           = %s\n"
-            "  PrimaryDamageRadius     = 20.0\n"
-            "  AttackRange             = 140.0\n"
-            "  DamageType              = FLAME\n"
-            "  DeathType               = BURNED\n"
-            "  WeaponSpeed             = 99999\n"
-            "  ProjectileObject        = GenericHitScanProjectile\n"
-            "  ProjectileDetonationFX  = FX_ShockTrooperElectricRocketExplosion\n"
-            "  ProjectileDetonationOCL = %s\n"
-            "  DelayBetweenShots       = 1200\n"
-            "  RadiusDamageAffects     = ENEMIES NEUTRALS\n" +
-            _ANTI_AIR_OFF +
-            "End\n") % (name, dmg, dmg, ocl)
+_TESLA_BOLT_PROJECTILE = """Object ShockTrooperTeslaBoltProjectile
+  ; the flying tesla bolt: flat trajectory, crackling flare trail
+  ; (fire-field idiom: Model NONE + ParticleSysBone)
+  EditorSorting     = SYSTEM
+  DisplayName       = OBJECT:TankShell
+  VisionRange       = 0.0
+
+  Draw = W3DModelDraw ModuleTag_Draw01
+    OkToChangeModelColor = Yes
+    DefaultConditionState
+      Model = NONE
+      ParticleSysBone = None TeslaTrooperFlare
+    End
+  End
+
+  ArmorSet
+    Armor = ProjectileArmor
+  End
+
+  KindOf = PROJECTILE
+  Body = ActiveBody ModuleTag_Body01
+    MaxHealth       = 100.0
+    InitialHealth   = 100.0
+  End
+
+  Behavior = DestroyDie ModuleTag_Die01
+  End
+
+  Behavior = DumbProjectileBehavior ModuleTag_Flight01
+    DetonateCallsKill    = Yes
+    FirstHeight          = 6   ; near-flat fire, unlike the lobbed pellet projectile
+    SecondHeight         = 8
+    FirstPercentIndent   = 30%
+    SecondPercentIndent  = 70%
+    FlightPathAdjustDistPerSecond = 120 ; tracks slow-moving targets
+  End
+
+  Behavior = PhysicsBehavior ModuleTag_Phys01
+    Mass = 0.01
+  End
+
+  Geometry = Sphere
+  GeometryIsSmall = Yes
+  GeometryMajorRadius = 1.0
+End
+"""
 
 
 def _chain_zap(name, dmg, laser):
@@ -318,17 +361,19 @@ def _chain_zap(name, dmg, laser):
             "  DeathType               = BURNED\n"
             "  WeaponSpeed             = 99999\n"
             "  LaserName               = %s\n"
-            "  FireSound               = AvengerPointDefenseLaserPulse\n"
+            "  FireSound               = TeslaCoilWeapon ; harmonized with the Tesla Coil layer\n"
             "  DelayBetweenShots       = 500\n"
             "  RadiusDamageAffects     = ENEMIES NEUTRALS\n" +
             _ANTI_AIR_OFF +
             "End\n") % (name, dmg, laser)
 
 
-def _chain_node(name, zap, minlife, maxlife):
+def _chain_node(name, zap, pulse, minlife, maxlife):
     return """Object %s
-  ; invisible short-lived arc source spawned at the tesla-arc impact point;
-  ; auto-acquires a nearby ground enemy and zaps it (the chain lightning)
+  ; invisible short-lived impact node spawned where the tesla bolt hits:
+  ;  - FireWeaponUpdate radiates the subdual STUN pulse (vehicles only)
+  ;  - auto-acquire + fast turret zaps a nearby ground enemy with a real
+  ;    bolt (the chain lightning)
   EditorSorting = SYSTEM
   Side = ChinaTankGeneral
   KindOf = CAN_ATTACK NO_COLLIDE IMMOBILE UNATTACKABLE
@@ -369,6 +414,10 @@ def _chain_node(name, zap, minlife, maxlife):
     MoodAttackCheckRate = 100
   End
 
+  Behavior = FireWeaponUpdate ModuleTag_Stun01
+    Weapon = %s
+  End
+
   Behavior = LifetimeUpdate ModuleTag_Life01
     MinLifetime = %d
     MaxLifetime = %d
@@ -383,34 +432,27 @@ def _chain_node(name, zap, minlife, maxlife):
   GeometryHeight = 8.0
   GeometryIsSmall = Yes
 End
-""" % (name, zap, minlife, maxlife)
+""" % (name, zap, pulse, minlife, maxlife)
 
 
 AUTHORED = {
-    "ShockTrooperTeslaWeapon": _tesla_beam(
-        "ShockTrooperTeslaWeapon", "60.0", "TeslaTrooperLaserBeam"),
-    "HeroicShockTrooperTeslaWeapon": _tesla_beam(
-        "HeroicShockTrooperTeslaWeapon", "80.0", "HeroicTeslaTrooperLaserBeam"),
-    "ShockTrooperTeslaSubdualWeapon": _tesla_subdual(
-        "ShockTrooperTeslaSubdualWeapon", "250.0", "TeslaTrooperLaserBeam"),
-    "HeroicShockTrooperTeslaSubdualWeapon": _tesla_subdual(
-        "HeroicShockTrooperTeslaSubdualWeapon", "325.0",
-        "HeroicTeslaTrooperLaserBeam"),
-    "ShockTrooperTeslaArcWeapon": _tesla_arc(
-        "ShockTrooperTeslaArcWeapon", "110.0", "OCL_ShockTrooperTeslaChain"),
-    "HeroicShockTrooperTeslaArcWeapon": _tesla_arc(
-        "HeroicShockTrooperTeslaArcWeapon", "140.0",
-        "OCL_ShockTrooperTeslaChainHeroic"),
+    "ShockTrooperTeslaWeapon": _tesla_gun("ShockTrooperTeslaWeapon"),
+    "ShockTrooperTeslaStunPulse": _stun_pulse(
+        "ShockTrooperTeslaStunPulse", "220.0"),
+    "HeroicShockTrooperTeslaStunPulse": _stun_pulse(
+        "HeroicShockTrooperTeslaStunPulse", "280.0"),
     "ShockTrooperTeslaChainZap": _chain_zap(
         "ShockTrooperTeslaChainZap", "100.0", "TeslaTrooperLaserBeam"),
     "HeroicShockTrooperTeslaChainZap": _chain_zap(
         "HeroicShockTrooperTeslaChainZap", "120.0",
         "HeroicTeslaTrooperLaserBeam"),
+    "ShockTrooperTeslaBoltProjectile": _TESLA_BOLT_PROJECTILE,
     "ShockTrooperTeslaChainNode": _chain_node(
-        "ShockTrooperTeslaChainNode", "ShockTrooperTeslaChainZap", 1100, 1300),
+        "ShockTrooperTeslaChainNode", "ShockTrooperTeslaChainZap",
+        "ShockTrooperTeslaStunPulse", 1100, 1300),
     "ShockTrooperTeslaChainNodeHeroic": _chain_node(
         "ShockTrooperTeslaChainNodeHeroic", "HeroicShockTrooperTeslaChainZap",
-        1400, 1600),
+        "HeroicShockTrooperTeslaStunPulse", 1400, 1600),
     "OCL_ShockTrooperTeslaChain": """ObjectCreationList OCL_ShockTrooperTeslaChain
   CreateObject
     ObjectNames = ShockTrooperTeslaChainNode
@@ -538,27 +580,17 @@ def shock_tesla_draw(skin):
       Model               = RIShkTrp_B
       WeaponFireFXBone    = PRIMARY Muzzle
       WeaponLaunchBone    = PRIMARY Muzzle
-      WeaponFireFXBone    = TERTIARY Muzzle
-      WeaponLaunchBone    = TERTIARY Muzzle
     End
   End
 """ % {"m": m}
 
 
+# single weapon set: the engine only ever fires the unit's ONE current
+# weapon (Object::fireCurrentWeapon), so everything rides on PRIMARY;
+# heroic rank scales via VeterancyProjectileDetonationOCL on the weapon.
 SHOCK_WEAPONSETS = """  WeaponSet
     Conditions        = None
-    Weapon            = PRIMARY   ShockTrooperTeslaWeapon
-    Weapon            = SECONDARY ShockTrooperTeslaSubdualWeapon
-    Weapon            = TERTIARY  ShockTrooperTeslaArcWeapon
-    ShareWeaponReloadTime = Yes
-  End
-
-  WeaponSet
-    Conditions        = HERO
-    Weapon            = PRIMARY   HeroicShockTrooperTeslaWeapon
-    Weapon            = SECONDARY HeroicShockTrooperTeslaSubdualWeapon
-    Weapon            = TERTIARY  HeroicShockTrooperTeslaArcWeapon
-    ShareWeaponReloadTime = Yes
+    Weapon            = PRIMARY ShockTrooperTeslaWeapon
   End
 """
 
@@ -634,17 +666,18 @@ def edit_block(t, name, text):
         marker = "  ; ***DESIGN parameters ***"
         assert marker in text
         text = text.replace(marker, shock_tesla_draw("") + "\n" + marker, 1)
-        # 2. the four rider weaponsets -> two tesla sets (3 slots each)
+        # 2. the four rider weaponsets -> ONE tesla-gun set (engine fires
+        # only the current weapon; the warhead node does stun + chain)
         text, n = strip_submodule(text, r"WeaponSet\s*$")
         assert n == 4, "expected 4 donor weaponsets, removed %d" % n
         amarker = "  ArmorSet"
         assert amarker in text
         text = text.replace(amarker, SHOCK_WEAPONSETS + "\n" + amarker, 1)
-        # 3. turret also drives the arc weapon (TERTIARY)
-        text, n = re.subn(r"ControlledWeaponSlots\s*=\s*SECONDARY\s*$",
-                          "ControlledWeaponSlots = SECONDARY TERTIARY",
-                          text, flags=re.M)
-        assert n == 1, "turret ControlledWeaponSlots not found"
+        # 3. drop the donor's internal turret: with a single body-fired
+        # weapon, contained/garrisoned firing follows the vanilla
+        # garrisoned-infantry code path (no turret gate involved)
+        text, n = strip_submodule(text, r"Turret\s*$")
+        assert n == 1, "donor Turret sub-block not found"
     if name in ("RussiaInfantryShockTrooper_Var2",
                 "RussiaInfantryShockTrooper_Var3"):
         skin = name[-1]   # '2' | '3'

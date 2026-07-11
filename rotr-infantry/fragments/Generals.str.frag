@@ -19,7 +19,7 @@ CONTROLBAR:ConstructTankShockTrooper
 END
 
 CONTROLBAR:ToolTipTankShockTrooper
-"Elite Tesla Trooper.\n Tesla gun stuns vehicles and incinerates infantry.\n Lightning chains to nearby enemies.\n Cannot attack aircraft.\n Cannot be crushed by vehicles.\n\n Strong vs. infantry, vehicles \n Weak vs. aircraft, artillery"
+"Elite Tesla Trooper.\n Tesla gun stuns vehicles and incinerates infantry.\n Lightning chains to nearby enemies.\n Can fire from garrisons, bunkers and transport bays.\n Cannot attack aircraft.\n Cannot be crushed by vehicles.\n\n Strong vs. infantry, vehicles \n Weak vs. aircraft, artillery"
 END
 
 CONTROLBAR:TankShmelSmokeRocket
