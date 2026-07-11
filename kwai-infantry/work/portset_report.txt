@@ -1,0 +1,234 @@
+=== PORT set (176 blocks):
+ Data/INI/Armor.ini
+    Armor                HumanArmor_Brave
+    Armor                UnsinkableProjectileArmor
+    Armor                WaterCheckerArmor
+    Armor                WoundedHumanArmor
+ Data/INI/CommandButton.ini
+    CommandButton        Command_CaptureBuildingDefault
+    CommandButton        Command_CaptureBuildingDefaultDisabled
+    CommandButton        Command_ChinaInfantrySharpshooterAreaReconnaissance
+    CommandButton        Command_ChinaInfantrySharpshooterLayMine
+    CommandButton        Command_ChinaInfantrySharpshooterProne
+    CommandButton        Command_ChinaInfantrySharpshooterStand
+    CommandButton        Command_ChinaInfantrySharpshooterThrowGrenade
+    CommandButton        Command_ChinaInfantrySharpshooterUpgraded1Prone
+    CommandButton        Command_ChinaInfantrySharpshooterUpgraded1Stand
+    CommandButton        Command_UpgradeType66APMine
+ Data/INI/CommandSet.ini
+    CommandSet           ChinaInfantrySharpshooterAPUpgradedCommandSet
+    CommandSet           ChinaInfantrySharpshooterAPUpgradedPronedCommandSet
+    CommandSet           ChinaInfantrySharpshooterCommandSet
+    CommandSet           ChinaInfantrySharpshooterPronedCommandSet
+ Data/INI/FXList.ini
+    FXList               FX_BulletHit
+    FXList               FX_BulletHitGround
+    FXList               FX_BulletHitWater
+    FXList               FX_ClaymorePrimaryConeDetonation
+    FXList               FX_ClaymoreRadiusDetonation
+    FXList               FX_ClaymoreSecondaryConeDetonation
+    FXList               FX_GenericGrenadeExplosionHitGround
+    FXList               FX_GenericGrenadeExplosionHitWater
+    FXList               FX_GrenadeHitWater
+    FXList               FX_HeroicType79SniperFire
+    FXList               FX_InfantryDieCrushed
+    FXList               FX_InfantryDieExploded
+    FXList               FX_PronedWoundedRevived
+    FXList               FX_RunOnDirt
+    FXList               FX_RunOnWater
+    FXList               FX_SmallGenericProjectileDeath
+    FXList               FX_SoftGrenadeDetonation
+    FXList               FX_SoftGrenadeDetonation_NoScorchMark
+    FXList               FX_Type79SniperFire
+    FXList               FX_WoundedRevived
+ Data/INI/Locomotor.ini
+    Locomotor            CheckerContainerLocomotor
+    Locomotor            MidAirGrenadeLocomotor
+    Locomotor            SluggishHumanLocomotor
+ Data/INI/Object/0Generic/Bullets.ini
+    Object               GenericBullet
+    Object               GenericBulletWaterChecker
+ Data/INI/Object/0Generic/Checker.ini
+    Object               InfantryWaterChecker
+ Data/INI/Object/0Generic/Dummy.ini
+    Object               DummyInvisibleGroundCollider
+    Object               GenericProjectile
+ Data/INI/Object/0Generic/Grenades.ini
+    Object               GenericGrenadeWaterChecker
+ Data/INI/Object/0Generic/RiderLogic.ini
+    Object               UpgradeViaRiderSwitch1
+    Object               UpgradeViaRiderSwitch2
+    Object               UpgradeViaRiderSwitch3
+    Object               UpgradeViaRiderSwitch4
+ Data/INI/Object/0Generic/SupportInfantrySystems.ini
+    Object               AreaReconnaissanceObject_InvisibleMarker
+ Data/INI/Object/0Generic/SuppressionObject.ini
+    Object               40Radius_MildSuppressionObject
+ Data/INI/Object/China/Infantry/Sharpshooter.ini
+    Object               ChinaInfantrySharpshooter
+    Object               ChinaInfantrySharpshooterVariation1
+    Object               ChinaInfantrySharpshooter_PronedWounded
+    Object               ChinaInfantrySharpshooter_PronedWoundedVariation1
+    Object               ChinaInfantrySharpshooter_Wounded
+    Object               ChinaInfantrySharpshooter_WoundedVariation1
+    ObjectReskin         ChinaInfantrySharpshooterVariation2
+    ObjectReskin         ChinaInfantrySharpshooterVariation3
+    ObjectReskin         ChinaInfantrySharpshooterVariation4
+    ObjectReskin         ChinaInfantrySharpshooter_PronedWoundedVariation2
+    ObjectReskin         ChinaInfantrySharpshooter_PronedWoundedVariation3
+    ObjectReskin         ChinaInfantrySharpshooter_PronedWoundedVariation4
+    ObjectReskin         ChinaInfantrySharpshooter_WoundedVariation2
+    ObjectReskin         ChinaInfantrySharpshooter_WoundedVariation3
+    ObjectReskin         ChinaInfantrySharpshooter_WoundedVariation4
+ Data/INI/Object/China/Ordinances/Type66ClaymoreMine.ini
+    Object               Type66ClaymoreMine
+ Data/INI/Object/China/Ordinances/Type86Grenade.ini
+    Object               FusedType86Grenade
+    Object               FusedType86Grenade_Float
+    Object               Type86Grenade
+ Data/INI/ObjectCreationList.ini
+    ObjectCreationList   OCL_AreaReconnaissanceObject
+    ObjectCreationList   OCL_ChinaInfantrySharpshooter_PronedWounded
+    ObjectCreationList   OCL_ChinaInfantrySharpshooter_Revived
+    ObjectCreationList   OCL_ChinaInfantrySharpshooter_Wounded
+    ObjectCreationList   OCL_DeleteMeOutside
+    ObjectCreationList   OCL_FusedType86Grenade
+    ObjectCreationList   OCL_FusedType86Grenade_Float
+    ObjectCreationList   OCL_GenericBulletWaterChecker
+    ObjectCreationList   OCL_GenericGrenadeWaterChecker_MildSuppressive
+    ObjectCreationList   OCL_GenericGrenadeWaterChecker_MildSuppressive_Float
+    ObjectCreationList   OCL_InfantryDeadExplosion
+    ObjectCreationList   OCL_InfantryWaterChecker
+    ObjectCreationList   OCL_Type66ClaymoreMine
+    ObjectCreationList   OCL_UpgradeViaRiderSwitch1
+    ObjectCreationList   OCL_UpgradeViaRiderSwitch2
+    ObjectCreationList   OCL_UpgradeViaRiderSwitch3
+    ObjectCreationList   OCL_UpgradeViaRiderSwitch4
+ Data/INI/ParticleSystem.ini
+    ParticleSystem       BloodExplodedPuddle
+    ParticleSystem       BloodExplodedSplatter
+    ParticleSystem       BloodPuddle
+    ParticleSystem       BloodSplatter
+    ParticleSystem       BloodTarget
+    ParticleSystem       BloodTargetExploded
+    ParticleSystem       BulletHit
+    ParticleSystem       ClaymorePrimaryExplosion
+    ParticleSystem       ClaymorePrimaryExplosionSmoke
+    ParticleSystem       ClaymorePrimarySmokeFragments
+    ParticleSystem       ClaymoreSecondarySmokeFragments
+    ParticleSystem       FootstepLeft
+    ParticleSystem       FootstepRight
+    ParticleSystem       GenericHEMissileExplosion
+    ParticleSystem       GenericMissileExplosionLenzflare
+    ParticleSystem       GenericMissileExplosionSmoke
+    ParticleSystem       GenericMissileExplosionSmokeRing
+    ParticleSystem       GenericProjectileExplosionFragments
+    ParticleSystem       GenericProjectileExplosionTrail
+    ParticleSystem       GrenadeExplosion
+    ParticleSystem       GrenadeExplosionDirtBlast
+    ParticleSystem       GrenadeExplosionDirtCloud
+    ParticleSystem       GrenadeExplosionDirtCloudUpward
+    ParticleSystem       GrenadeExplosionDirtDebris
+    ParticleSystem       GrenadeExplosionDirtSpray
+    ParticleSystem       GrenadeExplosionShockwave
+    ParticleSystem       GrenadeExplosionSmoke
+    ParticleSystem       GrenadeExplosionSmokeRing
+    ParticleSystem       GrenadeExplosionWaterBlast
+    ParticleSystem       GrenadeExplosionWaterSplash
+    ParticleSystem       GrenadeExplosionWaterSplashFoam
+    ParticleSystem       GrenadeExplosionWaterSplashParticles
+    ParticleSystem       GrenadeExplosionWaterWave
+    ParticleSystem       GrenadeFlash
+    ParticleSystem       GrenadeGenericTrail
+    ParticleSystem       GrenadeImpactGreyDust
+    ParticleSystem       GrenadeImpactWaterBlast
+    ParticleSystem       GrenadeImpactWaterWave
+    ParticleSystem       GrenadeSmokeFragments
+    ParticleSystem       GrenadeSmokeTrail
+    ParticleSystem       HeroicInfantryRifleLenzflare
+    ParticleSystem       InfantryOverWaterSplash
+    ParticleSystem       InfantryOverWaterWave
+    ParticleSystem       InfantryRifleLenzflare
+    ParticleSystem       SmallArmsImpactDirtBlast
+    ParticleSystem       SmallArmsImpactWaterBlast
+    ParticleSystem       SmallArmsImpactWaterWave
+ Data/INI/SoundEffects.ini
+    AudioEvent           BulletHitGround
+    AudioEvent           BulletHitWater
+    AudioEvent           DirtHitByRocketShell
+    AudioEvent           GenericImpactExplosionSmallDistant
+    AudioEvent           GenericImpactWater
+    AudioEvent           GenericSplashWater
+    AudioEvent           GrenadeSoftExplosion
+    AudioEvent           InfantrySplash
+    AudioEvent           RocketExplosion
+    AudioEvent           RunOnDirt
+    AudioEvent           RunOnWater
+    AudioEvent           Type79SniperRifleDistant
+ Data/INI/SpecialPower.ini
+    SpecialPower         SpecialAbilityCaptureBuilding
+    SpecialPower         SpecialAbilityDisabledDummy
+    SpecialPower         SpecialAbilityProne
+    SpecialPower         SpecialAbilitySwitchToMain
+    SpecialPower         SpecialAbilityUpgraded1Prone
+    SpecialPower         SpecialAbilityUpgraded1SwitchToMain
+ Data/INI/Upgrade.ini
+    Upgrade              Upgrade_APMineWeaponUpgrade
+    Upgrade              Upgrade_ChinaRevolutionaryHeroism
+ Data/INI/Weapon.ini
+    Weapon               10Radius_MineStackingPreventWeapon
+    Weapon               40Radius_MildSuppressionWeapon
+    Weapon               AreaReconnaissanceWeapon
+    Weapon               GenericGrenadeWaterCollideWeapon_FX
+    Weapon               GenericInfantryRiderSwitch2ResetWeapon
+    Weapon               GenericInfantryRiderSwitch3ResetWeapon
+    Weapon               GenericInfantryRiderSwitch4ResetWeapon
+    Weapon               GenericSmallArmsWaterCollideWeapon
+    Weapon               IngeniousInfantryCheckerWeapon
+    Weapon               IngeniousInfantryMovementWeapon
+    Weapon               PronedType79SniperRifleWeapon
+    Weapon               Type66ClaymoreMineLayingWeapon
+    Weapon               Type66ClaymoreMinePrimaryConeDetonationWeapon
+    Weapon               Type66ClaymoreMineRadiusDetonationWeapon
+    Weapon               Type66ClaymoreMineSecondaryConeDetonationWeapon
+    Weapon               Type79SniperRifleWeapon
+    Weapon               Type86GrenadeDetonationWeapon
+    Weapon               Type86GrenadeDetonationWeapon_Float
+    Weapon               Type86GrenadeWeapon
+    Weapon               UpgradeViaRiderSwitch_DeleteMeOutside
+
+=== REUSE from effective (22):
+  BasicHumanLocomotor                                Locomotor(Locomotor.ini)
+  ChinaBarracks                                      Object(Barracks.ini),Object(map.ini)
+  Command_AttackMove                                 CommandButton(CommandButton.ini)
+  Command_Guard                                      CommandButton(CommandButton.ini)
+  Command_GuardWithoutPursuit                        CommandButton(CommandButton.ini)
+  Command_Stop                                       CommandButton(CommandButton.ini)
+  DummyWeapon                                        Weapon(Weapon.ini)
+  EmptyDamageFX                                      DamageFX(DamageFX.ini)
+  FX_DieByFireChina                                  FXList(FXList.ini)
+  FX_DieByToxinChina                                 FXList(FXList.ini)
+  FX_RedGuardDie                                     FXList(FXList.ini)
+  HumanArmor                                         Armor(Armor.ini)
+  InfantryCrush                                      AudioEvent(SoundEffects.ini)
+  InfantryDamageFX                                   DamageFX(DamageFX.ini)
+  InfantryDustTrails                                 ParticleSystem(ParticleSystem.ini)
+  InvulnerableArmor                                  Armor(Armor.ini)
+  MineArmor                                          Armor(Armor.ini)
+  OCL_FlamingInfantry                                ObjectCreationList(ObjectCreationList.ini)
+  OCL_ToxicInfantry                                  ObjectCreationList(ObjectCreationList.ini)
+  OCL_ToxicInfantryBeta                              ObjectCreationList(ObjectCreationList.ini)
+  OCL_ToxicInfantryGamma                             ObjectCreationList(ObjectCreationList.ini)
+  ProjectileArmor                                    Armor(Armor.ini)
+
+=== UNRESOLVED names (neither space): ['ARMOR_PIERCING', 'AURORA_BOMB', 'COMANCHE_VULCAN', 'CRUSH', 'DEFAULT', 'EXPLOSION', 'FLAME', 'GATTLING', 'HACK', 'HAZARD_CLEANUP', 'INFANTRY_MISSILE', 'JET_MISSILES', 'KILL_PILOT', 'LAND_MINE', 'LASER', 'MICROWAVE', 'MOLOTOV_COCKTAIL', 'PARTICLE_BEAM', 'POISON', 'RADIATION', 'SMALL_ARMS', 'SNIPER', 'SUBDUAL_BUILDING', 'SUBDUAL_MISSILE', 'SUBDUAL_VEHICLE', 'SURRENDER', 'UNRESISTABLE', 'WATER']
+
+=== audio (14): BulletTracer GrenadeThrowing SharpshooterVoiceAttack SharpshooterVoiceCapture SharpshooterVoiceCaptureComplete SharpshooterVoiceClaymore SharpshooterVoiceCreate SharpshooterVoiceFear SharpshooterVoiceGarrison SharpshooterVoiceGrenadeAttack SharpshooterVoiceMove SharpshooterVoiceScanArea SharpshooterVoiceSelect Type79SniperRifle
+
+=== models (12): CISPINF_SKL EXIndAPMine EXIndGnd EXInfSnp EXInfSnpAP EXWounded NIMRKMN01_SKN NIMRKMN02_SKN NIMRKMN03_SKN NIMRKMN04_SKN NIType66Mine NIType86
+
+=== images (12): SNRevolutionaryHeroism SNSharpshooter SNSharpshooter_L SNType66Claymore SNType66ClaymorePlant SNType86 SSBinocular SSCaptureBuilding SSProneStealthed SSStand Upgrade_ChinaRevolutionaryHeroism Upgrade_Nationalism
+
+=== strings (18): CONTROLBAR:AreaReconnaissance CONTROLBAR:CaptureBuilding CONTROLBAR:LayType66ClaymoreAtPosition CONTROLBAR:Prone CONTROLBAR:StandUp CONTROLBAR:ThrowType86PGrenade CONTROLBAR:ToolTipAreaReconnaissance CONTROLBAR:ToolTipChinaRedGuardCaptureBuilding CONTROLBAR:ToolTipInfantryProne CONTROLBAR:ToolTipInfantryStandUp CONTROLBAR:ToolTipLayType66ClaymoreAtPosition CONTROLBAR:ToolTipThrowType86PGrenade CONTROLBAR:TooltipUpgradeType66Claymore CONTROLBAR:UpgradeType66Claymore OBJECT:Sharpshooter OBJECT:Type66ClaymoreMine UPGRADE:ChinaAPMineWeapon UPGRADE:ChinaRevolutionaryHeroism
+
+=== psys textures (29): CBInvBridge.dds EXBlood.dds EXBloodGory.dds EXBloodSplatter.dds EXContrail.dds EXDirtClumps.dds EXDirtSpray.dds EXDrtExp02.dds EXDrtExp02_S.dds EXDust02.dds EXExplo03.dds EXExplo04.dds EXFootL.dds EXFootR.dds EXLnzFlar2.dds EXLnzFlar3.dds EXLnzFlar4.dds EXShockWav.dds EXSmokNew2.dds EXSmokNew6.dds EXSmokePuff01.dds EXSpark05.dds EXWater05.dds EXWaterShockwave01.dds EXWaterShockwave02.dds EXWaterShockwave02_S.dds EXWaterSplash01.dds EXWaterSplash02.dds EXWaterSpray01_s.dds

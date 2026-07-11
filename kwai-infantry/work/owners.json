@@ -1,0 +1,3566 @@
+{
+ "data\\ini\\controlbarscheme.ini": {
+  "owner": "zzz_ControlBarProZH.big",
+  "path": "Data\\INI\\ControlBarScheme.ini"
+ },
+ "data\\ini\\ingameui.ini": {
+  "owner": "zzz_ControlBarProZH.big",
+  "path": "Data\\INI\\InGameUI.ini"
+ },
+ "data\\ini\\mappedimages\\handcreated\\americacommandbarpro.ini": {
+  "owner": "zzz_ControlBarProZH.big",
+  "path": "Data\\INI\\MappedImages\\HandCreated\\AmericaCommandBarPro.ini"
+ },
+ "data\\ini\\mappedimages\\handcreated\\americapowerspro.ini": {
+  "owner": "zzz_ControlBarProZH.big",
+  "path": "Data\\INI\\MappedImages\\HandCreated\\AmericaPowersPro.ini"
+ },
+ "data\\ini\\mappedimages\\handcreated\\blanktexture.ini": {
+  "owner": "zzz_ControlBarProZH.big",
+  "path": "Data\\INI\\MappedImages\\HandCreated\\BlankTexture.ini"
+ },
+ "data\\ini\\mappedimages\\handcreated\\chinacommandbarpro.ini": {
+  "owner": "zzz_ControlBarProZH.big",
+  "path": "Data\\INI\\MappedImages\\HandCreated\\ChinaCommandBarPro.ini"
+ },
+ "data\\ini\\mappedimages\\handcreated\\chinapowerspro.ini": {
+  "owner": "zzz_ControlBarProZH.big",
+  "path": "Data\\INI\\MappedImages\\HandCreated\\ChinaPowersPro.ini"
+ },
+ "data\\ini\\mappedimages\\handcreated\\controlbarprocommon.ini": {
+  "owner": "zzz_ControlBarProZH.big",
+  "path": "Data\\INI\\MappedImages\\HandCreated\\ControlBarProCommon.ini"
+ },
+ "data\\ini\\mappedimages\\handcreated\\diplomacywindowpro.ini": {
+  "owner": "zzz_ControlBarProZH.big",
+  "path": "Data\\INI\\MappedImages\\HandCreated\\DiplomacyWindowPro.ini"
+ },
+ "data\\ini\\mappedimages\\handcreated\\disconnectwindowpro.ini": {
+  "owner": "zzz_ControlBarProZH.big",
+  "path": "Data\\INI\\MappedImages\\HandCreated\\DisconnectWindowPro.ini"
+ },
+ "data\\ini\\mappedimages\\handcreated\\glacommandbarpro.ini": {
+  "owner": "zzz_ControlBarProZH.big",
+  "path": "Data\\INI\\MappedImages\\HandCreated\\GlaCommandBarPro.ini"
+ },
+ "data\\ini\\mappedimages\\handcreated\\glapowerspro.ini": {
+  "owner": "zzz_ControlBarProZH.big",
+  "path": "Data\\INI\\MappedImages\\HandCreated\\GlaPowersPro.ini"
+ },
+ "data\\ini\\mappedimages\\handcreated\\obscommandbarpro.ini": {
+  "owner": "zzz_ControlBarProZH.big",
+  "path": "Data\\INI\\MappedImages\\HandCreated\\ObsCommandBarPro.ini"
+ },
+ "data\\ini\\mappedimages\\handcreated\\quitwindowpro.ini": {
+  "owner": "zzz_ControlBarProZH.big",
+  "path": "Data\\INI\\MappedImages\\HandCreated\\QuitWindowPro.ini"
+ },
+ "data\\brazilian\\headertemplate.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\Brazilian\\HeaderTemplate.ini"
+ },
+ "data\\brazilian\\language.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\Brazilian\\Language.ini"
+ },
+ "data\\chinese\\headertemplate.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\Chinese\\HeaderTemplate.ini"
+ },
+ "data\\chinese\\headertemplate9x.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\Chinese\\HeaderTemplate9x.ini"
+ },
+ "data\\chinese\\language.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\Chinese\\Language.ini"
+ },
+ "data\\chinese\\language9x.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\Chinese\\Language9x.ini"
+ },
+ "data\\english\\headertemplate.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\English\\HeaderTemplate.ini"
+ },
+ "data\\english\\language.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\English\\Language.ini"
+ },
+ "data\\french\\headertemplate.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\French\\HeaderTemplate.ini"
+ },
+ "data\\french\\language.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\French\\Language.ini"
+ },
+ "data\\german\\headertemplate.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\German\\HeaderTemplate.ini"
+ },
+ "data\\german\\language.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\German\\Language.ini"
+ },
+ "data\\italian\\headertemplate.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\Italian\\HeaderTemplate.ini"
+ },
+ "data\\italian\\language.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\Italian\\Language.ini"
+ },
+ "data\\korean\\headertemplate.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\Korean\\HeaderTemplate.ini"
+ },
+ "data\\korean\\headertemplate9x.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\Korean\\HeaderTemplate9x.ini"
+ },
+ "data\\korean\\language.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\Korean\\Language.ini"
+ },
+ "data\\korean\\language9x.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\Korean\\Language9x.ini"
+ },
+ "data\\polish\\headertemplate.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\Polish\\HeaderTemplate.ini"
+ },
+ "data\\polish\\language.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\Polish\\Language.ini"
+ },
+ "data\\spanish\\headertemplate.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\Spanish\\HeaderTemplate.ini"
+ },
+ "data\\spanish\\language.ini": {
+  "owner": "zzz_ControlBarPro2160ZH.big",
+  "path": "Data\\Spanish\\Language.ini"
+ },
+ "data\\generals.str": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\Generals.str"
+ },
+ "data\\ini\\commandbutton.ini": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\INI\\CommandButton.ini"
+ },
+ "data\\ini\\commandset.ini": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\INI\\CommandSet.ini"
+ },
+ "data\\ini\\objectcreationlist.ini": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\INI\\ObjectCreationList.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\vehicles\\buratino.ini": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Vehicles\\Buratino.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\vehicles\\hammercannon.ini": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Vehicles\\HammerCannon.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\battlemaster.ini": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\BattleMaster.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\commandtank.ini": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\CommandTank.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\dragontank.ini": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\DragonTank.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\ecmtank.ini": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\ECMTank.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\emperor.ini": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\Emperor.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\gattlingtank.ini": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\GattlingTank.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\js7.ini": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\JS7.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\pdlpod.ini": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\PDLPod.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\reaper.ini": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\Reaper.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\warmaster.ini": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\WarMaster.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\infantry\\siegesoldier.ini": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Infantry\\SiegeSoldier.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\vehicles\\infernocannon.ini": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Vehicles\\InfernoCannon.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\vehicles\\nukecannon.ini": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Vehicles\\NukeCannon.ini"
+ },
+ "data\\ini\\upgrade.ini": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\INI\\Upgrade.ini"
+ },
+ "data\\ini\\weapon.ini": {
+  "owner": "zzz-ZZZZZZZKwaiPDL.big",
+  "path": "Data\\INI\\Weapon.ini"
+ },
+ "data\\ini\\object\\china\\tank\\aircraft\\surveillanceuav.ini": {
+  "owner": "zzz-ZZZZZZKwaiUAV.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Aircraft\\SurveillanceUAV.ini"
+ },
+ "data\\ini\\object\\china\\tank\\buildings\\internetcenter.ini": {
+  "owner": "zzz-ZZZZZZKwaiUAV.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Buildings\\InternetCenter.ini"
+ },
+ "data\\ini\\specialpower.ini": {
+  "owner": "zzz-ZZZZZZKwaiUAV.big",
+  "path": "Data\\INI\\SpecialPower.ini"
+ },
+ "data\\ini\\object\\china\\tank\\aircraft\\mig.ini": {
+  "owner": "zzz-ZZZZZKwaiRoster.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Aircraft\\MIG.ini"
+ },
+ "data\\ini\\object\\china\\tank\\aircraft\\migbomber.ini": {
+  "owner": "zzz-ZZZZZKwaiRoster.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Aircraft\\MIGBomber.ini"
+ },
+ "data\\ini\\object\\china\\tank\\infantry\\siegesoldier.ini": {
+  "owner": "zzz-ZZZZZKwaiRoster.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Infantry\\SiegeSoldier.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\buratino.ini": {
+  "owner": "zzz-ZZZZZKwaiRoster.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\Buratino.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\hammercannon.ini": {
+  "owner": "zzz-ZZZZZKwaiRoster.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\HammerCannon.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\overlord.ini": {
+  "owner": "zzz-ZZZZZKwaiRoster.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\Overlord.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\scoutcar.ini": {
+  "owner": "zzz-ZZZZZKwaiRoster.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\ScoutCar.ini"
+ },
+ "data\\ini\\armor.ini": {
+  "owner": "zzz-ZZZZChaosUnits.big",
+  "path": "Data\\INI\\Armor.ini"
+ },
+ "data\\ini\\fxlist.ini": {
+  "owner": "zzz-ZZZZChaosUnits.big",
+  "path": "Data\\INI\\FXList.ini"
+ },
+ "data\\ini\\locomotor.ini": {
+  "owner": "zzz-ZZZZChaosUnits.big",
+  "path": "Data\\INI\\Locomotor.ini"
+ },
+ "data\\ini\\mappedimages\\handcreated\\chaosunitsmappedimages.ini": {
+  "owner": "zzz-ZZZZChaosUnits.big",
+  "path": "Data\\INI\\MappedImages\\HandCreated\\ChaosUnitsMappedImages.INI"
+ },
+ "data\\ini\\object\\china\\tank\\buildings\\warfactory.ini": {
+  "owner": "zzz-ZZZZChaosUnits.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Buildings\\WarFactory.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\chaossupportobjects.ini": {
+  "owner": "zzz-ZZZZChaosUnits.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\ChaosSupportObjects.ini"
+ },
+ "data\\ini\\particlesystem.ini": {
+  "owner": "zzz-ZZZZChaosUnits.big",
+  "path": "Data\\INI\\ParticleSystem.ini"
+ },
+ "data\\ini\\object\\china\\tank\\buildings\\airfield.ini": {
+  "owner": "zzz-ZZZKwaiGarrisons.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Buildings\\Airfield.ini"
+ },
+ "data\\ini\\object\\china\\tank\\buildings\\commandcenter.ini": {
+  "owner": "zzz-ZZZKwaiGarrisons.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Buildings\\CommandCenter.ini"
+ },
+ "data\\ini\\object\\china\\tank\\buildings\\industrialplant.ini": {
+  "owner": "zzz-ZZZKwaiGarrisons.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Buildings\\IndustrialPlant.ini"
+ },
+ "data\\ini\\object\\china\\tank\\buildings\\nuclearsilo.ini": {
+  "owner": "zzz-ZZZKwaiGarrisons.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Buildings\\NuclearSilo.ini"
+ },
+ "data\\ini\\object\\china\\tank\\buildings\\powerplant.ini": {
+  "owner": "zzz-ZZZKwaiGarrisons.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Buildings\\PowerPlant.ini"
+ },
+ "data\\ini\\object\\china\\tank\\buildings\\propagandacenter.ini": {
+  "owner": "zzz-ZZZKwaiGarrisons.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Buildings\\PropagandaCenter.ini"
+ },
+ "data\\ini\\object\\china\\tank\\buildings\\supplycenter.ini": {
+  "owner": "zzz-ZZZKwaiGarrisons.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Buildings\\SupplyCenter.ini"
+ },
+ "data\\ini\\object\\china\\tank\\buildings\\barracks.ini": {
+  "owner": "zzz-ZZKwaiBaseTech.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Buildings\\Barracks.ini"
+ },
+ "data\\ini\\object\\china\\tank\\defences\\bunker.ini": {
+  "owner": "zzz-ZZKwaiBaseTech.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Defences\\Bunker.ini"
+ },
+ "data\\ini\\object\\china\\tank\\defences\\gattlingcannon.ini": {
+  "owner": "zzz-ZZKwaiBaseTech.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Defences\\GattlingCannon.ini"
+ },
+ "data\\ini\\object\\china\\tank\\defences\\hackerbunker.ini": {
+  "owner": "zzz-ZZKwaiBaseTech.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Defences\\HackerBunker.ini"
+ },
+ "data\\ini\\object\\china\\tank\\defences\\ramjet turret.ini": {
+  "owner": "zzz-ZZKwaiBaseTech.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Defences\\Ramjet Turret.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\dozer.ini": {
+  "owner": "zzz-ZKwaiBunkers.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\Dozer.ini"
+ },
+ "data\\ini\\object\\china\\tank\\aircraft\\helix.ini": {
+  "owner": "zzz-KwaiDoctrine.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Aircraft\\Helix.ini"
+ },
+ "data\\ini\\object\\china\\tank\\aircraft\\razor.ini": {
+  "owner": "zzz-KwaiDoctrine.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Aircraft\\Razor.ini"
+ },
+ "data\\ini\\object\\china\\tank\\infantry\\hacker.ini": {
+  "owner": "zzz-KwaiDoctrine.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Infantry\\Hacker.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\supplytruck.ini": {
+  "owner": "zzz-KwaiDoctrine.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\SupplyTruck.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\troopcrawler.ini": {
+  "owner": "zzz-KwaiDoctrine.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\TroopCrawler.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\infantry\\blacklotus.ini": {
+  "owner": "zzz-KwaiDoctrine.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Infantry\\BlackLotus.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\infantry\\hacker.ini": {
+  "owner": "zzz-KwaiDoctrine.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Infantry\\Hacker.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\infantry\\redguard.ini": {
+  "owner": "zzz-KwaiDoctrine.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Infantry\\Redguard.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\infantry\\tankhunter.ini": {
+  "owner": "zzz-KwaiDoctrine.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Infantry\\TankHunter.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\infernocannon.ini": {
+  "owner": "zzyzzzzz_KwaiArtillery.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\InfernoCannon.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\nukecannon.ini": {
+  "owner": "zzyzzzzz_KwaiArtillery.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\NukeCannon.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\vehicles\\battlemaster.ini": {
+  "owner": "zzyzzzz_StatTune.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Vehicles\\BattleMaster.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\vehicles\\battlemaster.ini": {
+  "owner": "zzyzzzz_StatTune.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Vehicles\\BattleMaster.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\vehicles\\gattlingtank.ini": {
+  "owner": "zzyzzzz_StatTune.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Vehicles\\GattlingTank.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\vehicles\\gattlingtank.ini": {
+  "owner": "zzyzzzz_StatTune.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Vehicles\\GattlingTank.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\vehicles\\gattlingtank.ini": {
+  "owner": "zzyzzzz_StatTune.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Vehicles\\GattlingTank.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\vehicles\\ravagetank.ini": {
+  "owner": "zzyzzz_CoaxMG.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Vehicles\\RavageTank.ini"
+ },
+ "data\\ini\\default\\aidata.ini": {
+  "owner": "zzyzy_NoAISuperweapons.big",
+  "path": "Data\\INI\\Default\\AIData.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\vehicles\\gattlingapc.ini": {
+  "owner": "zzyz_GattlingBuff.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Vehicles\\GattlingAPC.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\vehicles\\troopcrawler.ini": {
+  "owner": "zzyy_ChinaBunkers.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Vehicles\\TroopCrawler.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\vehicles\\troopcrawler.ini": {
+  "owner": "zzyy_ChinaBunkers.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Vehicles\\TroopCrawler.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\vehicles\\supportcrawler.ini": {
+  "owner": "zzyy_ChinaBunkers.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Vehicles\\SupportCrawler.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\chinamisc.ini": {
+  "owner": "zzyy_ChinaBunkers.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\ChinaMisc.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\vehicles\\mammoth.ini": {
+  "owner": "zzy_MammothBunker.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Vehicles\\Mammoth.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\vehicles\\battlefortress.ini": {
+  "owner": "zzx_ChinaTankBuff.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Vehicles\\BattleFortress.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\vehicles\\tigershark.ini": {
+  "owner": "zzx_ChinaTankBuff.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Vehicles\\TigerShark.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\vehicles\\devastator.ini": {
+  "owner": "zzx_ChinaTankBuff.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Vehicles\\Devastator.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\vehicles\\overlord.ini": {
+  "owner": "zzx_ChinaTankBuff.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Vehicles\\Overlord.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\vehicles\\radtank.ini": {
+  "owner": "zzx_ChinaTankBuff.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Vehicles\\RADTank.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\vehicles\\dragontank.ini": {
+  "owner": "zzx_ChinaTankBuff.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Vehicles\\DragonTank.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\vehicles\\seismictank.ini": {
+  "owner": "zzx_ChinaTankBuff.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Vehicles\\SeismicTank.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\vehicles\\dragontank.ini": {
+  "owner": "zzx_ChinaTankBuff.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Vehicles\\DragonTank.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\vehicles\\ecmtank.ini": {
+  "owner": "zzx_ChinaTankBuff.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Vehicles\\ECMTank.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\vehicles\\overlord.ini": {
+  "owner": "zzx_ChinaTankBuff.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Vehicles\\Overlord.ini"
+ },
+ "data\\ini\\animation2d.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Animation2D.ini"
+ },
+ "data\\ini\\audiosettings.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\AudioSettings.ini"
+ },
+ "data\\ini\\commandmap.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\CommandMap.ini"
+ },
+ "data\\ini\\commandmapdebug.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\CommandMapDebug.ini"
+ },
+ "data\\ini\\commandmapdemo.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\CommandMapDemo.ini"
+ },
+ "data\\ini\\controlbarresizer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\ControlBarResizer.ini"
+ },
+ "data\\ini\\crate.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Crate.ini"
+ },
+ "data\\ini\\credits.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Credits.ini"
+ },
+ "data\\ini\\damagefx.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\DamageFX.ini"
+ },
+ "data\\ini\\default\\buttonsets.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\ButtonSets.ini"
+ },
+ "data\\ini\\default\\commandbutton.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\CommandButton.ini"
+ },
+ "data\\ini\\default\\controlbarscheme.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\ControlBarScheme.ini"
+ },
+ "data\\ini\\default\\crate.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\Crate.ini"
+ },
+ "data\\ini\\default\\fxlist.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\FXList.ini"
+ },
+ "data\\ini\\default\\gamedata.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\GameData.ini"
+ },
+ "data\\ini\\default\\multiplayer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\multiplayer.ini"
+ },
+ "data\\ini\\default\\music.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\Music.ini"
+ },
+ "data\\ini\\default\\object.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\Object.ini"
+ },
+ "data\\ini\\default\\objectcreationlist.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\ObjectCreationList.ini"
+ },
+ "data\\ini\\default\\playertemplate.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\PlayerTemplate.ini"
+ },
+ "data\\ini\\default\\roads.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\Roads.ini"
+ },
+ "data\\ini\\default\\science.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\Science.ini"
+ },
+ "data\\ini\\default\\shellmenuscheme.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\ShellMenuScheme.ini"
+ },
+ "data\\ini\\default\\soundeffects.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\SoundEffects.ini"
+ },
+ "data\\ini\\default\\specialpower.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\SpecialPower.ini"
+ },
+ "data\\ini\\default\\speech.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\Speech.ini"
+ },
+ "data\\ini\\default\\terrain.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\Terrain.ini"
+ },
+ "data\\ini\\default\\upgrade.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\Upgrade.ini"
+ },
+ "data\\ini\\default\\video.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\Video.ini"
+ },
+ "data\\ini\\default\\voice.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\Voice.ini"
+ },
+ "data\\ini\\default\\water.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\Water.ini"
+ },
+ "data\\ini\\default\\weather.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\Weather.ini"
+ },
+ "data\\ini\\default\\webpages.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Default\\Webpages.ini"
+ },
+ "data\\ini\\drawgroupinfo.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\DrawGroupInfo.ini"
+ },
+ "data\\ini\\eva.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Eva.ini"
+ },
+ "data\\ini\\gamedata.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\GameData.ini"
+ },
+ "data\\ini\\gamedatadebug.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\GameDataDebug.ini"
+ },
+ "data\\ini\\gamelod.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\GameLOD.ini"
+ },
+ "data\\ini\\gamelodpresets.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\GameLODPresets.ini"
+ },
+ "data\\ini\\mappedimages\\handcreated\\handcreatedmappedimages.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\HandCreated\\HandCreatedMappedImages.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\handcreatedmappedimages.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\HandCreatedMappedImages.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\sacontrolbar512.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SAControlBar512.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\sauserinterface512.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SAUserInterface512.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\scgameuserinterface512.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SCGameUserInterface512.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\scgenchallengeload512.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SCGenChallengeLoad512.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\scgenchallengeselect512.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SCGenChallengeSelect512.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\scgenchallengewinloss512.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SCGenChallengeWinLoss512.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\sclogosuserinterface512.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SCLogosUserInterface512.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\scpurchasepowers512.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SCPurchasePowers512.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\scshelluserinterface512.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SCShellUserInterface512.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\scsmshelluserinterface512.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SCSmShellUserInterface512.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\sncontrolbar512.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SNControlBar512.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\snuserinterface512.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SNUserInterface512.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\ssuserinterface512.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SSUserInterface512.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\sucontrolbar512.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SUControlBar512.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\suuserinterface512.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SUUserInterface512.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\swgeneralschallange512_1.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SWGeneralsChallange512_1.ini"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\swuserinterface512_1.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SWUserInterface512_1.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\swuserinterface512_10.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SWUserInterface512_10.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\swuserinterface512_11.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SWUserInterface512_11.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\swuserinterface512_2.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SWUserInterface512_2.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\swuserinterface512_3.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SWUserInterface512_3.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\swuserinterface512_4.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SWUserInterface512_4.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\swuserinterface512_5.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SWUserInterface512_5.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\swuserinterface512_6.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SWUserInterface512_6.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\swuserinterface512_7.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SWUserInterface512_7.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\swuserinterface512_8.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SWUserInterface512_8.INI"
+ },
+ "data\\ini\\mappedimages\\texturesize_512\\swuserinterface512_9.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MappedImages\\TextureSize_512\\SWUserInterface512_9.INI"
+ },
+ "data\\ini\\memorypools.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MemoryPools.ini"
+ },
+ "data\\ini\\miscaudio.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\MiscAudio.ini"
+ },
+ "data\\ini\\mouse.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Mouse.ini"
+ },
+ "data\\ini\\multiplayer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\multiplayer.ini"
+ },
+ "data\\ini\\music.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Music.ini"
+ },
+ "data\\ini\\object\\0fakebuildings.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\0FakeBuildings.ini"
+ },
+ "data\\ini\\object\\aiobjects.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\AIObjects.ini"
+ },
+ "data\\ini\\object\\airforcegeneral.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\AirforceGeneral.ini"
+ },
+ "data\\ini\\object\\americaair.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\AmericaAir.ini"
+ },
+ "data\\ini\\object\\americacineunit.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\AmericaCINEUnit.ini"
+ },
+ "data\\ini\\object\\americainfantry.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\AmericaInfantry.ini"
+ },
+ "data\\ini\\object\\americamiscunit.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\AmericaMiscUnit.ini"
+ },
+ "data\\ini\\object\\americavehicle.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\AmericaVehicle.ini"
+ },
+ "data\\ini\\object\\armorgeneral.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\ArmorGeneral.ini"
+ },
+ "data\\ini\\object\\bossgeneral.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\BossGeneral.ini"
+ },
+ "data\\ini\\object\\chemicalgeneral.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\ChemicalGeneral.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\aircraft\\helix.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Aircraft\\Helix.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\aircraft\\mig.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Aircraft\\MiG.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\buildings\\airfield.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Buildings\\Airfield.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\buildings\\barracks.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Buildings\\Barracks.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\buildings\\commandcenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Buildings\\CommandCenter.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\buildings\\internetcenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Buildings\\InternetCenter.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\buildings\\nuclearsilo.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Buildings\\NuclearSilo.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\buildings\\powerplant.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Buildings\\PowerPlant.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\buildings\\propagandacenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Buildings\\PropagandaCenter.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\buildings\\supplycenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Buildings\\SupplyCenter.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\buildings\\warfactory.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Buildings\\WarFactory.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\defences\\bunker.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Defences\\Bunker.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\defences\\gattlingcannon.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Defences\\GattlingCannon.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\defences\\mortarpit.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Defences\\MortarPit.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\defences\\speakertower.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Defences\\SpeakerTower.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\infantry\\blacklotus.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Infantry\\BlackLotus.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\infantry\\hacker.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Infantry\\Hacker.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\infantry\\minigunner.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Infantry\\MiniGunner.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\infantry\\minigunnersquad.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Infantry\\MinigunnerSquad.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\infantry\\redguard.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Infantry\\RedGuard.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\infantry\\redguardsquad.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Infantry\\RedGuardSquad.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\infantry\\siegesoldier.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Infantry\\SiegeSoldier.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\infantry\\tankhunter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Infantry\\TankHunter.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\infantry\\tankhuntersquad.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Infantry\\TankHunterSquad.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\infantrygeneralmisc.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\InfantryGeneralMisc.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\vehicles\\berserk.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Vehicles\\Berserk.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\vehicles\\dozer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Vehicles\\Dozer.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\vehicles\\dragontank.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Vehicles\\DragonTank.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\vehicles\\ecmtank.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Vehicles\\ECMTank.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\vehicles\\hackervan.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Vehicles\\HackerVan.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\vehicles\\infernocannon.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Vehicles\\InfernoCannon.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\vehicles\\listeningoutpost.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Vehicles\\ListeningOutpost.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\vehicles\\supplytruck.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Vehicles\\SupplyTruck.ini"
+ },
+ "data\\ini\\object\\china\\infantry\\vehicles\\troopcrawler.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Infantry\\Vehicles\\TroopCrawler.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\aircraft\\helix.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Aircraft\\Helix.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\aircraft\\mig.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Aircraft\\MiG.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\aircraft\\migbomber.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Aircraft\\MiGBomber.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\buildings\\airfield.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Buildings\\Airfield.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\buildings\\barracks.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Buildings\\Barracks.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\buildings\\commandcenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Buildings\\CommandCenter.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\buildings\\internetcenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Buildings\\InternetCenter.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\buildings\\nuclearsilo.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Buildings\\NuclearSilo.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\buildings\\powerplant.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Buildings\\PowerPlant.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\buildings\\propagandacenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Buildings\\PropagandaCenter.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\buildings\\researchplant.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Buildings\\ResearchPlant.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\buildings\\supplycenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Buildings\\SupplyCenter.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\buildings\\warfactory.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Buildings\\WarFactory.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\defences\\bunker.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Defences\\Bunker.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\defences\\gattlingcannon.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Defences\\GattlingCannon.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\defences\\speakertower.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Defences\\SpeakerTower.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\infantry\\blacklotus.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Infantry\\BlackLotus.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\infantry\\hacker.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Infantry\\Hacker.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\infantry\\redguard.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Infantry\\RedGuard.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\infantry\\siegesoldier.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Infantry\\SiegeSoldier.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\infantry\\tankhunter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Infantry\\TankHunter.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\nukegeneralmisc.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\NukeGeneralMisc.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\vehicles\\dozer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Vehicles\\Dozer.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\vehicles\\ecmtank.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Vehicles\\ECMTank.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\vehicles\\hackervan.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Vehicles\\HackerVan.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\vehicles\\listeningoutpost.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Vehicles\\ListeningOutpost.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\vehicles\\nukecannon.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Vehicles\\NukeCannon.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\vehicles\\siegecannon.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Vehicles\\SiegeCannon.ini"
+ },
+ "data\\ini\\object\\china\\nuke\\vehicles\\supplytruck.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Nuke\\Vehicles\\SupplyTruck.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\aircraft\\helixblackshark.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Aircraft\\HelixBlackShark.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\aircraft\\mig.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Aircraft\\MiG.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\aircraft\\phoenixbomber.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Aircraft\\PhoenixBomber.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\aircraft\\supplyhelicopter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Aircraft\\SupplyHelicopter.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\buildings\\airfield.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Buildings\\Airfield.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\buildings\\barracks.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Buildings\\Barracks.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\buildings\\commandcenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Buildings\\CommandCenter.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\buildings\\internetcenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Buildings\\InternetCenter.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\buildings\\powerplant.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Buildings\\PowerPlant.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\buildings\\repairstation.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Buildings\\RepairStation.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\buildings\\supplycenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Buildings\\SupplyCenter.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\buildings\\templeofgaia.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Buildings\\TempleOfGaia.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\buildings\\warfactory.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Buildings\\WarFactory.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\buildings\\weaponsresearchplant.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Buildings\\WeaponsResearchPlant.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\defences\\bunker.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Defences\\Bunker.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\defences\\hellstorm.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Defences\\HellStorm.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\defences\\sentinel.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Defences\\Sentinel.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\infantry\\blacklotus.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Infantry\\BlackLotus.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\infantry\\flamethrower.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Infantry\\FlameThrower.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\infantry\\hacker.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Infantry\\Hacker.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\infantry\\redguard.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Infantry\\RedGuard.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\infantry\\tankhunter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Infantry\\TankHunter.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\specialweaponsgeneralmisc.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\SpecialWeaponsGeneralMisc.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\vehicles\\dozer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Vehicles\\Dozer.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\vehicles\\ecmtank.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Vehicles\\ECMTank.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\vehicles\\grindercannon.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Vehicles\\GrinderCannon.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\vehicles\\hackervan.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Vehicles\\HackerVan.ini"
+ },
+ "data\\ini\\object\\china\\specialweapons\\vehicles\\listeningoutpost.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\SpecialWeapons\\Vehicles\\ListeningOutpost.ini"
+ },
+ "data\\ini\\object\\china\\tank\\defences\\speakertower.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Defences\\SpeakerTower.ini"
+ },
+ "data\\ini\\object\\china\\tank\\infantry\\blacklotus.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Infantry\\BlackLotus.ini"
+ },
+ "data\\ini\\object\\china\\tank\\infantry\\redguard.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Infantry\\RedGuard.ini"
+ },
+ "data\\ini\\object\\china\\tank\\infantry\\tankhunter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Infantry\\TankHunter.ini"
+ },
+ "data\\ini\\object\\china\\tank\\tankgeneralmisc.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\TankGeneralMisc.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\hackervan.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\HackerVan.ini"
+ },
+ "data\\ini\\object\\china\\tank\\vehicles\\listeningoutpost.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Tank\\Vehicles\\ListeningOutpost.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\aircraft\\cargoplane.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Aircraft\\CargoPlane.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\aircraft\\helix.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Aircraft\\Helix.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\aircraft\\irondragon.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Aircraft\\IronDragon.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\aircraft\\mig.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Aircraft\\MIG.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\aircraft\\migbomber.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Aircraft\\MIGBomber.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\aircraft\\tiger.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Aircraft\\Tiger.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\buildings\\airfield.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Buildings\\Airfield.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\buildings\\barracks.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Buildings\\Barracks.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\buildings\\commandcenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Buildings\\CommandCenter.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\buildings\\internetcenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Buildings\\InternetCenter.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\buildings\\missilesilo.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Buildings\\MissileSilo.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\buildings\\powerplant.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Buildings\\PowerPlant.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\buildings\\propagandacenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Buildings\\PropagandaCenter.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\buildings\\supplycenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Buildings\\SupplyCenter.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\buildings\\warfactory.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Buildings\\WarFactory.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\defences\\bunker.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Defences\\Bunker.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\defences\\flametower.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Defences\\FlameTower.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\defences\\gattlingcannon.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Defences\\GattlingCannon.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\defences\\listeningpost.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Defences\\ListeningPost.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\defences\\minedispenser.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Defences\\MineDispenser.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\defences\\speakertower.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Defences\\SpeakerTower.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\vehicles\\dozer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Vehicles\\Dozer.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\vehicles\\hackervan.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Vehicles\\HackerVan.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\vehicles\\listeningoutpost.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Vehicles\\ListeningOutpost.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\vehicles\\propagandatruck.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Vehicles\\PropagandaTruck.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\vehicles\\scoutcar.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Vehicles\\ScoutCar.ini"
+ },
+ "data\\ini\\object\\china\\vanilla\\vehicles\\supplytruck.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\China\\Vanilla\\Vehicles\\SupplyTruck.ini"
+ },
+ "data\\ini\\object\\chinaair.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\ChinaAir.ini"
+ },
+ "data\\ini\\object\\chinacineunit.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\ChinaCINEUnit.ini"
+ },
+ "data\\ini\\object\\chinainfantry.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\ChinaInfantry.ini"
+ },
+ "data\\ini\\object\\chinamiscunit.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\ChinaMiscUnit.ini"
+ },
+ "data\\ini\\object\\chinavehicle.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\ChinaVehicle.ini"
+ },
+ "data\\ini\\object\\civilianbuilding.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\CivilianBuilding.ini"
+ },
+ "data\\ini\\object\\civilianprop.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\CivilianProp.ini"
+ },
+ "data\\ini\\object\\civilianunit.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\CivilianUnit.ini"
+ },
+ "data\\ini\\object\\collapsingbuildingdummies.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\CollapsingBuildingDummies.ini"
+ },
+ "data\\ini\\object\\demogeneral.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\DemoGeneral.ini"
+ },
+ "data\\ini\\object\\factionbuilding.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\FactionBuilding.ini"
+ },
+ "data\\ini\\object\\factionprop.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\FactionProp.ini"
+ },
+ "data\\ini\\object\\factionunit.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\FactionUnit.ini"
+ },
+ "data\\ini\\object\\factionwalls.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\FactionWalls.ini"
+ },
+ "data\\ini\\object\\fakeriders.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\FakeRiders.ini"
+ },
+ "data\\ini\\object\\gc_chem_glabuildings.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GC_Chem_GLABuildings.ini"
+ },
+ "data\\ini\\object\\gc_chem_glasystem.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GC_Chem_GLASystem.ini"
+ },
+ "data\\ini\\object\\gc_chem_glaunits.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GC_Chem_GLAUnits.ini"
+ },
+ "data\\ini\\object\\gc_slth_glabuildings.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GC_Slth_GLABuildings.ini"
+ },
+ "data\\ini\\object\\gc_slth_glasystem.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GC_Slth_GLASystem.ini"
+ },
+ "data\\ini\\object\\gc_slth_glaunits.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GC_Slth_GLAUnits.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\buildings\\armsdealer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Buildings\\ArmsDealer.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\buildings\\armsdealerfake.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Buildings\\ArmsDealerFake.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\buildings\\barracks.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Buildings\\Barracks.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\buildings\\barracksfake.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Buildings\\BarracksFake.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\buildings\\blackmarket.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Buildings\\BlackMarket.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\buildings\\blackmarketfake.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Buildings\\BlackMarketFake.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\buildings\\commandcenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Buildings\\CommandCenter.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\buildings\\commandcenterfake.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Buildings\\CommandCenterFake.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\buildings\\glahole.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Buildings\\GLAHole.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\buildings\\glaholepalace.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Buildings\\GLAHolePalace.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\buildings\\palace.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Buildings\\Palace.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\buildings\\scudstorm.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Buildings\\ScudStorm.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\buildings\\supplystash.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Buildings\\SupplyStash.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\buildings\\supplystashfake.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Buildings\\SupplyStashFake.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\defences\\demotrap.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Defences\\DemoTrap.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\defences\\stingersite.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Defences\\StingerSite.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\defences\\tunnelnetwork.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Defences\\TunnelNetwork.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\demogeneralmisc.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\DemoGeneralMisc.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\infantry\\angrymob.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Infantry\\AngryMob.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\infantry\\fanatic.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Infantry\\Fanatic.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\infantry\\jarmenkell.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Infantry\\JarmenKell.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\infantry\\rebel.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Infantry\\Rebel.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\infantry\\saboteur.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Infantry\\Saboteur.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\infantry\\stingersoldierstingersite.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Infantry\\StingerSoldierStingerSite.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\infantry\\terrorist.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Infantry\\Terrorist.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\infantry\\tunneldefender.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Infantry\\TunnelDefender.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\infantry\\worker.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Infantry\\Worker.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\vehicles\\battlebus.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Vehicles\\BattleBus.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\vehicles\\bombtruck.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Vehicles\\BombTruck.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\vehicles\\combatbike.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Vehicles\\CombatBike.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\vehicles\\mantis.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Vehicles\\Mantis.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\vehicles\\marauder.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Vehicles\\Marauder.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\vehicles\\radarvan.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Vehicles\\RadarVan.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\vehicles\\roach.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Vehicles\\Roach.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\vehicles\\rocketbuggy.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Vehicles\\RocketBuggy.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\vehicles\\sparka.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Vehicles\\Sparka.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\vehicles\\technical.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Vehicles\\Technical.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\vehicles\\topollauncher.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Vehicles\\TopolLauncher.ini"
+ },
+ "data\\ini\\object\\gla\\demo\\vehicles\\toxintruckcamel.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Demo\\Vehicles\\ToxinTruckCamel.ini"
+ },
+ "data\\ini\\object\\gla\\glaholes.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\GLAHoles.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\aircraft\\desertfly.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Aircraft\\DesertFly.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\aircraft\\mi8gunship.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Aircraft\\MI8Gunship.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\buildings\\airpad.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Buildings\\Airpad.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\buildings\\armsdealer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Buildings\\ArmsDealer.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\buildings\\armsdealerfake.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Buildings\\ArmsDealerFake.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\buildings\\baikonurmissile.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Buildings\\BaikonurMissile.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\buildings\\barracks.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Buildings\\Barracks.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\buildings\\barracksfake.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Buildings\\BarracksFake.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\buildings\\blackmarketscrapyard.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Buildings\\BlackMarketScrapYard.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\buildings\\commandcenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Buildings\\CommandCenter.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\buildings\\commandcenterfake.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Buildings\\CommandCenterFake.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\buildings\\glahole.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Buildings\\GLAHole.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\buildings\\glaholepalace.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Buildings\\GLAHolePalace.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\buildings\\glaholescrapyard.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Buildings\\GLAHoleScrapYard.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\buildings\\palace.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Buildings\\Palace.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\buildings\\supplystash.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Buildings\\SupplyStash.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\buildings\\supplystashfake.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Buildings\\SupplyStashFake.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\defences\\demotrap.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Defences\\DemoTrap.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\defences\\sa2samsite.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Defences\\SA2Samsite.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\defences\\stingersitehornetsite.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Defences\\StingerSiteHornetSite.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\defences\\tunnelnetwork.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Defences\\TunnelNetwork.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\infantry\\jarmenkell.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Infantry\\JarmenKell.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\infantry\\rebel.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Infantry\\Rebel.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\infantry\\stingersoldierstingersite.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Infantry\\StingerSoldierStingerSite.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\infantry\\terroristgrenadier.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Infantry\\TerroristGrenadier.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\infantry\\tunneldefenderflashtrooper.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Infantry\\TunnelDefenderFlashTrooper.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\infantry\\worker.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Infantry\\Worker.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\salvagegeneralmisc.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\SalvageGeneralMisc.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\vehicles\\badger.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Vehicles\\Badger.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\vehicles\\basilisk.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Vehicles\\Basilisk.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\vehicles\\combatbikecombatbuggy.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Vehicles\\CombatBikeCombatBuggy.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\vehicles\\gadfly.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Vehicles\\Gadfly.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\vehicles\\katyusha.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Vehicles\\Katyusha.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\vehicles\\krait.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Vehicles\\Krait.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\vehicles\\latrun.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Vehicles\\Latrun.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\vehicles\\marauder.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Vehicles\\Marauder.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\vehicles\\quadtank.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Vehicles\\QuadTank.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\vehicles\\radarvantank.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Vehicles\\RadarVanTank.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\vehicles\\scarab.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Vehicles\\Scarab.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\vehicles\\scrapcar.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Vehicles\\ScrapCar.ini"
+ },
+ "data\\ini\\object\\gla\\salvage\\vehicles\\scrapcarcrate.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Salvage\\Vehicles\\ScrapCarCrate.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\buildings\\armsdealer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Buildings\\ArmsDealer.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\buildings\\armsdealerfake.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Buildings\\ArmsDealerFake.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\buildings\\barracks.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Buildings\\Barracks.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\buildings\\barracksfake.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Buildings\\BarracksFake.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\buildings\\blackmarket.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Buildings\\BlackMarket.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\buildings\\blackmarketfake.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Buildings\\BlackMarketFake.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\buildings\\commandcenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Buildings\\CommandCenter.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\buildings\\commandcenterfake.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Buildings\\CommandCenterFake.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\buildings\\glahole.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Buildings\\GLAHole.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\buildings\\glaholepalace.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Buildings\\GLAHolePalace.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\buildings\\palace.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Buildings\\Palace.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\buildings\\scudstorm.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Buildings\\ScudStorm.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\buildings\\supplystash.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Buildings\\SupplyStash.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\buildings\\supplystashfake.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Buildings\\SupplyStashFake.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\defences\\demotrap.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Defences\\DemoTrap.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\defences\\machinegunsite.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Defences\\MachineGunSite.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\defences\\stingersite.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Defences\\StingerSite.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\defences\\tunnelnetwork.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Defences\\TunnelNetwork.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\infantry\\fundamentalist.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Infantry\\Fundamentalist.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\infantry\\hijacker.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Infantry\\Hijacker.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\infantry\\jarmenkell.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Infantry\\JarmenKell.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\infantry\\machinegunsoldier.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Infantry\\MachineGunSoldier.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\infantry\\rebel.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Infantry\\Rebel.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\infantry\\recoillessrifleman.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Infantry\\RecoillessRifleman.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\infantry\\rocketsniper.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Infantry\\RocketSniper.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\infantry\\saboteur.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Infantry\\Saboteur.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\infantry\\sniper.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Infantry\\Sniper.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\infantry\\stingersoldierstingersite.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Infantry\\StingerSoldierStingerSite.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\infantry\\terrorist.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Infantry\\Terrorist.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\infantry\\tunneldefender.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Infantry\\TunnelDefender.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\infantry\\worker.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Infantry\\Worker.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\stealthgeneralmisc.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\StealthGeneralMisc.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\vehicles\\battlebus.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Vehicles\\BattleBus.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\vehicles\\bombtruck.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Vehicles\\BombTruck.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\vehicles\\combatbike.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Vehicles\\CombatBike.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\vehicles\\mobilesupplystash.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Vehicles\\MobileSupplyStash.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\vehicles\\quadsniper.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Vehicles\\QuadSniper.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\vehicles\\radartruck.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Vehicles\\RadarTruck.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\vehicles\\rocketbuggy.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Vehicles\\RocketBuggy.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\vehicles\\scorpion.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Vehicles\\Scorpion.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\vehicles\\scudlauncherfrog.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Vehicles\\ScudLauncherFrog.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\vehicles\\technical.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Vehicles\\Technical.ini"
+ },
+ "data\\ini\\object\\gla\\stealth\\vehicles\\toxintruck.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Stealth\\Vehicles\\ToxinTruck.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\buildings\\armsdealer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Buildings\\ArmsDealer.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\buildings\\armsdealerfake.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Buildings\\ArmsDealerFake.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\buildings\\barracks.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Buildings\\Barracks.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\buildings\\barracksfake.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Buildings\\BarracksFake.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\buildings\\blackmarket.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Buildings\\BlackMarket.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\buildings\\blackmarketfake.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Buildings\\BlackMarketFake.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\buildings\\commandcenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Buildings\\CommandCenter.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\buildings\\commandcenterfake.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Buildings\\CommandCenterFake.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\buildings\\glahole.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Buildings\\GLAHole.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\buildings\\glaholepalace.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Buildings\\GLAHolePalace.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\buildings\\palace.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Buildings\\Palace.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\buildings\\scudstorm.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Buildings\\ScudStorm.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\buildings\\supplystash.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Buildings\\SupplyStash.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\buildings\\supplystashfake.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Buildings\\SupplyStashFake.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\chemicalgeneralmisc.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\ChemicalGeneralMisc.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\defences\\demotrap.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Defences\\DemoTrap.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\defences\\stingersite.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Defences\\StingerSite.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\defences\\tunnelnetwork.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Defences\\TunnelNetwork.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\infantry\\angrymob.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Infantry\\AngryMob.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\infantry\\grenadier.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Infantry\\Grenadier.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\infantry\\jarmenkell.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Infantry\\JarmenKell.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\infantry\\rebel.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Infantry\\Rebel.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\infantry\\recoillessrifleman.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Infantry\\RecoillessRifleman.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\infantry\\rpgtrooper.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Infantry\\RPGTrooper.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\infantry\\stingersoldierstingersite.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Infantry\\StingerSoldierStingerSite.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\infantry\\terrorist.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Infantry\\Terrorist.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\infantry\\worker.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Infantry\\Worker.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\vehicles\\battlebus.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Vehicles\\BattleBus.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\vehicles\\bombtruck.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Vehicles\\BombTruck.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\vehicles\\combatbike.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Vehicles\\CombatBike.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\vehicles\\marauder.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Vehicles\\Marauder.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\vehicles\\python.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Vehicles\\Python.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\vehicles\\radarvan.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Vehicles\\RadarVan.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\vehicles\\rocketbuggy.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Vehicles\\RocketBuggy.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\vehicles\\scudlauncher.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Vehicles\\ScudLauncher.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\vehicles\\tarantula.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Vehicles\\Tarantula.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\vehicles\\technical.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Vehicles\\Technical.ini"
+ },
+ "data\\ini\\object\\gla\\toxin\\vehicles\\toxintruck.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Toxin\\Vehicles\\ToxinTruck.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\aircraft\\balloon.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Aircraft\\Balloon.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\aircraft\\cargoplane.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Aircraft\\CargoPlane.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\aircraft\\cropdustah.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Aircraft\\CropDustah.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\aircraft\\me262jet.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Aircraft\\ME262Jet.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\aircraft\\tu2plane.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Aircraft\\TU2Plane.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\buildings\\airpad.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Buildings\\Airpad.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\buildings\\armsdealer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Buildings\\ArmsDealer.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\buildings\\barracks.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Buildings\\Barracks.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\buildings\\blackmarket.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Buildings\\BlackMarket.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\buildings\\commandcenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Buildings\\CommandCenter.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\buildings\\palace.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Buildings\\Palace.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\buildings\\scudstorm.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Buildings\\ScudStorm.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\buildings\\sneakattack.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Buildings\\SneakAttack.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\buildings\\supplystash.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Buildings\\SupplyStash.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\defences\\demotrap.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Defences\\DemoTrap.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\defences\\junkbunker.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Defences\\JunkBunker.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\defences\\stingersite.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Defences\\StingerSite.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\defences\\tunnelnetwork.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Defences\\TunnelNetwork.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\glacineunit.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\GLACineUnit.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\glahulk.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\GLAHulk.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\glamisc.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\GLAMisc.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\infantry\\angrymob.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Infantry\\AngryMob.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\infantry\\hijacker.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Infantry\\Hijacker.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\infantry\\jarmenkell.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Infantry\\JarmenKell.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\infantry\\rebel.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Infantry\\Rebel.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\infantry\\recoillessrifleman.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Infantry\\RecoillessRifleman.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\infantry\\saboteur.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Infantry\\Saboteur.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\infantry\\stingersoldierstingersite.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Infantry\\StingerSoldierStingerSite.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\infantry\\terrorist.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Infantry\\Terrorist.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\infantry\\tunneldefender.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Infantry\\TunnelDefender.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\infantry\\worker.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Infantry\\Worker.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\vehicles\\battlebus.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Vehicles\\BattleBus.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\vehicles\\bombtruck.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Vehicles\\BombTruck.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\vehicles\\cameleon.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Vehicles\\Cameleon.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\vehicles\\combatbike.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Vehicles\\CombatBike.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\vehicles\\dozer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Vehicles\\Dozer.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\vehicles\\flyingdemotrap.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Vehicles\\FlyingDemoTrap.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\vehicles\\lighttank.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Vehicles\\LightTank.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\vehicles\\marauder.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Vehicles\\Marauder.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\vehicles\\mobiledemotrap.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Vehicles\\MobileDemoTrap.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\vehicles\\quadcannon.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Vehicles\\QuadCannon.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\vehicles\\radarvan.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Vehicles\\RadarVan.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\vehicles\\rocketbuggy.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Vehicles\\RocketBuggy.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\vehicles\\scorpion.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Vehicles\\Scorpion.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\vehicles\\scudlauncher.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Vehicles\\ScudLauncher.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\vehicles\\technical.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Vehicles\\Technical.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\vehicles\\toxintractor.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Vehicles\\ToxinTractor.ini"
+ },
+ "data\\ini\\object\\gla\\vanilla\\vehicles\\workertoolquad.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLA\\Vanilla\\Vehicles\\WorkerToolQuad.ini"
+ },
+ "data\\ini\\object\\glaair.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLAAir.ini"
+ },
+ "data\\ini\\object\\glacineunit.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLACINEUnit.ini"
+ },
+ "data\\ini\\object\\glainfantry.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLAInfantry.ini"
+ },
+ "data\\ini\\object\\glamiscunit.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLAMiscUnit.ini"
+ },
+ "data\\ini\\object\\glavehicle.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\GLAVehicle.ini"
+ },
+ "data\\ini\\object\\heugmech.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\HeugMech.ini"
+ },
+ "data\\ini\\object\\hulk.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\Hulk.ini"
+ },
+ "data\\ini\\object\\infantrygeneral.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\InfantryGeneral.ini"
+ },
+ "data\\ini\\object\\lasergeneral.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\LaserGeneral.ini"
+ },
+ "data\\ini\\object\\minigames.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\MiniGames.ini"
+ },
+ "data\\ini\\object\\natureprop.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\NatureProp.ini"
+ },
+ "data\\ini\\object\\natureunit.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\NatureUnit.ini"
+ },
+ "data\\ini\\object\\nukegeneral.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\NukeGeneral.ini"
+ },
+ "data\\ini\\object\\salvagegeneral.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\SalvageGeneral.ini"
+ },
+ "data\\ini\\object\\specialpowerobjects.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\SpecialPowerObjects.ini"
+ },
+ "data\\ini\\object\\specialweaponsgeneral.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\SpecialWeaponsGeneral.ini"
+ },
+ "data\\ini\\object\\stealthgeneral.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\StealthGeneral.ini"
+ },
+ "data\\ini\\object\\superweapongeneral.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\SuperWeaponGeneral.ini"
+ },
+ "data\\ini\\object\\system.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\System.ini"
+ },
+ "data\\ini\\object\\tankgeneral.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\TankGeneral.ini"
+ },
+ "data\\ini\\object\\techbuildings.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\TechBuildings.ini"
+ },
+ "data\\ini\\object\\techbuildings\\airport.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\TechBuildings\\Airport.ini"
+ },
+ "data\\ini\\object\\techbuildings\\artilleryplatform.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\TechBuildings\\ArtilleryPlatform.ini"
+ },
+ "data\\ini\\object\\techbuildings\\flakbunker.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\TechBuildings\\FlakBunker.ini"
+ },
+ "data\\ini\\object\\techbuildings\\hospital.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\TechBuildings\\Hospital.ini"
+ },
+ "data\\ini\\object\\techbuildings\\machinegunbunker.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\TechBuildings\\MachineGunBunker.ini"
+ },
+ "data\\ini\\object\\techbuildings\\oilderrick.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\TechBuildings\\OilDerrick.ini"
+ },
+ "data\\ini\\object\\techbuildings\\oilderrick_var1.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\TechBuildings\\OilDerrick_Var1.ini"
+ },
+ "data\\ini\\object\\techbuildings\\oilderrick_var2.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\TechBuildings\\OilDerrick_Var2.ini"
+ },
+ "data\\ini\\object\\techbuildings\\oilderrick_var3.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\TechBuildings\\OilDerrick_Var3.ini"
+ },
+ "data\\ini\\object\\techbuildings\\oilrefinery.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\TechBuildings\\OilRefinery.ini"
+ },
+ "data\\ini\\object\\techbuildings\\radiostation.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\TechBuildings\\RadioStation.ini"
+ },
+ "data\\ini\\object\\techbuildings\\reinforcementpad.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\TechBuildings\\ReinforcementPad.ini"
+ },
+ "data\\ini\\object\\techbuildings\\repairbay.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\TechBuildings\\RepairBay.ini"
+ },
+ "data\\ini\\object\\techbuildings\\repairpad.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\TechBuildings\\RepairPad.ini"
+ },
+ "data\\ini\\object\\techbuildings\\warfortress.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\TechBuildings\\WarFortress.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\aircraft\\a10thunderbolt.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Aircraft\\A10Thunderbolt.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\aircraft\\acolytedrone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Aircraft\\AcolyteDrone.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\aircraft\\aurora.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Aircraft\\Aurora.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\aircraft\\b1lancer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Aircraft\\B1Lancer.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\aircraft\\comanche.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Aircraft\\Comanche.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\aircraft\\combatchinook.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Aircraft\\CombatChinook.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\aircraft\\pavelow.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Aircraft\\Pavelow.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\aircraft\\raptor.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Aircraft\\Raptor.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\aircraft\\skycrane.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Aircraft\\SkyCrane.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\aircraft\\spectre.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Aircraft\\Spectre.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\aircraft\\stealthfighter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Aircraft\\StealthFighter.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\airforcegeneralmisc.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\AirforceGeneralMisc.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\buildings\\airfield.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Buildings\\Airfield.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\buildings\\barracks.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Buildings\\Barracks.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\buildings\\commandcenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Buildings\\CommandCenter.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\buildings\\helipad.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Buildings\\Helipad.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\buildings\\particlecannon.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Buildings\\ParticleCannon.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\buildings\\powerplant.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Buildings\\PowerPlant.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\buildings\\strategycenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Buildings\\StrategyCenter.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\buildings\\supplycenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Buildings\\SupplyCenter.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\buildings\\supplydropzone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Buildings\\SupplyDropZone.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\buildings\\warfactory.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Buildings\\WarFactory.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\defences\\firebase.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Defences\\FireBase.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\defences\\patriot.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Defences\\Patriot.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\infantry\\airbornemissiledefender.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Infantry\\AirborneMissileDefender.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\infantry\\airborneranger.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Infantry\\AirborneRanger.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\infantry\\colonelburton.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Infantry\\ColonelBurton.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\infantry\\missiledefender.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Infantry\\MissileDefender.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\infantry\\pathfinder.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Infantry\\Pathfinder.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\infantry\\ranger.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Infantry\\Ranger.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\vehicles\\avenger.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Vehicles\\Avenger.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\vehicles\\dozer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Vehicles\\Dozer.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\vehicles\\humvee.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Vehicles\\Humvee.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\vehicles\\medic.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Vehicles\\Medic.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\vehicles\\microwave.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Vehicles\\Microwave.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\vehicles\\sentrydrone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Vehicles\\SentryDrone.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\vehicles\\sheridan.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Vehicles\\Sheridan.ini"
+ },
+ "data\\ini\\object\\usa\\airforce\\vehicles\\tomahawk.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Airforce\\Vehicles\\Tomahawk.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\aircraft\\auroraf16xl.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Aircraft\\AuroraF16XL.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\aircraft\\b52bomber.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Aircraft\\B52Bomber.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\aircraft\\raptorblackwidow.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Aircraft\\RaptorBlackWidow.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\aircraft\\starlifter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Aircraft\\StarLifter.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\armorgeneralmisc.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\ArmorGeneralMisc.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\buildings\\airfield.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Buildings\\Airfield.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\buildings\\barracks.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Buildings\\Barracks.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\buildings\\commandcenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Buildings\\CommandCenter.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\buildings\\particlecannonmissilesilo.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Buildings\\ParticleCannonMissileSilo.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\buildings\\powerplant.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Buildings\\PowerPlant.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\buildings\\radardome.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Buildings\\RadarDome.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\buildings\\strategycenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Buildings\\StrategyCenter.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\buildings\\supplycenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Buildings\\SupplyCenter.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\buildings\\supplydropzone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Buildings\\SupplyDropZone.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\buildings\\warfactory.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Buildings\\WarFactory.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\defences\\gazerturret.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Defences\\GazerTurret.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\defences\\guardiandefenceturret.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Defences\\GuardianDefenceTurret.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\defences\\modulebunker.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Defences\\ModuleBunker.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\defences\\patriotphalanx.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Defences\\PatriotPhalanx.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\defences\\vulcanturret.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Defences\\VulcanTurret.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\infantry\\aatrooperbluearrow.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Infantry\\AATrooperBlueArrow.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\infantry\\colonelburton.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Infantry\\ColonelBurton.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\infantry\\missiledefenderjavelin.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Infantry\\MissileDefenderJavelin.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\infantry\\rangermarine.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Infantry\\RangerMarine.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\vehicles\\bradley.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Vehicles\\Bradley.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\vehicles\\dozer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Vehicles\\Dozer.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\vehicles\\gladiator.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Vehicles\\Gladiator.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\vehicles\\howitzer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Vehicles\\Howitzer.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\vehicles\\predatordrone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Vehicles\\PredatorDrone.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\vehicles\\stryker.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Vehicles\\Stryker.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\vehicles\\supplytruck.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Vehicles\\SupplyTruck.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\vehicles\\tankdestroyer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Vehicles\\TankDestroyer.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\vehicles\\vulcan.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Vehicles\\Vulcan.ini"
+ },
+ "data\\ini\\object\\usa\\armor\\vehicles\\wraith.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Armor\\Vehicles\\Wraith.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\aircraft\\a10thunderbolt.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Aircraft\\A10Thunderbolt.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\aircraft\\aurorafb22bomber.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Aircraft\\AuroraFB22Bomber.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\aircraft\\battledrone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Aircraft\\BattleDrone.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\aircraft\\chinook.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Aircraft\\Chinook.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\aircraft\\comanche.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Aircraft\\Comanche.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\aircraft\\raptor.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Aircraft\\Raptor.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\aircraft\\spectre.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Aircraft\\Spectre.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\aircraft\\stealthfighter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Aircraft\\StealthFighter.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\buildings\\airfield.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Buildings\\Airfield.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\buildings\\barracks.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Buildings\\Barracks.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\buildings\\commandcenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Buildings\\CommandCenter.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\buildings\\particlecannon.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Buildings\\ParticleCannon.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\buildings\\powerplant.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Buildings\\PowerPlant.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\buildings\\strategycenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Buildings\\StrategyCenter.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\buildings\\supplycenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Buildings\\SupplyCenter.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\buildings\\supplydropzone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Buildings\\SupplyDropZone.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\buildings\\warfactory.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Buildings\\WarFactory.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\defences\\laserfirebase.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Defences\\LaserFireBase.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\defences\\laserpatriot.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Defences\\LaserPatriot.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\infantry\\colonelburton.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Infantry\\ColonelBurton.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\infantry\\missiledefender.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Infantry\\MissileDefender.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\infantry\\pathfinder.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Infantry\\Pathfinder.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\infantry\\ranger.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Infantry\\Ranger.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\lasergeneralmisc.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\LaserGeneralMisc.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\vehicles\\avenger.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Vehicles\\Avenger.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\vehicles\\dozer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Vehicles\\Dozer.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\vehicles\\humvee.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Vehicles\\Humvee.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\vehicles\\lasercrusader.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Vehicles\\LaserCrusader.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\vehicles\\laserpaladin.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Vehicles\\LaserPaladin.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\vehicles\\medic.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Vehicles\\Medic.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\vehicles\\microwave.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Vehicles\\Microwave.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\vehicles\\railgun.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Vehicles\\Railgun.ini"
+ },
+ "data\\ini\\object\\usa\\laser\\vehicles\\sentrydrone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Laser\\Vehicles\\SentryDrone.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\aircraft\\auroraalpha.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Aircraft\\AuroraAlpha.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\aircraft\\chinook.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Aircraft\\Chinook.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\aircraft\\comanche.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Aircraft\\Comanche.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\aircraft\\raptor.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Aircraft\\Raptor.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\aircraft\\stealthfighter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Aircraft\\StealthFighter.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\buildings\\airfield.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Buildings\\Airfield.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\buildings\\barracks.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Buildings\\Barracks.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\buildings\\commandcenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Buildings\\CommandCenter.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\buildings\\particlecannon.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Buildings\\ParticleCannon.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\buildings\\powerplant.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Buildings\\PowerPlant.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\buildings\\strategycenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Buildings\\StrategyCenter.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\buildings\\supplycenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Buildings\\SupplyCenter.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\buildings\\supplydropzone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Buildings\\SupplyDropZone.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\buildings\\warfactory.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Buildings\\WarFactory.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\defences\\emppatriot.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Defences\\EMPPatriot.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\defences\\firebase.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Defences\\FireBase.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\defences\\popuppatriot.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Defences\\PopUpPatriot.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\infantry\\biohazardtech.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Infantry\\BioHazardTech.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\infantry\\colonelburton.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Infantry\\ColonelBurton.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\infantry\\marine.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Infantry\\Marine.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\infantry\\missiledefender.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Infantry\\MissileDefender.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\infantry\\pathfinder.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Infantry\\Pathfinder.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\infantry\\ranger.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Infantry\\Ranger.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\superweapongeneralmisc.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\SuperWeaponGeneralMisc.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\vehicles\\avenger.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Vehicles\\Avenger.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\vehicles\\dozer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Vehicles\\Dozer.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\vehicles\\enforcerdrone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Vehicles\\EnforcerDrone.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\vehicles\\humvee.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Vehicles\\Humvee.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\vehicles\\lockdown.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Vehicles\\Lockdown.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\vehicles\\medicdrone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Vehicles\\MedicDrone.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\vehicles\\microwave.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Vehicles\\Microwave.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\vehicles\\repairdrone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Vehicles\\RepairDrone.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\vehicles\\robottank.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Vehicles\\RobotTank.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\vehicles\\sentrydrone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Vehicles\\SentryDrone.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\vehicles\\shatterer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Vehicles\\Shatterer.ini"
+ },
+ "data\\ini\\object\\usa\\superweapon\\vehicles\\tomahawk.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\SuperWeapon\\Vehicles\\Tomahawk.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\aircraft\\a10thunderbolt.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Aircraft\\A10Thunderbolt.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\aircraft\\aurora.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Aircraft\\Aurora.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\aircraft\\b52bomber.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Aircraft\\B52Bomber.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\aircraft\\battledrone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Aircraft\\BattleDrone.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\aircraft\\cargoplanes.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Aircraft\\CargoPlanes.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\aircraft\\carrierraptor.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Aircraft\\CarrierRaptor.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\aircraft\\chinook.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Aircraft\\Chinook.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\aircraft\\comanche.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Aircraft\\Comanche.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\aircraft\\hellfiredrone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Aircraft\\HellfireDrone.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\aircraft\\littlebird.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Aircraft\\LittleBird.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\aircraft\\raptor.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Aircraft\\Raptor.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\aircraft\\scoutdrone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Aircraft\\ScoutDrone.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\aircraft\\spectre.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Aircraft\\Spectre.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\aircraft\\spydrone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Aircraft\\SpyDrone.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\aircraft\\stealthfighter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Aircraft\\StealthFighter.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\americamisc.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\AmericaMisc.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\buildings\\airfield.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Buildings\\Airfield.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\buildings\\barracks.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Buildings\\Barracks.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\buildings\\commandcenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Buildings\\CommandCenter.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\buildings\\particlecannon.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Buildings\\ParticleCannon.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\buildings\\powerplant.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Buildings\\PowerPlant.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\buildings\\strategycenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Buildings\\StrategyCenter.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\buildings\\supplycenter.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Buildings\\SupplyCenter.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\buildings\\supplydropzone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Buildings\\SupplyDropZone.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\buildings\\warfactory.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Buildings\\Warfactory.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\defences\\firebase.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Defences\\FireBase.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\defences\\patriotmissilebattery.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Defences\\PatriotMissileBattery.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\defences\\pillbox.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Defences\\Pillbox.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\infantry\\biohazardtech.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Infantry\\BiohazardTech.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\infantry\\ciaofficer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Infantry\\CIAOfficer.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\infantry\\colonelburton.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Infantry\\ColonelBurton.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\infantry\\marine.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Infantry\\Marine.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\infantry\\missiledefender.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Infantry\\MissileDefender.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\infantry\\officer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Infantry\\Officer.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\infantry\\pathfinder.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Infantry\\Pathfinder.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\infantry\\pilot.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Infantry\\Pilot.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\infantry\\ranger.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Infantry\\Ranger.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\infantry\\secretservice.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Infantry\\SecretService.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\navy\\battleship.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Navy\\BattleShip.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\navy\\battleship_stationary.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Navy\\BattleShip_Stationary.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\navy\\battleshipdemo.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Navy\\BattleShipDemo.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\navy\\battleshipreal.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Navy\\BattleShipReal.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\navy\\battleshipussbender.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Navy\\BattleShipUSSBender.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\vehicles\\avenger.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Vehicles\\Avenger.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\vehicles\\crusader.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Vehicles\\Crusader.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\vehicles\\decoydrone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Vehicles\\DecoyDrone.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\vehicles\\dozer.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Vehicles\\Dozer.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\vehicles\\exosuit.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Vehicles\\ExoSuit.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\vehicles\\guardiandrone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Vehicles\\GuardianDrone.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\vehicles\\hovermrls.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Vehicles\\HoverMRLS.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\vehicles\\humvee.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Vehicles\\Humvee.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\vehicles\\medic.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Vehicles\\Medic.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\vehicles\\microwave.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Vehicles\\Microwave.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\vehicles\\paladin.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Vehicles\\Paladin.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\vehicles\\repairdrone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Vehicles\\RepairDrone.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\vehicles\\sentrydrone.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Vehicles\\SentryDrone.ini"
+ },
+ "data\\ini\\object\\usa\\vanilla\\vehicles\\tomahawk.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\USA\\Vanilla\\Vehicles\\Tomahawk.ini"
+ },
+ "data\\ini\\object\\weaponobjects.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\WeaponObjects.ini"
+ },
+ "data\\ini\\object\\weapontracerobjects.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Object\\WeaponTracerObjects.ini"
+ },
+ "data\\ini\\playertemplate.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\PlayerTemplate.ini"
+ },
+ "data\\ini\\rank.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Rank.ini"
+ },
+ "data\\ini\\roads.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Roads.ini"
+ },
+ "data\\ini\\science.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Science.ini"
+ },
+ "data\\ini\\shellmenuscheme.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\ShellMenuScheme.ini"
+ },
+ "data\\ini\\soundeffects.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\SoundEffects.ini"
+ },
+ "data\\ini\\speech.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Speech.ini"
+ },
+ "data\\ini\\terrain.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Terrain.ini"
+ },
+ "data\\ini\\video.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Video.ini"
+ },
+ "data\\ini\\voice.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Voice.ini"
+ },
+ "data\\ini\\water.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Water.ini"
+ },
+ "data\\ini\\webpages.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\Webpages.ini"
+ },
+ "data\\ini\\windowtransitions.ini": {
+  "owner": "zz_SPE_Shw_ini.big",
+  "path": "Data\\INI\\WindowTransitions.ini"
+ },
+ "data\\ini\\campaign.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Data\\INI\\Campaign.ini"
+ },
+ "data\\ini\\challengemode.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Data\\INI\\ChallengeMode.ini"
+ },
+ "maps\\gc_airgeneral\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\GC_AirGeneral\\map.ini"
+ },
+ "maps\\gc_armorgeneral\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\GC_ArmorGeneral\\map.ini"
+ },
+ "maps\\gc_armorgeneral\\map.str": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\GC_ArmorGeneral\\map.str"
+ },
+ "maps\\gc_chemgeneral\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\GC_ChemGeneral\\map.ini"
+ },
+ "maps\\gc_chinaboss\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\GC_ChinaBoss\\map.ini"
+ },
+ "maps\\gc_demolitiongeneral\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\GC_DemolitionGeneral\\Map.ini"
+ },
+ "maps\\gc_lasergeneral\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\GC_LaserGeneral\\map.ini"
+ },
+ "maps\\gc_nukegeneral\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\GC_NukeGeneral\\map.ini"
+ },
+ "maps\\gc_stealth\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\GC_Stealth\\map.ini"
+ },
+ "maps\\gc_superweaponsgeneral\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\GC_SuperWeaponsGeneral\\map.ini"
+ },
+ "maps\\gc_tankgeneral\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\GC_TankGeneral\\map.ini"
+ },
+ "maps\\mapcache.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MapCache.ini"
+ },
+ "maps\\md_chi01\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_CHI01\\map.ini"
+ },
+ "maps\\md_chi02\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_CHI02\\map.ini"
+ },
+ "maps\\md_chi03\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_CHI03\\map.ini"
+ },
+ "maps\\md_chi04\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_CHI04\\map.ini"
+ },
+ "maps\\md_chi05\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_CHI05\\map.ini"
+ },
+ "maps\\md_chi06\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_CHI06\\map.ini"
+ },
+ "maps\\md_chi07\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_CHI07\\map.ini"
+ },
+ "maps\\md_chi08\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_CHI08\\map.ini"
+ },
+ "maps\\md_chi09\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_CHI09\\map.ini"
+ },
+ "maps\\md_chi10\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_CHI10\\map.ini"
+ },
+ "maps\\md_chi12\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_CHI12\\Map.ini"
+ },
+ "maps\\md_chimini\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "maps\\MD_CHIMINI\\map.ini"
+ },
+ "maps\\md_gla01\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_GLA01\\Map.ini"
+ },
+ "maps\\md_gla02\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_GLA02\\Map.ini"
+ },
+ "maps\\md_gla03\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_GLA03\\map.ini"
+ },
+ "maps\\md_gla04\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_GLA04\\map.ini"
+ },
+ "maps\\md_gla05\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_GLA05\\map.ini"
+ },
+ "maps\\md_gla06\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_GLA06\\map.ini"
+ },
+ "maps\\md_gla07\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_GLA07\\map.ini"
+ },
+ "maps\\md_gla08\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_GLA08\\map.ini"
+ },
+ "maps\\md_gla08\\map.str": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_GLA08\\map.str"
+ },
+ "maps\\md_gla09\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_GLA09\\map.ini"
+ },
+ "maps\\md_gla10\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_GLA10\\map.ini"
+ },
+ "maps\\md_gla11\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_GLA11\\map.ini"
+ },
+ "maps\\md_gla11\\map.str": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_GLA11\\map.str"
+ },
+ "maps\\md_gla12\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_GLA12\\Map.ini"
+ },
+ "maps\\md_glamini\\map.str": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "maps\\MD_GLAMINI\\Map.str"
+ },
+ "maps\\md_usa01\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_USA01\\Map.ini"
+ },
+ "maps\\md_usa02\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_USA02\\Map.ini"
+ },
+ "maps\\md_usa03\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_USA03\\map.ini"
+ },
+ "maps\\md_usa04\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_USA04\\Map.ini"
+ },
+ "maps\\md_usa05\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_USA05\\Map.ini"
+ },
+ "maps\\md_usa06\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_USA06\\map.ini"
+ },
+ "maps\\md_usa07\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_USA07\\map.ini"
+ },
+ "maps\\md_usa08\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_USA08\\map.ini"
+ },
+ "maps\\md_usa08\\map.str": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_USA08\\map.str"
+ },
+ "maps\\md_usa09\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_USA09\\map.ini"
+ },
+ "maps\\md_usa10\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_USA10\\map.ini"
+ },
+ "maps\\md_usa10\\map.str": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_USA10\\map.str"
+ },
+ "maps\\md_usa11\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "Maps\\MD_USA11\\Map.ini"
+ },
+ "maps\\md_usamini\\map.ini": {
+  "owner": "zz_SPE_Shw_Challenge.big",
+  "path": "maps\\MD_USAMINI\\map.ini"
+ },
+ "data\\scripts\\scripts.ini": {
+  "owner": "!Shw_scripts.big",
+  "path": "Data\\Scripts\\Scripts.ini"
+ },
+ "maps\\armored fury [gen]\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Armored Fury [GEN]\\map.ini"
+ },
+ "maps\\armored fury [shw]\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Armored Fury [SHW]\\map.ini"
+ },
+ "maps\\barren badlands [shw]\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Barren Badlands [SHW]\\map.ini"
+ },
+ "maps\\barrenbadlands\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\BarrenBadlands\\map.ini"
+ },
+ "maps\\dark mountain [gen]\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Dark Mountain [GEN]\\map.ini"
+ },
+ "maps\\desert fury [gen]\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Desert Fury [GEN]\\map.ini"
+ },
+ "maps\\fallen empire [gen]\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Fallen Empire [GEN]\\map.ini"
+ },
+ "maps\\fortress avalanche [gen]\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Fortress Avalanche [GEN]\\map.ini"
+ },
+ "maps\\golden oasis [gen]\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Golden Oasis [GEN]\\map.ini"
+ },
+ "maps\\iron dragon\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Iron Dragon\\map.ini"
+ },
+ "maps\\iron dragon [shw]\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Iron Dragon [SHW]\\map.ini"
+ },
+ "maps\\lights out\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Lights Out\\map.ini"
+ },
+ "maps\\lights out [shw]\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Lights Out [SHW]\\map.ini"
+ },
+ "maps\\maps\\shellmapshw\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Maps\\ShellMapSHW\\Map.ini"
+ },
+ "maps\\mountain fox [gen]\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Mountain Fox [GEN]\\map.ini"
+ },
+ "maps\\mountain guns\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Mountain Guns\\map.ini"
+ },
+ "maps\\mountain guns [shw]\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Mountain Guns [SHW]\\map.ini"
+ },
+ "maps\\sand serpent [gen]\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Sand Serpent [GEN]\\map.ini"
+ },
+ "maps\\scorched earth [gen]\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Scorched Earth [GEN]\\map.ini"
+ },
+ "maps\\shellmapshw\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\ShellMapSHW\\Map.ini"
+ },
+ "maps\\silent river [gen]\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Silent River [GEN]\\map.ini"
+ },
+ "maps\\tournament desert [gen]\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Tournament Desert [GEN]\\map.ini"
+ },
+ "maps\\tournament island [gen]\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Tournament Island [GEN]\\map.ini"
+ },
+ "maps\\tournament lake [gen]\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Tournament Lake [GEN]\\map.ini"
+ },
+ "maps\\whiteout [gen]\\map.ini": {
+  "owner": "!Shw_maps.big",
+  "path": "Maps\\Whiteout [GEN]\\map.ini"
+ }
+}
