@@ -47,11 +47,17 @@ veterancy ladder running on a custom engine fork.
   binary AI scripts); AI still targets yours
 - Ironside's Howitzer nerfed to 250 range
 
-### Engine fork (branch `feature/veterancy-8-levels` of GeneralsX)
-- 8 veterancy levels with INI-configurable bonuses (`HealthBonus_Heroic2..5`,
+### Engine fork ([anderote/GeneralsX](https://github.com/anderote/GeneralsX), branch `feature/veterancy-8-levels`)
+- **8 veterancy levels** with INI-configurable bonuses (`HealthBonus_Heroic2..5`,
   `WeaponBonus = HERO2..HERO5 ...`), backward-compatible XP parsing
-- `VeterancyBoost = Yes` on `PointDefenseLaserUpdate`: interception range/cadence scale
-  with the owner's rank
+- **`VeterancyBoost`** on `PointDefenseLaserUpdate`: interception range/cadence scale with rank
+- **XP readout**: rank + XP progress drawn under the health bar on single selection
+- **Rank insignia** lookups for levels 5-8 (data-optional; art ships in the insignia layer)
+- **`RespawnAtBuildingDie`** ("Edge of Tomorrow"): upgrade-gated, rank-gated respawn at a
+  friendly building with exact XP preserved (data wiring pending)
+- **Crash diagnostics**: uncaught exceptions now report stage, logic frame, the exact
+  object template + module being updated, exception type, and a throw-site backtrace
+  (macOS stack dumps were empty stubs upstream — fixed)
 
 ## What this integrates
 
@@ -63,7 +69,7 @@ The playable game is a five-deep integration stack, each level from a different 
    8-level veterancy and rank-scaled point-defense lasers
 3. **ShockWave 1.201 + SPE** (SWR Productions) — the base mod: 12 generals, ~100 new
    units, its own AI. Everything below modifies *this*
-4. **This repo's ~18 layers** — the Panzer Mod itself: stat tuning, new mechanics,
+4. **This repo's 20+ layers** — the Panzer Mod itself: stat tuning, new mechanics,
    ported units (from Shockwave Chaos, ZHE, Rise of the Reds), invented research trees
 5. **UI layer** (Control Bar Pro/HD) + **engine-config** (`SagePatch.ini`: veterancy
    curves, garrison bonuses, camera) + **user data** (maps, options)
@@ -113,7 +119,7 @@ Launch: `./run.sh -fullscreen -xres 3440 -yres 1440 -forcefullviewport -mod ~/Ge
 
 ## Architecture: layered override archives
 
-The mod is ~18 `.big` archives whose **filenames encode load priority**. Inside a `-mod`
+The mod is 20+ `.big` archives whose **filenames encode load priority**. Inside a `-mod`
 directory the engine gives *later-alphabetical* archives higher priority (each prepends;
 confirmed in `ArchiveFileSystem.cpp`) — the reverse of the game dir. Load order:
 
@@ -137,9 +143,30 @@ zzz-ZZZKwaiGarrisons         garrisonable buildings
 zzz-ZZZZChaosUnits           JS-7, Command Tank, Emperor Shtora (from Shockwave Chaos)
 zzz-ZZZZZKwaiRoster          Overlord/Buratino/Hammer/ScoutCar/SiegeSoldier/MiGs (stubs)
 zzz-ZZZZZZKwaiUAV            UAV surveillance program
-zzz-ZZZZZZZKwaiPDL           $500 PDL pods on combat vehicles (in progress)
+zzz-ZZZZZZZKwaiPDL           $500 PDL pods on ~10 vehicle types (invisible-rider idiom)
+zzz-ZZZZZZZLKwaiInfantry     Flame Trooper + Minigunner stubs; simple Sharpshooter
+                             (Pathfinder clone — the 199-file ZHE port was purged)
+zzz-ZZZZZZZRotrInfantry      Shmel Trooper + tesla Shock Trooper (ROTR port, side-branch merge)
+zzz-ZZZZZZZTTeslaCoil        RA Redux Tesla Coil — first rank-earning base defense
+zzz-ZZZZZZZVehicleKit        2-slot bays (gattlings/scout/artillery); coax MGs
+zzz-ZZZZZZZVetInsignia       rank 5-8 insignia art (stars + chevrons)
+zzz-ZZZZZZZWEconomy          China infantry 50% cost / 2x speed; 900-vision scouts;
+                             UAV ungated on all 15 command centers; 30-slot queues
 zzz_ControlBarPro*.big       Control Bar Pro UI (FAS & xezon)
 ```
+
+## Roadmap (specified, in the pipeline)
+
+Grenadier research chain (Panzergrenadiers / Waffen Grenadiers / Emperor's Guard — crewed
+vehicles off the production line, Tank Hunters renamed Panzerjägers) · Panzergrenadier unit
+(replaces Kwai's Red Guard) · a three-tier parachute drop ladder (up to 2 Emperors + 4
+Battlemasters + escorts, all crewed, arriving at Heroic rank) · engine batch 2
+(RequiredUpgrade, vision-scaling veterancy, kill counters, rank-gated abilities, hull-module
+gating, shift-click x5 queueing, hackers-hack-anywhere, a single-unit stats panel) · the
+Emperor defense suite (hull PDL, ABM interceptor array, projected energy shield; small
+shields fleet-wide) · tesla family harmonization · Edge of Tomorrow data wiring · and the
+Research Directorate arc: a Research Lab generating research points spent in a dedicated
+science-tab tree with permanent unlocks that survive building loss.
 
 **Every layer embeds full copies of the files it modifies from the layers beneath it.**
 Rebuild order therefore matters: rebuilding a lower layer requires rebuilding every layer
