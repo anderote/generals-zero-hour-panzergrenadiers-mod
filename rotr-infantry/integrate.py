@@ -62,7 +62,23 @@ APPEND_BANNER = ("\n\n; ========================================================
 
 def frag(name):
     with open(os.path.join(FRAG_DIR, name + ".frag"), "rb") as f:
-        return f.read()
+        data = f.read()
+    assert b"\r" not in data, "fragment %s is not LF-clean" % name
+    return data
+
+
+def eol_of(raw):
+    """Dominant EOL of a base file (merge-day fix: some effective sources
+    are CRLF - e.g. ChaosUnits' Armor/Locomotor/ParticleSystem - and the
+    chain builds above us assert EOL uniformity; appended tails must match
+    the base convention)."""
+    crlf = raw.count(b"\r\n")
+    lf = raw.count(b"\n") - crlf
+    return b"\r\n" if crlf > lf else b"\n"
+
+
+def match_eol(tail, base):
+    return tail.replace(b"\n", eol_of(base))
 
 
 def discover_barracks_sets(eff_ini_dir):
@@ -143,11 +159,14 @@ def main():
     for fname in SHARED:
         base = open(os.path.join(eff_ini, fname), "rb").read()
         fr = frag(fname)
-        entries["Data\\INI\\" + fname] = base + APPEND_BANNER.encode("latin-1") + fr
+        entries["Data\\INI\\" + fname] = base + match_eol(
+            APPEND_BANNER.encode("latin-1") + fr, base)
         frag_texts[fname] = fr.decode("latin-1")
 
     # ---- 3: CommandSet.ini (append unit sets + patch barracks slots)
     cs_base = open(os.path.join(eff_ini, "CommandSet.ini"), "rb").read()
+    assert b"\r" not in cs_base, \
+        "effective CommandSet.ini went CRLF - teach patch_barracks_sets EOLs"
     sets = discover_barracks_sets(eff_ini)
     print("Kwai Barracks sets discovered: %s" % ", ".join(sets))
     slots = [(args.shmel_slot, "Tank_Command_ConstructChinaInfantryShmelTrooper"),
@@ -160,13 +179,14 @@ def main():
 
     # ---- 4: CommandButton.ini + Generals.str
     cb_base = open(os.path.join(eff_ini, "CommandButton.ini"), "rb").read()
-    entries["Data\\INI\\CommandButton.ini"] = \
-        cb_base + APPEND_BANNER.encode("latin-1") + frag("CommandButton.ini")
+    entries["Data\\INI\\CommandButton.ini"] = cb_base + match_eol(
+        APPEND_BANNER.encode("latin-1") + frag("CommandButton.ini"), cb_base)
     frag_texts["CommandButton.ini"] = frag("CommandButton.ini").decode("latin-1")
 
     str_fp = os.path.join(eff_dir, "Generals.str")
     str_base = open(str_fp, "rb").read()
-    entries["Data\\Generals.str"] = str_base + b"\n\n" + frag("Generals.str")
+    entries["Data\\Generals.str"] = str_base + match_eol(
+        b"\n\n" + frag("Generals.str"), str_base)
     frag_texts["Generals.str"] = frag("Generals.str").decode("latin-1")
 
     # ---- 5: repack + verify

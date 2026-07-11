@@ -76,7 +76,16 @@ TAG = "zzz-ZZZZZZZTTeslaCoil"
 # CHANGELOG (kwai-infantry v2 chain rebuild): kwai-infantry removed its ZHE
 # Sharpshooter port and with it its copies of Weapon/OCL/ParticleSystem/
 # SoundEffects .ini - ownership of the shared INIs is now split (see OWNERS).
-PREV = "zzz-ZZZZZZZLKwaiInfantry.big"       # archive immediately below us
+# CHANGELOG (rotr-infantry merge): the side branch's
+# zzz-ZZZZZZZRotrInfantry.big landed immediately below us ('r' < 't' - the
+# probed slot) carrying Weapon/Armor/Locomotor/FXList/ParticleSystem/OCL/
+# CommandSet/CommandButton .ini + Generals.str; it is now the archive we
+# layer on and the owner of every shared file we bake except
+# SoundEffects.ini (rotr audio is remapped, no SoundEffects shipped).  Its
+# tesla gun REFERENCES our TeslaCoilWeapon fire sound (documented soft
+# dependency, exactly the family doctrine below) - see the reference
+# exemption in the collision check.
+PREV = "zzz-ZZZZZZZRotrInfantry.big"        # archive immediately below us
 # layers ABOVE us that legitimately claim paths we ship; they are rebuilt
 # after us (rebuild order: kwai-infantry -> tesla-coil -> vehicle-kit ->
 # w-economy; fx-enhance is owned by another session and rebuilt there)
@@ -94,10 +103,11 @@ OBJ_PATH = "Data\\INI\\Object\\China\\Tank\\Defences\\TeslaCoil.ini"
 MI_PATH = "Data\\INI\\MappedImages\\HandCreated\\TeslaCoilMappedImages.INI"
 
 OWNERS = {CS_PATH: PREV, CB_PATH: PREV, STR_PATH: PREV,
-          # kwai-infantry v2 no longer ships these four (ZHE port removed):
-          WPN_PATH: "zzz-ZZZZZZZKwaiPDL.big",
-          OCL_PATH: "zzz-ZZZZZZZKwaiPDL.big",
-          PSY_PATH: "zzz-ZZZZChaosUnits.big",
+          # rotr-infantry merge: it bakes these three too (append-only over
+          # the previous owners zzz-ZZZZZZZKwaiPDL/zzz-ZZZZChaosUnits):
+          WPN_PATH: PREV,
+          OCL_PATH: PREV,
+          PSY_PATH: PREV,
           SND_PATH: "zz_SPE_Shw_ini.big"}
 
 OBJ = "Tank_ChinaTeslaCoil"
@@ -241,8 +251,15 @@ for d in (SPE_DIR, SHW_DIR):
             assert e.path.lower() not in new_paths, (d, a, e.path)
 print("new paths unclaimed across both mod dirs (%d paths)" % len(new_paths))
 
-# identifier collision check across the whole effective INI space
+# identifier collision check across the whole effective INI space.
+# CHANGELOG (rotr-infantry merge): rotr-infantry sorts below us and
+# REFERENCES the tesla family we define (FireSound = TeslaCoilWeapon on its
+# tesla gun + chain zaps - the documented soft dependency; exactly the
+# "future tesla units must REFERENCE these, not redefine them" doctrine).
+# Its files are therefore checked for DEFINITIONS only; every other archive
+# keeps the strict any-reference check.
 ini_space = []
+rotr_space = []
 seen = set()
 for a in archives:
     for e in cache[a]:
@@ -250,12 +267,20 @@ for a in archives:
         if lp in seen or not lp.endswith((".ini", ".str")):
             continue
         seen.add(lp)
-        ini_space.append(e.data.decode("latin-1"))
+        (rotr_space if a.lower() == PREV.lower() else
+         ini_space).append(e.data.decode("latin-1"))
 blob = "\n".join(ini_space)
+rotr_blob = "\n".join(rotr_space)
 for name in NEW_NAMES:
     assert not re.search(r"(?<![\w:])%s(?![\w:])" % re.escape(name), blob), \
         "identifier collision: " + name
-print("new identifiers collision-free (%d names, %d effective INI files)"
+    assert not re.search(
+        r"(?m)^\s*(?:Weapon|Object|ParticleSystem|AudioEvent|"
+        r"ObjectCreationList|CommandSet|CommandButton|MappedImage|Upgrade|"
+        r"Armor|Locomotor|FXList)\s+%s(?![\w:])" % re.escape(name),
+        rotr_blob), "identifier redefined by rotr-infantry: " + name
+print("new identifiers collision-free (%d names, %d effective INI files; "
+      "rotr-infantry checked definitions-only, documented soft dependency)"
       % (len(NEW_NAMES), len(seen)))
 
 # ================================================== 2. donor extraction

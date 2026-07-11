@@ -91,6 +91,15 @@ TAG = "zzz-ZZZZZZZWEconomy"
 # 600/15).  Upgrade.ini reverted to zzz-ZZZZZZZKwaiPDL.big, SpecialPower.ini
 # to zzz-ZZZZZZKwaiUAV.big.  Sources are read only from archives sorting
 # strictly below this one (fx-enhance sorts above and is owned elsewhere).
+# CHANGELOG (rotr-infantry merge): zzz-ZZZZZZZRotrInfantry.big landed below
+# us with two new buildable Kwai infantry (ROTR Shmel Trooper $350/8s +
+# Shock Trooper $800/10s at Barracks slots 9/10).  Per the rotr-infantry
+# README they ship donor-verbatim / coordinator-set prices (the Shock
+# Trooper was already repriced $450->$800 for its tesla rework) and are
+# deliberately NOT covered by the China-infantry 50/50 convention - they
+# are excluded from the buildable-infantry completeness enumeration below.
+ROTR_UNITS = {"Tank_ChinaInfantryShmelTrooper",
+              "Tank_ChinaInfantryShockTrooper"}
 
 CS_PATH = "Data\\INI\\CommandSet.ini"
 CB_PATH = "Data\\INI\\CommandButton.ini"
@@ -793,6 +802,8 @@ def enumerate_buildable_china_infantry(get_text):
                 btn_obj.setdefault(o, []).append(m.group(1))
     result = {}
     for name, block in objects.items():
+        if name in ROTR_UNITS:      # rotr-infantry merge: donor pricing
+            continue                # kept by design (see CHANGELOG above)
         if field(block, "Side") not in CHINA_SIDES:
             continue
         # object-level KindOf only (the FIRST KindOf line - module-nested

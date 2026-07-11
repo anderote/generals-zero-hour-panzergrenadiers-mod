@@ -12,11 +12,22 @@ sys.path.insert(0, os.path.join(HERE, "..", "..", "hotkey-addon"))
 from bigfile import read_big
 
 SPE = os.path.expanduser("~/GeneralsX/mods/ShockWaveSPE")
-EXCLUDE = {"zzz-zzzzzzzrotrinfantry.big"}  # our own archive (any case)
+OUR = "zzz-zzzzzzzrotrinfantry.big"   # our own archive (any case)
 OUT = os.path.join(HERE, "effective")
 
+# CHANGELOG (merge day): STRICTLY-BELOW sourcing - only archives sorting
+# below our own are read (was: everything except our own archive).  Layers
+# that sort after us (zzz-ZZZZZZZTTeslaCoil / VehicleKit / WEconomy,
+# zzzz_FXEnhance, zzz_ControlBarPro*) bake their own copies of the shared
+# INI files ON TOP of ours and are rebuilt after integrate.py --install
+# (fx-enhance is owned by another session and rebuilt there); deriving our
+# baked files from a space that includes them would bake upper-layer
+# content into this lower layer (layering inversion: their rebuilds would
+# then re-append their own content on top of itself).  Matches the
+# strictly-below sourcing the chain builds adopted in the kwai-infantry v2
+# rework.
 bigs = sorted([f for f in os.listdir(SPE) if f.lower().endswith(".big")
-               and f.lower() not in EXCLUDE], key=str.lower)
+               and f.lower() < OUR], key=str.lower)
 print("load order (later wins):")
 for b in bigs:
     print("  ", b)
