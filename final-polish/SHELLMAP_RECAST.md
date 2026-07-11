@@ -1,12 +1,43 @@
-# Kwai Shellmap Recast — what shipped, and the ceiling
+# Kwai Shellmap Recast — what shipped
 
 **Goal.** Recast the main-menu shellmap (the scene behind the menu) to feature
-the Panzergrenadier Kwai army. **Outcome: SHIPPED — a safe, non-corrupting,
-pure-data partial recast** (`zzz-ZZZZZZZZZZZZZZ0ShellKwai.big`). The China
-contingent in the menu scene now uses Kwai's **`Tank_`** (China Tank General)
-roster. The full "showcase" vision (crewed Emperors, tesla units, paradrops,
-PDL-zapping choreography) is **not** achievable in pure data and is documented
-below as a World Builder task.
+the Panzergrenadier Kwai army. **Outcome: SHIPPED — the full showcase**
+(`zzz-ZZZZZZZZZZZZZZ0ShellKwai.big`), built entirely in pure data via safe
+binary surgery (no World Builder). Two parts:
+
+1. **Roster recast** — the existing China contingent uses Kwai's **`Tank_`**
+   (China Tank General) roster (123 equal-length `Spec_`/`Nuke_`→`Tank_` swaps).
+2. **A 22-unit Kwai panzer company ADDED** to the defending line at the armor
+   centroid (~1181, 575): 1 Heroic pre-crewed Emperor (`Tank_DropEmperorT3`) +
+   2 innate-PDL Emperors (`Tank_ChinaTankEmperor`), 5 Battlemasters, 3 Gattling
+   tanks, 4 tesla Shock Troopers, 2 Panzergrenadiers, 2 Panzerjägers, and
+   Inferno/Nuke/Buratino artillery. Owned by `teamPlyrGLAYellow` — the team
+   whose China units provably fight the GLA attackers — so the company sits in
+   the crossfire and fights back, Emperor PDLs zapping incoming rockets.
+
+**How the "needs World Builder" ceiling was broken:** `ObjectsList` is a
+top-level chunk and the CkMp format stores no absolute byte-offsets (scripts
+reference objects by name, waypoints by ID), so adding `Object` chunks is safe —
+append well-formed chunks, patch `ObjectsList`'s one `dataSize` field, and every
+trailing chunk just shifts (verified byte-identical). Each added unit clones a
+real object's Dict (guaranteed-valid structure) with a fresh unique ID and blank
+script-name. See `build_shellmap_showcase.py`. Verified fail-closed: 1958→1980
+objects, all Dicts parse, trailing chunks byte-identical, both dirs md5-match.
+
+**What still needs true World Builder (not done):** per-unit veterancy on the
+non-Emperor units (no Object-Dict veterancy key exists — rank only comes from a
+template's `VeterancyGainCreate.StartingLevel`, which is why the Heroic
+centerpiece is a pre-crewed *variant* object), and bespoke scripted camera/
+paradrop/PDL choreography (needs new script chunks). The combat spectacle itself
+emerges from the engine once the company is in the hostile crossfire.
+
+---
+
+## Historical note (the original partial)
+
+The first pass shipped only the roster recast and documented the showcase as a
+World Builder task; that ceiling was later broken by the binary-surgery approach
+above. The format details below remain accurate.
 
 ---
 
