@@ -47,44 +47,42 @@ SWAP_BASES = {
 NO_KWAI = {"ChinaHellStorm","ChinaRepairStation","ChinaVehicleSeismicTank"}
 PREFIXES = ("Spec_", "Nuke_")
 
-# ---- (B) showcase roster: (template, x, y).  Centre ~ (1181, 575). ----
+# ---- (B) showcase: a SMALL absurdly-OP elite core + a large enemy swarm. ----
+# Design: 6 near-invincible HEROIC Kwai panzers in a tight ~110x120 knot at the
+# armor centroid; ~17 basic GLA attackers ringed just outside, charging in and
+# dying. Contrast (few unkillable heroes vs many dying attackers) is the point.
 CX, CY = 1181.0, 575.0
-COMPANY = [
-    # centrepiece Emperors
-    ("Tank_DropEmperorT3",               1181, 560),  # HEROIC + crewed drop variant
-    ("Tank_ChinaTankEmperor",            1120, 600),  # innate always-on PDL + Shtora
-    ("Tank_ChinaTankEmperor",            1245, 600),  # innate always-on PDL + Shtora
-    # front battle line (arc)
-    ("Tank_ChinaTankBattleMaster",       1055, 465),
-    ("Tank_ChinaTankBattleMaster",       1120, 435),
-    ("Tank_ChinaTankBattleMaster",       1181, 420),
-    ("Tank_ChinaTankBattleMaster",       1245, 435),
-    ("Tank_ChinaTankBattleMaster",       1310, 465),
-    # gattling AA (flanks + rear-centre)
-    ("Tank_ChinaTankGattling",           1000, 560),
-    ("Tank_ChinaTankGattling",           1360, 560),
-    ("Tank_ChinaTankGattling",           1181, 700),
-    # tesla shock troopers interspersed
-    ("Tank_ChinaInfantryShockTrooper",   1090, 515),
-    ("Tank_ChinaInfantryShockTrooper",   1150, 500),
-    ("Tank_ChinaInfantryShockTrooper",   1215, 500),
-    ("Tank_ChinaInfantryShockTrooper",   1275, 515),
-    # panzergrenadier infantry
-    ("Tank_ChinaInfantryPanzergrenadier",1120, 655),
-    ("Tank_ChinaInfantryPanzergrenadier",1245, 655),
-    # panzerjager / tank hunters
-    ("Tank_ChinaInfantryTankHunter",     1075, 615),
-    ("Tank_ChinaInfantryTankHunter",     1290, 615),
-    # artillery firing
-    ("Tank_ChinaVehicleInfernoCannon",   1140, 710),
-    ("Tank_ChinaVehicleNukeLauncher",    1220, 710),
-    # rocket artillery (Kwai's Buratino)
-    ("Tank_ChinaVehicleBuratino",        1181, 745),
+
+# CORE -- owner teamPlyrGLAYellow (mutually hostile to PlyrGLA, the swarm). Every
+# unit spawns at max rank with NO script by using the drop-ladder Heroic variants.
+#   (template, x, y).  Cluster X[1128..1238] Y[520..640] = 110x120 tight knot.
+CORE_TEAM = "teamPlyrGLAYellow"
+CORE = [
+    ("Tank_DropEmperorT3",      1150, 560),  # HEROIC + crewed (drop variant)
+    ("Tank_DropEmperorT3",      1215, 560),  # HEROIC + crewed (drop variant)
+    ("Tank_ChinaTankEmperor",   1183, 520),  # VETERAN + innate always-on PDL + Shtora
+    ("Tank_DropBattleMasterT3", 1128, 612),  # HEROIC (drop variant)
+    ("Tank_DropBattleMasterT3", 1238, 612),  # HEROIC (drop variant)
+    ("Tank_DropGattlingT3",     1183, 640),  # ELITE (highest gattling drop; no Heroic drop exists)
 ]
-SHOWCASE_TEAM = "teamPlyrGLAYellow"
-INFANTRY_TEMPLATES = {"Tank_ChinaInfantryShockTrooper",
-                      "Tank_ChinaInfantryPanzergrenadier",
-                      "Tank_ChinaInfantryTankHunter"}
+
+# SWARM -- owner teamPlyrGLA. PlyrGLA.enemies = "PlyrAmericaAirForceGeneral
+# PlyrGLAYellow" => hostile to our core; set aggressiveness (key139) = 2
+# (AGGRESSIVE) so they charge in. These are meant to die. (template, angle_deg, radius)
+SWARM_TEAM = "teamPlyrGLA"
+AGGRESSIVE = 2  # AttitudeType: -2 SLEEP, -1 PASSIVE, 0 NORMAL, 1 ALERT, 2 AGGRESSIVE
+SWARM = [
+    ("GLAInfantryRebel",           20, 150), ("GLAInfantryRebel",          70, 150),
+    ("GLAInfantryRebel",          130, 150), ("GLAInfantryRebel",         200, 150),
+    ("GLAInfantryRebel",          250, 150), ("GLAInfantryRebel",         320, 150),
+    ("GLAVehicleRocketBuggy",      45, 200), ("GLAVehicleRocketBuggy",    135, 200),
+    ("GLAVehicleRocketBuggy",     225, 200), ("GLAVehicleRocketBuggy",    315, 200),
+    ("GLAVehicleTechnical",         0, 178), ("GLAVehicleTechnical",      120, 178),
+    ("GLAVehicleTechnical",       240, 178),
+    ("GLAVehicleQuadCannon",       90, 188), ("GLAVehicleQuadCannon",     270, 188),
+    ("Salv_GLAVehicleMI8Gunship",  60, 215), ("Salv_GLAVehicleMI8Gunship",300, 215),
+]
+INFANTRY_TEMPLATES = {"GLAInfantryRebel"}  # (only matters for donor pick; dict layout is generic)
 
 # ---------------------------------------------------------------- roster
 def roster_objects():
@@ -189,16 +187,22 @@ def s(v):  # decode AsciiString dict value bytes
     return v.decode("latin-1") if isinstance(v, (bytes, bytearray)) else v
 
 # ---------------------------------------------------------------- build one object
-def build_object(name2id, donor_pairs, template, x, y, ang, uid, team):
-    """Clone donor dict pair-layout, override 119/126/127/128 (+ blank 129 if present)."""
+def build_object(name2id, donor_pairs, template, x, y, ang, uid, team, force139=None):
+    """Clone donor dict pair-layout, override 119/126/127/128 (+ blank 129 if
+    present). If force139 is not None, overwrite key 139 (aggressiveness) -- or
+    append it (as int) if the donor lacks it."""
     new_pairs = []
+    saw139 = False
     for (keyid, typ, val) in donor_pairs:
         if   keyid == 119 and typ == 1: val = 100
         elif keyid == 126 and typ == 3: val = team.encode("latin-1")
         elif keyid == 127 and typ == 3: val = uid.encode("latin-1")
         elif keyid == 128 and typ == 3: val = b""
         elif keyid == 129 and typ == 3: val = b""   # blank objectName: no script targets it
+        elif keyid == 139 and force139 is not None: val = force139; saw139 = True
         new_pairs.append((keyid, typ, val))
+    if force139 is not None and not saw139:
+        new_pairs.append((139, 1, force139))
     dict_bytes = enc_dict(new_pairs)
     tb = template.encode("latin-1")
     body = (struct.pack("<ffff", x, y, 0.0, ang) + struct.pack("<i", 0) +
@@ -245,23 +249,45 @@ def main():
     veh_donor = next(o for o in objs_sw if o["tn"] == "Tank_ChinaTankBattleMaster")
     inf_donor = next(o for o in objs_sw if o["tn"] == "Tank_ChinaInfantryRedguard" and
                      any(k == 129 for (k, _, _) in o["pairs"]))
+    # swarm donor: a real combat unit whose Dict already carries key 139 (aggressiveness)
+    agg_donor = next(o for o in objs_sw if any(k == 139 for (k, _, _) in o["pairs"]))
     print("donor vehicle dict keys:", [k for (k, _, _) in veh_donor["pairs"]])
     print("donor infantry dict keys:", [k for (k, _, _) in inf_donor["pairs"]])
+    print("donor aggressive dict keys:", [k for (k, _, _) in agg_donor["pairs"]],
+          "(", agg_donor["tn"], ")")
 
-    # ---- (B) build new object chunks ----
-    for tmpl, _, _ in COMPANY:
+    all_new = [t[0] for t in CORE] + [t[0] for t in SWARM]
+    for tmpl in all_new:
         assert tmpl in roster, "showcase template missing from roster: " + tmpl
+
     new_chunks = bytearray()
-    added = []
-    for i, (tmpl, x, y) in enumerate(COMPANY):
+    added_core, added_swarm = [], []
+    idx = 0
+
+    # ---- (B1) build the OP core (owner CORE_TEAM), facing outward at the swarm ----
+    for (tmpl, x, y) in CORE:
         dx, dy = x - CX, y - CY
-        ang = 2.44 if (dx*dx+dy*dy) < 45*45 else math.atan2(dy, dx)  # outward ring; centre matches neighbours
-        uid = "SHOWCASE_%02d_%s" % (i, tmpl)
-        donor = inf_donor if tmpl in INFANTRY_TEMPLATES else veh_donor
-        chunk = build_object(name2id, donor["pairs"], tmpl, float(x), float(y), ang, uid, SHOWCASE_TEAM)
+        ang = 2.44 if (dx*dx+dy*dy) < 30*30 else math.atan2(dy, dx)   # face outward toward the ring
+        uid = "SHOWCASE_CORE_%02d_%s" % (idx, tmpl); idx += 1
+        chunk = build_object(name2id, veh_donor["pairs"], tmpl, float(x), float(y),
+                             ang, uid, CORE_TEAM)          # no forced aggressiveness: hold the knot
         new_chunks += chunk
-        added.append((tmpl, x, y, round(ang, 3), uid))
-    print("(B) built %d showcase object chunks, %d bytes" % (len(COMPANY), len(new_chunks)))
+        added_core.append((tmpl, x, y, round(ang, 3), uid))
+
+    # ---- (B2) build the enemy swarm (owner SWARM_TEAM, AGGRESSIVE), facing inward ----
+    for (tmpl, adeg, radius) in SWARM:
+        a = math.radians(adeg)
+        x = CX + radius * math.cos(a); y = CY + radius * math.sin(a)
+        ang = math.atan2(CY - y, CX - x)                   # face inward toward the core
+        uid = "SHOWCASE_SWARM_%02d_%s" % (idx, tmpl); idx += 1
+        donor = inf_donor if tmpl in INFANTRY_TEMPLATES else agg_donor
+        chunk = build_object(name2id, donor["pairs"], tmpl, float(x), float(y),
+                             ang, uid, SWARM_TEAM, force139=AGGRESSIVE)
+        new_chunks += chunk
+        added_swarm.append((tmpl, round(x), round(y), round(ang, 3), uid))
+    N_NEW = len(CORE) + len(SWARM)
+    print("(B) built %d core + %d swarm = %d object chunks, %d bytes" %
+          (len(CORE), len(SWARM), N_NEW, len(new_chunks)))
 
     # ---- splice: insert at end of ObjectsList data; grow ObjectsList dataSize ----
     out = bytearray(work)
@@ -285,18 +311,23 @@ def main():
 
     ol2 = [t for t in top2 if t["nm"] == "ObjectsList"][0]
     objs2 = parse_objects(out, ol2)                       # every Object + dict parses cleanly
-    assert len(objs2) == n_orig + len(COMPANY), \
-        "object count %d != %d+%d" % (len(objs2), n_orig, len(COMPANY))
+    assert len(objs2) == n_orig + N_NEW, \
+        "object count %d != %d+%d" % (len(objs2), n_orig, N_NEW)
     print("VERIFY ObjectsList: %d -> %d Object chunks (all dicts parse cleanly)" %
           (n_orig, len(objs2)))
 
-    # every NEW template resolves; every Tank_China* placement resolves
+    # every NEW template resolves; every Tank_China*/Tank_Drop* placement resolves
     for o in objs2:
         if o["tn"].startswith("Tank_China") or o["tn"].startswith("Tank_Drop"):
             assert o["tn"] in roster, "unresolved template: " + o["tn"]
-    for tmpl, _, _ in COMPANY:
-        assert tmpl in roster
-    print("VERIFY roster: every Tank_China*/Tank_Drop* placement resolves in effective stack")
+    for tmpl in all_new:
+        assert tmpl in roster, "new template unresolved: " + tmpl
+    # confirm the swarm units really carry aggressiveness=2
+    n_agg = sum(1 for o in objs2 if s(o["dictmap"].get(127, b"")).startswith("SHOWCASE_SWARM_")
+                and o["dictmap"].get(139) == AGGRESSIVE)
+    assert n_agg == len(SWARM), "not all swarm units aggressive: %d/%d" % (n_agg, len(SWARM))
+    print("VERIFY roster: all %d new templates resolve (core Tank_Drop*/Tank_China* + swarm GLA*); "
+          "%d/%d swarm units carry aggressiveness=%d" % (len(set(all_new)), n_agg, len(SWARM), AGGRESSIVE))
 
     # I must introduce NO NEW uniqueID collision. (The stock map already reuses
     # some "Waypoint N" uids -- harmless & pre-existing; I only guarantee my adds
@@ -306,7 +337,7 @@ def main():
     uids_after  = [s(o["dictmap"].get(127, b"")) for o in objs2]
     orig_uidset = set(u for u in uids_before if u)
     my_uids = [u for u in uids_after if u.startswith("SHOWCASE_")]
-    assert len(my_uids) == len(COMPANY) and len(set(my_uids)) == len(COMPANY), "SHOWCASE uid not unique"
+    assert len(my_uids) == N_NEW and len(set(my_uids)) == N_NEW, "SHOWCASE uid not unique"
     assert not (set(my_uids) & orig_uidset), "SHOWCASE uid collides with an existing uid!"
     dup_before = {k for k, v in Counter(u for u in uids_before if u).items() if v > 1}
     dup_after  = {k for k, v in Counter(u for u in uids_after  if u).items() if v > 1}
@@ -364,9 +395,13 @@ def main():
     print("installed to both mod dirs; md5 match: %s" % list(md5s.values())[0])
     print("OUT: %s (%d bytes)" % (OUT_NAME, len(big_bytes)))
 
-    print("\n=== SHOWCASE COMPANY (owner=%s) ===" % SHOWCASE_TEAM)
-    for (tmpl, x, y, ang, uid) in added:
-        print("   %-34s (%4d,%4d) ang=%6.3f  %s" % (tmpl, x, y, ang, uid))
+    print("\n=== OP CORE (owner=%s) -- small elite Heroic knot ===" % CORE_TEAM)
+    for (tmpl, x, y, ang, uid) in added_core:
+        print("   %-26s (%4d,%4d) ang=%6.3f  %s" % (tmpl, x, y, ang, uid))
+    print("=== ENEMY SWARM (owner=%s, aggressiveness=%d) -- ringed, charging inward ===" %
+          (SWARM_TEAM, AGGRESSIVE))
+    for (tmpl, x, y, ang, uid) in added_swarm:
+        print("   %-26s (%4d,%4d) ang=%6.3f  %s" % (tmpl, x, y, ang, uid))
 
 if __name__ == "__main__":
     main()
