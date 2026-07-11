@@ -32,7 +32,6 @@ Usage:
 
 import argparse
 import difflib
-import os
 import re
 import sys
 from pathlib import Path
@@ -334,9 +333,15 @@ def transform_particlesystem(text, collected):
         bd_vals = _floats(bd_raw) if (bd_raw and "%" not in bd_raw) else []
 
         # ---- safety cap: peak concurrent particle estimate ----
+        # The effective BurstCount multiplier is floored at 1.0x: a system whose
+        # scaled estimate would exceed the concurrency cap keeps its ORIGINAL
+        # BurstCount values untouched (never reduced below source).
         burst_factor = 1.0
+        burst_kept = False
         if burst_vals:
-            burst_scaled_max = max(min(round(v * BURST_MULT), BURST_CAP) for v in burst_vals)
+            # per-value scaling also never goes below source (see repl below)
+            burst_scaled_max = max(max(v, min(round(v * BURST_MULT), BURST_CAP))
+                                   for v in burst_vals)
             life_max_scaled = 0.0
             if life_vals:
                 life_max_scaled = max(life_vals) * (LIFETIME_MULT if is_smoke else 1.0)
@@ -349,10 +354,17 @@ def transform_particlesystem(text, collected):
                 bd_min = max(bd_min, 1.0)
                 estimate = burst_scaled_max * (life_max_scaled / bd_min) if life_max_scaled else burst_scaled_max
             if estimate > SAFETY_ESTIMATE_CAP:
-                burst_factor = SAFETY_ESTIMATE_CAP / estimate
-                stats["skips"].append(
-                    f"{name}: BurstCount multiplier reduced x{burst_factor:.3f} "
-                    f"(peak estimate {estimate:.0f} > {SAFETY_ESTIMATE_CAP})")
+                needed = SAFETY_ESTIMATE_CAP / estimate
+                if BURST_MULT * needed <= 1.0:
+                    burst_kept = True
+                    stats["skips"].append(
+                        f"{name}: BurstCount kept at original (cap; scaled peak "
+                        f"estimate {estimate:.0f} > {SAFETY_ESTIMATE_CAP})")
+                else:
+                    burst_factor = needed
+                    stats["skips"].append(
+                        f"{name}: BurstCount multiplier reduced x{burst_factor:.3f} "
+                        f"(peak estimate {estimate:.0f} > {SAFETY_ESTIMATE_CAP})")
 
         changed = False
         for j in range(s, e):
@@ -365,6 +377,8 @@ def transform_particlesystem(text, collected):
             keyl = key.lower()
             if keyl == "lifetime" and not is_smoke:
                 continue  # lifetime only scaled for smoke systems
+            if keyl == "burstcount" and burst_kept:
+                continue  # concurrency cap: keep original BurstCount values
             valpart = m.group(4)
             if "%" in valpart:
                 stats["skips"].append(f"{name}.{key}: skipped (contains %)")
@@ -377,6 +391,8 @@ def transform_particlesystem(text, collected):
                 def repl(mm):
                     v = float(mm.group(0))
                     nv = min(round(v * BURST_MULT * burst_factor), BURST_CAP)
+                    if nv < v:  # per-value cap must never go below source
+                        return mm.group(0)
                     return fmt_like(mm.group(0), nv)
             elif keyl == "size":
                 def repl(mm):
