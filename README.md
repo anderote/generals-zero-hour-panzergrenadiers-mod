@@ -172,9 +172,13 @@ Standing on many shoulders:
 - **FAS & xezon** — Control Bar Pro; **xezon** — Control Bar HD
 - **SWR / GenLauncher community** — the public file infrastructure
 
-**⚠️ Do not publish the built `.big` archives publicly.** Several layers embed assets and
-data extracted from the mods above (Chaos art, ZHE-derived content, ShockWave data copies
-in every layer). That's fine for personal use; redistributing it requires those teams'
-permission. If this repo goes public, strip the built archives and `donor-inis/` first —
-the build scripts and documentation are the shareable part. The engine-fork patches
-(veterancy-8, PDL scaling) are GPL like the engine and genuinely upstreamable.
+**Attribution & takedown policy.** This repo includes built archives that contain data and
+art derived from the mods credited above, distributed here as a non-commercial fan project
+with attribution. Specific derived content: ShockWave INI data (SWR Productions) embedded in
+every layer's override files; JS-7 / Command Tank / Shtora models and data (Shockwave Chaos);
+the Sharpshooter unit — models, audio, design (Zero Hour Enhanced, VectorIV); Shmel & Shock
+Trooper units (Rise of the Reds, SWR Productions — side branch); Tesla Coil (Red Alert Redux,
+sgtmyers88); Minigunner/Flame Trooper/artillery and other cross-general units (ShockWave).
+Engine patches are GPL, matching the EA source release and GeneralsX. Nothing here is sold or
+claimed as original work. **If you are a rights holder of any included content and want it
+removed, open an issue — it will be taken down promptly.**
