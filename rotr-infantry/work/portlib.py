@@ -129,6 +129,7 @@ AUDIO_REMAP = {
     "ShockTrooperRifleWeapon": "RocketBuggyWeapon",
     "ShockTrooperTeslaWeaponSound": "AvengerPointDefenseLaserPulse",
     # sounds inside ported FXLists
+    "ShockTrooperRocketElectricExplosion": "ExplosionPatriotEMP",
     "GenericAutoCannonDetonationImpact": "ExplosionRocketBuggyMissile",
     "InfantryTeslaDeathShock": "ExplosionPatriotEMP",
     "MoleBombDirstSound": "ExplosionDirt",
@@ -160,9 +161,8 @@ OBJECT_FILES = {
         ("Object", "RussiaInfantryShockTrooper_Var1"),
         ("ObjectReskin", "RussiaInfantryShockTrooper_Var2"),
         ("ObjectReskin", "RussiaInfantryShockTrooper_Var3"),
-        ("Object", "ShockTrooperGuidedMissile"),
-        ("Object", "ShockTrooperRemoveUpgradeRocketRifleObject"),
-        ("Object", "ShockTrooperRemoveUpgradeTeslaGunObject"),
+        ("Object", "ShockTrooperTeslaChainNode"),
+        ("Object", "ShockTrooperTeslaChainNodeHeroic"),
         ("Object", "TeslaTrooperLaserBeam"),
     ] + [("Object", "TeslaTrooperElectricBolt%d" % i) for i in range(1, 9)] + [
         ("Object", "HeroicTeslaTrooperLaserBeam"),
@@ -183,18 +183,18 @@ SHARED_APPENDS = {
         "RussianShmelTrooperAntiToxinSmokeWeapon",
         "RussianSmokeGrenadeSmokeScreenWeapon",
         "PyroFireWalFieldWeapon",
-        "ShockTrooperRocketRifle",
         "ShockTrooperTeslaWeapon",
         "ShockTrooperTeslaSubdualWeapon",
+        "ShockTrooperTeslaArcWeapon",
         "HeroicShockTrooperTeslaWeapon",
         "HeroicShockTrooperTeslaSubdualWeapon",
-        "ShockTrooperSwitchToRocketGunMode",
-        "ShockTrooperSwitchToTeslaGunMode",
+        "HeroicShockTrooperTeslaArcWeapon",
+        "ShockTrooperTeslaChainZap",
+        "HeroicShockTrooperTeslaChainZap",
     ],
     "Armor.ini": ["ShockTrooperArmor", "InvulnerableArmorAll"],
     "Locomotor.ini": [
         "ShockTrooperLocomotor", "ShmelRocketLocomotor",
-        "ShocktrooperRocketRifleLocomotor", "BerkutMissileDodgeJetLocomotor",
     ],
     "FXList.ini": [
         "FX_MoleBombEnterOrExitGround",
@@ -202,9 +202,7 @@ SHARED_APPENDS = {
         "WeaponFX_ShmelRocketExplosion",
         "WeaponFX_ShmelRocketExplosionUpgraded",
         "WeaponFX_ShmelTrooperAntiToxinSmoke",
-        "FX_ShockTrooperRocketExplosion",
-        "WeaponFX_GenericShockTrooperRocketRifleFire",
-        "WeaponFX_GenericShockTrooperRocketRifleFireWithRedTracers",
+        "FX_ShockTrooperElectricRocketExplosion",
         "FX_IfantryTeslaDie",
     ],
     "ParticleSystem.ini": [
@@ -214,26 +212,357 @@ SHARED_APPENDS = {
         "ShmelRocketAntiToxinDetonationCloud", "ShmelRocketAntiToxinExplosion",
         "ShmelRocketAntiToxinSmoke",
         "NapalmPoolSmoke", "ShmelPoolFire", "ShmelPoolFireMainRing",
-        "EmptyShockRocketCassingsFalling",
+        "ShockTrooperTeslaBlast",
         "TeslaTrooperFlare", "HeroicTeslaTrooperFlare",
     ],
     "ObjectCreationList.ini": [
         "OCL_RussiaExplodedDeath", "OCL_RussiaExplodedDeathShockTrooper",
         "OCL_ShmelTrooperSmokeScreen", "OCL_ShmelTrooperAntiToxinFoam",
         "OCL_ShmellRocketFire",
-        "OCL_ShockTrooperRocketRifleModeTrigger", "OCL_GenericDummyRider2Trigger",
+        "OCL_ShockTrooperTeslaChain", "OCL_ShockTrooperTeslaChainHeroic",
         "OCL_TeslaDeathInfantry", "OCL_ViralInfantryDeath",
     ],
 }
 
 MAPPED_IMAGES = [
     "SRShmelTrooper", "SRShmelTrooper_L", "SRShockTrooper", "SRShockTrooper_L",
-    "SSRocketShmelSmoke", "SSRocketShmelAntiTox", "SSHEShockRocket",
-    "SSElectricShockRocket",
+    "SSRocketShmelSmoke", "SSRocketShmelAntiTox",
 ]
 
 # extra death-module strips shared by both units (cryo chain dropped)
 CRYO_TAG = "ModuleTag_03231"
+
+# =====================================================================
+# Shock Trooper tesla rework: authored blocks (override donor where the
+# same name exists).  Design notes in README ("Shock Trooper rework").
+# Armor math (effective Armor.ini): TankArmor MELEE 0% / AP 100% /
+# FLAME 25%; HumanArmor AP 10% / FLAME 150%.  Hence AP beam for vehicles,
+# FLAME arc for the infantry one-shot (110 * 1.5 = 165 post-armor).
+# All weapons explicitly cannot target aircraft.
+# =====================================================================
+_ANTI_AIR_OFF = ("  AntiGround              = Yes\n"
+                 "  AntiAirborneVehicle     = No\n"
+                 "  AntiAirborneInfantry    = No\n")
+
+_BONUS_LINES = (
+    "  WeaponBonus             = GARRISONED RANGE  145%%\n"
+    "  WeaponBonus             = GARRISONED DAMAGE 125%%\n"
+    "  WeaponBonus             = PLAYER_UPGRADE RANGE  145%%\n"
+    "  WeaponBonus             = PLAYER_UPGRADE DAMAGE 125%%\n")
+
+
+def _tesla_beam(name, dmg, laser):
+    return ("Weapon %s\n"
+            "  ; tesla shock beam: the anti-vehicle component (AP because base\n"
+            "  ; TankArmor takes 0%% MELEE damage -- the donor value was dead)\n"
+            "  PrimaryDamage           = %s\n"
+            "  PrimaryDamageRadius     = 5.0\n"
+            "  AttackRange             = 140.0\n"
+            "  DamageType              = ARMOR_PIERCING\n"
+            "  DeathType               = POISONED_GAMMA ; tesla death animation\n"
+            "  WeaponSpeed             = 99999\n"
+            "  LaserName               = %s\n"
+            "  LaserBoneName           = MUZZLE01\n"
+            "  FireSound               = AvengerPointDefenseLaserPulse\n"
+            "  DelayBetweenShots       = 1200\n" +
+            _ANTI_AIR_OFF + _BONUS_LINES +
+            "End\n") % (name, dmg, laser)
+
+
+def _tesla_subdual(name, dmg, laser):
+    return ("Weapon %s\n"
+            "  ; subdual buildup rider: vehicles accumulate this until it\n"
+            "  ; passes their MaxHealth -> DISABLED_SUBDUED for a few seconds\n"
+            "  ; (decays at the target body's SubdualDamageHealRate/Amount)\n"
+            "  PrimaryDamage           = %s\n"
+            "  PrimaryDamageRadius     = 10.0\n"
+            "  AttackRange             = 140.0\n"
+            "  DamageType              = SUBDUAL_UNRESISTABLE\n"
+            "  DeathType               = POISONED_GAMMA\n"
+            "  WeaponSpeed             = 99999\n"
+            "  LaserName               = %s\n"
+            "  LaserBoneName           = MUZZLE01\n"
+            "  DelayBetweenShots       = 1200\n"
+            "  RadiusDamageAffects     = ENEMIES NEUTRALS\n" +
+            _ANTI_AIR_OFF +
+            "End\n") % (name, dmg, laser)
+
+
+def _tesla_arc(name, dmg, ocl):
+    return ("Weapon %s\n"
+            "  ; anti-infantry fry + chain trigger: FLAME one-shots standard\n"
+            "  ; infantry (<=%s*1.5 HP) and BURNED lights them up; the hitscan\n"
+            "  ; projectile detonation spawns the chain-lightning node\n"
+            "  PrimaryDamage           = %s\n"
+            "  PrimaryDamageRadius     = 20.0\n"
+            "  AttackRange             = 140.0\n"
+            "  DamageType              = FLAME\n"
+            "  DeathType               = BURNED\n"
+            "  WeaponSpeed             = 99999\n"
+            "  ProjectileObject        = GenericHitScanProjectile\n"
+            "  ProjectileDetonationFX  = FX_ShockTrooperElectricRocketExplosion\n"
+            "  ProjectileDetonationOCL = %s\n"
+            "  DelayBetweenShots       = 1200\n"
+            "  RadiusDamageAffects     = ENEMIES NEUTRALS\n" +
+            _ANTI_AIR_OFF +
+            "End\n") % (name, dmg, dmg, ocl)
+
+
+def _chain_zap(name, dmg, laser):
+    return ("Weapon %s\n"
+            "  ; the chain-lightning arc fired by the spawned node\n"
+            "  PrimaryDamage           = %s\n"
+            "  PrimaryDamageRadius     = 12.0\n"
+            "  AttackRange             = 90.0\n"
+            "  DamageType              = FLAME\n"
+            "  DeathType               = BURNED\n"
+            "  WeaponSpeed             = 99999\n"
+            "  LaserName               = %s\n"
+            "  FireSound               = AvengerPointDefenseLaserPulse\n"
+            "  DelayBetweenShots       = 500\n"
+            "  RadiusDamageAffects     = ENEMIES NEUTRALS\n" +
+            _ANTI_AIR_OFF +
+            "End\n") % (name, dmg, laser)
+
+
+def _chain_node(name, zap, minlife, maxlife):
+    return """Object %s
+  ; invisible short-lived arc source spawned at the tesla-arc impact point;
+  ; auto-acquires a nearby ground enemy and zaps it (the chain lightning)
+  EditorSorting = SYSTEM
+  Side = ChinaTankGeneral
+  KindOf = CAN_ATTACK NO_COLLIDE IMMOBILE UNATTACKABLE
+  RadarPriority = NOT_ON_RADAR
+  TransportSlotCount = 0
+
+  Draw = W3DModelDraw ModuleTag_Draw01
+    DefaultConditionState
+      Model = NONE
+    End
+  End
+
+  ArmorSet
+    Conditions      = None
+    Armor           = InvulnerableAllArmor
+    DamageFX        = EmptyDamageFX
+  End
+
+  WeaponSet
+    Conditions = None
+    Weapon     = PRIMARY %s
+  End
+
+  VisionRange = 90
+  ShroudClearingRange = 90
+
+  Body = ActiveBody ModuleTag_Body01
+    MaxHealth       = 50.0
+    InitialHealth   = 50.0
+  End
+
+  Behavior = AIUpdateInterface ModuleTag_AI01
+    Turret
+      TurretTurnRate = 3600
+      ControlledWeaponSlots = PRIMARY
+    End
+    AutoAcquireEnemiesWhenIdle = Yes
+    MoodAttackCheckRate = 100
+  End
+
+  Behavior = LifetimeUpdate ModuleTag_Life01
+    MinLifetime = %d
+    MaxLifetime = %d
+  End
+
+  Behavior = DestroyDie ModuleTag_Die01
+  End
+
+  Geometry = CYLINDER
+  GeometryMajorRadius = 1.0
+  GeometryMinorRadius = 1.0
+  GeometryHeight = 8.0
+  GeometryIsSmall = Yes
+End
+""" % (name, zap, minlife, maxlife)
+
+
+AUTHORED = {
+    "ShockTrooperTeslaWeapon": _tesla_beam(
+        "ShockTrooperTeslaWeapon", "60.0", "TeslaTrooperLaserBeam"),
+    "HeroicShockTrooperTeslaWeapon": _tesla_beam(
+        "HeroicShockTrooperTeslaWeapon", "80.0", "HeroicTeslaTrooperLaserBeam"),
+    "ShockTrooperTeslaSubdualWeapon": _tesla_subdual(
+        "ShockTrooperTeslaSubdualWeapon", "250.0", "TeslaTrooperLaserBeam"),
+    "HeroicShockTrooperTeslaSubdualWeapon": _tesla_subdual(
+        "HeroicShockTrooperTeslaSubdualWeapon", "325.0",
+        "HeroicTeslaTrooperLaserBeam"),
+    "ShockTrooperTeslaArcWeapon": _tesla_arc(
+        "ShockTrooperTeslaArcWeapon", "110.0", "OCL_ShockTrooperTeslaChain"),
+    "HeroicShockTrooperTeslaArcWeapon": _tesla_arc(
+        "HeroicShockTrooperTeslaArcWeapon", "140.0",
+        "OCL_ShockTrooperTeslaChainHeroic"),
+    "ShockTrooperTeslaChainZap": _chain_zap(
+        "ShockTrooperTeslaChainZap", "100.0", "TeslaTrooperLaserBeam"),
+    "HeroicShockTrooperTeslaChainZap": _chain_zap(
+        "HeroicShockTrooperTeslaChainZap", "120.0",
+        "HeroicTeslaTrooperLaserBeam"),
+    "ShockTrooperTeslaChainNode": _chain_node(
+        "ShockTrooperTeslaChainNode", "ShockTrooperTeslaChainZap", 1100, 1300),
+    "ShockTrooperTeslaChainNodeHeroic": _chain_node(
+        "ShockTrooperTeslaChainNodeHeroic", "HeroicShockTrooperTeslaChainZap",
+        1400, 1600),
+    "OCL_ShockTrooperTeslaChain": """ObjectCreationList OCL_ShockTrooperTeslaChain
+  CreateObject
+    ObjectNames = ShockTrooperTeslaChainNode
+    Count       = 1
+    Disposition = ON_GROUND_ALIGNED
+    IgnorePrimaryObstacle = Yes
+  End
+End
+""",
+    "OCL_ShockTrooperTeslaChainHeroic": """ObjectCreationList OCL_ShockTrooperTeslaChainHeroic
+  ; heroic Shock Troopers chain from TWO nodes (more arcs, longer-lived)
+  CreateObject
+    ObjectNames = ShockTrooperTeslaChainNodeHeroic
+    Count       = 1
+    Disposition = ON_GROUND_ALIGNED
+    IgnorePrimaryObstacle = Yes
+  End
+  CreateObject
+    ObjectNames = ShockTrooperTeslaChainNodeHeroic
+    Count       = 1
+    Offset      = X:14.0 Y:10.0 Z:0.0
+    Disposition = ON_GROUND_ALIGNED
+    IgnorePrimaryObstacle = Yes
+  End
+End
+""",
+}
+
+
+# ---- tesla-only draw (replaces the donor RIDER1/RIDER2 dual-mode draw) ----
+def shock_tesla_draw(skin):
+    """skin: '' | '2' | '3' -> RITslTrp[skin]_SKN.  Donor RIDER2 states with
+    the rider condition stripped; FIRING_B/C aliases cover the subdual and
+    arc weapon slots."""
+    m = "RITslTrp%s_SKN" % skin
+    return """  Draw = W3DModelDraw ModuleTag_01
+
+    OkToChangeModelColor = Yes
+
+    ; ---- standing (tesla gun is the only armament now)
+    DefaultConditionState
+      Model = %(m)s
+      IdleAnimation = NIGATT_SKL.NIGATT_IDC 0 35
+      IdleAnimation = NIGATT_SKL.NIGATT_IDA
+      IdleAnimation = NIGATT_SKL.NIGATT_IDB
+      IdleAnimation = NIGATT_SKL.NIGATT_STA
+      AnimationMode = ONCE
+      TransitionKey = TRANS_STANDING_TESLA
+    End
+
+    ; ---- attack
+    ConditionState = FIRING_A
+      Animation = NIGATT_SKL.NIGATT_ATA1
+      AnimationMode = LOOP
+      TransitionKey = None
+    End
+    AliasConditionState = BETWEEN_FIRING_SHOTS_A
+    AliasConditionState = RELOADING_A
+    AliasConditionState = FIRING_B
+    AliasConditionState = BETWEEN_FIRING_SHOTS_B
+    AliasConditionState = RELOADING_B
+    AliasConditionState = FIRING_C
+    AliasConditionState = BETWEEN_FIRING_SHOTS_C
+    AliasConditionState = RELOADING_C
+
+    ConditionState = MOVING FIRING_A
+      Animation = NIGATT_SKL.NIGATT_ATB1 20
+      AnimationMode = LOOP
+      Flags = RANDOMSTART
+      TransitionKey = None
+      ParticleSysBone = None InfantryDustTrails
+    End
+    AliasConditionState = MOVING BETWEEN_FIRING_SHOTS_A
+    AliasConditionState = MOVING RELOADING_A
+    AliasConditionState = MOVING FIRING_B
+    AliasConditionState = MOVING BETWEEN_FIRING_SHOTS_B
+    AliasConditionState = MOVING RELOADING_B
+    AliasConditionState = MOVING FIRING_C
+    AliasConditionState = MOVING BETWEEN_FIRING_SHOTS_C
+    AliasConditionState = MOVING RELOADING_C
+
+    ; ---- moving
+    ConditionState = MOVING
+      Animation = NIGATT_SKL.NIGATT_WKA 20
+      AnimationMode = LOOP
+      Flags = RANDOMSTART
+      TransitionKey = None
+      ParticleSysBone  = None InfantryDustTrails
+    End
+    AliasConditionState = ATTACKING MOVING
+
+    ; ---- dying
+    ConditionState      = DYING
+      Model             = %(m)s
+      Animation         = NIGATT_SKL.NIGATT_DTA
+      Animation         = NIGATT_SKL.NIGATT_DTB
+      AnimationMode     = ONCE
+      TransitionKey     = TRANS_TESLA_DYING
+    End
+
+    TransitionState     = TRANS_TESLA_DYING TRANS_TESLA_FLAILING
+      Model             = %(m)s
+      Animation         = NIGATT_SKL.NIGATT_ADTD1
+      AnimationMode     = ONCE
+    End
+
+    ConditionState      = DYING EXPLODED_FLAILING
+      Model             = %(m)s
+      Animation         = NIGATT_SKL.NIGATT_ADTD2
+      AnimationMode     = LOOP
+      TransitionKey     = TRANS_TESLA_FLAILING
+    End
+
+    ConditionState      = DYING EXPLODED_BOUNCING
+      Model             = %(m)s
+      Animation         = NIGATT_SKL.NIGATT_ADTD3
+      AnimationMode     = ONCE
+      TransitionKey     = None
+    End
+
+  End
+
+  Draw = W3DModelDraw ModuleTag_LaunchBone01
+    DefaultConditionState
+      Model               = RIShkTrp_B
+      WeaponFireFXBone    = PRIMARY Muzzle
+      WeaponLaunchBone    = PRIMARY Muzzle
+      WeaponFireFXBone    = TERTIARY Muzzle
+      WeaponLaunchBone    = TERTIARY Muzzle
+    End
+  End
+""" % {"m": m}
+
+
+SHOCK_WEAPONSETS = """  WeaponSet
+    Conditions        = None
+    Weapon            = PRIMARY   ShockTrooperTeslaWeapon
+    Weapon            = SECONDARY ShockTrooperTeslaSubdualWeapon
+    Weapon            = TERTIARY  ShockTrooperTeslaArcWeapon
+    ShareWeaponReloadTime = Yes
+  End
+
+  WeaponSet
+    Conditions        = HERO
+    Weapon            = PRIMARY   HeroicShockTrooperTeslaWeapon
+    Weapon            = SECONDARY HeroicShockTrooperTeslaSubdualWeapon
+    Weapon            = TERTIARY  HeroicShockTrooperTeslaArcWeapon
+    ShareWeaponReloadTime = Yes
+  End
+"""
+
+SHOCK_COST = ("800", "10.0")   # donor 450 / 7.0 -- elite repricing
 
 
 def load_donor():
@@ -265,10 +594,62 @@ def edit_block(t, name, text):
         text, n = re.subn(r"TriggeredBy\s*=\s*Upgrade_RussiaLargerClips",
                           "TriggeredBy  = Upgrade_ChinaBlackNapalm", text)
         assert n == 1, "fire-field TriggeredBy not found"
-    if name in ("ShockTrooperRemoveUpgradeRocketRifleObject",
-                "ShockTrooperRemoveUpgradeTeslaGunObject"):
-        text = text.replace("Side                = Russia",
-                            "Side                = ChinaTankGeneral")
+
+    # ---- Shock Trooper tesla rework ------------------------------------
+    if name == "RussiaInfantryShockTrooper":
+        # the buildable shell still carried the rocket-trooper preview draw;
+        # swap it to the tesla model so the RIShkTrp skin/anims can drop
+        text, n = strip_submodule(
+            text, r"Draw\s*=\s*W3DModelDraw\s+ModuleTag_01\b.*$")
+        assert n == 1, "shell draw not found"
+        marker = "  ; set cost and time fields"
+        assert marker in text
+        text = text.replace(marker, (
+            "  Draw = W3DModelDraw ModuleTag_01\n"
+            "    DefaultConditionState\n"
+            "      Model               = RITslTrp_SKN\n"
+            "      IdleAnimation       = NIGATT_SKL.NIGATT_IDC 0 35\n"
+            "      IdleAnimation       = NIGATT_SKL.NIGATT_IDA\n"
+            "      IdleAnimation       = NIGATT_SKL.NIGATT_IDB\n"
+            "      AnimationMode       = ONCE\n"
+            "      TransitionKey       = TRANS_Standing\n"
+            "    End\n"
+            "  End\n\n" + marker), 1)
+    if name in ("RussiaInfantryShockTrooper", "RussiaInfantryShockTrooper_Var1"):
+        # elite repricing (donor 450 / 7.0)
+        text, n = re.subn(r"BuildCost\s*=\s*450", "BuildCost = %s" % SHOCK_COST[0],
+                          text)
+        assert n >= 1, "BuildCost not found in %s" % name
+        text, n = re.subn(r"BuildTime\s*=\s*7\.0", "BuildTime = %s" % SHOCK_COST[1],
+                          text)
+        assert n >= 1, "BuildTime not found in %s" % name
+    if name == "RussiaInfantryShockTrooper_Var1":
+        # 1. dual-mode draw -> tesla-only draw (donor RIDER2 states)
+        text, n = strip_submodule(
+            text, r"Draw\s*=\s*W3DModelDraw\s+ModuleTag_01\b.*$")
+        assert n == 1, "Var1 main draw not found"
+        text, n = strip_submodule(
+            text, r"Draw\s*=\s*W3DModelDraw\s+ModuleTag_LaunchBone01\b.*$")
+        assert n == 1, "Var1 launch-bone draw not found"
+        marker = "  ; ***DESIGN parameters ***"
+        assert marker in text
+        text = text.replace(marker, shock_tesla_draw("") + "\n" + marker, 1)
+        # 2. the four rider weaponsets -> two tesla sets (3 slots each)
+        text, n = strip_submodule(text, r"WeaponSet\s*$")
+        assert n == 4, "expected 4 donor weaponsets, removed %d" % n
+        amarker = "  ArmorSet"
+        assert amarker in text
+        text = text.replace(amarker, SHOCK_WEAPONSETS + "\n" + amarker, 1)
+        # 3. turret also drives the arc weapon (TERTIARY)
+        text, n = re.subn(r"ControlledWeaponSlots\s*=\s*SECONDARY\s*$",
+                          "ControlledWeaponSlots = SECONDARY TERTIARY",
+                          text, flags=re.M)
+        assert n == 1, "turret ControlledWeaponSlots not found"
+    if name in ("RussiaInfantryShockTrooper_Var2",
+                "RussiaInfantryShockTrooper_Var3"):
+        skin = name[-1]   # '2' | '3'
+        text = ("ObjectReskin %s RussiaInfantryShockTrooper_Var1\n\n"
+                % name) + shock_tesla_draw(skin) + "\nEnd\n"
     return text
 
 

@@ -154,112 +154,159 @@ Weapon PyroFireWalFieldWeapon
   RadiusDamageAffects         = ALLIES ENEMIES NEUTRALS NOT_SIMILAR
 End
 
-Weapon ShockTrooperRocketRifle
-  PrimaryDamage          = 10.0
-  PrimaryDamageRadius    = 2.0 ; 0 primary radius means "hits only intended victim"
-  AttackRange            = 180.0
-  DamageType             = EXPLOSION
-  DeathType              = EXTRA_4
-  WeaponSpeed            = 600               
-  ProjectileObject       = ShockTrooperGuidedMissile
-  FireFX                 = WeaponFX_GenericShockTrooperRocketRifleFire
-  VeterancyFireFX        = HEROIC WeaponFX_GenericShockTrooperRocketRifleFireWithRedTracers
-  ProjectileDetonationFX = FX_ShockTrooperRocketExplosion
-  FireSound              = RocketBuggyWeapon
-  RadiusDamageAffects    = ALLIES ENEMIES NEUTRALS
-  DelayBetweenShots      = 80       ; time between shots, msec
-  ClipSize               = 8        ; how many shots in a Clip (0 == infinite)
-  ClipReloadTime         = 1500     ; how long to reload a Clip, msec
-  AutoReloadWhenIdle     = 1510
-  WeaponBonus            = GARRISONED RANGE  133%     ;Bonus range when garrisoned default value is at 133% which translates to 33% extra range
-  WeaponBonus            = GARRISONED DAMAGE 125%     ;Bonus damage when garrisoned default value is at 125% which translates to 25% extra damage
-  WeaponBonus            = PLAYER_UPGRADE RANGE  133% ;This makes sure that infantry inside containers get their garrison bonuses if turned on by the container.
-  WeaponBonus            = PLAYER_UPGRADE DAMAGE 125% ;This makes sure that infantry inside containers get their garrison bonuses if turned on by the container.
-End
-
 Weapon ShockTrooperTeslaWeapon
-  PrimaryDamage           = 30.0
-  AttackRange             = 140.0
+  ; tesla shock beam: the anti-vehicle component (AP because base
+  ; TankArmor takes 0% MELEE damage -- the donor value was dead)
+  PrimaryDamage           = 60.0
   PrimaryDamageRadius     = 5.0
-  DamageType              = MELEE
-  DeathType               = POISONED_GAMMA ; This is now a Tesla Death Animation
+  AttackRange             = 140.0
+  DamageType              = ARMOR_PIERCING
+  DeathType               = POISONED_GAMMA ; tesla death animation
   WeaponSpeed             = 99999
   LaserName               = TeslaTrooperLaserBeam
-  FireSound               = AvengerPointDefenseLaserPulse
-  FireSoundLoopTime       = 40
   LaserBoneName           = MUZZLE01
-  DelayBetweenShots       = 50
-  WeaponBonus             = GARRISONED RANGE  145%     ;Bonus range when garrisoned default value is at 133% which translates to 33% extra range
-  WeaponBonus             = GARRISONED DAMAGE 125%     ;Bonus damage when garrisoned default value is at 125% which translates to 25% extra damage
-  WeaponBonus             = PLAYER_UPGRADE RANGE  145% ;This makes sure that infantry inside containers get their garrison bonuses if turned on by the container.
-  WeaponBonus             = PLAYER_UPGRADE DAMAGE 125% ;This makes sure that infantry inside containers get their garrison bonuses if turned on by the container.
+  FireSound               = AvengerPointDefenseLaserPulse
+  DelayBetweenShots       = 1200
+  AntiGround              = Yes
+  AntiAirborneVehicle     = No
+  AntiAirborneInfantry    = No
+  WeaponBonus             = GARRISONED RANGE  145%
+  WeaponBonus             = GARRISONED DAMAGE 125%
+  WeaponBonus             = PLAYER_UPGRADE RANGE  145%
+  WeaponBonus             = PLAYER_UPGRADE DAMAGE 125%
 End
 
 Weapon ShockTrooperTeslaSubdualWeapon
-  PrimaryDamage           = 10.0
+  ; subdual buildup rider: vehicles accumulate this until it
+  ; passes their MaxHealth -> DISABLED_SUBDUED for a few seconds
+  ; (decays at the target body's SubdualDamageHealRate/Amount)
+  PrimaryDamage           = 250.0
+  PrimaryDamageRadius     = 10.0
   AttackRange             = 140.0
   DamageType              = SUBDUAL_UNRESISTABLE
-  DeathType               = POISONED_GAMMA ; This is now a Tesla Death Animation
+  DeathType               = POISONED_GAMMA
   WeaponSpeed             = 99999
   LaserName               = TeslaTrooperLaserBeam
-  FireSound               = AvengerPointDefenseLaserPulse
-  FireSoundLoopTime       = 40
   LaserBoneName           = MUZZLE01
-  DelayBetweenShots       = 50
-  WeaponBonus             = GARRISONED RANGE  145%     ;Bonus range when garrisoned default value is at 133% which translates to 33% extra range
-  WeaponBonus             = GARRISONED DAMAGE 125%     ;Bonus damage when garrisoned default value is at 125% which translates to 25% extra damage
-  WeaponBonus             = PLAYER_UPGRADE RANGE  145% ;This makes sure that infantry inside containers get their garrison bonuses if turned on by the container.
-  WeaponBonus             = PLAYER_UPGRADE DAMAGE 125% ;This makes sure that infantry inside containers get their garrison bonuses if turned on by the container.
+  DelayBetweenShots       = 1200
+  RadiusDamageAffects     = ENEMIES NEUTRALS
+  AntiGround              = Yes
+  AntiAirborneVehicle     = No
+  AntiAirborneInfantry    = No
+End
+
+Weapon ShockTrooperTeslaArcWeapon
+  ; anti-infantry fry + chain trigger: FLAME one-shots standard
+  ; infantry (<=110.0*1.5 HP) and BURNED lights them up; the hitscan
+  ; projectile detonation spawns the chain-lightning node
+  PrimaryDamage           = 110.0
+  PrimaryDamageRadius     = 20.0
+  AttackRange             = 140.0
+  DamageType              = FLAME
+  DeathType               = BURNED
+  WeaponSpeed             = 99999
+  ProjectileObject        = GenericHitScanProjectile
+  ProjectileDetonationFX  = FX_ShockTrooperElectricRocketExplosion
+  ProjectileDetonationOCL = OCL_ShockTrooperTeslaChain
+  DelayBetweenShots       = 1200
+  RadiusDamageAffects     = ENEMIES NEUTRALS
+  AntiGround              = Yes
+  AntiAirborneVehicle     = No
+  AntiAirborneInfantry    = No
 End
 
 Weapon HeroicShockTrooperTeslaWeapon
-  PrimaryDamage           = 30.0
-  AttackRange             = 140.0
+  ; tesla shock beam: the anti-vehicle component (AP because base
+  ; TankArmor takes 0% MELEE damage -- the donor value was dead)
+  PrimaryDamage           = 80.0
   PrimaryDamageRadius     = 5.0
-  DamageType              = MELEE
-  DeathType               = POISONED_GAMMA ; This is now a Tesla Death Animation
+  AttackRange             = 140.0
+  DamageType              = ARMOR_PIERCING
+  DeathType               = POISONED_GAMMA ; tesla death animation
   WeaponSpeed             = 99999
   LaserName               = HeroicTeslaTrooperLaserBeam
-  FireSound               = AvengerPointDefenseLaserPulse
-  FireSoundLoopTime       = 40
   LaserBoneName           = MUZZLE01
-  DelayBetweenShots       = 50
-  WeaponBonus             = GARRISONED RANGE  145%     ;Bonus range when garrisoned default value is at 133% which translates to 33% extra range
-  WeaponBonus             = GARRISONED DAMAGE 125%     ;Bonus damage when garrisoned default value is at 125% which translates to 25% extra damage
-  WeaponBonus             = PLAYER_UPGRADE RANGE  145% ;This makes sure that infantry inside containers get their garrison bonuses if turned on by the container.
-  WeaponBonus             = PLAYER_UPGRADE DAMAGE 125% ;This makes sure that infantry inside containers get their garrison bonuses if turned on by the container.
+  FireSound               = AvengerPointDefenseLaserPulse
+  DelayBetweenShots       = 1200
+  AntiGround              = Yes
+  AntiAirborneVehicle     = No
+  AntiAirborneInfantry    = No
+  WeaponBonus             = GARRISONED RANGE  145%
+  WeaponBonus             = GARRISONED DAMAGE 125%
+  WeaponBonus             = PLAYER_UPGRADE RANGE  145%
+  WeaponBonus             = PLAYER_UPGRADE DAMAGE 125%
 End
 
 Weapon HeroicShockTrooperTeslaSubdualWeapon
-  PrimaryDamage           = 10.0
+  ; subdual buildup rider: vehicles accumulate this until it
+  ; passes their MaxHealth -> DISABLED_SUBDUED for a few seconds
+  ; (decays at the target body's SubdualDamageHealRate/Amount)
+  PrimaryDamage           = 325.0
+  PrimaryDamageRadius     = 10.0
   AttackRange             = 140.0
   DamageType              = SUBDUAL_UNRESISTABLE
-  DeathType               = POISONED_GAMMA ; This is now a Tesla Death Animation
+  DeathType               = POISONED_GAMMA
+  WeaponSpeed             = 99999
+  LaserName               = HeroicTeslaTrooperLaserBeam
+  LaserBoneName           = MUZZLE01
+  DelayBetweenShots       = 1200
+  RadiusDamageAffects     = ENEMIES NEUTRALS
+  AntiGround              = Yes
+  AntiAirborneVehicle     = No
+  AntiAirborneInfantry    = No
+End
+
+Weapon HeroicShockTrooperTeslaArcWeapon
+  ; anti-infantry fry + chain trigger: FLAME one-shots standard
+  ; infantry (<=140.0*1.5 HP) and BURNED lights them up; the hitscan
+  ; projectile detonation spawns the chain-lightning node
+  PrimaryDamage           = 140.0
+  PrimaryDamageRadius     = 20.0
+  AttackRange             = 140.0
+  DamageType              = FLAME
+  DeathType               = BURNED
+  WeaponSpeed             = 99999
+  ProjectileObject        = GenericHitScanProjectile
+  ProjectileDetonationFX  = FX_ShockTrooperElectricRocketExplosion
+  ProjectileDetonationOCL = OCL_ShockTrooperTeslaChainHeroic
+  DelayBetweenShots       = 1200
+  RadiusDamageAffects     = ENEMIES NEUTRALS
+  AntiGround              = Yes
+  AntiAirborneVehicle     = No
+  AntiAirborneInfantry    = No
+End
+
+Weapon ShockTrooperTeslaChainZap
+  ; the chain-lightning arc fired by the spawned node
+  PrimaryDamage           = 100.0
+  PrimaryDamageRadius     = 12.0
+  AttackRange             = 90.0
+  DamageType              = FLAME
+  DeathType               = BURNED
+  WeaponSpeed             = 99999
+  LaserName               = TeslaTrooperLaserBeam
+  FireSound               = AvengerPointDefenseLaserPulse
+  DelayBetweenShots       = 500
+  RadiusDamageAffects     = ENEMIES NEUTRALS
+  AntiGround              = Yes
+  AntiAirborneVehicle     = No
+  AntiAirborneInfantry    = No
+End
+
+Weapon HeroicShockTrooperTeslaChainZap
+  ; the chain-lightning arc fired by the spawned node
+  PrimaryDamage           = 120.0
+  PrimaryDamageRadius     = 12.0
+  AttackRange             = 90.0
+  DamageType              = FLAME
+  DeathType               = BURNED
   WeaponSpeed             = 99999
   LaserName               = HeroicTeslaTrooperLaserBeam
   FireSound               = AvengerPointDefenseLaserPulse
-  FireSoundLoopTime       = 40
-  LaserBoneName           = MUZZLE01
-  DelayBetweenShots       = 50
-  WeaponBonus             = GARRISONED RANGE  145%     ;Bonus range when garrisoned default value is at 133% which translates to 33% extra range
-  WeaponBonus             = GARRISONED DAMAGE 125%     ;Bonus damage when garrisoned default value is at 125% which translates to 25% extra damage
-  WeaponBonus             = PLAYER_UPGRADE RANGE  145% ;This makes sure that infantry inside containers get their garrison bonuses if turned on by the container.
-  WeaponBonus             = PLAYER_UPGRADE DAMAGE 125% ;This makes sure that infantry inside containers get their garrison bonuses if turned on by the container.
-End
-
-Weapon ShockTrooperSwitchToRocketGunMode
-  PrimaryDamage    = 0.0
-  DamageType       = LASER
-  FireOCL          = OCL_GenericDummyRider1_Normal
-  ClipSize         = 1
-  ClipReloadTime   = 1000
-End
-
-Weapon ShockTrooperSwitchToTeslaGunMode
-  PrimaryDamage    = 0.0
-  DamageType       = LASER
-  FireOCL          = OCL_GenericDummyRider2_Normal
-  ClipSize         = 1
-  ClipReloadTime   = 1000
+  DelayBetweenShots       = 500
+  RadiusDamageAffects     = ENEMIES NEUTRALS
+  AntiGround              = Yes
+  AntiAirborneVehicle     = No
+  AntiAirborneInfantry    = No
 End
 

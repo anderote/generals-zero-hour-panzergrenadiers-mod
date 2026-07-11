@@ -57,23 +57,29 @@ ObjectCreationList OCL_ShmellRocketFire
  End
 End
 
-ObjectCreationList OCL_ShockTrooperRocketRifleModeTrigger
+ObjectCreationList OCL_ShockTrooperTeslaChain
   CreateObject
-    ObjectNames = ShockTrooperRemoveUpgradeRocketRifleObject
+    ObjectNames = ShockTrooperTeslaChainNode
+    Count       = 1
+    Disposition = ON_GROUND_ALIGNED
     IgnorePrimaryObstacle = Yes
-    Disposition = LIKE_EXISTING
-    Count = 1
-    RequiresLivePlayer = Yes
   End
 End
 
-ObjectCreationList OCL_GenericDummyRider2Trigger
+ObjectCreationList OCL_ShockTrooperTeslaChainHeroic
+  ; heroic Shock Troopers chain from TWO nodes (more arcs, longer-lived)
   CreateObject
-    ObjectNames = ShockTrooperRemoveUpgradeTeslaGunObject
+    ObjectNames = ShockTrooperTeslaChainNodeHeroic
+    Count       = 1
+    Disposition = ON_GROUND_ALIGNED
     IgnorePrimaryObstacle = Yes
-    Disposition = LIKE_EXISTING
-    Count = 1
-    RequiresLivePlayer = Yes
+  End
+  CreateObject
+    ObjectNames = ShockTrooperTeslaChainNodeHeroic
+    Count       = 1
+    Offset      = X:14.0 Y:10.0 Z:0.0
+    Disposition = ON_GROUND_ALIGNED
+    IgnorePrimaryObstacle = Yes
   End
 End
 

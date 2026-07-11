@@ -7,8 +7,6 @@ CommandSet Tank_ChinaInfantryShmelTrooperCommandSet
 End
 
 CommandSet Tank_ChinaInfantryShockTrooperCommandSet
-  1  = Tank_Command_ShockTrooperSwitchToRockets
-  3  = Tank_Command_ShockTrooperSwitchToTeslaGun
   11 = Command_AttackMove
   13 = Command_Guard
   14 = Command_Stop

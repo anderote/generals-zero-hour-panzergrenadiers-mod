@@ -19,7 +19,7 @@ CONTROLBAR:ConstructTankShockTrooper
 END
 
 CONTROLBAR:ToolTipTankShockTrooper
-"Heavy Assault Trooper.\n Armed with a rocket rifle.\n Resistant to toxins, flames and radiation.\n Cannot be crushed by vehicles.\n\n Strong vs. vehicles, structures \n Weak vs. aircraft, artillery"
+"Elite Tesla Trooper.\n Tesla gun stuns vehicles and incinerates infantry.\n Lightning chains to nearby enemies.\n Cannot attack aircraft.\n Cannot be crushed by vehicles.\n\n Strong vs. infantry, vehicles \n Weak vs. aircraft, artillery"
 END
 
 CONTROLBAR:TankShmelSmokeRocket
@@ -36,20 +36,4 @@ END
 
 CONTROLBAR:ToolTipTankShmelAntiToxinRocket
 "Launch a anti-toxin rocket at a target location.\n\n Cleans up toxins and radiation in a targeted area."
-END
-
-CONTROLBAR:TankShockTrooperRocketsMode
-"R&ocket Rifle"
-END
-
-CONTROLBAR:ToolTipTankShockTrooperRocketsMode
-"Switch to Rocket rifle.\n\n Strong vs. vehicles, structures \n Weak vs. n/a"
-END
-
-CONTROLBAR:TankShockTrooperTeslaMode
-"&Tesla Gun"
-END
-
-CONTROLBAR:ToolTipTankShockTrooperTeslaMode
-"Switch to Tesla gun.\n Can disable vehicles.\n\n Strong vs. infantry, vehicles \n Weak vs. n/a"
 END

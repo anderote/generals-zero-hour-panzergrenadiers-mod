@@ -28,8 +28,6 @@ SEEDS = [
     ("CommandSet", "RussianInfantryShockTrooperCommandSet"),
     ("CommandButton", "Command_RussiaShmellTrooperSmokeRocket"),
     ("CommandButton", "Command_RussiaShmellTrooperAntiToxinRocket"),
-    ("CommandButton", "Command_RussiaShockTrooperSwitchToRockets"),
-    ("CommandButton", "Command_RussiaShockTrooperSwitchToTeslaGun"),
 ]
 
 # ---------------------------------------------------------------- renames
@@ -45,8 +43,6 @@ RENAMES = {
     "RussianInfantryShockTrooperCommandSet": "Tank_ChinaInfantryShockTrooperCommandSet",
     "Command_RussiaShmellTrooperSmokeRocket": "Tank_Command_ShmelTrooperSmokeRocket",
     "Command_RussiaShmellTrooperAntiToxinRocket": "Tank_Command_ShmelTrooperAntiToxinRocket",
-    "Command_RussiaShockTrooperSwitchToRockets": "Tank_Command_ShockTrooperSwitchToRockets",
-    "Command_RussiaShockTrooperSwitchToTeslaGun": "Tank_Command_ShockTrooperSwitchToTeslaGun",
     # string labels: donor keys live in ROTR's generals.csf; we ship our
     # own Generals.str entries under fresh keys (collision-safe).
     "OBJECT:ShmelTrooper": "OBJECT:TankShmelTrooper",
@@ -88,6 +84,21 @@ DROPS = {
     # prerequisite buildings: remapped to Tank_ChinaWarFactory by build.py
     # (porting them would pull the whole Russia faction closure):
     "RussiaWarFactory", "RussiaWeaponsBunker",
+    # === Shock Trooper tesla rework: the rocket-rifle mode and the whole
+    # RiderChangeContain switch machinery are dropped (see README) ===
+    "ShockTrooperRocketRifle", "ShockTrooperGuidedMissile",
+    "ShocktrooperRocketRifleLocomotor",
+    "FX_ShockTrooperRocketExplosion",
+    "WeaponFX_GenericShockTrooperRocketRifleFire",
+    "WeaponFX_GenericShockTrooperRocketRifleFireWithRedTracers",
+    "EmptyShockRocketCassingsFalling",
+    "ShockTrooperSwitchToRocketGunMode", "ShockTrooperSwitchToTeslaGunMode",
+    "OCL_ShockTrooperRocketRifleModeTrigger", "OCL_GenericDummyRider2Trigger",
+    "ShockTrooperRemoveUpgradeRocketRifleObject",
+    "ShockTrooperRemoveUpgradeTeslaGunObject",
+    "BerkutMissileDodgeJetLocomotor",
+    "Command_RussiaShockTrooperSwitchToRockets",
+    "Command_RussiaShockTrooperSwitchToTeslaGun",
 }
 
 # ---------------------------------------------------------------- module strips
@@ -96,7 +107,8 @@ DROPS = {
 # and that afterwards no dropped identifier is referenced.
 MODULE_STRIPS = {
     "RussianInfantryShmelTrooper": [
-        "ModuleTag_Death06",        # POISONED_BETA (remapped: merged into POISONED? see build)
+        # (ModuleTag_Death06 / POISONED_BETA is KEPT: OCL_ToxicInfantryBeta
+        # exists in base; stripping it left that death type uncovered)
         "ModuleTag_Medkit01",       # AutoHeal on Upgrade_RussiaMedPack
         "ModuleTag_RussiaInfantryBeserker01",
         "ModuleTag_MissileRangeUpgrade01",
@@ -109,6 +121,16 @@ MODULE_STRIPS = {
         "ModuleTag_Medkit01",
         "ModuleTag_GrizonAirDrop01",
         "ModuleTag_0324114256",     # EXTRA_8 suicide death
+        # tesla-only rework: the whole rider/transformation block goes
+        "ModuleTag_Transform01",    # RiderChangeContain
+        "ModuleTag_Transform02",    # GrantUpgradeCreate
+        "ModuleTag_Transform03",    # ProductionUpdate (switch queue)
+        "ModuleTag_Transform04",    # FireWeaponCollide (rocket trigger)
+        "ModuleTag_Transform05",    # ObjectCreationUpgrade
+        "ModuleTag_Transform06",    # StatusBitsUpgrade
+        "ModuleTag_Transform07",    # FireWeaponCollide (tesla trigger)
+        "ModuleTag_Transform08",    # ObjectCreationUpgrade
+        "ModuleTag_Transform09",    # StatusBitsUpgrade
     ],
 }
 
@@ -120,5 +142,7 @@ MODULE_STRIPS = {
 AUDIO_REMAP = {}   # filled after the trace report; see build.py
 
 # ---------------------------------------------------------------- misc
-BARRACKS_SLOT_DEFAULT_SHMEL = 6
-BARRACKS_SLOT_DEFAULT_SHOCK = 7
+# (6-8 were taken by the zzz-ZZZZZZZLKwaiInfantry stubs layer that landed
+# mid-branch; integrate.py aborts loudly if these are occupied by merge day)
+BARRACKS_SLOT_DEFAULT_SHMEL = 9
+BARRACKS_SLOT_DEFAULT_SHOCK = 10

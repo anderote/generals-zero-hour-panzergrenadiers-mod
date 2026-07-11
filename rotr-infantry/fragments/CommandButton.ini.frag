@@ -26,32 +26,6 @@ CommandButton Tank_Command_ShmelTrooperAntiToxinRocket
   RadiusCursorType        = SPYSATELLITE
 End
 
-CommandButton Tank_Command_ShockTrooperSwitchToRockets
-  Command                 = OBJECT_UPGRADE
-  Upgrade                 = Upgrade_GLAWorkerRealCommandSet
-  Options                 = OK_FOR_MULTI_SELECT NEED_SPECIAL_POWER_SCIENCE
-  TextLabel               = CONTROLBAR:TankShockTrooperRocketsMode
-  ButtonImage             = SSHEShockRocket
-  ButtonBorderType        = ACTION
-  DescriptLabel           = CONTROLBAR:ToolTipTankShockTrooperRocketsMode
-  PurchasedLabel          = CONTROLBAR:ToolTipTankShockTrooperRocketsMode
-  ConflictingLabel        = CONTROLBAR:ToolTipTankShockTrooperRocketsMode
-  UnitSpecificSound       = PyroVoiceMove
-End
-
-CommandButton Tank_Command_ShockTrooperSwitchToTeslaGun
-  Command                 = OBJECT_UPGRADE
-  Upgrade                 = Upgrade_GLAWorkerFakeCommandSet
-  Options                 = OK_FOR_MULTI_SELECT NEED_SPECIAL_POWER_SCIENCE
-  TextLabel               = CONTROLBAR:TankShockTrooperTeslaMode
-  ButtonImage             = SSElectricShockRocket
-  ButtonBorderType        = ACTION
-  DescriptLabel           = CONTROLBAR:ToolTipTankShockTrooperTeslaMode
-  PurchasedLabel          = CONTROLBAR:ToolTipTankShockTrooperTeslaMode
-  ConflictingLabel        = CONTROLBAR:ToolTipTankShockTrooperTeslaMode
-  UnitSpecificSound       = PyroVoiceMove
-End
-
 CommandButton Tank_Command_ConstructChinaInfantryShmelTrooper
   Command           = UNIT_BUILD
   Object            = Tank_ChinaInfantryShmelTrooper

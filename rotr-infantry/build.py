@@ -83,8 +83,6 @@ UNIT_COMMANDSETS = """CommandSet Tank_ChinaInfantryShmelTrooperCommandSet
 End
 
 CommandSet Tank_ChinaInfantryShockTrooperCommandSet
-  1  = Tank_Command_ShockTrooperSwitchToRockets
-  3  = Tank_Command_ShockTrooperSwitchToTeslaGun
   11 = Command_AttackMove
   13 = Command_Guard
   14 = Command_Stop
@@ -125,11 +123,16 @@ STR_FROM_DONOR = [
     ("CONTROLBAR:ToolTipTankShmelSmokeRocket", "CONTROLBAR:ToolTipRussiaRPGConscriptShmelRocket"),
     ("CONTROLBAR:TankShmelAntiToxinRocket", "CONTROLBAR:ShmelAntiToxinRocket"),
     ("CONTROLBAR:ToolTipTankShmelAntiToxinRocket", "CONTROLBAR:ToolTipRussiaShmelAntiToxinRocket"),
-    ("CONTROLBAR:TankShockTrooperRocketsMode", "CONTROLBAR:HERocketsMode"),
-    ("CONTROLBAR:ToolTipTankShockTrooperRocketsMode", "CONTROLBAR:ToolTipSwitchToRussiaHERockets"),
-    ("CONTROLBAR:TankShockTrooperTeslaMode", "CONTROLBAR:ElectricRocketsMode"),
-    ("CONTROLBAR:ToolTipTankShockTrooperTeslaMode", "CONTROLBAR:ToolTipSwitchToRussiaElectricRockets"),
 ]
+
+# authored string overrides (the tesla rework changed what the unit does)
+STR_AUTHORED = {
+    "CONTROLBAR:ToolTipTankShockTrooper":
+        '"Elite Tesla Trooper.\\n Tesla gun stuns vehicles and incinerates '
+        'infantry.\\n Lightning chains to nearby enemies.\\n Cannot attack '
+        'aircraft.\\n Cannot be crushed by vehicles.\\n\\n Strong vs. '
+        'infantry, vehicles \\n Weak vs. aircraft, artillery"',
+}
 
 # label-key remap applied to the ability buttons' donor text
 LABEL_RENAMES = {
@@ -137,10 +140,6 @@ LABEL_RENAMES = {
     "CONTROLBAR:ToolTipRussiaRPGConscriptShmelRocket": "CONTROLBAR:ToolTipTankShmelSmokeRocket",
     "CONTROLBAR:ShmelAntiToxinRocket": "CONTROLBAR:TankShmelAntiToxinRocket",
     "CONTROLBAR:ToolTipRussiaShmelAntiToxinRocket": "CONTROLBAR:ToolTipTankShmelAntiToxinRocket",
-    "CONTROLBAR:HERocketsMode": "CONTROLBAR:TankShockTrooperRocketsMode",
-    "CONTROLBAR:ToolTipSwitchToRussiaHERockets": "CONTROLBAR:ToolTipTankShockTrooperRocketsMode",
-    "CONTROLBAR:ElectricRocketsMode": "CONTROLBAR:TankShockTrooperTeslaMode",
-    "CONTROLBAR:ToolTipSwitchToRussiaElectricRockets": "CONTROLBAR:ToolTipTankShockTrooperTeslaMode",
 }
 
 
@@ -158,6 +157,9 @@ def build_str_fragment():
     donor = donor_strings()
     out = []
     for ours, theirs in STR_FROM_DONOR:
+        if ours in STR_AUTHORED:
+            out.append("%s\n%s\nEND\n" % (ours, STR_AUTHORED[ours]))
+            continue
         text = donor[theirs.lower()]
         # donor text fixes (documented in README):
         # - drop the berserker flavor line (mechanic not ported)
@@ -173,13 +175,8 @@ def build_str_fragment():
 def ability_buttons(ddefs):
     out = []
     for name in ("Command_RussiaShmellTrooperSmokeRocket",
-                 "Command_RussiaShmellTrooperAntiToxinRocket",
-                 "Command_RussiaShockTrooperSwitchToRockets",
-                 "Command_RussiaShockTrooperSwitchToTeslaGun"):
+                 "Command_RussiaShmellTrooperAntiToxinRocket"):
         _rel, text = ddefs[("CommandButton", name)]
-        # drop the ROTR science gate on the tesla switch (Kwai can't buy
-        # SCIENCE_TeslaTech); also the donor's empty "Science =" line
-        text, _ = portlib.strip_lines(text, r"^\s*Science\s*=")
         text = retoken(text, token_map())
         text = retoken(text, LABEL_RENAMES)
         out.append(text.rstrip() + "\n")
@@ -202,9 +199,12 @@ def main():
     for path, blocks in OBJECT_FILES.items():
         parts = [HEADER]
         for t, name in blocks:
-            _rel, text = ddefs[(t, name)]
-            text = edit_block(t, name, text)
-            text = side_fix(name, text)
+            if name in portlib.AUTHORED:
+                text = portlib.AUTHORED[name]
+            else:
+                _rel, text = ddefs[(t, name)]
+                text = edit_block(t, name, text)
+                text = side_fix(name, text)
             text = retoken(text, tmap)
             parts.append(text.rstrip() + "\n\n")
         final = "".join(parts)
@@ -217,15 +217,18 @@ def main():
     for fname, names in SHARED_APPENDS.items():
         parts = []
         for name in names:
-            key = None
-            for t in ("Weapon", "Armor", "Locomotor", "FXList", "ParticleSystem",
-                      "ObjectCreationList"):
-                if (t, name) in ddefs:
-                    key = (t, name)
-                    break
-            assert key, "donor block not found: %s" % name
-            _rel, text = ddefs[key]
-            text = edit_block(key[0], name, text)
+            if name in portlib.AUTHORED:
+                text = portlib.AUTHORED[name]
+            else:
+                key = None
+                for t in ("Weapon", "Armor", "Locomotor", "FXList",
+                          "ParticleSystem", "ObjectCreationList"):
+                    if (t, name) in ddefs:
+                        key = (t, name)
+                        break
+                assert key, "donor block not found: %s" % name
+                _rel, text = ddefs[key]
+                text = edit_block(key[0], name, text)
             text = retoken(text, tmap)
             parts.append(text.rstrip() + "\n\n")
         frag_texts[fname] = "".join(parts)

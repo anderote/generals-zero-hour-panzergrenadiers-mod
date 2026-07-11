@@ -3,8 +3,6 @@
   Armor                ShockTrooperArmor                                       Armor.ini                                via RussiaInfantryShockTrooper_Var1
   CommandButton        Command_RussiaShmellTrooperAntiToxinRocket              CommandButton.ini                        via seed
   CommandButton        Command_RussiaShmellTrooperSmokeRocket                  CommandButton.ini                        via RussianInfantryShmelTrooperCommandSet
-  CommandButton        Command_RussiaShockTrooperSwitchToRockets               CommandButton.ini                        via RussianInfantryShockTrooperCommandSet
-  CommandButton        Command_RussiaShockTrooperSwitchToTeslaGun              CommandButton.ini                        via RussianInfantryShockTrooperCommandSet
   CommandSet           RussianInfantryShmelTrooperCommandSet                   CommandSet.ini                           via RussianInfantryShmelTrooper
   CommandSet           RussianInfantryShockTrooperCommandSet                   CommandSet.ini                           via RussiaInfantryShockTrooper_Var1
   FXList               FX_GIDieCryoFreeze                                      FXList.ini                               via RussiaInfantryShockTrooper_Var1,RussianInfantryShmelTrooper
@@ -20,22 +18,15 @@
   FXList               FX_ShockTrooperDieFire                                  FXList.ini                               via RussiaInfantryShockTrooper_Var1
   FXList               FX_ShockTrooperDieTesla                                 FXList.ini                               via RussiaInfantryShockTrooper_Var1
   FXList               FX_ShockTrooperDieToxin                                 FXList.ini                               via RussiaInfantryShockTrooper_Var1
-  FXList               FX_ShockTrooperRocketExplosion                          FXList.ini                               via ShockTrooperRocketRifle
-  FXList               WeaponFX_GenericShockTrooperRocketRifleFire             FXList.ini                               via ShockTrooperRocketRifle
-  FXList               WeaponFX_GenericShockTrooperRocketRifleFireWithRedTracers FXList.ini                               via ShockTrooperRocketRifle
   FXList               WeaponFX_ShmelRocketExplosion                           FXList.ini                               via RussiaShmellTrooperMissileLauncher
   FXList               WeaponFX_ShmelRocketExplosionUpgraded                   FXList.ini                               via RussiaShmellTrooperExtraDamageWithInfantryMunitionUpgrade
   FXList               WeaponFX_ShmelTrooperAntiToxinSmoke                     FXList.ini                               via RussianShmelTrooperAntiToxinSmokeWeapon
-  Locomotor            BerkutMissileDodgeJetLocomotor                          Locomotor.ini                            via ShockTrooperRemoveUpgradeRocketRifleObject,ShockTrooperRemoveUpgradeTeslaGunObject
   Locomotor            ShmelRocketLocomotor                                    Locomotor.ini                            via ShmelTrooperRocket
   Locomotor            ShockTrooperLocomotor                                   Locomotor.ini                            via RussiaInfantryShockTrooper_Var1
-  Locomotor            ShocktrooperRocketRifleLocomotor                        Locomotor.ini                            via ShockTrooperGuidedMissile
   MappedImage          SRShmelTrooper                                          MappedImages/TextureSize_512/SRUserInterface512.INI via RussianInfantryShmelTrooper
   MappedImage          SRShmelTrooper_L                                        MappedImages/TextureSize_512/SRUserInterface512.INI via RussianInfantryShmelTrooper
   MappedImage          SRShockTrooper                                          MappedImages/TextureSize_512/SRUserInterface512.INI via RussiaInfantryShockTrooper,RussiaInfantryShockTrooper_Var1
   MappedImage          SRShockTrooper_L                                        MappedImages/TextureSize_512/SRUserInterface512.INI via RussiaInfantryShockTrooper,RussiaInfantryShockTrooper_Var1
-  MappedImage          SSElectricShockRocket                                   MappedImages/TextureSize_512/SRUserInterface512.INI via Command_RussiaShockTrooperSwitchToTeslaGun
-  MappedImage          SSHEShockRocket                                         MappedImages/TextureSize_512/SRUserInterface512.INI via Command_RussiaShockTrooperSwitchToRockets
   MappedImage          SSRocketShmelAntiTox                                    MappedImages/TextureSize_512/SRUserInterface512.INI via Command_RussiaShmellTrooperAntiToxinRocket
   MappedImage          SSRocketShmelSmoke                                      MappedImages/TextureSize_512/SRUserInterface512.INI via Command_RussiaShmellTrooperSmokeRocket
   Object               CryogenicFreezeInfantry                                 Object/System.ini                        via OCL_CrygenicDeathInfantry
@@ -58,9 +49,6 @@
   Object               ShmelTrooperRocket                                      Object/Russia/RussiaWeaponObjects.ini    via RussiaShmellTrooperMissileLauncher
   Object               ShmelTrooperSmokeRocketProjectile                       Object/Russia/RussiaWeaponObjects.ini    via RussiaShmellTrooperSmokeMissileLauncher,ShmelTrooperSmokeRocketHeroicProjectile
   Object               ShmellBurningEmbersFireField                            Object/Russia/RussiaSystemObjects.ini    via OCL_ShmellRocketFire
-  Object               ShockTrooperGuidedMissile                               Object/Russia/RussiaWeaponObjects.ini    via ShockTrooperRocketRifle
-  Object               ShockTrooperRemoveUpgradeRocketRifleObject              Object/Russia/RussiaSystemObjects.ini    via OCL_ShockTrooperRocketRifleModeTrigger
-  Object               ShockTrooperRemoveUpgradeTeslaGunObject                 Object/Russia/RussiaSystemObjects.ini    via OCL_GenericDummyRider2Trigger
   Object               TeslaInfantry                                           Object/System.ini                        via OCL_TeslaDeathInfantry
   Object               TeslaTrooperElectricBolt1                               Object/Russia/RussiaSystemObjects.ini    via TeslaTrooperLaserBeam
   Object               TeslaTrooperElectricBolt2                               Object/Russia/RussiaSystemObjects.ini    via TeslaTrooperLaserBeam
@@ -73,20 +61,17 @@
   Object               TeslaTrooperLaserBeam                                   Object/Russia/RussiaSystemObjects.ini    via ShockTrooperTeslaSubdualWeapon,ShockTrooperTeslaWeapon
   ObjectCreationList   OCL_CrygenicDeathInfantry                               ObjectCreationList.ini                   via RussiaInfantryShockTrooper_Var1,RussianInfantryShmelTrooper
   ObjectCreationList   OCL_CrygenicDeathInfantryExplode                        ObjectCreationList.ini                   via CryogenicFreezeInfantry
-  ObjectCreationList   OCL_GenericDummyRider2Trigger                           ObjectCreationList.ini                   via RussiaInfantryShockTrooper_Var1
   ObjectCreationList   OCL_RussiaExplodedDeath                                 ObjectCreationList.ini                   via RussianInfantryShmelTrooper
   ObjectCreationList   OCL_RussiaExplodedDeathShockTrooper                     ObjectCreationList.ini                   via RussiaInfantryShockTrooper_Var1
   ObjectCreationList   OCL_ShmelTrooperAntiToxinFoam                           ObjectCreationList.ini                   via ShmelTrooperAntiToxinRocketProjectile
   ObjectCreationList   OCL_ShmelTrooperSmokeScreen                             ObjectCreationList.ini                   via RussiaShmellTrooperSmokeMissilePellets,ShmelTrooperSmokeRocketProjectile
   ObjectCreationList   OCL_ShmellRocketFire                                    ObjectCreationList.ini                   via RussiaShmellTrooperExtraDamageWithInfantryMunitionUpgrade
-  ObjectCreationList   OCL_ShockTrooperRocketRifleModeTrigger                  ObjectCreationList.ini                   via RussiaInfantryShockTrooper_Var1
   ObjectCreationList   OCL_TeslaDeathInfantry                                  ObjectCreationList.ini                   via RussiaInfantryShockTrooper_Var1,RussianInfantryShmelTrooper
   ObjectCreationList   OCL_ViralInfantryDeath                                  ObjectCreationList.ini                   via RussiaInfantryShockTrooper_Var1,RussianInfantryShmelTrooper
   ObjectReskin         RussiaInfantryShockTrooper_Var2                         Object/Russia/Infantry/ShockTrooper.ini  via RussiaInfantryShockTrooper
   ObjectReskin         RussiaInfantryShockTrooper_Var3                         Object/Russia/Infantry/ShockTrooper.ini  via RussiaInfantryShockTrooper
   ObjectReskin         ShmelTrooperAntiToxinRocketHeroicProjectile             Object/Russia/RussiaWeaponObjects.ini    via RussiaShmellTrooperAntiToxinMissileLauncherHeroic
   ObjectReskin         ShmelTrooperSmokeRocketHeroicProjectile                 Object/Russia/RussiaWeaponObjects.ini    via RussiaShmellTrooperSmokeMissileLauncherHeroic
-  ParticleSystem       EmptyShockRocketCassingsFalling                         ParticleSystem.ini                       via WeaponFX_GenericShockTrooperRocketRifleFire,WeaponFX_GenericShockTrooperRocketRifleFireWithRedTracers
   ParticleSystem       HeroicShmelRocketExhaust                                ParticleSystem.ini                       via RussiaShmellTrooperMissileLauncher
   ParticleSystem       HeroicTeslaTrooperFlare                                 ParticleSystem.ini                       via HeroicTeslaTrooperElectricBolt1,HeroicTeslaTrooperElectricBolt2,HeroicTeslaTrooperElectricBolt3
   ParticleSystem       NapalmPoolSmoke                                         ParticleSystem.ini                       via ShmellBurningEmbersFireField
@@ -114,9 +99,6 @@
   Weapon               RussiaShmellTrooperSmokeMissilePellets                  Weapon.ini                               via ShmelTrooperSmokeRocketProjectile
   Weapon               RussianShmelTrooperAntiToxinSmokeWeapon                 Weapon.ini                               via RussianShmelTrooperAntiToxinFoam
   Weapon               RussianSmokeGrenadeSmokeScreenWeapon                    Weapon.ini                               via RussianSmokeGrenadeSmokeScreen
-  Weapon               ShockTrooperRocketRifle                                 Weapon.ini                               via RussiaInfantryShockTrooper_Var1
-  Weapon               ShockTrooperSwitchToRocketGunMode                       Weapon.ini                               via RussiaInfantryShockTrooper_Var1
-  Weapon               ShockTrooperSwitchToTeslaGunMode                        Weapon.ini                               via RussiaInfantryShockTrooper_Var1
   Weapon               ShockTrooperTeslaSubdualWeapon                          Weapon.ini                               via RussiaInfantryShockTrooper_Var1
   Weapon               ShockTrooperTeslaWeapon                                 Weapon.ini                               via RussiaInfantryShockTrooper_Var1
 
@@ -128,14 +110,12 @@
   CommandButton        Command_AttackMove                                      CommandButton.ini
   CommandButton        Command_Guard                                           CommandButton.ini
   CommandButton        Command_Stop                                            CommandButton.ini
-  DamageFX             EmptyDamageFX                                           DamageFX.ini
   DamageFX             InfantryDamageFX                                        DamageFX.ini
   FXList               FX_BuggyMissileIgnition                                 FXList.ini
   FXList               FX_DragonFlameGarrisonBuildingHit                       FXList.ini
   FXList               FX_GIDie                                                FXList.ini
   FXList               FX_GIDieCrushed                                         FXList.ini
   FXList               FX_GIDieRadiation                                       FXList.ini
-  FXList               FX_GenericMissileDeath                                  FXList.ini
   FXList               FX_GenericMissileDisintegrate                           FXList.ini
   FXList               FX_InfantryGoreExplosion                                FXList.ini
   FXList               FX_SmokeGrenadeActivationFX                             FXList.ini
@@ -151,8 +131,6 @@
   ObjectCreationList   OCL_BloodyGoreExplosion                                 ObjectCreationList.ini
   ObjectCreationList   OCL_BrutalBloodyDeathBits                               ObjectCreationList.ini
   ObjectCreationList   OCL_FlamingInfantry                                     ObjectCreationList.ini
-  ObjectCreationList   OCL_GenericDummyRider1_Normal                           ObjectCreationList.ini
-  ObjectCreationList   OCL_GenericDummyRider2_Normal                           ObjectCreationList.ini
   ObjectCreationList   OCL_GenericMissileDisintegrate                          ObjectCreationList.ini
   ObjectCreationList   OCL_MicrowavedInfantry                                  ObjectCreationList.ini
   ObjectCreationList   OCL_NeutronRadiationDeathInfantry                       ObjectCreationList.ini
@@ -164,8 +142,6 @@
   ParticleSystem       ArtilleryBarrageShockwave                               ParticleSystem.ini
   ParticleSystem       CarpetBombWave                                          ParticleSystem.ini
   ParticleSystem       FireInfantrySmall                                       ParticleSystem.ini
-  ParticleSystem       GattlingCannonLenzflare                                 ParticleSystem.ini
-  ParticleSystem       HeroicGattlingCannonLenzflare                           ParticleSystem.ini
   ParticleSystem       HeroicSheridanMissileExhaust                            ParticleSystem.ini
   ParticleSystem       InfantryDustTrails                                      ParticleSystem.ini
   ParticleSystem       MammothTankExplosionLenzflare                           ParticleSystem.ini
@@ -175,8 +151,6 @@
   ParticleSystem       SparksMedium                                            ParticleSystem.ini
   ParticleSystem       SpectreGunshipExplosionLight                            ParticleSystem.ini
   ParticleSystem       SpectreHowitzerExplosionCloud                           ParticleSystem.ini
-  ParticleSystem       StructureDamagedFlash                                   ParticleSystem.ini
-  ParticleSystem       TankStruckDebris                                        ParticleSystem.ini
   ParticleSystem       ViralGasCloud                                           ParticleSystem.ini
   SpecialPower         NukeGroundAttack                                        SpecialPower.ini
   SpecialPower         TomahawkGroundAttack                                    SpecialPower.ini
@@ -200,8 +174,6 @@
   EXExplo_mid
   EXLnzFlar2
   EXSWSmoke3
-  EXShell
-  EXShkDrt
   EXShmelSmok01
   EXShmell
   EXSmokePuf07
@@ -256,15 +228,12 @@
   RITslTrp_SKN
   Russia_ScoreScreenuserinterface
   SNRUserInterface512_002
-  SNRUserInterface512_003
   SNRUserInterface512_004
   SROTRUserInterface512_001
   SRShmelTrooper
   SRShmelTrooper_L
   SRShockTrooper
   SRShockTrooper_L
-  SSElectricShockRocket
-  SSHEShockRocket
   SSRocketShmelAntiTox
   SSRocketShmelSmoke
   ShadowI
@@ -298,29 +267,21 @@
   ShmelTrooperVoiceMove                         DONOR-ONLY (remap!)    via RussianInfantryShmelTrooper
   ShmelTrooperVoiceSelect                       DONOR-ONLY (remap!)    via RussianInfantryShmelTrooper
   ShmelTrooperVoiceSmokeAttack                  DONOR-ONLY (remap!)    via RussianInfantryShmelTrooper
-  ShockTrooperRifleWeapon                       DONOR-ONLY (remap!)    via ShockTrooperRocketRifle
   ShockTrooperTeslaWeaponSound                  DONOR-ONLY (remap!)    via HeroicShockTrooperTeslaSubdualWeapon,HeroicShockTrooperTeslaWeapon,ShockTrooperTeslaSubdualWeapon
   ShockTrooperVoiceAttack                       DONOR-ONLY (remap!)    via RussiaInfantryShockTrooper_Var1
   ShockTrooperVoiceAttackTesla                  DONOR-ONLY (remap!)    via RussiaInfantryShockTrooper_Var1
   ShockTrooperVoiceCreate                       DONOR-ONLY (remap!)    via RussiaInfantryShockTrooper_Var1
   ShockTrooperVoiceFear                         DONOR-ONLY (remap!)    via RussiaInfantryShockTrooper_Var1
   ShockTrooperVoiceGarrison                     DONOR-ONLY (remap!)    via RussiaInfantryShockTrooper_Var1
-  ShockTrooperVoiceModeRifle                    DONOR-ONLY (remap!)    via Command_RussiaShockTrooperSwitchToRockets
-  ShockTrooperVoiceModeTeslaGun                 DONOR-ONLY (remap!)    via Command_RussiaShockTrooperSwitchToTeslaGun
   ShockTrooperVoiceMove                         DONOR-ONLY (remap!)    via RussiaInfantryShockTrooper_Var1
   ShockTrooperVoiceSelect                       DONOR-ONLY (remap!)    via RussiaInfantryShockTrooper_Var1
 
 === STRING labels referenced by ported blocks ===
-  CONTROLBAR:ElectricRocketsMode
-  CONTROLBAR:HERocketsMode
   CONTROLBAR:RPGConscriptShmelRocket
   CONTROLBAR:ShmelAntiToxinRocket
   CONTROLBAR:ToolTipRussiaRPGConscriptShmelRocket
   CONTROLBAR:ToolTipRussiaShmelAntiToxinRocket
-  CONTROLBAR:ToolTipSwitchToRussiaElectricRockets
-  CONTROLBAR:ToolTipSwitchToRussiaHERockets
   OBJECT:FlamingInfantry
-  OBJECT:RangerTeamMissile
   OBJECT:ShmelTrooper
   OBJECT:ShockTrooper
   OBJECT:TankShell

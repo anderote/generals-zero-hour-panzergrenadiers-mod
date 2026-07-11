@@ -105,55 +105,17 @@ FXList WeaponFX_ShmelTrooperAntiToxinSmoke
   End
 End
 
-FXList FX_ShockTrooperRocketExplosion
+FXList FX_ShockTrooperElectricRocketExplosion
   Sound
-    Name = ExplosionRocketBuggyMissile
+    Name = ExplosionPatriotEMP
   End
   ParticleSystem
-    Name = StructureDamagedFlash
+    Name = ShockTrooperTeslaBlast
   End
   ParticleSystem
     Name = TankStruckDebris
     OrientToObject = Yes
     Ricochet = Yes
-  End
-End
-
-FXList WeaponFX_GenericShockTrooperRocketRifleFire
-  LightPulse 
-    Color = R:255 G:255 B:128
-    Radius = 10
-    IncreaseTime = 0
-    DecreaseTime = 200
-  End
-  ParticleSystem
-    Name = GattlingCannonLenzflare
-    OrientToObject = Yes
-    Offset = X:0.0 Y:0.0 Z:0.0
-  End
-  ParticleSystem
-    Name = EmptyShockRocketCassingsFalling
-    OrientToObject = Yes
-    Offset = X:-4.0 Y:0.0 Z:0.0
-  End
-End
-
-FXList WeaponFX_GenericShockTrooperRocketRifleFireWithRedTracers
-  LightPulse 
-    Color = R:128 G:0 B:0
-    Radius = 25
-    IncreaseTime = 0
-    DecreaseTime = 200
-  End
-  ParticleSystem
-    Name = HeroicGattlingCannonLenzflare
-    OrientToObject = Yes
-    Offset = X:0.0 Y:0.0 Z:0.0
-  End
-  ParticleSystem
-    Name = EmptyShockRocketCassingsFalling
-    OrientToObject = Yes
-    Offset = X:-4.0 Y:0.0 Z:0.0
   End
 End
 

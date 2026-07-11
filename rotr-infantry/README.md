@@ -7,25 +7,29 @@ General)** and buildable at his Barracks:
 | Unit | Object | Cost / time | Prereq | HP | Kit |
 |---|---|---|---|---|---|
 | **Shmel Trooper** | `Tank_ChinaInfantryShmelTrooper` | $350 / 8 s | Tank_ WF | 100 | Thermobaric rocket launcher (FLAME, clears garrisons — 3-kill `GarrisonHitKill`), smoke rocket (blinds/decoys), anti-toxin rocket (cleans toxin+radiation fields), heroic smoke/anti-toxin variants |
-| **Shock Trooper** | `Tank_ChinaInfantryShockTrooper` (3 random skins `_Var1..3`) | $450 / 7 s | Tank_ WF | 250 | Un-crushable heavy trooper; **switchable weapon modes**: 8-round rocket rifle ↔ **tesla gun** (damage beam + vehicle-disabling `SUBDUAL_UNRESISTABLE` beam, heroic bolt variants) |
+| **Shock Trooper** | `Tank_ChinaInfantryShockTrooper` (3 random skins `_Var1..3`) | **$800 / 10 s** | Tank_ WF | 250 | Un-crushable **elite tesla trooper** (reworked — see *Shock Trooper tesla rework*): tesla gun is the sole armament — AP damage + subdual **stun** vs vehicles, one-shot **ignite** + small AoE vs infantry, **chain lightning** to nearby enemies (two longer-lived arcs at heroic rank), cannot attack aircraft |
 
-All stats are **donor-verbatim** (per spec: no +20% China-infantry HP
-convention applied — see *Tuning knobs*).
+Shmel stats are donor-verbatim; the Shock Trooper is repriced
+$450 → $800 / 7 → 10 s for its rework (no +20% China-infantry HP
+convention on either — see *Tuning knobs*).
 
-Output archive: **`zzz-ZZZZZZZRotrInfantry.big`** (phase 1: 61 files,
-13.4 MB — 9 INI + 20 W3D + 32 textures).  Case-insensitively it sorts
-**after `zzz-ZZZZZZZKwaiPDL.big`** (`r` > `k` at char 12) and after every
-other stack layer, and `-` (0x2D) < `_` (0x5F) keeps it **before
-`zzz_ControlBarPro*.big`** — asserted against the real listings of both
-mod dirs at build time ("last INI layer except ControlBarPro").
+Output archive: **`zzz-ZZZZZZZRotrInfantry.big`** (phase 1: 47 files,
+12.3 MB — 9 INI + 8 W3D + 30 textures).  Case-insensitively it sorts
+**after `zzz-ZZZZZZZKwaiPDL.big` and `zzz-ZZZZZZZLKwaiInfantry.big`**
+(`r` > `k`/`l` at char 12) and after every other stack layer, and `-`
+(0x2D) < `_` (0x5F) keeps it **before `zzz_ControlBarPro*.big`** —
+asserted against the real listings of both mod dirs at build time
+("last INI layer except ControlBarPro").
 
 ---
 
 ## ⚠ TWO-PHASE DESIGN (read this before merging)
 
-The main pipeline is actively evolving (the **KwaiPDL layer landed in the
-live mod dirs while this branch was being built** — the build absorbed it
-automatically; an infantry-stubs layer is expected too).  To stay
+The main pipeline is actively evolving — **two layers landed in the live
+mod dirs while this branch was being built** (`zzz-ZZZZZZZKwaiPDL.big`,
+then `zzz-ZZZZZZZLKwaiInfantry.big`, which took Barracks slots 6–8): the
+build absorbed both automatically, and the slot-conflict guard in
+`integrate.py` caught the Barracks change in a live dry run.  To stay
 merge-safe regardless of what lands in between, this port ships in two
 phases:
 
@@ -51,7 +55,7 @@ Every append also exists as a plain-text **fragment** in `fragments/`
 **Phase 2 — `integrate.py` (run on merge day).**
 
 ```
-python3 integrate.py [--shmel-slot 6] [--shock-slot 7] [--install]
+python3 integrate.py [--shmel-slot 9] [--shock-slot 10] [--install]
 ```
 
 1. Re-extracts the **then-current** effective file space from
@@ -61,13 +65,14 @@ python3 integrate.py [--shmel-slot 6] [--shock-slot 7] [--install]
    the meantime is preserved underneath our appends).
 3. Builds `CommandSet.ini`: current effective + our two unit sets
    appended + **the Kwai Barracks sets patched** with the two construct
-   buttons.  Slots are **parameterized** (defaults 6 and 7; kwai-roster
-   put Siege Soldier at 5, 6–11 were free).  The Barracks sets are
+   buttons.  Slots are **parameterized** (defaults 9 and 10 — slot 5 is
+   kwai-roster's Siege Soldier, 6–8 were taken mid-branch by the
+   LKwaiInfantry stubs; only 9–11 remain).  The Barracks sets are
    **discovered from the effective `Tank_ChinaBarracks` object** (its
    `CommandSet` plus every `CommandSetUpgrade` module), so renames/new
    variants in interim layers are handled.  Occupied slots abort with a
-   clear message — pick other slots.
-4. Builds `CommandButton.ini` (+6 buttons) and `Data\Generals.str`
+   clear message — pick other slots (proven live when slots 6–8 filled).
+4. Builds `CommandButton.ini` (+4 buttons) and `Data\Generals.str`
    (+14 entries) as pure appends on the current effective copies.
 5. Repacks `zzz-ZZZZZZZRotrInfantry.big` **in place** and re-runs the
    full static verification in phase-2 mode (adds a CommandSet.ini
@@ -83,7 +88,7 @@ python3 integrate.py [--shmel-slot 6] [--shock-slot 7] [--install]
    installed in the mod dirs.
 3. `cd rotr-infantry && python3 integrate.py` — review the output
    (barracks sets discovered, slots taken, verification green).
-   If slots 6/7 are taken by then: `--shmel-slot N --shock-slot M`.
+   If slots 9/10 are taken by then: `--shmel-slot N --shock-slot M`.
 4. Re-run with `--install` to copy into both mod dirs.
 5. **Rebuild-order note (permanent):** like every layer that bakes shared
    files, this becomes the last INI layer.  If ANY lower layer is rebuilt
@@ -95,35 +100,101 @@ python3 integrate.py [--shmel-slot 6] [--shock-slot 7] [--install]
 
 ---
 
-## What was ported (closure: 109 new top-level blocks)
+## Shock Trooper tesla rework (the tesla gun is now the unit)
+
+Per the follow-up spec the rocket-rifle mode was **removed outright**
+(not disproportionately risky: the donor's dual-mode draw was replaced by
+a tesla-only draw generated from the donor's RIDER2 condition states, and
+the nine `ModuleTag_Transform01..09` rider/switch modules were stripped —
+the RiderChangeContain machinery, both mode-switch buttons/weapons/OCLs,
+the mode-trigger slave objects, the rocket rifle + guided missile + their
+locomotors/FX all dropped from the closure).  The unit renders the
+`RITslTrp*_SKN` tesla model in all three skins, always.
+
+Every volley (one zap every **1.2 s**, all three slots fired together at
+the same victim — donor turret idiom, `ControlledWeaponSlots = SECONDARY
+TERTIARY` + `ShareWeaponReloadTime`) delivers, at range 140:
+
+| Slot | Weapon | Numbers | Why |
+|---|---|---|---|
+| PRIMARY | `ShockTrooperTeslaWeapon` (heroic 80) | **60 ARMOR_PIERCING**, radius 5, `TeslaTrooperLaserBeam` bolt from the `MUZZLE01` skeleton bone (verified present in `NIGATT_SKL`) | the anti-tank component.  **Armor-table finding: base `TankArmor` takes 0% MELEE** — the donor's MELEE beam dealt literally nothing to tanks here; AP = 100% vs `TankArmor`, 10% vs `HumanArmor` |
+| SECONDARY | `ShockTrooperTeslaSubdualWeapon` (heroic 325) | **250 SUBDUAL_UNRESISTABLE**, radius 10, enemies/neutrals only | **temporary vehicle stun**: engine (`ActiveBody.cpp`) accumulates subdual until it *passes MaxHealth* → `DISABLED_SUBDUED`, then it decays at the target's own `SubdualDamageHealRate/Amount`.  Base ShockWave vehicles broadly define caps (486 bodies; Kwai's own Advanced ECM Tank uses this exact damage type).  E.g. Battlemaster (660 HP, cap 1130, decay 100/s): disabled after ~4 sustained zaps, stays stunned up to ~4.7 s after fire shifts |
+| TERTIARY | `ShockTrooperTeslaArcWeapon` (heroic 140) | **110 FLAME, radius 20**, `DeathType = BURNED`, hitscan projectile, enemies/neutrals only | **one-shot + ignite vs infantry**: `HumanArmor` takes 150% FLAME → 165 post-armor, killing every standard infantry (100–140 HP incl. buffed 120-HP Red Guards) while heroes (Lotus 200, Burton/Jarmen 300) survive — the documented "no unrealistic hero one-shot" line.  Victims die the `OCL_FlamingInfantry` burning death; radius 20 fries clusters |
+
+**Chain lightning (shipped, option (a)):** the arc weapon's hitscan
+projectile detonation (`ProjectileDetonationOCL`, the donor smoke-pellet
+delivery pattern — a plain `FireOCL` would spawn at the *shooter*)
+spawns an invisible 1.1–1.3 s **`ShockTrooperTeslaChainNode`** at the
+impact point: `CAN_ATTACK UNATTACKABLE NO_COLLIDE IMMOBILE`, auto-acquire
+(vision 90) with a 3600°/s turret (immobile-defence idiom, so it never
+needs to face its victim), zapping `ShockTrooperTeslaChainZap` — 100
+FLAME, radius 12, range 90, `DeathType BURNED`, drawn with the same
+`TeslaTrooperLaserBeam` bolt objects → a real, visible arc from the
+impact point to 1–2 further enemies.  The chain zap has no `FireOCL` of
+its own (depth-1, no infinite chaining).  Impact FX is the donor's own
+`FX_ShockTrooperElectricRocketExplosion` (electric blast + debris).
+
+**Rank scaling:** implemented through the engine's only per-veterancy
+weapon-variant step, the HERO weapon set: heroic Shock Troopers fire
+`OCL_ShockTrooperTeslaChainHeroic`, which spawns **two** offset
+**longer-lived (1.4–1.6 s)** heroic nodes zapping a stronger
+`HeroicShockTrooperTeslaChainZap` (120 FLAME) with the red
+`HeroicTeslaTrooperLaserBeam` bolts — i.e. base rank ≈ 1 arc, heroic ≈
+2–3 arcs.  Finer VETERAN/ELITE steps are **not achievable in data**:
+`WeaponSet Conditions` accepts only `HERO` among veterancy levels, and
+the Weapon template has no per-rank OCL field (only
+`VeterancyProjectileExhaust`/`VeterancyFireFX`, which cannot change the
+detonation OCL).  An engine-side `VeterancyProjectileDetonationOCL`
+would unlock true per-rank chaining.
+
+**No anti-air (spec):** every tesla weapon (beam / subdual / arc / chain
+zaps, base + heroic) explicitly sets `AntiGround = Yes`,
+`AntiAirborneVehicle = No`, `AntiAirborneInfantry = No` (the engine
+default is ground-only, but the masks are pinned and the tooltip says
+"Cannot attack aircraft").
+
+**Command set:** with both switch buttons gone the unit set is just
+attack-move / guard / stop.  DPS picture vs a 660-HP Battlemaster:
+~50 AP + ~23 flame-splash ≈ 73 dps → dead in ~9 s, stunned from ~5 s in —
+strong but short-ranged (140) and artillery/aircraft-helpless; priced
+$800 (coordinator range $700–900).
+
+**Tesla-family visual note:** an RA-Redux **Tesla Coil** is being ported
+concurrently (main repo, `tesla-coil/`) as the family visual reference.
+Our bolts are ROTR's `W3DLaserDraw` textured cylinders (`Tesla1..8.dds`,
+15-unit width, 60–90 ms flashes) + `TeslaTrooperFlare` muzzle/target
+flares, with `AvengerPointDefenseLaserPulse` as the zap sound — if the
+coil's bolt FX / charge audio read differently in-game, harmonize in a
+later pass (bolt textures, widths and the zap sound are single-line
+knobs in `work/portlib.py`); deliberately not blocked on here.
+
+---
+
+## What was ported (closure: 101 new top-level blocks)
 
 | Where | Blocks |
 |---|---|
 | `Object\China\Tank\Infantry\RotrShmelTrooper.ini` | 10 — unit, thermobaric rocket, smoke/anti-toxin projectiles (+2 heroic reskins), anti-toxin foam, smoke screen, burning-embers fire field, generic hit-scan pellet projectile |
-| `Object\China\Tank\Infantry\RotrShockTrooper.ini` | 26 — buildable shell + `_Var1..3` skins, guided missile, 2 mode-trigger objects, tesla beam + 8 bolts, heroic beam + 8 heroic bolts, tesla-death infantry |
-| `MappedImages\HandCreated\RotrInfantryMappedImages.INI` | 8 cameos (unit + portrait + 4 ability icons) |
-| `Weapon.ini` append | 17 (3 Shmel launchers + 2 heroic + pellets + fire-field weapons + smoke/foam field weapons, rocket rifle, 2×tesla + 2×heroic tesla, 2 mode-switch weapons) |
+| `Object\China\Tank\Infantry\RotrShockTrooper.ini` | 25 — buildable shell + `_Var1..3` skins (tesla-only draws), 2 chain nodes, tesla beam + 8 bolts, heroic beam + 8 heroic bolts, tesla-death infantry |
+| `MappedImages\HandCreated\RotrInfantryMappedImages.INI` | 6 cameos (unit + portrait + 2 Shmel ability icons) |
+| `Weapon.ini` append | 18 (3 Shmel launchers + 2 heroic + pellets + fire-field weapons + smoke/foam field weapons; tesla beam/subdual/arc + heroic trio + 2 chain zaps) |
 | `Armor.ini` append | 2 (`ShockTrooperArmor`, `InvulnerableArmorAll`) |
-| `Locomotor.ini` append | 4 |
-| `FXList.ini` append | 9 (incl. the **thermobaric `WeaponFX_ShmelRocketExplosion`** + upgraded variant, tesla die FX) |
-| `ParticleSystem.ini` append | 16 (Shmel explosion/exhaust/anti-toxin family, **ShmelPoolFire** fire-field, tesla flares, rocket casings) |
-| `ObjectCreationList.ini` append | 9 |
+| `Locomotor.ini` append | 2 |
+| `FXList.ini` append | 7 (incl. the **thermobaric `WeaponFX_ShmelRocketExplosion`** + upgraded variant, electric arc impact, tesla die FX) |
+| `ParticleSystem.ini` append | 16 (Shmel explosion/exhaust/anti-toxin family, **ShmelPoolFire** fire-field, tesla flares + `ShockTrooperTeslaBlast`) |
+| `ObjectCreationList.ini` append | 9 (incl. the 2 chain OCLs) |
 | `CommandSet.ini` fragment | 2 unit sets |
-| `CommandButton.ini` fragment | 6 (2 construct + smoke/anti-toxin fire buttons + 2 mode switches) |
+| `CommandButton.ini` fragment | 4 (2 construct + smoke/anti-toxin fire buttons) |
 
-**Reused from base instead of ported** (61 identifier reuses, 46 art
-reuses — ShockWave shares a lot of community stock with ROTR): the whole
-**GenericFakeRider1/2 rider-switch framework** (`RiderChangeContain`
-donor idiom works against base's own `FakeRiders.ini` +
-`OCL_GenericDummyRider*_Normal`), `Upgrade_GLAWorkerReal/FakeCommandSet`
-mode tokens (same engine-wide pair chaos-units uses for factory pages —
-per-object, no cross-talk), `ChemSuitHumanArmor`,
+**Reused from base instead of ported** (ShockWave shares a lot of
+community stock with ROTR): `ChemSuitHumanArmor`,
 `MissileDefenderLocomotor`, `OCL_FlamingInfantry/Toxic*/Microwaved/
 Radiation*/Neutron*/BrutalBloody/BloodyGore`, `FX_GIDie*`,
 `FX_InfantryGoreExplosion`, `NukeGroundAttack`/`TomahawkGroundAttack`
 shared-cooldown specials, `ViralGasCloud`, `ToxicInfantryGamma`,
-vanilla `NITHNT_*` Tank-Hunter animation set (Shmel is rigged on it),
-`SuicideUnresistableWeapon`, `MoneyWithdraw`, `InfantryDustTrails`, etc.
+vanilla `NITHNT_*` Tank-Hunter animation set (Shmel is rigged on it) and
+ShockWave's `NIGATT_*` tesla-trooper animation set (byte-identical to
+ROTR's, see art section), `MoneyWithdraw`, `InfantryDustTrails`, etc.
 
 ## Deliberate drops / deviations (all verified absent from shipped bytes)
 
@@ -136,7 +207,7 @@ vanilla `NITHNT_*` Tank-Hunter animation set (Shmel is rigged on it),
 | **POW/surrender + suicide theatre** (surrender crate object, `EXTRA_8` death modules, `RussiaInfantryShockTrooperCommitingSuicide`, related FX/OCL) | dropped — nothing in base ShockWave inflicts the `EXTRA_8` surrender death; the crate chain drags in ROTR's CIA-intel/capture-science system.  Catch-all death modules re-own `EXTRA_8` (DeathTypes line edited) |
 | **Berserker-on-death** (`CreateObjectDie → OCL_InfantryBeserkerObject`) | dropped — ROTR-wide rage-aura flavor system |
 | **Cryogenic LASERED death** (`OCL_CrygenicDeathInfantry` + 7 `CICryoDth_*` body-part models) | dropped — in base ShockWave `LASERED` deaths come from *lasers* (Townes), not cryo weapons; a freeze-shatter would be wrong flavor.  Catch-all re-owns `LASERED` |
-| **`SCIENCE_TeslaTech` gate** on the tesla-mode switch | dropped — ROTR science Kwai can't buy; tesla mode is the unit's signature |
+| **Rocket-rifle mode + RiderChangeContain switch machinery** (rocket rifle, guided missile, 2 switch weapons/buttons/OCLs, 2 mode-trigger slave objects, 2 locomotors, casing/tracer FX, `SCIENCE_TeslaTech` gate, `RIShkTrp*` skins/anims, `EXShkDrt` missile art) | dropped in the tesla rework — the tesla gun is the unit's sole armament (see the rework section); the buildable shell's preview draw was also switched to the tesla model.  The base `GenericFakeRider` framework it used remains untouched in base data |
 | **Prerequisites** `RussiaWarFactory` / `RussiaWeaponsBunker` | remapped to `Tank_ChinaWarFactory` (porting them would pull the entire Russia faction — measured: closure exploded 120 → 972 blocks) |
 | **Death-voice FX wrappers** (`FX_ShmelTrooperDie*`, `FX_ShockTrooperDie*` — donor FXLists that only wrap a ROTR voice line) | remapped to vanilla `FX_GIDie` (canonical infantry death FX) |
 | `Side = Russia` | `ChinaTankGeneral` on the unit family (matches every Kwai-owned `Tank_*` object); system objects likewise, `TeslaInfantry` stays `Civilian` (donor) |
@@ -157,12 +228,10 @@ supports it).
 | `ShmelTrooperVoice{Select,Move,Attack,Fear,Create,Die}` | `TankHunterVoice{…}` | China missile infantry — closest vanilla kin |
 | `ShmelTrooperVoice{SmokeAttack,AntiToxinAttack}` | `TankHunterVoiceAttack` | |
 | `ShockTrooperVoice{Select,Move,Attack,AttackTesla,Fear,Create,Garrison}` | `PyroVoice{…}` (`AttackTesla`→`Attack`) | ShockWave China suited flame trooper — heavy-suit flavor |
-| `ShockTrooperVoiceMode{Rifle,TeslaGun}` (switch acks) | `PyroVoiceMove` | |
 | `ShmelRocketLauncherWeapon` | `TankHunterWeapon` | |
 | `ShmelRocketExplosion` | `ExplosionFire` | thermobaric fireball |
-| `ShockTrooperRifleWeapon` | `RocketBuggyWeapon` | rapid rocket burst |
-| `ShockTrooperTeslaWeaponSound` (40 ms loop) | `AvengerPointDefenseLaserPulse` | closest electric zap loop in base |
-| `GenericAutoCannonDetonationImpact` | `ExplosionRocketBuggyMissile` | rifle-rocket impact |
+| tesla zap `FireSound` (beam + chain, authored weapons) | `AvengerPointDefenseLaserPulse` | closest electric zap in base; family-harmonization knob |
+| `ShockTrooperRocketElectricExplosion` | `ExplosionPatriotEMP` | arc impact (inside `FX_ShockTrooperElectricRocketExplosion`) |
 | `InfantryTeslaDeathShock` | `ExplosionPatriotEMP` | tesla death zap |
 | `MoleBombDirstSound` | `ExplosionDirt` | smoke rocket ground burst |
 | `ShmelRocketAntiToxin{Activated,Detonation}` | `ExplosionFlashBang` | foam pop |
@@ -209,11 +278,11 @@ transferred: ~9 MB for 20 W3D + 37 textures + the 760 KB Generals.str.
   against ROTR's copy and is **identical**, so the `RITslTrp*` meshes rig
   onto the exact skeleton they were built for (`NIGATT_IDC`/`NIGATT_PAT`
   are ROTR-only additions and ship in the archive).
-- **Cameo pages are the exception**: ROTR's `SNRUserInterface512_002/3/4`
-  collide by *name* with pages other layers ship (chaos-units ships its
-  own `SNRUserInterface512_003.tga` with different contents!).  The five
-  pages our 8 `MappedImage`s need are therefore force-shipped **renamed**
-  (`Rotr_`-prefixed) with the MappedImage `Texture =` lines rewritten.
+- **Cameo pages are the exception**: ROTR's `SNRUserInterface512_00N`
+  pages collide by *name* with pages other layers ship (chaos-units ships
+  its own `SNRUserInterface512_003.tga` with different contents!).  The
+  four pages our 6 `MappedImage`s need are therefore force-shipped
+  **renamed** (`Rotr_`-prefixed) with the `Texture =` lines rewritten.
   (`Rotr_Russia_ScoreScreenuserinterface.tga` is a 3 MB 1024² page that
   hosts one 60×48 icon — donor layout kept for fidelity; cropping it is a
   possible size optimization.)
@@ -237,9 +306,14 @@ transferred: ~9 MB for 20 W3D + 37 textures + the 760 KB Generals.str.
   it innate instead, set `StartsActive = Yes` and drop `TriggeredBy` on
   `ModuleTag_MoreBoom01` in `RotrShmelTrooper.ini`.
 - Sound flavor knobs: `ExplosionDaisyCutter` is a beefier (fuel-air!)
-  alternative for `ShmelRocketExplosion`'s remap; the tesla loop is the
-  weakest approximation (`AvengerPointDefenseLaserPulse`) — real ROTR
-  audio is the better long-term fix.
+  alternative for `ShmelRocketExplosion`'s remap; the tesla zap
+  (`AvengerPointDefenseLaserPulse`) is the weakest approximation — real
+  ROTR audio, or the RA-Redux Tesla Coil's charge/zap audio once that
+  port lands, is the better long-term fix (single-line knob in
+  `work/portlib.py`).
+- Shock Trooper balance knobs (all in `work/portlib.py` `AUTHORED` /
+  `SHOCK_COST`): beam 60 AP, subdual 250, arc 110 FLAME r20, chain 100
+  FLAME r12, 1.2 s cadence, $800/10 s.
 
 ## Build-time verification (all enforced; build fails loudly)
 
@@ -259,7 +333,7 @@ transferred: ~9 MB for 20 W3D + 37 textures + the 760 KB Generals.str.
   (`SUBDUAL_UNRESISTABLE`, `MELEE`, `EXTRA_*` all verified in use there).
 - Art: every model / animation (incl. skeletons) / texture /
   W3D-internal texture / cameo page resolves in archive ∪ base archives.
-- No identifier collisions: all 109 new block names word-checked against
+- No identifier collisions: all 101 new block names word-checked against
   the full base INI space.
 - Block balance: every shipped chunk re-parses with zero stray content.
 - **The game was deliberately not launched** (static verification only).
@@ -283,10 +357,12 @@ port/reuse/drop audit this port was designed from).
 ## Known limitations
 
 - **Not game-tested** (side branch; static verification only).  First
-  in-game checks to do: mode-switch button flip on the Shock Trooper
-  (rider swap + set swap), tesla beam rendering (`W3DLaserDraw` bolts),
-  smoke-screen pellet spread, anti-toxin field actually clearing toxins,
-  fire-field spawning after Black Napalm.
+  in-game checks to do: tesla beam rendering (`W3DLaserDraw` bolts from
+  the `MUZZLE01` bone), the chain node actually auto-acquiring and
+  arcing to a second victim, vehicle stun onset/duration under sustained
+  fire, one-shot-ignite on standard infantry vs hero survival, that the
+  unit refuses air targets, smoke-screen pellet spread, anti-toxin field
+  actually clearing toxins, fire-field spawning after Black Napalm.
 - Phase-1 archive is inert by design; units are unreachable until
   `integrate.py` runs.
 - Voice/weapon audio are base-ShockWave approximations (table above).
