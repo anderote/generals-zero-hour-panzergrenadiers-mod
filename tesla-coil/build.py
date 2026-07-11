@@ -35,7 +35,8 @@ THE PORT (donor object `SovietTeslaCoil`, SovietBuilding.ini):
     PreAttack charge.  Donor was 230x3: HumanArmor takes PARTICLE_BEAM at
     150% -> donor one-shot infantry AND one-burst tanks; the family calls
     for DEVASTATING vs infantry / MODERATE vs vehicles, so 140 keeps the
-    one-shot on every infantry in the stack (210 >= 190 HP Sharpshooter)
+    one-shot on every infantry in the stack, incl. the 120 HP
+    Pathfinder-clone Sharpshooter (kwai-infantry v2),
     while a full burst is 420 vs the 660 HP Battlemaster.  Chain arc:
     SecondaryDamage 90 @ radius 25 (donor radius 1.0), RadiusDamageAffects
     loses ALLIES (arcs must not fry our own).  NO ANTI-AIR (family
@@ -72,7 +73,15 @@ SHW_DIR = os.path.expanduser("~/GeneralsX/mods/ShockWave")
 DONOR_DIR = os.path.expanduser("~/GeneralsX/donors/RARedux")
 OUT_NAME = "zzz-ZZZZZZZTTeslaCoil.big"
 TAG = "zzz-ZZZZZZZTTeslaCoil"
-OWNER = "zzz-ZZZZZZZLKwaiInfantry.big"
+# CHANGELOG (kwai-infantry v2 chain rebuild): kwai-infantry removed its ZHE
+# Sharpshooter port and with it its copies of Weapon/OCL/ParticleSystem/
+# SoundEffects .ini - ownership of the shared INIs is now split (see OWNERS).
+PREV = "zzz-ZZZZZZZLKwaiInfantry.big"       # archive immediately below us
+# layers ABOVE us that legitimately claim paths we ship; they are rebuilt
+# after us (rebuild order: kwai-infantry -> tesla-coil -> vehicle-kit ->
+# w-economy; fx-enhance is owned by another session and rebuilt there)
+REBUILT_AFTER = {"zzz-zzzzzzzvehiclekit.big", "zzz-zzzzzzzweconomy.big",
+                 "zzzz_fxenhance.big"}
 
 CS_PATH = "Data\\INI\\CommandSet.ini"
 CB_PATH = "Data\\INI\\CommandButton.ini"
@@ -84,8 +93,12 @@ SND_PATH = "Data\\INI\\SoundEffects.ini"
 OBJ_PATH = "Data\\INI\\Object\\China\\Tank\\Defences\\TeslaCoil.ini"
 MI_PATH = "Data\\INI\\MappedImages\\HandCreated\\TeslaCoilMappedImages.INI"
 
-OWNERS = {CS_PATH: OWNER, CB_PATH: OWNER, STR_PATH: OWNER, WPN_PATH: OWNER,
-          PSY_PATH: OWNER, OCL_PATH: OWNER, SND_PATH: OWNER}
+OWNERS = {CS_PATH: PREV, CB_PATH: PREV, STR_PATH: PREV,
+          # kwai-infantry v2 no longer ships these four (ZHE port removed):
+          WPN_PATH: "zzz-ZZZZZZZKwaiPDL.big",
+          OCL_PATH: "zzz-ZZZZZZZKwaiPDL.big",
+          PSY_PATH: "zzz-ZZZZChaosUnits.big",
+          SND_PATH: "zz_SPE_Shw_ini.big"}
 
 OBJ = "Tank_ChinaTeslaCoil"
 BTN = "Tank_Command_ConstructChinaTeslaCoil"
@@ -191,7 +204,7 @@ def get_set_block(cs_lf, name):
 # ================================================== 1. effective sources
 archives = sorted((f for f in os.listdir(SPE_DIR)
                    if f.lower().endswith(".big")
-                   and f.lower() != OUT_NAME.lower()),
+                   and f.lower() < OUT_NAME.lower()),
                   key=str.lower, reverse=True)
 cache = {a: read_big(os.path.join(SPE_DIR, a)) for a in archives}
 
@@ -216,14 +229,14 @@ for path, owner in OWNERS.items():
     assert got == owner, "ownership drift for %s: %s (expected %s)" % (
         path, got, owner)
     sources[path] = data
-print("effective-file ownership verified (%d files, owner %s)"
-      % (len(sources), OWNER))
+print("effective-file ownership verified (%d files)" % len(sources))
 
 # new file paths + shipped asset paths must be unclaimed everywhere
 new_paths = {p.lower() for p in [OBJ_PATH, MI_PATH] + ART_W3D + ART_TEX + AUDIO}
 for d in (SPE_DIR, SHW_DIR):
     for a in (f for f in os.listdir(d) if f.lower().endswith(".big")
-              and f.lower() != OUT_NAME.lower()):
+              and f.lower() != OUT_NAME.lower()
+              and f.lower() not in REBUILT_AFTER):
         for e in read_big(os.path.join(d, a)):
             assert e.path.lower() not in new_paths, (d, a, e.path)
 print("new paths unclaimed across both mod dirs (%d paths)" % len(new_paths))
@@ -454,7 +467,7 @@ WPN_APPENDIX = """
 ;;; radius 1.0 incl. ALLIES).  Tesla-family doctrine tuning (deviations):
 ;;;   - PrimaryDamage 230 -> 140: DEVASTATING vs infantry (HumanArmor takes
 ;;;     PARTICLE_BEAM at 150%% -> 210/bolt one-shots every infantry in the
-;;;     stack, incl. the 190 HP Sharpshooter) but MODERATE vs vehicles
+;;;     stack, incl. the 120 HP Sharpshooter) but MODERATE vs vehicles
 ;;;     (TankArmor 100%% -> 420/burst vs the 660 HP Battlemaster; the donor's
 ;;;     690 one-bursted it)
 ;;;   - chain arc: SecondaryDamage 90 @ radius 25 (donor had radius 1.0);
@@ -903,11 +916,13 @@ for d in (SPE_DIR, SHW_DIR):
                      | {OUT_NAME}, key=str.lower)
     i = listing.index(OUT_NAME)
     after = listing[i - 1]
-    assert after.lower() == OWNER.lower(), listing
+    assert after.lower() == PREV.lower(), listing
     # nothing that sorts after us may claim any path we ship (they would
     # override our bytes) - this is the real effective-file guarantee
     for later in listing[i + 1:]:
         assert later.lower() > OUT_NAME.lower()
+        if later.lower() in REBUILT_AFTER:
+            continue  # documented: rebuilt after us, may claim shared INIs
         lp = os.path.join(d, later)
         if os.path.exists(lp):
             for e in read_big(lp):

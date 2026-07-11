@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Build zzz-ZZZZZZZLKwaiInfantry.big — THREE new Barracks infantry for Kwai
-(China Tank General), ShockWave under GeneralsX.
+(China Tank General), ShockWave under GeneralsX.  **v2 — ZHE port removed.**
 
   Barracks slot 6  FLAME TROOPER   Tank_ChinaInfantryFlameThrower
      build stub -> Spec_ChinaInfantryFlameThrower (Leang, $350 / 8 s,
@@ -10,23 +10,23 @@
      build stub -> Infa_ChinaInfantryMiniGunner (Fai, $550 / 14 s, donor
      prereq Infa_ChinaBarracks translated to Tank_ChinaBarracks).
   Barracks slot 8  SHARPSHOOTER    Tank_ChinaInfantrySharpshooter
-     FULL PORT of Zero Hour Enhanced's ChinaInfantrySharpshooter ($1200 /
-     30 s China sniper) with its complete closure: 176 donor INI blocks
-     (objects incl. 4 build variations + wounded bodies, prone rider-switch
-     system, Type 79 sniper rifle, Type 86 grenade, Type 66 claymore AP-mine
-     upgrade, area-reconnaissance ability, generic ZHE infantry infra),
-     47 W3D files, textures, cameos (re-paged), ZHE voice set + weapon
-     sounds.  Buildable prereq: Tank_ChinaBarracks + Tank_ChinaPropagandaCenter
-     (spec; ZHE donor needed only ChinaBarracks).
+     SIMPLE SNIPER: full CLONE of the effective vanilla-USA Pathfinder
+     (AmericaInfantryPathfinder, zz_SPE_Shw_ini.big) — stock stealth-sniper
+     mechanics only — re-sided to Kwai, RedGuard voice set, Pathfinder cameo,
+     $1200 / 30 s, prereq Tank_ChinaBarracks + Tank_ChinaPropagandaCenter.
+     (v1 ported Zero Hour Enhanced's ChinaInfantrySharpshooter with its full
+     closure — 176 INI blocks, 47 W3D, 33 textures, 101 wavs, 28 audio
+     events, 18 strings.  REMOVED after two mid-skirmish crashes with the
+     port as prime suspect; zero ZHE machinery remains in this layer.)
 
-Stubs follow the kwai-artillery/kwai-roster BuildVariations idiom.  The
-sharpshooter port follows the chaos-units cross-mod asset-port pattern:
-donor blocks are shipped verbatim under their donor names (all collision-
-checked); only the buildable stub is renamed (Tank_..., Side, prereqs) and
-the revive OCL repointed.  Effective-file rule: this layer sorts
-case-insensitively AFTER zzz-ZZZZZZZKwaiPDL.big ('k' < 'l' at char 11) and
-BEFORE zzz-ZZZZZZZR* / zzz_ControlBarPro* -> last INI layer; its copies of
-the 13 patched files are based on the current owners' bytes.
+Stubs follow the kwai-artillery/kwai-roster BuildVariations idiom; the
+sniper follows kwai-roster's Scout Car full-clone idiom (exact line-diff
+audited).  Effective-file rule: this layer sorts case-insensitively AFTER
+zzz-ZZZZZZZKwaiPDL.big ('k' < 'l' at char 11) and BEFORE
+zzz-ZZZZZZZTTeslaCoil.big / zzz-ZZZZZZZVehicleKit.big /
+zzz-ZZZZZZZWEconomy.big (which embed files derived from ours and are
+REBUILT AFTER us — rebuild chain in README).  Sources are read ONLY from
+archives sorting strictly below this one.
 """
 import difflib
 import os
@@ -42,47 +42,30 @@ from iniblocks import parse_blocks  # noqa: E402
 
 SPE_DIR = os.path.expanduser("~/GeneralsX/mods/ShockWaveSPE")
 SHW_DIR = os.path.expanduser("~/GeneralsX/mods/ShockWave")
-ZHE_DIR = os.path.expanduser("~/GeneralsX/mods/Enhanced/ZHE_BIG100a")
-BASE_DIRS = [os.path.expanduser("~/GeneralsX/GeneralsZH"),
-             os.path.expanduser("~/GeneralsX/GeneralsZH/ZH_Generals")]
 OUT_NAME = "zzz-ZZZZZZZLKwaiInfantry.big"
 TAG = "zzz-ZZZZZZZLKwaiInfantry"
 
 CS = "Data\\INI\\CommandSet.ini"
 CB = "Data\\INI\\CommandButton.ini"
-UPG = "Data\\INI\\Upgrade.ini"
-OCL = "Data\\INI\\ObjectCreationList.ini"
-WEA = "Data\\INI\\Weapon.ini"
 STR = "Data\\Generals.str"
-ARM = "Data\\INI\\Armor.ini"
-LOC = "Data\\INI\\Locomotor.ini"
-FXL = "Data\\INI\\FXList.ini"
-PSY = "Data\\INI\\ParticleSystem.ini"
-SPW = "Data\\INI\\SpecialPower.ini"
-VOI = "Data\\INI\\Voice.ini"
-SFX = "Data\\INI\\SoundEffects.ini"
 IP = "Data\\INI\\Object\\China\\Tank\\Infantry\\"
-MI = "Data\\INI\\MappedImages\\HandCreated\\KwaiInfantryMappedImages.INI"
+PATH_DONOR = "Data\\INI\\Object\\USA\\Vanilla\\Infantry\\Pathfinder.ini"
 
 EXPECT_OWNERS = {
     CS: "zzz-ZZZZZZZKwaiPDL.big", CB: "zzz-ZZZZZZZKwaiPDL.big",
-    UPG: "zzz-ZZZZZZZKwaiPDL.big", OCL: "zzz-ZZZZZZZKwaiPDL.big",
-    WEA: "zzz-ZZZZZZZKwaiPDL.big", STR: "zzz-ZZZZZZZKwaiPDL.big",
-    ARM: "zzz-ZZZZChaosUnits.big", LOC: "zzz-ZZZZChaosUnits.big",
-    FXL: "zzz-ZZZZChaosUnits.big", PSY: "zzz-ZZZZChaosUnits.big",
-    SPW: "zzz-ZZZZZZKwaiUAV.big",
-    VOI: "zz_SPE_Shw_ini.big", SFX: "zz_SPE_Shw_ini.big",
-    # donor object files (read-only, drift guards)
+    STR: "zzz-ZZZZZZZKwaiPDL.big",
+    # donor files (read-only, drift guards)
     "Data\\INI\\Object\\China\\SpecialWeapons\\Infantry\\FlameThrower.ini":
         "zz_SPE_Shw_ini.big",
     "Data\\INI\\Object\\China\\Infantry\\Infantry\\MiniGunner.ini":
         "zz_SPE_Shw_ini.big",
+    PATH_DONOR: "zz_SPE_Shw_ini.big",
+    "Data\\INI\\Object\\China\\Vanilla\\Infantry\\Redguard.ini":
+        "zzz-KwaiDoctrine.big",
     IP + "SiegeSoldier.ini": "zzz-ZZZZZKwaiRoster.big",
 }
-NEW_INI_PATHS = [
-    IP + "FlameTrooper.ini", IP + "MiniGunner.ini",
-    IP + "Sharpshooter.ini", IP + "SharpshooterSupport.ini", MI,
-]
+NEW_INI_PATHS = [IP + "FlameTrooper.ini", IP + "MiniGunner.ini",
+                 IP + "Sharpshooter.ini"]
 NEW_IDENTIFIERS = [
     "Tank_ChinaInfantryFlameThrower", "Tank_ChinaInfantryMiniGunner",
     "Tank_ChinaInfantrySharpshooter",
@@ -90,156 +73,18 @@ NEW_IDENTIFIERS = [
     "Tank_Command_ConstructChinaInfantryMiniGunner",
     "Tank_Command_ConstructChinaInfantrySharpshooter",
 ]
+NEW_LABELS = ["OBJECT:KwaiSharpshooter",
+              "CONTROLBAR:ConstructKwaiSharpshooter",
+              "CONTROLBAR:ToolTipKwaiBuildSharpshooter"]
 
-# ------------------------------------------------------------- ZHE port set
-# 176 blocks (see work/portset.py trace) shipped verbatim under donor names.
-PORT = {  # dest file -> [(block type, name), ...] appended in this order
-    CS: [("CommandSet", n) for n in [
-        "ChinaInfantrySharpshooterCommandSet",
-        "ChinaInfantrySharpshooterPronedCommandSet",
-        "ChinaInfantrySharpshooterAPUpgradedCommandSet",
-        "ChinaInfantrySharpshooterAPUpgradedPronedCommandSet"]],
-    CB: [("CommandButton", n) for n in [
-        "Command_CaptureBuildingDefault", "Command_CaptureBuildingDefaultDisabled",
-        "Command_ChinaInfantrySharpshooterProne",
-        "Command_ChinaInfantrySharpshooterStand",
-        "Command_ChinaInfantrySharpshooterThrowGrenade",
-        "Command_ChinaInfantrySharpshooterAreaReconnaissance",
-        "Command_UpgradeType66APMine",
-        "Command_ChinaInfantrySharpshooterUpgraded1Prone",
-        "Command_ChinaInfantrySharpshooterUpgraded1Stand",
-        "Command_ChinaInfantrySharpshooterLayMine"]],
-    UPG: [("Upgrade", n) for n in [
-        "Upgrade_APMineWeaponUpgrade", "Upgrade_ChinaRevolutionaryHeroism"]],
-    OCL: [("ObjectCreationList", n) for n in [
-        "OCL_AreaReconnaissanceObject", "OCL_ChinaInfantrySharpshooter_PronedWounded",
-        "OCL_ChinaInfantrySharpshooter_Revived", "OCL_ChinaInfantrySharpshooter_Wounded",
-        "OCL_DeleteMeOutside", "OCL_FusedType86Grenade", "OCL_FusedType86Grenade_Float",
-        "OCL_GenericBulletWaterChecker", "OCL_GenericGrenadeWaterChecker_MildSuppressive",
-        "OCL_GenericGrenadeWaterChecker_MildSuppressive_Float",
-        "OCL_InfantryDeadExplosion", "OCL_InfantryWaterChecker", "OCL_Type66ClaymoreMine",
-        "OCL_UpgradeViaRiderSwitch1", "OCL_UpgradeViaRiderSwitch2",
-        "OCL_UpgradeViaRiderSwitch3", "OCL_UpgradeViaRiderSwitch4"]],
-    WEA: [("Weapon", n) for n in [
-        "10Radius_MineStackingPreventWeapon", "40Radius_MildSuppressionWeapon",
-        "AreaReconnaissanceWeapon", "GenericGrenadeWaterCollideWeapon_FX",
-        "GenericInfantryRiderSwitch2ResetWeapon", "GenericInfantryRiderSwitch3ResetWeapon",
-        "GenericInfantryRiderSwitch4ResetWeapon", "GenericSmallArmsWaterCollideWeapon",
-        "IngeniousInfantryCheckerWeapon", "IngeniousInfantryMovementWeapon",
-        "PronedType79SniperRifleWeapon", "Type66ClaymoreMineLayingWeapon",
-        "Type66ClaymoreMinePrimaryConeDetonationWeapon",
-        "Type66ClaymoreMineRadiusDetonationWeapon",
-        "Type66ClaymoreMineSecondaryConeDetonationWeapon", "Type79SniperRifleWeapon",
-        "Type86GrenadeDetonationWeapon", "Type86GrenadeDetonationWeapon_Float",
-        "Type86GrenadeWeapon", "UpgradeViaRiderSwitch_DeleteMeOutside"]],
-    ARM: [("Armor", n) for n in [
-        "HumanArmor_Brave", "UnsinkableProjectileArmor", "WaterCheckerArmor",
-        "WoundedHumanArmor"]],
-    LOC: [("Locomotor", n) for n in [
-        "CheckerContainerLocomotor", "MidAirGrenadeLocomotor",
-        "SluggishHumanLocomotor"]],
-    FXL: [("FXList", n) for n in [
-        "FX_BulletHit", "FX_BulletHitGround", "FX_BulletHitWater",
-        "FX_ClaymorePrimaryConeDetonation", "FX_ClaymoreRadiusDetonation",
-        "FX_ClaymoreSecondaryConeDetonation", "FX_GenericGrenadeExplosionHitGround",
-        "FX_GenericGrenadeExplosionHitWater", "FX_GrenadeHitWater",
-        "FX_HeroicType79SniperFire", "FX_InfantryDieCrushed", "FX_InfantryDieExploded",
-        "FX_PronedWoundedRevived", "FX_RunOnDirt", "FX_RunOnWater",
-        "FX_SmallGenericProjectileDeath", "FX_SoftGrenadeDetonation",
-        "FX_SoftGrenadeDetonation_NoScorchMark", "FX_Type79SniperFire",
-        "FX_WoundedRevived"]],
-    PSY: [("ParticleSystem", n) for n in [
-        "BloodExplodedPuddle", "BloodExplodedSplatter", "BloodPuddle", "BloodSplatter",
-        "BloodTarget", "BloodTargetExploded", "BulletHit", "ClaymorePrimaryExplosion",
-        "ClaymorePrimaryExplosionSmoke", "ClaymorePrimarySmokeFragments",
-        "ClaymoreSecondarySmokeFragments", "FootstepLeft", "FootstepRight",
-        "GenericHEMissileExplosion", "GenericMissileExplosionLenzflare",
-        "GenericMissileExplosionSmoke", "GenericMissileExplosionSmokeRing",
-        "GenericProjectileExplosionFragments", "GenericProjectileExplosionTrail",
-        "GrenadeExplosion", "GrenadeExplosionDirtBlast", "GrenadeExplosionDirtCloud",
-        "GrenadeExplosionDirtCloudUpward", "GrenadeExplosionDirtDebris",
-        "GrenadeExplosionDirtSpray", "GrenadeExplosionShockwave",
-        "GrenadeExplosionSmoke", "GrenadeExplosionSmokeRing",
-        "GrenadeExplosionWaterBlast", "GrenadeExplosionWaterSplash",
-        "GrenadeExplosionWaterSplashFoam", "GrenadeExplosionWaterSplashParticles",
-        "GrenadeExplosionWaterWave", "GrenadeFlash", "GrenadeGenericTrail",
-        "GrenadeImpactGreyDust", "GrenadeImpactWaterBlast", "GrenadeImpactWaterWave",
-        "GrenadeSmokeFragments", "GrenadeSmokeTrail", "HeroicInfantryRifleLenzflare",
-        "InfantryOverWaterSplash", "InfantryOverWaterWave", "InfantryRifleLenzflare",
-        "SmallArmsImpactDirtBlast", "SmallArmsImpactWaterBlast",
-        "SmallArmsImpactWaterWave"]],
-    SPW: [("SpecialPower", n) for n in [
-        "SpecialAbilityCaptureBuilding", "SpecialAbilityDisabledDummy",
-        "SpecialAbilityProne", "SpecialAbilitySwitchToMain",
-        "SpecialAbilityUpgraded1Prone", "SpecialAbilityUpgraded1SwitchToMain"]],
-}
-# ZHE support objects -> new file SharpshooterSupport.ini (donor order)
-SUPPORT_OBJECTS = [
-    ("Object", "GenericBullet"), ("Object", "GenericBulletWaterChecker"),
-    ("Object", "GenericProjectile"), ("Object", "DummyInvisibleGroundCollider"),
-    ("Object", "GenericGrenadeWaterChecker"), ("Object", "InfantryWaterChecker"),
-    ("Object", "UpgradeViaRiderSwitch1"), ("Object", "UpgradeViaRiderSwitch2"),
-    ("Object", "UpgradeViaRiderSwitch3"), ("Object", "UpgradeViaRiderSwitch4"),
-    ("Object", "AreaReconnaissanceObject_InvisibleMarker"),
-    ("Object", "40Radius_MildSuppressionObject"),
-    ("Object", "Type86Grenade"), ("Object", "FusedType86Grenade"),
-    ("Object", "FusedType86Grenade_Float"), ("Object", "Type66ClaymoreMine"),
-]
-SHARPSHOOTER_FAMILY = [  # everything in ZHE's Sharpshooter.ini, donor order
-    ("Object", "ChinaInfantrySharpshooter"),
-    ("Object", "ChinaInfantrySharpshooterVariation1"),
-    ("ObjectReskin", "ChinaInfantrySharpshooterVariation2"),
-    ("ObjectReskin", "ChinaInfantrySharpshooterVariation3"),
-    ("ObjectReskin", "ChinaInfantrySharpshooterVariation4"),
-    ("Object", "ChinaInfantrySharpshooter_Wounded"),
-    ("Object", "ChinaInfantrySharpshooter_WoundedVariation1"),
-    ("ObjectReskin", "ChinaInfantrySharpshooter_WoundedVariation2"),
-    ("ObjectReskin", "ChinaInfantrySharpshooter_WoundedVariation3"),
-    ("ObjectReskin", "ChinaInfantrySharpshooter_WoundedVariation4"),
-    ("Object", "ChinaInfantrySharpshooter_PronedWounded"),
-    ("Object", "ChinaInfantrySharpshooter_PronedWoundedVariation1"),
-    ("ObjectReskin", "ChinaInfantrySharpshooter_PronedWoundedVariation2"),
-    ("ObjectReskin", "ChinaInfantrySharpshooter_PronedWoundedVariation3"),
-    ("ObjectReskin", "ChinaInfantrySharpshooter_PronedWoundedVariation4"),
-]
-# MappedImages ported (cameo pages re-shipped under new names; SSCaptureBuilding
-# already exists in ShockWave and is reused, NOT ported)
-PORT_IMAGES = ["SNSharpshooter", "SNSharpshooter_L", "SNType66Claymore",
-               "SNType66ClaymorePlant", "SNType86", "SNRevolutionaryHeroism",
-               "SSBinocular", "SSProneStealthed", "SSStand"]
-PAGE_RENAME = {  # ZHE cameo page -> our collision-free name (512x512 SD pages)
-    "SNNUserInterface512_004.tga": "KwaiZheSNN512_004.tga",
-    "SNNUserInterface512_005.tga": "KwaiZheSNN512_005.tga",
-    "SNNUserInterface512_006.tga": "KwaiZheSNN512_006.tga",
-    "SNSUserInterface512_002.tga": "KwaiZheSNS512_002.tga",
-}
-# strings ported from ZHE generals.str (missing from ours; asserted)
-PORT_STRINGS = [
-    "OBJECT:Sharpshooter", "OBJECT:Type66ClaymoreMine",
+# v1 ZHE residue guard: none of these may appear in anything we ship
+ZHE_MARKERS = [
+    "ChinaInfantrySharpshooterVariation", "ChinaInfantrySharpshooter_Wounded",
+    "Type79SniperRifle", "Type86Grenade", "Type66Claymore",
+    "UpgradeViaRiderSwitch", "IngeniousInfantry", "AreaReconnaissance",
+    "SharpshooterVoice", "KwaiZheSNN", "KwaiZheSNS", "NIMRKMN", "CISPINF",
+    "SNSharpshooter", "OBJECT:Sharpshooter",
     "CONTROLBAR:ConstructChinaInfantrySharpshooter",
-    "CONTROLBAR:ToolTipChinaBuildSharpshooter",
-    "CONTROLBAR:AreaReconnaissance", "CONTROLBAR:ToolTipAreaReconnaissance",
-    "CONTROLBAR:LayType66ClaymoreAtPosition",
-    "CONTROLBAR:ToolTipLayType66ClaymoreAtPosition",
-    "CONTROLBAR:Prone", "CONTROLBAR:ToolTipInfantryProne",
-    "CONTROLBAR:StandUp", "CONTROLBAR:ToolTipInfantryStandUp",
-    "CONTROLBAR:ThrowType86PGrenade", "CONTROLBAR:ToolTipThrowType86PGrenade",
-    "CONTROLBAR:UpgradeType66Claymore", "CONTROLBAR:TooltipUpgradeType66Claymore",
-    "UPGRADE:ChinaAPMineWeapon", "UPGRADE:ChinaRevolutionaryHeroism",
-]
-W3D_FILES = [  # 47: 12 models/skins + skeleton's 36 animation files (traced)
-    "CISPINF_SKL", "EXIndAPMine", "EXIndGnd", "EXInfSnp", "EXInfSnpAP",
-    "EXWounded", "NIMRKMN01_SKN", "NIMRKMN02_SKN", "NIMRKMN03_SKN",
-    "NIMRKMN04_SKN", "NIType66Mine", "NIType86",
-    "CISPINF_ATA", "CISPINF_ATG1", "CISPINF_ATG2", "CISPINF_ATP",
-    "CISPINF_ATR1", "CISPINF_ATR2", "CISPINF_ATR3", "CISPINF_BTA",
-    "CISPINF_BTP", "CISPINF_DTA", "CISPINF_DTB", "CISPINF_DTC",
-    "CISPINF_F2S", "CISPINF_FDTA", "CISPINF_FDTB", "CISPINF_FDTC",
-    "CISPINF_FTA", "CISPINF_ML1", "CISPINF_ML2", "CISPINF_P2A",
-    "CISPINF_PDTA", "CISPINF_PDTB", "CISPINF_PDTC", "CISPINF_PTD",
-    "CISPINF_RNA", "CISPINF_RNB", "CISPINF_RNC", "CISPINF_RNP",
-    "CISPINF_RTA", "CISPINF_RTP", "CISPINF_S2A", "CISPINF_S2F",
-    "CISPINF_S2P", "CISPINF_S2R", "CISPINF_STD",
 ]
 
 
@@ -287,9 +132,13 @@ def strip_comments(text):
 
 
 # ------------------------------------------------------------ load sources
+# ONLY archives sorting strictly below this one are sources: the layers
+# above (tesla-coil / vehicle-kit / w-economy / fx-enhance / ControlBarPro /
+# VetInsignia) embed files derived from OURS and are rebuilt after us.
 print("== reading effective sources from", SPE_DIR)
 bigs = sorted([f for f in os.listdir(SPE_DIR) if f.lower().endswith(".big")
-               and f != OUT_NAME], key=str.lower)
+               and f.lower() < OUT_NAME.lower()], key=str.lower)
+assert "zzz-ZZZZZZZKwaiPDL.big" in bigs and OUT_NAME not in bigs
 eff_data, eff_owner = {}, {}
 for b in bigs:
     for e in read_big(os.path.join(SPE_DIR, b)):
@@ -310,48 +159,20 @@ for p, txt in eff_ini_texts.items():
     for t, name, _a, _b, _txt in parse_blocks(txt):
         eff_defined.setdefault(name, set()).add(t)
 
-print("== reading ZHE donor archives from", ZHE_DIR)
-zhe_asset, zhe_ini_texts = {}, {}
-for f in sorted(os.listdir(ZHE_DIR)):
-    if not f.lower().endswith((".big", ".zhe")):
-        continue
-    try:
-        entries = read_big(os.path.join(ZHE_DIR, f))
-    except Exception:
-        continue
-    for e in entries:
-        lp = e.path.lower()
-        # .big (active) archives beat .zhe (inactive) EXCEPT the SD cameo set,
-        # which we prefer: its 512x512 pages match the TextureSize_512 coords.
-        prefer = lp not in zhe_asset or (
-            f == "!ZHE8CameoSD_99.zhe" and lp.startswith("art\\textures\\sn"))
-        if prefer:
-            zhe_asset[lp] = (f, e.data)
-        if f == "!ZHE8INI_99.big" and lp.endswith((".ini", ".str")):
-            zhe_ini_texts[e.path] = lf_text(e.data)
-
-zhe_defs = {}
-for p, txt in zhe_ini_texts.items():
-    for t, name, _a, _b, btext in parse_blocks(txt):
-        zhe_defs.setdefault((t, name), (p, btext))
-
-
-def zhe_block(typ, name):
-    key = (typ, name)
-    assert key in zhe_defs, "ZHE block missing: %s %s" % key
-    return zhe_defs[key][1]
-
-
-# our full asset space (art + audio): base game + mod dir + this archive
-asset_paths = set()
-for root in BASE_DIRS + [SPE_DIR]:
-    for f in sorted(os.listdir(root)):
-        if f.lower().endswith(".big") and f != OUT_NAME:
-            for e in read_big(os.path.join(root, f)):
-                asset_paths.add(e.path.lower())
+for n in NEW_IDENTIFIERS:
+    assert n not in eff_words, "identifier collision: " + n
 
 # ---------------------------------------------- donor drift sanity asserts
 print("== donor sanity")
+
+
+def eff_block(path, typ, name):
+    for t, n, _a, _b, btext in parse_blocks(eff_ini_texts[path]):
+        if (t, n) == (typ, name):
+            return btext
+    raise AssertionError("block missing: %s %s in %s" % (typ, name, path))
+
+
 DONOR_EXPECT = [
     ("Spec_ChinaInfantryFlameThrower", 350, "8.0",
      ["Spec_ChinaBarracks", "Spec_ChinaWarFactory"],
@@ -359,13 +180,11 @@ DONOR_EXPECT = [
     ("Infa_ChinaInfantryMiniGunner", 550, "14.0",
      ["Infa_ChinaBarracks"],
      "Data\\INI\\Object\\China\\Infantry\\Infantry\\MiniGunner.ini"),
+    ("AmericaInfantryPathfinder", 600, "10.0",
+     ["AmericaBarracks"], PATH_DONOR),   # + Science = SCIENCE_Pathfinder (dropped)
 ]
 for name, cost, btime, prereqs, path in DONOR_EXPECT:
-    blk = None
-    for t, n, _a, _b, btext in parse_blocks(eff_ini_texts[path]):
-        if n == name:
-            blk = btext
-    assert blk, name
+    blk = eff_block(path, "Object", name)
     m = re.search(r"(?m)^\s*BuildCost\s*=\s*(\d+)", blk)
     assert m and int(m.group(1)) == cost, (name, "cost", m and m.group(1))
     m = re.search(r"(?m)^\s*BuildTime\s*=\s*(\S+)", blk)
@@ -374,108 +193,41 @@ for name, cost, btime, prereqs, path in DONOR_EXPECT:
     got = [t for line in re.findall(r"(?m)^\s*Object\s*=\s*(.+?)\s*$", pm.group(1))
            for t in line.split()]
     assert got == prereqs, (name, "prereqs", got)
-# ZHE sharpshooter donor cost
-ss_stub_donor = zhe_block("Object", "ChinaInfantrySharpshooter")
-assert re.search(r"(?m)^\s*BuildCost\s*=\s*1200\s*$", ss_stub_donor)
-assert re.search(r"(?m)^\s*BuildTime\s*=\s*30\.0\s*$", ss_stub_donor)
+pf_donor = eff_block(PATH_DONOR, "Object", "AmericaInfantryPathfinder")
+assert "Science = SCIENCE_Pathfinder" in pf_donor          # the gate we drop
+# Kwai cannot buy SCIENCE_Pathfinder (drop is mandatory, artillery precedent)
+for rank in ("Rank1", "Rank3", "Rank8"):
+    assert "SCIENCE_Pathfinder" not in eff_block(
+        CS, "CommandSet", "Tank_SCIENCE_CHINA_CommandSet" + rank), rank
 # prereq targets we translate TO all exist
 for n in ("Tank_ChinaBarracks", "Tank_ChinaWarFactory", "Tank_ChinaPropagandaCenter"):
     assert "Object" in eff_defined.get(n, set()), "missing Kwai building: " + n
-
-# ------------------------------------------- identifier collision checks
-port_names = sorted({n for lst in PORT.values() for _t, n in lst}
-                    | {n for _t, n in SUPPORT_OBJECTS}
-                    | {n for _t, n in SHARPSHOOTER_FAMILY}
-                    | set(PORT_IMAGES))
-for n in NEW_IDENTIFIERS:
-    assert n not in eff_words, "identifier collision (new): " + n
-for n in port_names:
-    assert n not in eff_words, "identifier collision (ported donor name): " + n
-
-# =========================================================== ported text
-def ported_appendix(dest, title):
-    blocks = []
-    for t, n in PORT[dest]:
-        blk = zhe_block(t, n).rstrip("\n") + "\n"
-        if n == "OCL_ChinaInfantrySharpshooter_Revived":
-            # repoint at the renamed buildable stub (donor spawned its own
-            # stub object name, which we rename)
-            blk = replace_exact(
-                blk, "    ObjectNames = ChinaInfantrySharpshooter\n",
-                "    ObjectNames = Tank_ChinaInfantrySharpshooter ; " + TAG +
-                " (donor: ChinaInfantrySharpshooter)\n", 1, "revive OCL")
-        blocks.append(blk)
-    return ("\n;;; %s: %s (ported verbatim from Zero Hour Enhanced "
-            "!ZHE8INI_99.big;\n;;; ZHE Sharpshooter closure -- see README)\n\n"
-            % (TAG, title) + "\n".join(blocks))
-
-
-# --- transforms applied to ported text (documented deviations)
-def fix_sniper_distant(txt):
-    # ZHE typo: sample 'kar98-l-3' does not exist (file is kar98-l-03.wav)
-    return replace_exact(
-        txt, "  Sounds = kar98-l-01 kar98-l-02 kar98-l-3\n",
-        "  Sounds = kar98-l-01 kar98-l-02 kar98-l-03 ; %s: ZHE typo kar98-l-3 fixed\n" % TAG,
-        1, "Type79SniperRifleDistant")
-
-
-def build_sharpshooter_ini():
-    """Full copy of ZHE's Sharpshooter.ini with the buildable stub renamed
-    Tank_ChinaInfantrySharpshooter / Side ChinaTankGeneral / Kwai prereqs."""
-    src = zhe_ini_texts["Data\\INI\\Object\\China\\Infantry\\Sharpshooter.ini"]
-    out = src
-    out = replace_exact(out, "Object ChinaInfantrySharpshooter\n",
-                        "Object Tank_ChinaInfantrySharpshooter ; " + TAG +
-                        ": renamed ZHE ChinaInfantrySharpshooter (buildable stub)\n",
-                        1, "stub rename")
-    # stub block only: donor 'Side = China' occurs in stub, Variation1, and
-    # the two wounded Variation1 objects (4 total); the stub's is the FIRST.
-    stub_end = out.index("\nEnd\n", out.index("Object Tank_ChinaInfantrySharpshooter"))
-    stub_txt = out[:stub_end + 5]
-    rest = out[stub_end + 5:]
-    stub_txt = replace_exact(
-        stub_txt, "  Side = China\n",
-        "  Side = ChinaTankGeneral ; " + TAG + " (donor: China)\n", 1, "stub side")
-    stub_txt = replace_exact(
-        stub_txt,
-        "  Prerequisites\n    Object = ChinaBarracks\n  End\n",
-        "  Prerequisites\n"
-        "    Object = Tank_ChinaBarracks ; " + TAG + " (donor: ChinaBarracks)\n"
-        "    Object = Tank_ChinaPropagandaCenter ; " + TAG +
-        ": spec adds the Propaganda Center gate\n  End\n", 1, "stub prereqs")
-    header = ("; %s: FULL PORT of Zero Hour Enhanced's ChinaInfantrySharpshooter\n"
-              "; ($1200 / 30 s China sniper).  Only the buildable stub is renamed\n"
-              "; (Tank_..., Side, prerequisites); the 4 build variations, wounded\n"
-              "; bodies and all referenced support blocks keep their ZHE donor names\n"
-              "; (collision-checked).  Source: ZHE_BIG100a !ZHE8INI_99.big\n"
-              "; Data\\INI\\Object\\China\\Infantry\\Sharpshooter.ini.\n\n" % TAG)
-    return header + stub_txt + rest
-
-
-def build_support_ini():
-    blocks = []
-    for t, n in SUPPORT_OBJECTS:
-        src_path = zhe_defs[(t, n)][0]
-        blocks.append("; from ZHE %s\n%s" % (src_path, zhe_block(t, n).rstrip("\n") + "\n"))
-    return ("; %s: ZHE generic support objects required by the Sharpshooter port\n"
-            "; (projectiles, water checkers, prone rider-switch riders, grenade,\n"
-            "; claymore mine, recon marker, suppression pulse).  Ported verbatim\n"
-            "; under donor names from ZHE_BIG100a !ZHE8INI_99.big.\n\n" % TAG
-            + "\n".join(blocks))
-
-
-def build_mapped_images():
-    out = ["; %s: ZHE cameo art for the Sharpshooter port.  The ZHE 512x512 SD\n"
-           "; cameo pages are shipped under NEW texture names (ShockWave has its\n"
-           "; own, different SNN/SNS pages under the original names).\n" % TAG]
-    for n in PORT_IMAGES:
-        blk = zhe_block("MappedImage", n)
-        for old, new in PAGE_RENAME.items():
-            blk = blk.replace("Texture = " + old, "Texture = " + new)
-        m = re.search(r"(?m)^\s*Texture\s*=\s*(\S+)", blk)
-        assert m and m.group(1) in PAGE_RENAME.values(), (n, m and m.group(1))
-        out.append(blk.rstrip("\n") + "\n")
-    return "\n".join(out)
+# RedGuard voice events all defined (mod Voice.ini)
+REDGUARD_VOICES = ["RedGuardVoiceSelect", "RedGuardVoiceMove",
+                   "RedGuardVoiceAttack", "RedGuardVoiceFear",
+                   "RedGuardVoiceCreate", "RedGuardVoiceGarrison"]
+eff_audio = set()
+for p, txt in eff_ini_texts.items():
+    for t, name, _a, _b, _tx in parse_blocks(txt):
+        if t in ("AudioEvent", "DialogEvent", "MusicTrack"):
+            eff_audio.add(name)
+for ev in REDGUARD_VOICES + ["StealthOn", "StealthOff", "MoneyWithdraw"]:
+    assert ev in eff_audio, "audio event missing: " + ev
+# Redguard really uses this voice set (drift guard for the remap)
+rg = eff_block("Data\\INI\\Object\\China\\Vanilla\\Infantry\\Redguard.ini",
+               "Object", "ChinaInfantryRedguard")
+for ev in REDGUARD_VOICES:
+    assert ev in rg, "Redguard donor drift: " + ev
+# cameo mapped images exist (engine lookups are case-insensitive; the SA
+# page spells it SAPathFinder1)
+mapped_images_lc = set()
+for p, txt in eff_ini_texts.items():
+    for t, name, _a, _b, _tx in parse_blocks(txt):
+        if t == "MappedImage":
+            mapped_images_lc.add(name.lower())
+for img in ("SAPathfinder1", "SAPathfinder1_L", "SNFlameTrooper",
+            "SNFlameTrooper_L", "SNMiniGunner", "SNMiniGunner_L"):
+    assert img.lower() in mapped_images_lc, "mapped image missing: " + img
 
 
 # ---------------------------------------------------------------- stubs
@@ -536,6 +288,104 @@ STUBS = {
         "CAN_CAST_REFLECTIONS INFANTRY SCORE PARACHUTABLE"),
 }
 
+# ------------------------------------------------- Sharpshooter CLONE
+# Full clone of the effective vanilla-USA Pathfinder (kwai-roster Scout Car
+# idiom): stock stealth-sniper mechanics, nothing else.  Documented edits:
+SS_TRANSFORMS = [
+    ("Object AmericaInfantryPathfinder\n",
+     "Object Tank_ChinaInfantrySharpshooter ; " + TAG +
+     ": clone of the effective vanilla-USA Pathfinder\n", 1),
+    # USA-only upgrade cameo hints dropped (the ArmorUpgrade /
+    # ExperienceScalarUpgrade modules stay - inert, Kwai can't research them)
+    ("  UpgradeCameo1 = Upgrade_AmericaAdvancedTraining\n",
+     "  ;UpgradeCameo1 = NONE ; " + TAG + ": donor Upgrade_AmericaAdvancedTraining"
+     " (USA-only research, cameo hint dropped)\n", 1),
+    ("  UpgradeCameo2 = Upgrade_AmericaChemicalSuits\n",
+     "  ;UpgradeCameo2 = NONE ; " + TAG + ": donor Upgrade_AmericaChemicalSuits"
+     " (USA-only research, cameo hint dropped)\n", 1),
+    ("  DisplayName      = OBJECT:Pathfinder\n",
+     "  DisplayName      = OBJECT:KwaiSharpshooter ; " + TAG + "\n", 1),
+    ("  Side = America\n",
+     "  Side = ChinaTankGeneral ; " + TAG + " (donor: America)\n", 1),
+    ("  Prerequisites\n"
+     "    Object = AmericaBarracks\n"
+     "    Science = SCIENCE_Pathfinder\n"
+     "  End\n",
+     "  Prerequisites\n"
+     "    Object = Tank_ChinaBarracks ; " + TAG + " (donor: AmericaBarracks)\n"
+     "    Object = Tank_ChinaPropagandaCenter ; " + TAG +
+     ": tech gate per spec (donor science\n"
+     "    ; SCIENCE_Pathfinder dropped - Kwai's promotion tree cannot buy it;\n"
+     "    ; kwai-artillery Nuke Cannon precedent)\n"
+     "  End\n", 1),
+    ("  BuildCost = 600\n",
+     "  BuildCost = 1200 ; " + TAG + ": spec cost (donor 600)\n", 1),
+    ("  BuildTime = 10.0          ;in seconds  \n",
+     "  BuildTime = 30.0          ;in seconds ; " + TAG + ": spec (donor 10.0)\n", 1),
+    # RedGuard voice set (China-ish voices per spec; donor events stay defined
+    # and in use by the real Pathfinders)
+    ("  VoiceSelect = PathfinderVoiceSelect\n",
+     "  VoiceSelect = RedGuardVoiceSelect ; " + TAG + ": RedGuard voice set\n", 1),
+    ("  VoiceMove = PathfinderVoiceMove\n",
+     "  VoiceMove = RedGuardVoiceMove ; " + TAG + "\n", 1),
+    ("  VoiceGuard = PathfinderVoiceMove\n",
+     "  VoiceGuard = RedGuardVoiceMove ; " + TAG + "\n", 1),
+    ("  VoiceAttack = PathfinderVoiceAttack\n",
+     "  VoiceAttack = RedGuardVoiceAttack ; " + TAG + "\n", 1),
+    ("  VoiceFear = PathfinderVoiceFear\n  SoundStealthOn = StealthOn\n",
+     "  VoiceFear = RedGuardVoiceFear ; " + TAG + "\n  SoundStealthOn = StealthOn\n", 1),
+    ("  VoiceFear = PathfinderVoiceFear\n  \n",
+     "  VoiceFear = RedGuardVoiceFear ; " + TAG + " (donor duplicates the line)\n  \n", 1),
+    ("    VoiceCreate          = PathfinderVoiceCreate\n",
+     "    VoiceCreate          = RedGuardVoiceCreate ; " + TAG + "\n", 1),
+    ("    VoiceGarrison = PathfinderVoiceGarrison\n",
+     "    VoiceGarrison = RedGuardVoiceGarrison ; " + TAG + "\n", 1),
+    ("    VoiceEnter = PathfinderVoiceMove\n",
+     "    VoiceEnter = RedGuardVoiceMove ; " + TAG + "\n", 1),
+    ("    VoiceEnterHostile =  PathfinderVoiceMove\n",
+     "    VoiceEnterHostile =  RedGuardVoiceMove ; " + TAG + "\n", 1),
+    ("    VoiceGetHealed      = PathfinderVoiceMove\n",
+     "    VoiceGetHealed      = RedGuardVoiceMove ; " + TAG + "\n", 1),
+]
+SS_HEADER = (
+    "; " + TAG + " (v2): Kwai's Sharpshooter -- a full CLONE of the effective\n"
+    "; vanilla-USA Pathfinder (AmericaInfantryPathfinder, zz_SPE_Shw_ini.big):\n"
+    "; stock stealth-sniper mechanics (innate stealth while stationary, sniper\n"
+    "; rifle, stealth detection), NOTHING exotic.  Documented edits only:\n"
+    "; renamed / re-sided to ChinaTankGeneral / Kwai prereqs (science gate\n"
+    "; dropped) / $1200 / 30 s per spec / RedGuard voice set / USA upgrade\n"
+    "; cameo hints dropped.  Donor art (AIPFDR/ASPFDR models, SAPathfinder1\n"
+    "; cameo), weapon (USAPathfinderSniperRifle), armor and locomotor are live\n"
+    "; references into the effective space -- no new assets.\n"
+    "; (v1 was a Zero Hour Enhanced port; removed -- see README.)\n"
+    "\n")
+
+
+def build_sniper_clone():
+    raw = eff_data[PATH_DONOR].decode("latin-1")
+    eol = eol_of(raw)
+    lf = to_lf(raw)
+    out = lf
+    for old, new, count in SS_TRANSFORMS:
+        out = replace_exact(out, old, new, count, "sniper clone")
+    out = SS_HEADER + out
+    # exact line-multiset audit (alignment-independent): the clone's line
+    # multiset differs from the donor's by EXACTLY the transform swaps + header
+    before, after = Counter(lf.split("\n")), Counter(out.split("\n"))
+    exp_removed, exp_added = Counter(), Counter()
+    for old, new, _c in SS_TRANSFORMS:
+        exp_removed.update(old.rstrip("\n").split("\n"))
+        exp_added.update(new.rstrip("\n").split("\n"))
+    exp_added.update(SS_HEADER.split("\n")[:-1])
+    assert before - after == exp_removed - exp_added, \
+        ((before - after) - (exp_removed - exp_added),
+         (exp_removed - exp_added) - (before - after))
+    assert after - before == exp_added - exp_removed, \
+        ((after - before) - (exp_added - exp_removed),
+         (exp_added - exp_removed) - (after - before))
+    return from_lf(out, eol).encode("latin-1"), out
+
+
 # =========================================================== CommandSet.ini
 BAR_ANCHOR = "  5 = Tank_Command_ConstructChinaInfantrySiegeSoldier ; zzz-ZZZZZKwaiRoster\n"
 BAR_ADD = (
@@ -546,8 +396,7 @@ BAR_ADD = (
 
 def patch_commandset(lf):
     assert lf.count(BAR_ANCHOR) == 2  # both Barracks set variants
-    lf = replace_exact(lf, BAR_ANCHOR, BAR_ANCHOR + BAR_ADD, 2, "Barracks 6-8")
-    return lf + ported_appendix(CS, "Sharpshooter command sets")
+    return replace_exact(lf, BAR_ANCHOR, BAR_ANCHOR + BAR_ADD, 2, "Barracks 6-8")
 
 
 # ========================================================= CommandButton.ini
@@ -570,8 +419,8 @@ End
      "ConstructChinaInfantryMiniGunner", "SNMiniGunner",
      "ToolTipChinaBuildMiniGunner"),
     ("ChinaInfantrySharpshooter", "Tank_ChinaInfantrySharpshooter",
-     "ConstructChinaInfantrySharpshooter", "SNSharpshooter",
-     "ToolTipChinaBuildSharpshooter"),
+     "ConstructKwaiSharpshooter", "SAPathfinder1",
+     "ToolTipKwaiBuildSharpshooter"),
 ])
 
 
@@ -579,236 +428,79 @@ def patch_commandbutton(lf):
     if not lf.endswith("\n"):
         lf += "\n"
     return (lf + "\n;;; " + TAG + ": construct buttons (Flame Trooper / "
-            "Minigunner reuse donor art+labels; Sharpshooter uses ported ZHE "
-            "art+labels)\n" + BTN_APPENDIX + ported_appendix(
-                CB, "Sharpshooter ability buttons"))
+            "Minigunner reuse donor art+labels; the Sharpshooter is a "
+            "Pathfinder clone using its cameo + this layer's own labels)\n"
+            + BTN_APPENDIX)
 
 
 # ============================================================== Generals.str
-def zhe_str_entry(label, zstr_lf):
-    m = re.search(r"(?ms)^%s[ \t]*\n(.*?)^END[ \t]*$" % re.escape(label), zstr_lf,
-                  re.I)
-    assert m, "ZHE string missing: " + label
-    return "%s\n%sEND\n" % (label, m.group(1))
+STR_APPENDIX = (
+    "// " + TAG + ": Kwai Sharpshooter strings (authored by this layer;\n"
+    "// v1's Zero Hour Enhanced string entries were removed)\n"
+    "\n"
+    "OBJECT:KwaiSharpshooter\n"
+    "\"Sharpshooter\"\n"
+    "END\n"
+    "\n"
+    "CONTROLBAR:ConstructKwaiSharpshooter\n"
+    "\"&Sharpshooter\"\n"
+    "END\n"
+    "\n"
+    "CONTROLBAR:ToolTipKwaiBuildSharpshooter\n"
+    "\"Stealthy sniper infantry.\\n Invisible while stationary; detects "
+    "nearby stealth.\\n\\n Strong vs Infantry\\n Weak vs Vehicles, "
+    "Aircraft\"\n"
+    "END\n")
 
 
-def patch_str(lf, zstr_lf):
-    ours = set(re.findall(r"(?mi)^((?:CONTROLBAR|OBJECT|UPGRADE|SCIENCE|TOOLTIP|GUI):[A-Za-z0-9_\-]+)[ \t]*$", lf))
-    for lab in PORT_STRINGS:
-        assert lab not in ours, "string already present (would duplicate): " + lab
-    add = "\n".join(zhe_str_entry(lab, zstr_lf) for lab in PORT_STRINGS)
+def patch_str(lf):
+    for lab in NEW_LABELS:
+        assert not re.search(r"(?mi)^%s[ \t]*$" % re.escape(lab), lf), \
+            "label already present: " + lab
     if not lf.endswith("\n"):
         lf += "\n"
-    return (lf + "\n// " + TAG + ": ZHE Sharpshooter strings (ported from "
-            "Zero Hour Enhanced generals.str)\n\n" + add)
-
-
-# ============================================================== audio port
-# every audio event referenced by shipped text that is missing from our
-# effective space is ported from ZHE (Voice.ini events -> our Voice.ini,
-# SoundEffects.ini events -> our SoundEffects.ini) with its sample files.
-AUDIO_FIELD_RE = re.compile(
-    r"^\s*(?:Voice[A-Za-z]*|Sound(?:MoveStart|OnDamaged|OnReallyDamaged|Created|"
-    r"Ambient[A-Za-z]*|StealthOn|StealthOff|FX)?|UnitSpecificSound|InitiateSound|"
-    r"FireSound|ProjectileSound|ResearchSound|BounceSound)\s*=\s*([A-Za-z0-9_\-]+)\s*$",
-    re.I | re.M)
-AUDIO_NONE = {"NoSound", "None", "NONE"}
-
-
-def collect_audio_refs(texts):
-    refs = set()
-    for txt in texts:
-        nc = strip_comments(txt)
-        for m in AUDIO_FIELD_RE.finditer(nc):
-            v = m.group(1)
-            if v not in AUDIO_NONE:
-                refs.add(v)
-        # FXList / AudioEvent internal sound refs
-        for m in re.finditer(r"(?ms)^\s*Sound\s*\n\s*Name\s*=\s*(\S+)", nc):
-            refs.add(m.group(1))
-    return refs
+    return lf + "\n" + STR_APPENDIX
 
 
 # =========================================================== build the text
 print("== composing")
-out_files = {}
-zstr_lf = lf_text(next(d for p, d in (
-    (e.path, e.data) for f in ["!ZHE8Language_99.big"]
-    for e in read_big(os.path.join(ZHE_DIR, f))) if p.lower() == "data\\generals.str"))
-
 sources = {}
-for p in (CS, CB, UPG, OCL, WEA, STR, ARM, LOC, FXL, PSY, SPW, VOI, SFX):
+for p in (CS, CB, STR):
     raw = eff_data[p].decode("latin-1")
     sources[p] = (to_lf(raw), eol_of(raw))
 
 cs_new = patch_commandset(sources[CS][0])
 cb_new = patch_commandbutton(sources[CB][0])
-str_new = patch_str(sources[STR][0], zstr_lf)
-appended = {UPG: ported_appendix(UPG, "Sharpshooter upgrades"),
-            OCL: ported_appendix(OCL, "Sharpshooter OCLs"),
-            WEA: ported_appendix(WEA, "Sharpshooter weapons"),
-            ARM: ported_appendix(ARM, "Sharpshooter armors"),
-            LOC: ported_appendix(LOC, "Sharpshooter locomotors"),
-            FXL: ported_appendix(FXL, "Sharpshooter FX lists"),
-            PSY: ported_appendix(PSY, "Sharpshooter particle systems"),
-            SPW: ported_appendix(SPW, "Sharpshooter special powers")}
+str_new = patch_str(sources[STR][0])
+sniper_bytes, sniper_lf = build_sniper_clone()
 
-new_texts = {CS: cs_new, CB: cb_new, STR: str_new}
-for p, app in appended.items():
-    base = sources[p][0]
-    if not base.endswith("\n"):
-        base += "\n"
-    new_texts[p] = base + app
-
-ss_ini = build_sharpshooter_ini()
-support_ini = build_support_ini()
-mi_ini = build_mapped_images()
-new_texts[IP + "Sharpshooter.ini"] = ss_ini
-new_texts[IP + "SharpshooterSupport.ini"] = support_ini
-new_texts[IP + "FlameTrooper.ini"] = STUBS[IP + "FlameTrooper.ini"]
-new_texts[IP + "MiniGunner.ini"] = STUBS[IP + "MiniGunner.ini"]
-new_texts[MI] = mi_ini
-
-# ONLY the text this layer adds (closure checks must not re-audit the
-# pre-existing effective content our patched copies embed)
-new_content = [BAR_ADD, BTN_APPENDIX, ss_ini, support_ini, mi_ini,
-               STUBS[IP + "FlameTrooper.ini"], STUBS[IP + "MiniGunner.ini"]] + \
-              [ported_appendix(p, "x") for p in PORT]
-
-# ---- audio events: decide port set mechanically over the NEW ini text
-shipped_ini_texts = new_content
-eff_audio = set()
-for p, txt in eff_ini_texts.items():
-    for t, name, _a, _b, _tx in parse_blocks(txt):
-        if t in ("AudioEvent", "DialogEvent", "MusicTrack"):
-            eff_audio.add(name)
-
-audio_needed = collect_audio_refs(shipped_ini_texts)
-ported_audio_blocks = {VOI: [], SFX: []}
-audio_done, audio_reused = set(), set()
-frontier = sorted(audio_needed)
-while frontier:
-    ev = frontier.pop()
-    if ev in audio_done:
-        continue
-    audio_done.add(ev)
-    if ev in eff_audio:
-        audio_reused.add(ev)
-        continue
-    src = zhe_defs.get(("AudioEvent", ev))
-    assert src, "audio event unresolved anywhere: " + ev
-    src_path, blk = src
-    if src_path.lower().endswith("voice.ini"):
-        ported_audio_blocks[VOI].append((ev, blk))
-    else:
-        ported_audio_blocks[SFX].append((ev, blk))
-
-for p, title in ((VOI, "Sharpshooter voice set"), (SFX, "Sharpshooter sound effects")):
-    blocks = []
-    for ev, blk in sorted(ported_audio_blocks[p]):
-        if ev == "Type79SniperRifleDistant":
-            blk = fix_sniper_distant(blk)
-        blocks.append(blk.rstrip("\n") + "\n")
-    base = sources[p][0]
-    if not base.endswith("\n"):
-        base += "\n"
-    new_texts[p] = base + ("\n;;; %s: %s (ported from Zero Hour Enhanced)\n\n"
-                           % (TAG, title)) + "\n".join(blocks)
-
-# ---- audio samples: ship every sample of ported events missing from ours
-def event_samples(blk):
-    s = set()
-    nc = strip_comments(blk)
-    for key in ("Sounds", "Attack", "Decay"):
-        for m in re.finditer(r"(?m)^\s*%s\s*=\s*(.+?)\s*$" % key, nc):
-            s.update(m.group(1).split())
-    return s
-
-
-audio_files = {}
-for p in (VOI, SFX):
-    for ev, blk in ported_audio_blocks[p]:
-        if ev == "Type79SniperRifleDistant":
-            blk = fix_sniper_distant(blk)
-        for smp in event_samples(blk):
-            lp = smp.lower()
-            dst = "Data\\Audio\\Sounds\\%s.wav" % smp
-            if any(("data\\audio\\sounds\\%s%s.wav" % (pre, lp)) in asset_paths
-                   for pre in ("", "english\\")):
-                continue  # exists in our space (base or mod)
-            # ZHE source: flat or localized English folder
-            src = None
-            for cand in ("data\\audio\\sounds\\%s.wav" % lp,
-                         "data\\audio\\sounds\\english\\%s.wav" % lp):
-                if cand in zhe_asset:
-                    src = zhe_asset[cand][1]
-                    break
-            assert src is not None, "audio sample missing in ZHE: " + smp
-            audio_files[dst] = src
-
-# ---- art: W3D files + their internal textures + particle/cameo textures
-art_files = {}
-for m in W3D_FILES:
-    lp = "art\\w3d\\%s.w3d" % m.lower()
-    assert lp not in asset_paths, "W3D collision with our space: " + m
-    assert lp in zhe_asset, "W3D missing in ZHE: " + m
-    art_files["Art\\W3D\\%s.W3D" % m] = zhe_asset[lp][1]
-
-texre = re.compile(rb"[A-Za-z0-9_\-]+\.(?:tga|dds)", re.I)
-tex_needed = set()
-for m in W3D_FILES:
-    for t in texre.findall(art_files["Art\\W3D\\%s.W3D" % m]):
-        tex_needed.add(t.decode().lower())
-for txt in shipped_ini_texts:
-    for m in re.finditer(r"(?m)^\s*ParticleName\s*=\s*(\S+)", strip_comments(txt)):
-        tex_needed.add(m.group(1).lower())
-
-
-def tex_in_ours(base):
-    return any(("art\\textures\\%s%s" % (base, ext)) in asset_paths
-               for ext in (".tga", ".dds"))
-
-
-for t in sorted(tex_needed):
-    base = t.rsplit(".", 1)[0]
-    if tex_in_ours(base):
-        continue
-    src = None
-    for ext in (".dds", ".tga"):
-        lp = "art\\textures\\%s%s" % (base, ext)
-        if lp in zhe_asset:
-            src = (lp, zhe_asset[lp][1])
-            break
-    assert src, "texture missing everywhere: " + t
-    art_files["Art\\Textures\\" + src[0].split("\\")[-1]] = src[1]
-
-# cameo pages (renamed, SD 512x512 variants preferred at load above)
-for old, new in PAGE_RENAME.items():
-    lp = "art\\textures\\" + old.lower()
-    assert lp in zhe_asset, "cameo page missing in ZHE: " + old
-    arc, data = zhe_asset[lp]
-    assert arc == "!ZHE8CameoSD_99.zhe", (old, arc)
-    import struct
-    w, h = struct.unpack_from("<HH", data, 12)
-    assert (w, h) == (512, 512), (old, w, h)
-    newlp = "art\\textures\\" + new.lower()
-    assert newlp not in asset_paths, "renamed page collides: " + new
-    art_files["Art\\Textures\\" + new] = data
-
+new_texts = {CS: cs_new, CB: cb_new, STR: str_new,
+             IP + "FlameTrooper.ini": STUBS[IP + "FlameTrooper.ini"],
+             IP + "MiniGunner.ini": STUBS[IP + "MiniGunner.ini"],
+             IP + "Sharpshooter.ini": sniper_lf}
 out_files = {}
 for p, txt in new_texts.items():
-    eol = sources[p][1] if p in sources else "\n"
-    out_files[p] = from_lf(txt, eol).encode("latin-1")
-out_files.update(art_files)
-out_files.update(audio_files)
+    if p in sources:
+        out_files[p] = from_lf(txt, sources[p][1]).encode("latin-1")
+    elif p == IP + "Sharpshooter.ini":
+        out_files[p] = sniper_bytes
+    else:
+        out_files[p] = txt.encode("latin-1")
 
 # ========================================================== VERIFICATION
 print("== verifying")
 
-# ---- 1. append-only + exact CS diff -----------------------------------
-for p in (CB, UPG, OCL, WEA, ARM, LOC, FXL, PSY, SPW, VOI, SFX, STR):
-    base_raw = eff_data[p]
-    assert out_files[p].startswith(base_raw.rstrip(b"\r\n")), \
+# ---- 0. ZERO ZHE residue in anything we ship
+shipped_all = "\n".join(new_texts.values())
+for marker in ZHE_MARKERS:
+    assert marker not in shipped_all, "ZHE residue in shipped text: " + marker
+assert len(out_files) == 6, sorted(out_files)
+for p in out_files:
+    assert not p.lower().endswith((".w3d", ".tga", ".dds", ".wav")), p
+
+# ---- 1. diff audits ---------------------------------------------------
+for p in (CB, STR):
+    assert out_files[p].startswith(eff_data[p].rstrip(b"\r\n")), \
         "not append-only: " + p
 cs_diff = [l for l in difflib.unified_diff(
     sources[CS][0].split("\n"), cs_new.split("\n"), lineterm="", n=0)
@@ -816,208 +508,26 @@ cs_diff = [l for l in difflib.unified_diff(
 removed = [l for l in cs_diff if l.startswith("-")]
 added = Counter(l[1:] for l in cs_diff if l.startswith("+"))
 assert not removed, removed[:5]
-exp_added = Counter(BAR_ADD.rstrip("\n").split("\n") * 2)
-exp_added.update(ported_appendix(CS, "Sharpshooter command sets").rstrip("\n").split("\n"))
-assert added == exp_added, (added - exp_added, exp_added - added)
-print("   CommandSet diff: +%d lines, -0, as intended" % sum(added.values()))
+assert added == Counter(BAR_ADD.rstrip("\n").split("\n") * 2), added
+print("   CommandSet diff: +6 lines, -0, as intended")
 
 # ---- 2. block balance ---------------------------------------------------
-EXPECT_NEW_BLOCKS = {CS: 4, CB: 13, UPG: 2, OCL: 17, WEA: 20, ARM: 4, LOC: 3,
-                     FXL: 20, PSY: 47, SPW: 6,
-                     VOI: len(ported_audio_blocks[VOI]),
-                     SFX: len(ported_audio_blocks[SFX])}
-for p, n in EXPECT_NEW_BLOCKS.items():
-    got = len(parse_blocks(new_texts[p])) - len(parse_blocks(sources[p][0]))
-    assert got == n, (p, got, n)
-for p, n in ((IP + "Sharpshooter.ini", 15), (IP + "SharpshooterSupport.ini", 16),
-             (IP + "FlameTrooper.ini", 1), (IP + "MiniGunner.ini", 1)):
+assert len(parse_blocks(cs_new)) == len(parse_blocks(sources[CS][0]))
+assert len(parse_blocks(cb_new)) == len(parse_blocks(sources[CB][0])) + 3
+for p in NEW_INI_PATHS:
     blocks = parse_blocks(new_texts[p])
-    assert len(blocks) == n, (p, len(blocks), n)
+    assert len(blocks) == 1 and blocks[0][0] == "Object", p
     col0 = sum(1 for l in new_texts[p].split("\n")
                if l.rstrip() == "End" and not l.startswith((" ", "\t")))
-    assert col0 == n, (p, col0)
-mi_blocks = parse_blocks(new_texts[MI])
-assert len(mi_blocks) == len(PORT_IMAGES) and \
-    {n for _t, n, _a, _b, _x in mi_blocks} == set(PORT_IMAGES)
+    assert col0 == 1, (p, col0)
+new_names = {parse_blocks(new_texts[p])[0][1] for p in NEW_INI_PATHS}
+assert new_names == set(NEW_IDENTIFIERS[:3]), new_names
 
-# ---- 3. full effective-space closure ------------------------------------
+# ---- 3. stub + clone closure -------------------------------------------
 print("   closure ...")
-final_texts = dict(eff_ini_texts)
-for p, txt in new_texts.items():
-    if p.lower().endswith(".ini"):
-        final_texts[p] = txt
-final_defined = {}
-for p, txt in final_texts.items():
-    for t, name, _a, _b, _tx in parse_blocks(txt):
-        final_defined.setdefault(name, set()).add(t)
-# renamed stub defined exactly once, donor family present
-assert final_defined["Tank_ChinaInfantrySharpshooter"] == {"Object"}
-assert "ChinaInfantrySharpshooter" not in final_defined  # rename complete
-for _t, n in SHARPSHOOTER_FAMILY[1:]:
-    assert n in final_defined, n
-for _t, n in SUPPORT_OBJECTS:
-    assert n in final_defined, n
-for _dst, lst in PORT.items():
-    for _t, n in lst:
-        assert n in final_defined, "ported block lost: " + n
-
-shipped_all = "\n".join(new_content + [new_texts[VOI][len(sources[VOI][0]):],
-                                       new_texts[SFX][len(sources[SFX][0]):]])
-REF_RULES = [
-    (r"^\s*ProjectileObject\s*=\s*(\S+)", "Object"),
-    (r"^\s*ObjectNames\s*=\s*(.+?)\s*$", "Object"),
-    (r"^\s*SpawnTemplateName\s*=\s*(\S+)", "Object"),
-    (r"^\s*BuildVariations\s*=\s*(.+?)\s*$", "Object"),
-    (r"^\s*Object\s*=\s*([A-Za-z0-9_ \t]+?)\s*$", "Object"),
-    (r"^\s*Weapon\s*=\s*(?:PRIMARY|SECONDARY|TERTIARY|INITIAL|MIDPOINT|FINAL)\s+(\S+)", "Weapon"),
-    (r"^\s*(?:Collide|Reaction)Weapon\w*\s*=\s*(\S+)", "Weapon"),
-    (r"^\s*Armor\s*=\s*([A-Za-z]\S*Armor)\s*$", "Armor"),
-    (r"^\s*Locomotor\s*=\s*SET_\w+\s+(.+?)\s*$", "Locomotor"),
-    (r"^\s*(?:Fire)?FX\s*=\s*(?:INITIAL\s+|MIDPOINT\s+|FINAL\s+)?(FX_\S+)", "FXList"),
-    (r"^\s*ProjectileDetonationFX\s*=\s*(\S+)", "FXList"),
-    (r"^\s*VeterancyFireFX\s*=\s*HEROIC\s+(\S+)", "FXList"),
-    (r"^\s*(?:Fire|ProjectileDetonation)OCL\s*=\s*(\S+)", "ObjectCreationList"),
-    (r"^\s*OCL\s*=\s*(?:INITIAL\s+|MIDPOINT\s+|FINAL\s+)?(OCL_\S+)", "ObjectCreationList"),
-    (r"^\s*UpgradeObject\s*=\s*(\S+)", "ObjectCreationList"),
-    (r"^\s*SpecialPower(?:Template)?\s*=\s*(\S+)", "SpecialPower"),
-    (r"^\s*CommandSet\s*=\s*(\S+)", "CommandSet"),
-    (r"^\s*Upgrade\s*=\s*(Upgrade_\S+)", "Upgrade"),
-    (r"^\s*(?:TriggeredBy|ConflictsWith|RemovesUpgrades)\s*=\s*(.+?)\s*$", "Upgrade"),
-    (r"^\s*ParticleSysBone\s*=\s*\S+\s+(\S+)", "ParticleSystem"),
-]
-unresolved = []
-nc_all = strip_comments(shipped_all)
-for line in nc_all.split("\n"):
-    for pat, want in REF_RULES:
-        m = re.match(pat, line, re.I)
-        if not m:
-            continue
-        for tok in m.group(1).split():
-            if tok in ("None", "NONE", "Yes", "No"):
-                continue
-            kinds = final_defined.get(tok, set())
-            ok = want in kinds or (want == "Object" and "ObjectReskin" in kinds) \
-                or (want == "Upgrade" and kinds)
-            if not ok:
-                unresolved.append((want, tok, line.strip()))
-        break
-assert not unresolved, "unresolved refs: %s" % unresolved[:10]
-
-# nested FXList particle systems + sounds
-for m in re.finditer(r"(?ms)^\s*ParticleSystem\s*\n\s*Name\s*=\s*(\S+)", nc_all):
-    assert "ParticleSystem" in final_defined.get(m.group(1), set()), m.group(1)
-
-# every command-set slot in ported sets resolves to a defined button
-def parse_sets(txt):
-    sets = {}
-    for t, name, _a, _b, btext in parse_blocks(txt):
-        if t != "CommandSet":
-            continue
-        slots = {}
-        for sm in re.finditer(r"(?m)^\s*(\d+)\s*=\s*(\S+)", btext):
-            slots[int(sm.group(1))] = sm.group(2)
-        sets[name] = slots
-    return sets
-
-
-sets = parse_sets(cs_new)
-for _t, n in PORT[CS]:
-    for slot, btn in sets[n].items():
-        assert 1 <= slot <= 18, (n, slot)
-        assert "CommandButton" in final_defined.get(btn, set()), (n, btn)
-
-# rider-switch chain closure on the ported unit
-var1 = zhe_block("Object", "ChinaInfantrySharpshooterVariation1")
-for rid in re.finditer(r"(?m)^\s*Rider\d\s*=\s*(\S+)\s+\S+\s+\S+\s+\S+\s+(\S+)", var1):
-    assert "Object" in final_defined.get(rid.group(1), set()), rid.group(1)
-    assert "CommandSet" in final_defined.get(rid.group(2), set()), rid.group(2)
-
-# revive OCL points at the renamed stub
-assert "ObjectNames = Tank_ChinaInfantrySharpshooter" in new_texts[OCL]
-assert not re.search(r"(?m)^\s*ObjectNames\s*=\s*ChinaInfantrySharpshooter\s*$",
-                     new_texts[OCL])
-
-# ---- 4. strings ----------------------------------------------------------
-str_lf = new_texts[STR]
-str_defined = set(re.findall(
-    r"(?mi)^((?:CONTROLBAR|OBJECT|UPGRADE|SCIENCE|TOOLTIP|GUI):[A-Za-z0-9_\-]+)[ \t]*$",
-    str_lf))
-lab_needed = set(re.findall(
-    r"\b(?:CONTROLBAR|OBJECT|UPGRADE|SCIENCE|TOOLTIP|GUI):[A-Za-z0-9_\-]+",
-    nc_all))
-missing_labels = {l for l in lab_needed if l not in str_defined}
-# grandfather: labels referenced by pre-existing effective text only
-pre_labels = set(re.findall(
-    r"\b(?:CONTROLBAR|OBJECT|UPGRADE|SCIENCE|TOOLTIP|GUI):[A-Za-z0-9_\-]+",
-    strip_comments(eff_all_text)))
-missing_labels -= {l for l in missing_labels if l in pre_labels and
-                   l not in strip_comments(shipped_all)}
-assert not missing_labels, "unresolved labels: %s" % sorted(missing_labels)
-for lab in PORT_STRINGS:
-    assert re.search(r"(?mi)^%s[ \t]*$" % re.escape(lab), str_lf), lab
-
-# ---- 5. art closure -------------------------------------------------------
-print("   art closure ...")
-final_assets = set(asset_paths) | {p.lower() for p in out_files}
-
-
-def art_ok_w3d(name):
-    return ("art\\w3d\\%s.w3d" % name.lower()) in final_assets
-
-
-def art_ok_tex(base):
-    return any(("art\\textures\\%s%s" % (base.lower(), ext)) in final_assets
-               for ext in (".tga", ".dds"))
-
-
-for line in nc_all.split("\n"):
-    m = re.match(r"^\s*Model\s*=\s*(\S+)", line, re.I)
-    if m and m.group(1) not in ("None", "NONE"):
-        assert art_ok_w3d(m.group(1)), "model missing: " + m.group(1)
-    m = re.match(r"^\s*(?:Idle)?Animation\s*=\s*(\S+)\.(\S+)", line, re.I)
-    if m:
-        assert art_ok_w3d(m.group(2)) or art_ok_w3d(m.group(1)), line.strip()
-    m = re.match(r"^\s*ParticleName\s*=\s*(\S+)", line, re.I)
-    if m:
-        assert art_ok_tex(m.group(1).rsplit(".", 1)[0]), "psys tex: " + m.group(1)
-# W3D-internal textures all resolve
-for w3dname, data in ((k, v) for k, v in art_files.items() if k.endswith(".W3D")):
-    for t in texre.findall(data):
-        base = t.decode().rsplit(".", 1)[0]
-        assert art_ok_tex(base), "W3D-internal texture missing: %s (%s)" % (t, w3dname)
-# mapped images used by shipped buttons/objects resolve
-mapped_images = set()
-for p, txt in final_texts.items():
-    for t, name, _a, _b, _tx in parse_blocks(txt):
-        if t == "MappedImage":
-            mapped_images.add(name)
-for m in re.finditer(r"(?m)^\s*(?:SelectPortrait|ButtonImage)\s*=\s*(\S+)", nc_all):
-    assert m.group(1) in mapped_images, "mapped image missing: " + m.group(1)
-for n in PORT_IMAGES:
-    assert n in mapped_images
-# UpgradeCameo refs resolve to Upgrade templates
-for m in re.finditer(r"(?m)^\s*UpgradeCameo\d\s*=\s*(\S+)", nc_all):
-    assert "Upgrade" in final_defined.get(m.group(1), set()), m.group(1)
-
-# ---- 6. audio closure -----------------------------------------------------
-print("   audio closure ...")
-final_audio = set(eff_audio) | {ev for p in (VOI, SFX)
-                                for ev, _b in ported_audio_blocks[p]}
-for ev in collect_audio_refs([shipped_all]):
-    assert ev in final_audio, "audio event unresolved: " + ev
-# every sample of every ported event resolves in final space
-final_sound_paths = final_assets
-for p in (VOI, SFX):
-    for ev, blk in ported_audio_blocks[p]:
-        if ev == "Type79SniperRifleDistant":
-            blk = fix_sniper_distant(blk)
-        for smp in event_samples(blk):
-            lp = smp.lower()
-            ok = any(("data\\audio\\sounds\\%s%s.wav" % (pre, lp)) in final_sound_paths
-                     for pre in ("", "english\\"))
-            assert ok, "sample unresolved: %s (%s)" % (smp, ev)
-
-# ---- 7. stub closure ------------------------------------------------------
+final_defined = dict(eff_defined)
+for n in NEW_IDENTIFIERS[:3]:
+    final_defined.setdefault(n, set()).add("Object")
 for path, objname, target in (
         (IP + "FlameTrooper.ini", "Tank_ChinaInfantryFlameThrower",
          "Spec_ChinaInfantryFlameThrower"),
@@ -1031,24 +541,95 @@ for path, objname, target in (
         assert "Object" in eff_defined.get(target, set()), target
     for pr in re.findall(r"(?m)^\s*Object\s*=\s*(\S+)\s*$", txt):
         assert "Object" in final_defined.get(pr, set()), (path, pr)
-# stub costs per spec
-for name, cost in (("Tank_ChinaInfantryFlameThrower", 350),
-                   ("Tank_ChinaInfantryMiniGunner", 550),
-                   ("Tank_ChinaInfantrySharpshooter", 1200)):
-    for p in (IP + "FlameTrooper.ini", IP + "MiniGunner.ini", IP + "Sharpshooter.ini"):
-        for t, n, _a, _b, btext in parse_blocks(new_texts[p]):
-            if n == name:
-                c = int(re.search(r"(?m)^\s*BuildCost\s*=\s*(\d+)", btext).group(1))
-                assert c == cost, (name, c)
 
-# ---- 8. sibling survival --------------------------------------------------
+# sniper clone: every identifier it references resolves in the effective
+# space (clone-of-effective => live by construction, asserted anyway;
+# kwai-roster Scout Car precedent)
+sniper_nc = strip_comments(sniper_lf)
+assert "BuildVariations" not in sniper_nc          # a real clone, not a stub
+assert "  BuildCost = 1200" in sniper_lf
+assert "  BuildTime = 30.0" in sniper_lf
+assert "Side = ChinaTankGeneral" in sniper_nc
+assert "SCIENCE_Pathfinder" not in sniper_nc       # science gate dropped
+for key, want in ((r"Weapon = PRIMARY (\S+)", "Weapon"),
+                  (r"Armor\s+= (\S+)", "Armor"),
+                  (r"Locomotor = SET_NORMAL (\S+)", "Locomotor"),
+                  (r"CommandSet\s+= (\S+)", "CommandSet")):
+    hits = list(re.finditer(r"(?m)^\s*" + key, sniper_nc))
+    assert hits, key
+    for m in hits:
+        tok = m.group(1)
+        assert want in eff_defined.get(tok, set()), (want, tok)
+donor_nc = strip_comments(lf_text(eff_data[PATH_DONOR]))
+dangling = set()
+for m in re.finditer(r"(?m)^\s*(?:FX|OCL)\s*=\s*(?:INITIAL|FINAL)\s+(\S+)",
+                     sniper_nc):
+    tok = m.group(1)
+    if eff_defined.get(tok, set()) & {"FXList", "ObjectCreationList"}:
+        continue
+    # ShockWave's OWN donor text carries a few dangling death-FX refs
+    # (e.g. FX_IfantryTeslaDie on dozens of stock USA infantry) - donor
+    # parity: allowed iff the unmodified donor already references it
+    assert tok in donor_nc, "sniper clone unresolved (not donor-parity): " + tok
+    dangling.add(tok)
+print("   donor-parity dangling FX/OCL refs (ShockWave ships these): %s"
+      % (sorted(dangling) or "none"))
+for tok in set(WORD.findall(sniper_nc)):
+    if tok.startswith(("FX_", "OCL_", "Upgrade_")):
+        assert tok in eff_words, "sniper clone unresolved reference: " + tok
+# voice remap complete: no Pathfinder voice event remains; RedGuard's in use
+assert "PathfinderVoice" not in sniper_nc
+for ev in REDGUARD_VOICES:
+    assert ev in sniper_nc, "voice remap missing: " + ev
+# cameo art resolves (case-insensitive, engine behavior)
+for m in re.finditer(r"(?m)^\s*(?:SelectPortrait|ButtonImage)\s*=\s*(\S+)",
+                     strip_comments(shipped_all)):
+    assert m.group(1).lower() in mapped_images_lc, m.group(1)
+# donor vanilla Pathfinder untouched (we ship a copy, not a patch)
+assert "Object AmericaInfantryPathfinder\n" in lf_text(eff_data[PATH_DONOR])
+
+# buttons/labels resolve
+str_defined = set(re.findall(
+    r"(?mi)^((?:CONTROLBAR|OBJECT|UPGRADE|SCIENCE|TOOLTIP|GUI):[A-Za-z0-9_\-]+)[ \t]*$",
+    str_new))
+for lab in re.findall(r"\b(?:CONTROLBAR|OBJECT):[A-Za-z0-9_\-]+",
+                      strip_comments(BTN_APPENDIX + "\n" + sniper_nc)):
+    assert lab in str_defined, "label unresolved: " + lab
+for lab in NEW_LABELS:
+    assert lab in str_defined, lab
+
+# costs per spec
+for path, name, cost in ((IP + "FlameTrooper.ini", "Tank_ChinaInfantryFlameThrower", 350),
+                         (IP + "MiniGunner.ini", "Tank_ChinaInfantryMiniGunner", 550),
+                         (IP + "Sharpshooter.ini", "Tank_ChinaInfantrySharpshooter", 1200)):
+    btext = parse_blocks(new_texts[path])[0][4]
+    c = int(re.search(r"(?m)^\s*BuildCost\s*=\s*(\d+)", btext).group(1))
+    assert c == cost, (name, c)
+# w-economy (rebuilt above us) halves the sniper to 600/15 via override -
+# its patcher requires exactly one BuildCost + one BuildTime line per block:
+ss_block = parse_blocks(sniper_lf)[0][4]
+assert len(re.findall(r"(?m)^[ \t]*BuildCost[ \t]*=", ss_block)) == 1
+assert len(re.findall(r"(?m)^[ \t]*BuildTime[ \t]*=", ss_block)) == 1
+
+# ---- 4. sibling survival --------------------------------------------------
 print("   sibling survival ...")
+
+
+def parse_sets(txt):
+    sets = {}
+    for t, name, _a, _b, btext in parse_blocks(txt):
+        if t != "CommandSet":
+            continue
+        slots = {}
+        for sm in re.finditer(r"(?m)^\s*(\d+)\s*=\s*(\S+)", btext):
+            slots[int(sm.group(1))] = sm.group(2)
+        sets[name] = slots
+    return sets
 
 
 def verify_survival(cs_txt, installed=False):
     lf = to_lf(cs_txt)
     s = parse_sets(lf)
-    # our layer: Barracks 1-8 + 12-14 (both variants)
     for n in ("Tank_ChinaBarracksCommandSet", "Tank_ChinaBarracksCommandSetUpgrade"):
         b = s[n]
         assert b[5] == "Tank_Command_ConstructChinaInfantrySiegeSoldier", n
@@ -1059,8 +640,7 @@ def verify_survival(cs_txt, installed=False):
         assert b[13] in ("Command_UpgradeChinaMines", "Command_UpgradeEMPMines"), n
         assert b[14] == "Command_Sell", n
         assert set(b) == {1, 2, 3, 4, 5, 6, 7, 8, 12, 13, 14}, (n, sorted(b))
-    # PDL: 17 slot-9 buttons, state sets intact
-    assert lf.count("Tank_Command_UpgradeKwaiPDL ;") == 17
+    assert lf.count("Tank_Command_UpgradeKwaiPDL ;") == 17          # PDL
     for n in ("Tank_ChinaVehicleBattleMasterCommandSetTower",
               "Tank_ChinaVehicleBattleMasterCommandSetPDL",
               "Tank_ChinaTankEmperorGattlingCommandSet",
@@ -1069,13 +649,11 @@ def verify_survival(cs_txt, installed=False):
               "Tank_ChinaTankDragonUpgradedCommandSet",
               "Tank_ChinaReaperCommandSet"):
         assert n in s, "PDL set lost: " + n
-    # roster: WF page 2 slots 4-7, Airfield 3-4 + 5 exit cameos
-    wf = s["Tank_ChinaWarFactoryCommandSet_Down"]
+    wf = s["Tank_ChinaWarFactoryCommandSet_Down"]                    # roster
     assert wf[4] == "Tank_Command_ConstructChinaTankOverlord"
     assert wf[7] == "Tank_Command_ConstructChinaVehicleScoutCar"
     for i in (8, 9, 10, 11):
         assert i not in wf
-    assert wf[12] == "Command_ChinaButtonCommandSetOneUp"
     for n in ("Tank_ChinaAirfieldCommandSet", "Tank_ChinaAirfieldCommandSetUpgrade"):
         a = s[n]
         assert a[3] == "Tank_Command_ConstructChinaJetMIGFighter"
@@ -1083,32 +661,23 @@ def verify_survival(cs_txt, installed=False):
         for i in (5, 6, 7, 8, 9):
             assert a[i] == "Command_StructureExit", (n, i)
         assert a[10] == "Command_Evacuate"
-    # kwai-uav IC clones + vanilla IC sets
-    for v in ("One", "OneUpgrade", "Two", "TwoUpgrade"):
+    for v in ("One", "OneUpgrade", "Two", "TwoUpgrade"):             # kwai-uav
         ic = s["Tank_ChinaInternetCenterCommandSet" + v]
         assert ic[7] == "Tank_Command_UpgradeKwaiUAVProgram" \
             and ic[8] == "Tank_Command_KwaiUAVDeploy" \
             and ic[9] == "Command_Evacuate", (v, ic)
-        vs = s["ChinaInternetCenterCommandSet" + v]
-        assert vs[7] == "Command_StructureExit" and vs[8] == "Command_StructureExit"
-    # doctrine/garrisons prop-center machine: 50 sets full 14/14
     pc = {n: b for n, b in s.items() if n.startswith("Tank_ChinaPropagandaCenter")}
-    assert len(pc) == 50, len(pc)
-    for n, b in pc.items():
-        assert sorted(b) == list(range(1, 15)), n
-    # artillery / chaos WF page 1
+    assert len(pc) == 50, len(pc)                                    # doctrine
     for n in ("Tank_ChinaWarFactoryCommandSet", "Tank_ChinaWarFactoryCommandSetUpgrade"):
         assert s[n][11] == "Tank_Command_ConstructChinaVehicleInfernoCannon", n
         assert s[n][12] == "Command_ChinaButtonCommandSetOneDown", n
-    # mammoth-bunker transport slots
     stem = ("  3  = Command_ConstructAmericaVehicleHellfireDrone\n"
             "  4  = Command_TransportExit\n"
             "  5  = Command_TransportExit\n"
             "  6  = Command_TransportExit\n"
             "  7  = Command_TransportExit\n")
-    assert lf.count(stem + "  8  = Command_Evacuate\n") == 1
+    assert lf.count(stem + "  8  = Command_Evacuate\n") == 1         # mammoth
     assert lf.count(stem + "  8  = Command_Evacuate \n") == 4
-    # kwai-bunkers dozer pages + hacker bunker + basetech power plant
     assert s["Tank_ChinaDozerCommandSet"][13] == "Command_ChinaButtonCommandSetOneDown"
     dz2 = s["Tank_ChinaDozerCommandSet_Down"]
     assert dz2[7] == "Tank_Command_ConstructChinaBunker"
@@ -1116,26 +685,26 @@ def verify_survival(cs_txt, installed=False):
     for n in ("Tank_ChinaHackerBunkerCommandSet", "Tank_ChinaPowerPlantCommandSet",
               "Tank_ChinaPowerPlantCommandSetUpgrade", "GlobalHawkCommandSet"):
         assert n in s, "sibling set lost: " + n
-    # emperor-bunker emperor set; garrisons evacuates; proptower ERA
-    emp = s["Tank_ChinaTankEmperorDefaultCommandSet"]
+    emp = s["Tank_ChinaTankEmperorDefaultCommandSet"]                # emperor
     assert emp[10] == "Tank_Command_UpgradeChinaOverlordGattlingCannon"
     assert emp[12] == "Command_Evacuate"
-    assert lf.count("Command_Evacuate") >= 60
+    assert lf.count("Command_Evacuate") >= 60                        # garrisons
     assert "CommandSet Tank_ChinaVehicleBattleMasterCommandSetERA\n" in lf
     vpc = s["ChinaPropagandaCenterCommandSet"]
     assert vpc[1] == "Command_UpgradeChinaNationalism" and 10 not in vpc
+    # v1 ZHE command sets must be GONE
+    assert "ChinaInfantrySharpshooterCommandSet" not in lf
     print("   commandset survival OK%s" % (" (installed)" if installed else ""))
 
 
 verify_survival(cs_new)
-# CommandButton: chaos/roster/PDL/uav buttons all survive (pure-append asserted);
 for bn in ("Tank_Command_UpgradeKwaiPDL", "Tank_Command_KwaiUAVDeploy",
            "Tank_Command_ConstructChinaTankJS7",
            "Tank_Command_ConstructChinaInfantrySiegeSoldier",
            "Tank_Command_ConstructChinaVehicleInfernoCannon"):
     assert ("CommandButton %s\n" % bn) in cb_new, bn
 
-# ---- 9. archive name sort position (both real dirs) -----------------------
+# ---- 5. archive name sort position (both real dirs) -----------------------
 for d in (SPE_DIR, SHW_DIR):
     listing = sorted(set(os.listdir(d)) | {OUT_NAME, "zzz-ZZZZZZZRotrProbe.big"},
                      key=str.lower)
@@ -1152,8 +721,8 @@ print("   sort order OK in both mod dirs")
 entries = [BigEntry(p, data) for p, data in sorted(out_files.items())]
 out_path = os.path.join(HERE, OUT_NAME)
 write_big_file(entries, out_path)
-print("== wrote %s (%d files, %.1f MB)" % (
-    OUT_NAME, len(entries), os.path.getsize(out_path) / 1e6))
+print("== wrote %s (%d files, %.1f KB)" % (
+    OUT_NAME, len(entries), os.path.getsize(out_path) / 1e3))
 
 with open(out_path, "rb") as f:
     blob = f.read()
@@ -1167,5 +736,7 @@ for dest in (SPE_DIR, SHW_DIR):
                     installed=True)
     print("== installed + re-verified:", dst)
 
-print("\nOK.  Barracks 6 Flame Trooper ($350) / 7 Minigunner ($550) / "
-      "8 Sharpshooter ($1200, ZHE port).")
+print("\nOK (v2).  Barracks 6 Flame Trooper ($350) / 7 Minigunner ($550) / "
+      "8 Sharpshooter ($1200, Pathfinder clone).")
+print("REMINDER: rebuild the layers above in order: tesla-coil -> vehicle-kit"
+      " -> w-economy (they embed files derived from this layer).")

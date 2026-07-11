@@ -262,3 +262,21 @@ rebuild — and for the future Tesla Tank port.)
 - NOT verified in-game (deliberately not launched); all verification is
   static against the engine source (GeneralsX GeneralsMD tree) and the
   installed bytes.
+
+## CHANGELOG
+
+- **2026-07-10 — kwai-infantry v2 chain rebuild** (performed by the
+  kwai-infantry session): kwai-infantry removed its ZHE Sharpshooter port,
+  so its archive no longer ships Weapon.ini / ObjectCreationList.ini /
+  ParticleSystem.ini / SoundEffects.ini (or any art/audio). `build.py`
+  edits: (1) per-file `OWNERS` — CommandSet/CommandButton/Generals.str
+  stay `zzz-ZZZZZZZLKwaiInfantry.big`, Weapon/OCL revert to
+  `zzz-ZZZZZZZKwaiPDL.big`, ParticleSystem to `zzz-ZZZZChaosUnits.big`,
+  SoundEffects to `zz_SPE_Shw_ini.big`; (2) sources now read ONLY from
+  archives sorting strictly below this one; (3) the "no later archive
+  claims a shipped path" check skips the documented REBUILT_AFTER set
+  (vehicle-kit, w-economy, fx-enhance — they layer on our files and are
+  rebuilt after us); (4) stale "190 HP (ZHE) Sharpshooter" comments
+  updated for the 120 HP Pathfinder-clone sniper (one-shot claim still
+  holds). Archive rebuilt from the clean effective space and reinstalled
+  to both mod dirs; all original assertions green.
