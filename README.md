@@ -99,6 +99,52 @@ carries complete modified copies of the files it changes, built by its `build.py
 the *effective* copy beneath it — so layers compose without merge conflicts, at the cost
 of strict rebuild ordering (documented per layer, enforced by asserts).
 
+## Building & installing
+
+### 1. Build the engine (once, ~15 min first time)
+
+```bash
+# deps
+brew install cmake ninja meson pkgconf ffmpeg glm sdl3
+# LunarG Vulkan SDK from https://vulkan.lunarg.com/sdk/home#mac (NOT homebrew) -> ~/VulkanSDK/
+git clone https://github.com/microsoft/vcpkg ~/vcpkg && ~/vcpkg/bootstrap-vcpkg.sh -disableMetrics
+
+# engine fork — the unified branch has everything (veterancy-8 + graphics)
+git clone https://github.com/anderote/GeneralsX ~/src/GeneralsX
+cd ~/src/GeneralsX && git checkout feature/graphics-quality   # or feature/veterancy-8-levels
+source ~/VulkanSDK/*/setup-env.sh
+cmake --preset macos-vulkan
+cmake --build build/macos-vulkan --target z_generals -j$(sysctl -n hw.logicalcpu)
+./scripts/build/macos/deploy-macos-zh.sh    # installs binary + Vulkan runtime + run.sh
+```
+
+Game data prerequisite: your own retail Zero Hour (Steam app 2732960) merged into
+`~/GeneralsX/GeneralsZH/` (DepotDownloader works headlessly on macOS; steamcmd does not).
+
+### 2. Install ShockWave + this mod's layers
+
+```bash
+# ShockWave 1.201 from SWR's public server (see RESEARCH.md §E) -> ~/GeneralsX/mods/ShockWave/
+# then copy every layer archive from this repo into the mod dir:
+cp */zz*.big */zzz*.big ~/GeneralsX/mods/ShockWave/     # each layer dir holds its built .big
+cp 340_ControlBarPro*.big ControlBarHD*.big ~/GeneralsX/GeneralsZH/   # UI (from their sources)
+```
+
+Or rebuild any layer from source: `cd <layer>/ && python3 build.py` — each builder
+re-derives from the archives below it, verifies, and installs. **Rebuild order matters**:
+rebuilding a layer requires rebuilding every layer above it that shares files (each
+build.py fails loudly if the stack drifted — trust the asserts, read the layer README).
+
+### 3. Engine config + launch
+
+Apply the SagePatch.ini settings (veterancy curves etc. — documented above) in
+`~/Library/Application Support/GeneralsX/GeneralsZH/`, then:
+
+```bash
+cd ~/GeneralsX/GeneralsZH && ./run.sh -fullscreen -xres <W> -yres <H> -forcefullviewport \
+  -mod ~/GeneralsX/mods/ShockWave
+```
+
 ## Applying this from scratch
 
 On a fresh Apple Silicon Mac:
