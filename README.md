@@ -1,4 +1,6 @@
-# ShockWave Panzer Mod
+# Panzergrenadiers
+
+*(a ShockWave overhaul)*
 
 A personal overhaul of **C&C Generals: Zero Hour — ShockWave** centered on General Ta Hun Kwai
 (China Tank), built and played natively on Apple Silicon via
