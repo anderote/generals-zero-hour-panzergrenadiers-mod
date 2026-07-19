@@ -22,16 +22,38 @@ Tank_ShellEmperorElite is defined in a NEW INI shipped inside this same .big
 (Data\\INI\\Object\\China\\Tank\\Vehicles\\ShellEmperorElite.ini). It is a verbatim
 clone of the CURRENT effective Tank_DropEmperorFullUpgrade (full loadout: granted
 gattling, 3320-HP baked energy shield, ABM + reactive PDL + fleet aura + innate
-PDL + Shtora, 8-man Waffen crew), with exactly ONE change: its VeterancyGainCreate
-StartingLevel HEROIC -> HEROIC5 (LEVEL_HEROIC5 == LEVEL_LAST, the engine's top
-spawnable rank, 230% health; VeterancyGainCreate parses StartingLevel via
-INI::parseIndexList(TheVeterancyNames), which includes HEROIC5).
+PDL + Shtora, 8-man Waffen crew), with exactly TWO changes:
+  * VeterancyGainCreate StartingLevel HEROIC -> HEROIC6. The patched engine
+    binary (~/GeneralsX/GeneralsZH/GeneralsXZH) extends TheVeterancyNames with
+    HEROIC2..HEROIC6, so LEVEL_HEROIC6 == LEVEL_LAST is the top spawnable rank
+    (verified against the installed binary's string table; the stock binary
+    stops at HEROIC, hence the binary guard below).
+  * BOTH ArmorSet blocks (Conditions=None AND Conditions=PLAYER_UPGRADE) swap
+    Armor TankArmor -> InvulnerableAllArmor (0% from everything except
+    UNRESISTABLE/STATUS; defined in the effective Data\\INI\\Armor.ini). The
+    menu scene can never lose the Emperors. DamageFX entries stay untouched.
+
+KILLABILITY FIX: build_object() used to clone the donor Dict verbatim, and the
+aggressiveness donor (an original scripted scene actor) carries
+objectIndestructible=1 -- so every SHOWCASE swarm unit shipped invulnerable.
+build_object now forces objectIndestructible (key 121) to 0 on everything it
+creates, and the verifier asserts no SWARM_TEAM-owned object is indestructible.
+(The map's scripts never set invulnerability: the map symbol table contains no
+such ScriptAction name. Neutral GLATrap props / USA scene actors / civilian
+scenery keep their original indestructible flags by design.)
 
 The map is stored UNCOMPRESSED (engine reads raw maps fine). The whole output
 buffer is re-parsed from scratch and every structural invariant asserted before
 anything ships.
+
+Usage:  build_shellmap_showcase.py          build + verify + install to both mod dirs
+        build_shellmap_showcase.py --stage  build + verify + write ONLY the layer-dir
+                                            .big (no install; for staging while the
+                                            game is running)
 """
 import os, sys, struct, hashlib, re, math
+
+STAGE = "--stage" in sys.argv
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "hotkey-addon"))
 sys.path.insert(0, HERE)
@@ -50,7 +72,10 @@ DONOR_INI = "Data\\INI\\Object\\China\\Tank\\Vehicles\\EmperorFullDrop.ini"
 DONOR_OBJ = "Tank_DropEmperorFullUpgrade"
 NEW_OBJ   = "Tank_ShellEmperorElite"
 NEW_INI_PATH = "Data\\INI\\Object\\China\\Tank\\Vehicles\\ShellEmperorElite.ini"
-MAX_VET = "HEROIC5"   # LEVEL_HEROIC5 == LEVEL_LAST (engine top spawnable rank, 230% HP)
+MAX_VET = "HEROIC6"   # LEVEL_HEROIC6 == LEVEL_LAST in the PATCHED engine binary
+                      # (TheVeterancyNames extended HEROIC2..HEROIC6; guarded below)
+INVULN_ARMOR = "InvulnerableAllArmor"   # 0% all damage except UNRESISTABLE/STATUS
+ENGINE_BIN = os.path.expanduser("~/GeneralsX/GeneralsZH/GeneralsXZH")
 
 # --- removal filter: any China-faction template (military units + buildings) ---
 CHINA_RE = re.compile(r"China|Chinee")
@@ -114,10 +139,32 @@ def build_new_ini():
     assert n2 == 1, "StartingLevel replace count %d (expected 1)" % n2
     assert ("StartingLevel = " + MAX_VET) in block3
     assert not re.search(r"(?mi)^\s*StartingLevel\s*=\s*HEROIC\s*$", block3), "level-4 HEROIC still present"
+    # MAX_VET must exist in the RUNNING engine or INI load throws INI_INVALID_DATA:
+    # StartingLevel parses via INI::parseIndexList(TheVeterancyNames) (fail-closed guard).
+    eng = open(ENGINE_BIN, "rb").read()
+    assert (MAX_VET.encode() + b"\x00") in eng, \
+        "installed engine binary lacks veterancy rank %s" % MAX_VET
+    # invulnerability: swap the armor in BOTH ArmorSet blocks (Conditions=None and
+    # Conditions=PLAYER_UPGRADE -- swapping only one would leave the upgrade-
+    # condition set vulnerable). DamageFX lines untouched.
+    block4, n3 = re.subn(r"(?m)^(\s*Armor\s*=\s*)TankArmor\s*$",
+                         r"\g<1>" + INVULN_ARMOR, block3)
+    assert n3 == 2, "ArmorSet Armor swap count %d (expected 2: Conditions=None + PLAYER_UPGRADE)" % n3
+    assert not re.search(r"(?mi)^\s*Armor\s*=\s*TankArmor\s*$", block4), "TankArmor still present"
+    assert len(re.findall(r"(?m)^\s*Armor\s*=\s*" + INVULN_ARMOR + r"\s*$", block4)) == 2
+    assert len(re.findall(r"(?m)^\s*DamageFX\s*=", block4)) == \
+           len(re.findall(r"(?m)^\s*DamageFX\s*=", block)), "DamageFX lines changed"
+    # the armor template must resolve in the effective INI space
+    armor_txt, armor_owner = effective_ini_text("Data\\INI\\Armor.ini")
+    assert armor_txt and re.search(r"(?mi)^\s*Armor\s+" + INVULN_ARMOR + r"\b", armor_txt), \
+        INVULN_ARMOR + " not defined in effective Armor.ini"
     header = ("; %s -- shipped by %s. Verbatim clone of %s (from %s, owner %s)\n"
-              "; with StartingLevel raised HEROIC -> %s (LEVEL_HEROIC5 = max spawnable rank).\n\n"
-              % (NEW_OBJ, OUT_NAME, DONOR_OBJ, DONOR_INI, owner, MAX_VET))
-    return (header + block3 + "\n").encode("latin-1"), owner
+              "; with StartingLevel raised HEROIC -> %s (top spawnable rank in the patched\n"
+              "; engine) and both ArmorSet Armors swapped TankArmor -> %s\n"
+              "; (menu-scene Emperors must never die; %s defined in %s).\n\n"
+              % (NEW_OBJ, OUT_NAME, DONOR_OBJ, DONOR_INI, owner, MAX_VET,
+                 INVULN_ARMOR, INVULN_ARMOR, armor_owner))
+    return (header + block4 + "\n").encode("latin-1"), owner
 
 # ---------------------------------------------------------------- dict codec
 def read_dict(b, p):
@@ -210,6 +257,9 @@ def build_object(name2id, donor_pairs, template, x, y, ang, uid, team, force139=
     saw139 = False
     for (keyid, typ, val) in donor_pairs:
         if   keyid == 119 and typ == 1: val = 100
+        elif keyid == 121 and typ == 0: val = 0   # objectIndestructible: NEVER inherit
+                                                  # (the agg donor is an indestructible
+                                                  # scene actor; all units must be killable)
         elif keyid == 126 and typ == 3: val = team.encode("latin-1")
         elif keyid == 127 and typ == 3: val = uid.encode("latin-1")
         elif keyid == 128 and typ == 3: val = b""
@@ -362,6 +412,31 @@ def main():
                if s(o["dictmap"].get(127, b"")).startswith("SHOWCASE_")), "a SHOWCASE unit has a non-empty objectName"
     print("VERIFY ids: %d SHOWCASE uids unique & disjoint from survivors; every new unit has blank objectName" % n_new)
 
+    # (B) killability: nothing we add, and nothing the attacking side owns, may be
+    # indestructible (key 121 = objectIndestructible; the agg donor carries =1)
+    assert id2name.get(121) == "objectIndestructible", "key 121 is %r" % id2name.get(121)
+    n_sc = n_swarmside = 0
+    for o in objs2:
+        uid = s(o["dictmap"].get(127, b"")); team = s(o["dictmap"].get(126, b""))
+        if uid.startswith("SHOWCASE_"):
+            n_sc += 1
+            assert not o["dictmap"].get(121), "SHOWCASE unit indestructible: %s" % uid
+        if team == SWARM_TEAM:
+            n_swarmside += 1
+            assert not o["dictmap"].get(121), \
+                "%s-owned object indestructible: %s %s" % (SWARM_TEAM, o["tn"], uid)
+    assert n_sc == n_new
+    print("VERIFY killable: all %d SHOWCASE objects and all %d %s-owned objects have "
+          "objectIndestructible=0 (GLA attackers are killable)" % (n_sc, n_swarmside, SWARM_TEAM))
+
+    # (A) invulnerable-Emperor INI: re-assert on the exact bytes being shipped
+    ini_txt = ini_bytes.decode("latin-1")
+    assert len(re.findall(r"(?m)^\s*Armor\s*=\s*" + INVULN_ARMOR + r"\s*$", ini_txt)) == 2
+    assert not re.search(r"(?mi)^\s*Armor\s*=\s*TankArmor\s*$", ini_txt)
+    assert ("StartingLevel = " + MAX_VET) in ini_txt
+    print("VERIFY invulnerable: shipped INI has 2/2 ArmorSet Armor=%s, zero TankArmor, "
+          "StartingLevel=%s (rank present in engine binary)" % (INVULN_ARMOR, MAX_VET))
+
     # trailing chunks byte-identical (PolygonTriggers+GlobalLighting+WaypointsList), just shifted
     orig_tail = bytes(buf[ol["de"]:])
     new_tail  = out[ol["ds"] + len(new_ol_data):]
@@ -393,19 +468,25 @@ def main():
                 assert e.path.lower() != NEW_INI_PATH.lower(), "%s sorts above us and owns the new INI!" % f
     print("sort-position OK: no higher archive owns the map or the new INI path")
 
-    with open(os.path.join(HERE, OUT_NAME), "wb") as fh:
+    staged = os.path.join(HERE, OUT_NAME)
+    with open(staged, "wb") as fh:
         fh.write(big_bytes)
-    md5s = {}
-    for d in (SPE, SHW):
-        p = os.path.join(d, OUT_NAME)
-        with open(p, "wb") as fh:
-            fh.write(big_bytes)
-        md5s[d] = hashlib.md5(open(p, "rb").read()).hexdigest()
-        inst = read_big(p)
-        assert find_entry(inst, MAP_PATH).data == out
-        assert find_entry(inst, NEW_INI_PATH).data == ini_bytes
-    assert len(set(md5s.values())) == 1, "installed archives differ!"
-    print("installed to both mod dirs; md5 match: %s" % list(md5s.values())[0])
+    stage_md5 = hashlib.md5(open(staged, "rb").read()).hexdigest()
+    if STAGE:
+        print("STAGED ONLY (no install; game may be running): %s" % staged)
+        print("staged md5: %s" % stage_md5)
+    else:
+        md5s = {}
+        for d in (SPE, SHW):
+            p = os.path.join(d, OUT_NAME)
+            with open(p, "wb") as fh:
+                fh.write(big_bytes)
+            md5s[d] = hashlib.md5(open(p, "rb").read()).hexdigest()
+            inst = read_big(p)
+            assert find_entry(inst, MAP_PATH).data == out
+            assert find_entry(inst, NEW_INI_PATH).data == ini_bytes
+        assert len(set(md5s.values())) == 1 and stage_md5 in md5s.values(), "installed archives differ!"
+        print("installed to both mod dirs; md5 match: %s" % stage_md5)
     print("OUT: %s (%d bytes)" % (OUT_NAME, len(big_bytes)))
 
     # ---- report ----
