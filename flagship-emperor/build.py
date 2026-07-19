@@ -61,6 +61,9 @@ P_REDGUARD = 'Data\\INI\\Object\\China\\Tank\\Infantry\\Redguard.ini'
 BOUNTY_OBJECTS = {P_BMASTER: 'Tank_ChinaTankBattleMaster',
                   P_REDGUARD: 'Tank_ChinaInfantryRedguard',
                   P_PGREN: 'Tank_ChinaInfantryPanzergrenadier'}
+# PG squads: barracks builds Panzergrenadiers two per click (Red Guard idiom)
+P_BARRACKS = 'Data\\INI\\Object\\China\\Tank\\Buildings\\Barracks.ini'
+
 # DEATH-DEFIANCE data half: inert countdown proxy the engine looks up by name
 P_MARKER = 'Data\\INI\\Object\\VeterancyRespawnMarker.ini'
 MARKER_INI = '\n'.join([
@@ -101,8 +104,14 @@ for d in MODDIRS:
     i = probe.index(ARCHIVE); below = probe[:i]; above = probe[i+1:]
     for need in [OWNER, 'zzz-ZZZZZZZZZZZZZZZZZZZ1TankUpgrades.big', 'zzz-ZZZZZZZZZZZZZZZZZZZ0TeslaHP.big']:
         check(need in below, f'{d}: {need} must sort below us')
+    # kwai-fortress (21Z, ships a derived copy of OUR Emperor.ini + its own
+    # files) and kwai-arsenal (22Z) legitimately sort above us. Rebuild rule:
+    # if OUR Emperor.ini bytes change, kwai-fortress must be rebuilt after us.
+    KNOWN_ABOVE = {'zzz-zzzzzzzzzzzzzzzzzzzzz0fortress.big',
+                   'zzz-zzzzzzzzzzzzzzzzzzzzzz0arsenal.big'}
     for a in above:
-        check(a.lower().startswith('zzz_controlbarpro') or a.lower().startswith('zzzz_'),
+        check(a.lower().startswith('zzz_controlbarpro') or a.lower().startswith('zzzz_')
+              or a.lower() in KNOWN_ABOVE,
               f'{d}: unexpected archive above us: {a}')
 print('sort position OK in both dirs')
 
@@ -119,20 +128,26 @@ def effective_below(d):
 eff0 = effective_below(MODDIRS[0])
 eff1 = effective_below(MODDIRS[1])
 EXPECTED_OWNER = {P_EMP: OWNER, P_WEAP: OWNER, P_PGREN: OWNER, P_REDGUARD: OWNER,
+                  P_BARRACKS: OWNER,
                   P_BMASTER: 'zzz-ZZZZZZZZZZZZZZZZZZZ1TankUpgrades.big'}
-for p in (P_EMP, P_WEAP, P_PGREN, P_BMASTER, P_REDGUARD):
+for p in (P_EMP, P_WEAP, P_PGREN, P_BMASTER, P_REDGUARD, P_BARRACKS):
     check(eff0[p.lower()][0] == EXPECTED_OWNER[p], f'{p} owner is {eff0[p.lower()][0]} not {EXPECTED_OWNER[p]}')
     check(eff0[p.lower()][1] == eff1[p.lower()][1], f'{p} differs between mod dirs')
-    # nothing above us may claim our paths
+    # nothing above us may claim our paths -- EXCEPT kwai-fortress, which ships
+    # a derived copy of our Emperor.ini (rebuild fortress after any change to
+    # our Emperor.ini output; other shared-up claims remain fatal).
+    SHARED_UP = {('zzz-zzzzzzzzzzzzzzzzzzzzz0fortress.big', P_EMP.lower())}
     for d in MODDIRS:
         for b in sorted_bigs(d):
             if b.lower() <= ARCHIVE.lower(): continue
+            if (b.lower(), p.lower()) in SHARED_UP: continue
             claimed = {e.path.lower() for e in bigfile.read_big(os.path.join(d, b))}
             check(p.lower() not in claimed, f'{d}/{b} (above us) claims {p}')
 emp_src = eff0[P_EMP.lower()][1].decode('latin-1')
 weap_src = eff0[P_WEAP.lower()][1].decode('latin-1')
 pgren_src = eff0[P_PGREN.lower()][1].decode('latin-1')
 bounty_src = {p: eff0[p.lower()][1].decode('latin-1') for p in (P_BMASTER, P_REDGUARD)}
+barracks_src = eff0[P_BARRACKS.lower()][1].decode('latin-1')
 check(P_MARKER.lower() not in eff0, 'VeterancyRespawnMarker.ini already exists in effective space')
 print('effective sources OK (both dirs agree; owner Rebalance; nothing above claims)')
 
@@ -267,6 +282,16 @@ for p, objname in BOUNTY_OBJECTS.items():
         bounty_new[p] = out
 print('MaxRankBounty = Yes flagged on %d unit objects' % len(BOUNTY_OBJECTS))
 
+# ========================================================== Barracks.ini (PG x2)
+t = barracks_src
+check('Tank_ChinaInfantryPanzergrenadier' not in t, 'barracks already references PG quantity')
+t, n = re.subn(r'^(\s*)(QuantityModifier = Tank_ChinaInfantryRedguard   2[^\n]*)$',
+               r'\g<1>\g<2>\n\g<1>QuantityModifier = Tank_ChinaInfantryPanzergrenadier   2 ; %s: PG squads, two per click' % TAG,
+               t, flags=re.M)
+check(n == 1, f'barracks QuantityModifier anchor not found exactly once (got {n})')
+barracks_new = t
+print('Barracks.ini patched (Panzergrenadier builds 2 per click)')
+
 # ------------------------------------------------------------------ diff audit
 def lines_multiset_diff(old, new):
     from collections import Counter
@@ -289,7 +314,8 @@ entries = [bigfile.BigEntry(P_EMP, emp_new.encode('latin-1')),
            bigfile.BigEntry(P_PGREN, pgren_new.encode('latin-1')),
            bigfile.BigEntry(P_BMASTER, bounty_new[P_BMASTER].encode('latin-1')),
            bigfile.BigEntry(P_REDGUARD, bounty_new[P_REDGUARD].encode('latin-1')),
-           bigfile.BigEntry(P_MARKER, MARKER_INI.encode('latin-1'))]
+           bigfile.BigEntry(P_MARKER, MARKER_INI.encode('latin-1')),
+           bigfile.BigEntry(P_BARRACKS, barracks_new.encode('latin-1'))]
 blob = bigfile.write_big(entries)
 rt = bigfile.read_big(blob)
 check(len(rt) == len(entries) and all(rt[k].data == entries[k].data for k in range(len(entries))),
@@ -314,6 +340,9 @@ for d in MODDIRS:
         for e in bigfile.read_big(os.path.join(d, b)):
             posteff[e.path.lower()] = (b, e.data)
     for e in entries:
-        check(posteff[e.path.lower()] == (ARCHIVE, e.data), f'{d}: {e.path} not effectively ours post-install')
+        owner, dat = posteff[e.path.lower()]
+        if e.path == P_EMP and owner.lower() == 'zzz-zzzzzzzzzzzzzzzzzzzzz0fortress.big':
+            continue  # fortress's derived Emperor copy legitimately wins; rebuild it if ours changed
+        check((owner, dat) == (ARCHIVE, e.data), f'{d}: {e.path} not effectively ours post-install')
     print(f'installed + post-install effective audit OK: {dst}')
 print('ALL CHECKS PASSED (flagship-emperor)')
