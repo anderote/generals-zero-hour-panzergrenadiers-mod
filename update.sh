@@ -38,6 +38,18 @@ step "Installing engine config (SagePatch.ini)"
 mkdir -p "$APPSUP"
 cp "$REPO_DIR/config/SagePatch.ini" "$APPSUP/SagePatch.ini"
 
+step "Retiring stock script files that shadow ShockWave's AI"
+# The depot-downloaded base game ships loose Data/Scripts files; loose files
+# beat archives, so they shadow ShockWave's SkirmishScripts.scb -- which is
+# why ShockWave's added generals (Armor/Leang/Salvage) had no AI at all.
+for f in SkirmishScripts.scb MultiplayerScripts.scb Scripts.ini; do
+    p="$GAME_DIR/Data/Scripts/$f"
+    if [[ -f "$p" ]]; then
+        mv "$p" "$p.stock-backup"
+        echo "    $f -> $f.stock-backup"
+    fi
+done
+
 step "Installing shared maps"
 if [[ -d "$REPO_DIR/maps" ]]; then
     mkdir -p "$APPSUP/Maps"
