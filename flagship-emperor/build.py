@@ -219,6 +219,18 @@ for w in PG_WEAPONS:
     pg_ranged += r
     t = t[:m.start()] + body + t[m.end():]
 check(pg_ranged == 2, f'expected 2 PG range lines, got {pg_ranged}')
+# (7b) Panzergrenadier rifle can engage aircraft (grenade stays ground-only)
+m = re.search(r'^Weapon Tank_PanzergrenadierRifle\b.*?^End', t, re.M | re.S)
+check(m, 'PG rifle block missing for AA edit')
+body = m.group(0)
+check('AntiAirborneVehicle' not in body, 'PG rifle already has AA flags')
+aa = re.search(r'^(\s*)AttackRange\s*=[^\n]*\n', body, re.M)
+check(aa, 'PG rifle: no AttackRange anchor for AA insert')
+ins = (f'{aa.group(1)}AntiAirborneVehicle     = Yes  ; {TAG}: HE rifle engages aircraft\n'
+       f'{aa.group(1)}AntiAirborneInfantry    = Yes  ; {TAG}: (jetpack/parachute targets too)\n')
+body = body[:aa.end()] + ins + body[aa.end():]
+t = t[:m.start()] + body + t[m.end():]
+print('Panzergrenadier rifle: anti-air enabled')
 weap_new = t
 # donor untouched
 check(re.search(r'^Weapon Tank_OverlordTankGun\b.*?^End', weap_new, re.M | re.S).group(0)
