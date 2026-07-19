@@ -45,12 +45,36 @@ Layer archive: zzz-ZZZZZZZZZZZZZZZZZZZZZ0Fortress.big (21 Z's + '0Fortress':
 sorts above zzz-ZZZZZZZZZZZZZZZZZZZZ0Flagship.big [20 Z's], below
 zzz_ControlBarPro* / zzzz_FXEnhance).
 
+SECOND FEATURE -- SATELLITE UPLINK (requires the fork engine >= batch 3):
+A PLAYER research at Kwai's Propaganda Center (Tank_ChinaPropagandaCenter,
+$2500 / 45 s) that permanently reveals the whole map via the fork's new
+`Behavior = MapRevealUpgrade` UpgradeModule (standard TriggeredBy parsing, no
+other fields). NOTE: MapRevealUpgrade does NOT exist in the currently deployed
+engine binary -- this build must be STAGED ONLY until the batch-3 engine ships
+(an older binary fails INI parse on the module name).
+Command-set facts found (deviation from 'add to a free slot'): the Kwai
+Propaganda Center has NO free UI slot anywhere -- all 50 command-set variants
+(base + Upgrade + 48 CS_M{0,1}V{0-4}I{0-4} kwai-doctrine ladder states) are
+14/14 full (UI max is 14 windows, ControlBar.h / ControlBarPro .wnd), and no
+occupant is dead weight for Kwai (slots 1-5 vanilla researches all live --
+Nationalism is engine-hardcoded horde logic, NeutronBomb feeds the Tank command
+center; 6-11 doctrine/basetech researches; 12 Evacuate serves the
+kwai-garrisons 10-man garrison; 14 Sell). The least-value occupant is the
+slot-13 per-building mines purchase (Command_UpgradeChinaMines /
+Command_UpgradeEMPMines, a $300 nicety every other Kwai structure also has),
+so slot 13 is REPLACED with the Satellite Uplink button across all 50 variants.
+The prop center's mines modules (GenerateMinefieldBehavior + the M0<->M1
+command-set dimension) stay defined but become dormant/unreachable.
+
 Ships full modified copies of the effective sources:
   Data\\INI\\Object\\China\\Tank\\Defences\\FortressBunker.ini  NEW FILE (clone)
-  Data\\INI\\CommandSet.ini    (TankUpgrades copy: dozer page-2 slot 8 + 2 sets)
-  Data\\INI\\CommandButton.ini (TankUpgrades copy: +4 buttons appended)
-  Data\\INI\\Upgrade.ini       (TankUpgrades copy: +3 OBJECT upgrades appended)
-  Data\\Generals.str           (TankUpgrades copy: +12 entries appended)
+  Data\\INI\\Object\\China\\Tank\\Buildings\\PropagandaCenter.ini
+                               (Rebalance copy: +MapRevealUpgrade module)
+  Data\\INI\\CommandSet.ini    (TankUpgrades copy: dozer page-2 slot 8 + 2 sets
+                               + prop-center slot 13 -> Satellite Uplink x50)
+  Data\\INI\\CommandButton.ini (TankUpgrades copy: +5 buttons appended)
+  Data\\INI\\Upgrade.ini       (TankUpgrades copy: +3 OBJECT +1 PLAYER appended)
+  Data\\Generals.str           (TankUpgrades copy: +15 entries appended)
 Weapon.ini is NOT shipped: the PDL burst reuses the effective
 Tank_EmperorPDLWeapon (owner Flagship, below us) -- existence drift-guarded.
 
@@ -79,10 +103,13 @@ PDL_TRIGGER_DMG  = 30      # min damage per hit that triggers the PDL burst
 PROP_HEAL_AMOUNT = 20      # HP healed per pulse per target
 PROP_HEAL_DELAY  = 1000    # msec between pulses
 PROP_RADIUS      = 150     # aura radius (matches the speaker-tower envelope)
+COST_SAT         = 2500    # Satellite Uplink research cost
+SAT_BUILDTIME    = 45.0    # seconds, Satellite Uplink research time
 
 # ---- paths + expected effective owners ------------------------------------
 P_BNK = 'Data\\INI\\Object\\China\\Tank\\Defences\\Bunker.ini'          # clone source
 P_NEW = 'Data\\INI\\Object\\China\\Tank\\Defences\\FortressBunker.ini'  # NEW path
+P_PC  = 'Data\\INI\\Object\\China\\Tank\\Buildings\\PropagandaCenter.ini'
 P_CS  = 'Data\\INI\\CommandSet.ini'
 P_CB  = 'Data\\INI\\CommandButton.ini'
 P_UPG = 'Data\\INI\\Upgrade.ini'
@@ -93,9 +120,9 @@ P_EMP = 'Data\\INI\\Object\\China\\Tank\\Vehicles\\Emperor.ini'  # reference onl
 OWN_REB = 'zzz-ZZZZZZZZZZZZZZZZZZ0Rebalance.big'
 OWN_TU  = 'zzz-ZZZZZZZZZZZZZZZZZZZ1TankUpgrades.big'
 OWN_FLG = 'zzz-ZZZZZZZZZZZZZZZZZZZZ0Flagship.big'
-EXPECT_OWNER = {P_BNK: OWN_REB, P_CS: OWN_TU, P_CB: OWN_TU, P_UPG: OWN_TU,
-                P_STR: OWN_TU, P_WPN: OWN_FLG, P_EMP: OWN_FLG}
-SHIPPED = [P_NEW, P_CS, P_CB, P_UPG, P_STR]
+EXPECT_OWNER = {P_BNK: OWN_REB, P_PC: OWN_REB, P_CS: OWN_TU, P_CB: OWN_TU,
+                P_UPG: OWN_TU, P_STR: OWN_TU, P_WPN: OWN_FLG, P_EMP: OWN_FLG}
+SHIPPED = [P_NEW, P_PC, P_CS, P_CB, P_UPG, P_STR]
 
 # ---- new identifiers ------------------------------------------------------
 OBJ_NEW  = 'Tank_ChinaFortressBunker'
@@ -108,18 +135,23 @@ UP_PROP  = 'Tank_Upgrade_FortressPropTower'
 CB_ARMOR = 'Tank_Command_UpgradeFortressCompositeArmor'
 CB_PDL   = 'Tank_Command_UpgradeFortressPDL'
 CB_PROP  = 'Tank_Command_UpgradeFortressPropTower'
-MODTAGS  = ['ModuleTag_KF_Armor01', 'ModuleTag_KF_PDL01', 'ModuleTag_KF_Prop01']
+UP_SAT   = 'Tank_Upgrade_SatelliteUplink'
+CB_SAT   = 'Tank_Command_UpgradeSatelliteUplink'
+MODTAGS  = ['ModuleTag_KF_Armor01', 'ModuleTag_KF_PDL01', 'ModuleTag_KF_Prop01',
+            'ModuleTag_KF_Reveal01']
 NEW_IDS  = [OBJ_NEW, CS_MAIN, CS_UPGD, CB_BUILD, UP_ARMOR, UP_PDL, UP_PROP,
-            CB_ARMOR, CB_PDL, CB_PROP] + MODTAGS
+            CB_ARMOR, CB_PDL, CB_PROP, UP_SAT, CB_SAT] + MODTAGS
 NEW_LABELS = ['OBJECT:FortressBunker', 'CONTROLBAR:ConstructChinaFortressBunker',
               'CONTROLBAR:ToolTipChinaBuildFortressBunker']
-for base in ['FortressCompositeArmor', 'FortressPDL', 'FortressPropTower']:
+for base in ['FortressCompositeArmor', 'FortressPDL', 'FortressPropTower',
+             'SatelliteUplink']:
     NEW_LABELS += ['UPGRADE:' + base, 'CONTROLBAR:Upgrade' + base,
                    'CONTROLBAR:ToolTipUpgrade' + base]
 
 # reused existing assets (drift-guarded, never redefined)
 CAMEO_BUNKER, CAMEO_ARMOR = 'SNTankBunker', 'SSCompositeArmor'
 CAMEO_PDL, CAMEO_PROP     = 'SNBlackSharkJammer', 'SSOLSpeaker'
+CAMEO_SAT = 'SSSpySat'   # America spy-satellite cameo, present in effective space
 W_PDL = 'Tank_EmperorPDLWeapon'
 SND_ARMOR, SND_PDL = 'ReaperVoiceUpgrade', 'OverlordExpansion'
 SND_PROP = 'OverlordTankPropagandaTowerVoiceCreate'
@@ -160,9 +192,12 @@ for p, owner in EXPECT_OWNER.items():
     check(eff0[p.lower()][0] == owner, f'{p}: owner is {eff0[p.lower()][0]} not {owner}')
     check(p.lower() in eff1 and eff0[p.lower()][1] == eff1[p.lower()][1],
           f'{p} differs between mod dirs')
-# nothing above us may claim our paths; the NEW path must be unclaimed EVERYWHERE
+# nothing above us may claim our paths; the NEW path must be unclaimed by every
+# OTHER archive (an installed copy of this very layer is fine -- idempotent rebuild)
 for d in MODDIRS:
     for b in sorted_bigs(d):
+        if b.lower() == ARCHIVE.lower():
+            continue
         claimed = {e.path.lower() for e in bigfile.read_big(os.path.join(d, b))}
         check(P_NEW.lower() not in claimed, f'{d}/{b} already claims new path {P_NEW}')
         if b.lower() > ARCHIVE.lower():
@@ -172,6 +207,7 @@ print('effective sources OK (owners Rebalance/TankUpgrades/Flagship; dirs byte-a
       'new path unclaimed everywhere; nothing above claims shipped paths)')
 
 bnk_src = eff0[P_BNK.lower()][1].decode('latin-1')
+pc_src  = eff0[P_PC.lower()][1].decode('latin-1')
 cs_src  = eff0[P_CS.lower()][1]
 cb_src  = eff0[P_CB.lower()][1]
 upg_src = eff0[P_UPG.lower()][1]
@@ -210,7 +246,7 @@ check(armor_val('ProjectileArmor', 'LASER') == 100, 'ProjectileArmor LASER not 1
 # cameos exist as MappedImages
 mapped = '\n'.join(data.decode('latin-1') for p, (b, data) in eff0.items()
                    if '\\mappedimages\\' in p)
-for img in [CAMEO_BUNKER, CAMEO_ARMOR, CAMEO_PDL, CAMEO_PROP]:
+for img in [CAMEO_BUNKER, CAMEO_ARMOR, CAMEO_PDL, CAMEO_PROP, CAMEO_SAT]:
     check(re.search(r'^MappedImage\s+%s\s*$' % re.escape(img), mapped, re.M),
           f'cameo MappedImage missing: {img}')
 # sounds exist
@@ -332,6 +368,31 @@ bnk_new = new_bnk_text.encode('latin-1')
 print(f'FortressBunker.ini built ({OBJ_NEW}: ${BUNKER_COST}, +{ARMOR_ADD_S} HP armor, '
       f'PDL burst trigger {PDL_TRIGGER_DMG}, prop aura {PROP_HEAL_AMOUNT}HP/{PROP_HEAL_DELAY}ms r{PROP_RADIUS})')
 
+# ================================================ PropagandaCenter.ini
+# Satellite Uplink: fork batch-3 MapRevealUpgrade module, PLAYER-upgrade-gated.
+# NOTE deliberately NO engine drift-guard here: MapRevealUpgrade is not in the
+# currently deployed engine source -- this layer must stay STAGED until the
+# batch-3 binary ships (older binaries fail INI parse on the module name).
+check('\r\n' in pc_src, 'PropagandaCenter.ini expected CRLF line endings')
+SAT_MODS = [
+    f'  Behavior = MapRevealUpgrade ModuleTag_KF_Reveal01 ; {TAG}: Satellite Uplink -- permanently reveals the whole map (fork engine >= batch 3; STAGE-ONLY until deployed)',
+    f'    TriggeredBy = {UP_SAT}',
+    '  End',
+]
+pc_anchor = '  Behavior = GarrisonContain ModuleTag_KG_Garrison01'
+check(pc_src.count(pc_anchor) == 1, 'PropagandaCenter GarrisonContain anchor not unique')
+pc_new_text = pc_src.replace(pc_anchor, '\r\n'.join(SAT_MODS) + '\r\n' + pc_anchor, 1)
+audit('PropagandaCenter.ini (+MapRevealUpgrade module)', pc_src, pc_new_text, [], SAT_MODS)
+for need in ['Object Tank_ChinaPropagandaCenter', 'ModuleTag_KG_Garrison01',
+             'Behavior = ProductionUpdate ModuleTag_10', 'ModuleTag_KD_CS_M0V0I1',
+             'CommandSet          = Tank_ChinaPropagandaCenterCommandSet']:
+    check(need in pc_new_text, f'PropagandaCenter lost hunk: {need!r}')
+check(len(re.findall(r'Behavior = CommandSetUpgrade', pc_new_text))
+      == len(re.findall(r'Behavior = CommandSetUpgrade', pc_src)),
+      'PropagandaCenter CommandSetUpgrade ladder count changed')
+pc_new = pc_new_text.encode('latin-1')
+print('PropagandaCenter.ini patched (+MapRevealUpgrade gated by Satellite Uplink)')
+
 # ================================================ CommandSet.ini
 cs_text = cs_src.decode('latin-1')
 DOZER2 = 'Tank_ChinaDozerCommandSet_Down'
@@ -374,8 +435,34 @@ CS_APPEND_LINES = [
 ]
 check(cs_text.endswith('\n'), 'CommandSet.ini must end with newline to append')
 cs_new_text = cs_text[:m.start()] + new_block + cs_text[m.end():] + '\n' + '\n'.join(CS_APPEND_LINES) + '\n'
-audit('CommandSet.ini (dozer page-2 slot 8 + 2 fortress sets)', cs_text, cs_new_text,
-      [], [SLOT8] + CS_APPEND_LINES + [''])   # trailing '' = the blank joiner line
+
+# --- Satellite Uplink button: prop-center slot 13 across ALL 50 doctrine-state
+# variants (every set is 14/14 full -- the mines/EMP-mines purchase is the
+# sacrificed occupant; see module docstring).
+PC_SET_RX = re.compile(r'^CommandSet (Tank_ChinaPropagandaCenter\S*)[^\n]*\n(.*?)^End',
+                       re.M | re.S)
+pc_sets_before = {n: dict(re.findall(r'^\s*(\d+)\s*=\s*(\S+)', b, re.M))
+                  for n, b in PC_SET_RX.findall(cs_new_text)}
+check(len(pc_sets_before) == 50, f'expected 50 prop-center sets, found {len(pc_sets_before)}')
+check(all(len(s) == 14 for s in pc_sets_before.values()),
+      'expected every prop-center set to be 14/14 full')
+flavors = Counter(s['13'] for s in pc_sets_before.values())
+check(flavors == {'Command_UpgradeChinaMines': 25, 'Command_UpgradeEMPMines': 25},
+      f'prop-center slot-13 flavors drifted: {dict(flavors)}')
+SAT_LINE = f' 13  = {CB_SAT} ; {TAG}: Satellite Uplink (was mines/EMP-mines purchase)'
+sat_removed = []
+def _swap13(mm):
+    body = mm.group(0)
+    lines = re.findall(r'^[ \t]*13[ \t]*=[ \t]*(?:Command_UpgradeChinaMines|Command_UpgradeEMPMines)[^\n]*$',
+                       body, re.M)
+    check(len(lines) == 1, f'{mm.group(1)}: expected exactly one mines slot-13 line, got {lines}')
+    sat_removed.append(lines[0])
+    return body.replace(lines[0], SAT_LINE, 1)
+cs_new_text = PC_SET_RX.sub(_swap13, cs_new_text)
+check(len(sat_removed) == 50, f'slot-13 replacements: {len(sat_removed)} != 50')
+audit('CommandSet.ini (dozer slot 8 + 2 fortress sets + prop-center slot 13 x50)',
+      cs_text, cs_new_text,
+      sat_removed, [SLOT8] + CS_APPEND_LINES + [''] + [SAT_LINE] * 50)  # '' = blank joiner
 # post-edit layouts
 sl = dict(re.findall(r'^\s*(\d+)\s*=\s*(\S+)', get_block(cs_new_text, 'CommandSet', DOZER2, 'CS').group(1), re.M))
 check(sl == {'1': 'Tank_Command_ConstructChinaIndustrialPlant', '7': 'Tank_Command_ConstructChinaBunker',
@@ -387,15 +474,29 @@ for name, thirteen in [(CS_MAIN, 'Command_UpgradeChinaMines'), (CS_UPGD, 'Comman
     check(sl == {'1': 'Command_EvacuateTankBunker', '2': CB_ARMOR, '3': CB_PDL, '4': CB_PROP,
                  '12': 'Command_Stop', '13': thirteen, '14': 'Command_Sell'},
           f'{name} layout wrong: {sl}')
-# sibling survival (spot checks on sets other layers own)
+# prop-center post-edit: slot 13 is the uplink everywhere, all other slots untouched
+pc_sets_after = {n: dict(re.findall(r'^\s*(\d+)\s*=\s*(\S+)', b, re.M))
+                 for n, b in PC_SET_RX.findall(cs_new_text)}
+check(set(pc_sets_after) == set(pc_sets_before), 'prop-center set names changed')
+for n, after in pc_sets_after.items():
+    check(after['13'] == CB_SAT, f'{n}: slot 13 is {after["13"]} not {CB_SAT}')
+    before = dict(pc_sets_before[n]); before['13'] = CB_SAT
+    check(after == before, f'{n}: non-slot-13 slots changed: {after}')
+pc_chunk = '\n'.join(mm.group(0) for mm in PC_SET_RX.finditer(cs_new_text))
+check('Command_UpgradeChinaMines' not in pc_chunk and 'Command_UpgradeEMPMines' not in pc_chunk,
+      'mines buttons still referenced by prop-center sets')
+# sibling survival (spot checks on sets other layers own; mines buttons stay
+# live everywhere OUTSIDE the prop center, incl. our own fortress sets)
 for name, need in [('ChinaTankBunkerCommandSet', 'Command_UpgradeChinaMines'),
+                   ('ChinaTankBunkerCommandSetUpgrade', 'Command_UpgradeEMPMines'),
                    ('Tank_ChinaDozerCommandSet', 'Command_ChinaButtonCommandSetOneDown'),
                    ('Tank_ChinaWarFactoryCommandSet_Down', 'Tank_Command_UpgradeEmperorPDL'),
                    ('Tank_ChinaHackerBunkerCommandSet', 'Command_StructureExit')]:
     check(need in get_block(cs_new_text, 'CommandSet', name, 'CS').group(1),
           f'survival: {name} lost {need}')
 cs_new = cs_new_text.encode('latin-1')
-print(f'CommandSet.ini patched (dozer page-2 slot 8 = {CB_BUILD}; +2 fortress sets)')
+print(f'CommandSet.ini patched (dozer page-2 slot 8 = {CB_BUILD}; +2 fortress sets; '
+      f'prop-center slot 13 = {CB_SAT} across 50 sets)')
 
 # ================================================ CommandButton.ini (append)
 def upg_button(name, upgrade, base, cameo):
@@ -416,12 +517,22 @@ CB_APPEND = ('\n; ' + '-' * 76 + f'\n; {TAG}: Fortress Bunker construct button (
     '  DescriptLabel           = CONTROLBAR:ToolTipChinaBuildFortressBunker', 'End']) + '\n\n' +
     upg_button(CB_ARMOR, UP_ARMOR, 'FortressCompositeArmor', CAMEO_ARMOR) + '\n\n' +
     upg_button(CB_PDL, UP_PDL, 'FortressPDL', CAMEO_PDL) + '\n\n' +
-    upg_button(CB_PROP, UP_PROP, 'FortressPropTower', CAMEO_PROP) + '\n')
+    upg_button(CB_PROP, UP_PROP, 'FortressPropTower', CAMEO_PROP) + '\n\n' + '\n'.join([
+    f'CommandButton {CB_SAT} ; {TAG}: Satellite Uplink research (prop-center slot 13)',
+    '  Command       = PLAYER_UPGRADE',
+    f'  Upgrade       = {UP_SAT}',
+    '  Options       = OK_FOR_MULTI_SELECT',
+    '  TextLabel     = CONTROLBAR:UpgradeSatelliteUplink',
+    f'  ButtonImage   = {CAMEO_SAT}',
+    '  ButtonBorderType        = UPGRADE',
+    '  DescriptLabel           = CONTROLBAR:ToolTipUpgradeSatelliteUplink',
+    '  PurchasedLabel          = CONTROLBAR:ToolTipUpgradeSatelliteUplink',
+    '  UnitSpecificSound = MoneyWithdraw', 'End']) + '\n')
 check(cb_src.endswith(b'\n'), 'CommandButton.ini must end with newline to append')
 cb_new = cb_src + CB_APPEND.encode('latin-1')
 check(cb_new.startswith(cb_src), 'CommandButton.ini not append-only')
-check(CB_APPEND.count('\nCommandButton ') == 4, 'CB append balance')
-print('CommandButton.ini: +4 buttons appended (1 construct + 3 purchases)')
+check(CB_APPEND.count('\nCommandButton ') == 5, 'CB append balance')
+print('CommandButton.ini: +5 buttons appended (1 construct + 3 purchases + 1 research)')
 
 # ================================================ Upgrade.ini (append)
 def upgrade_block(name, base, cost, cameo, snd):
@@ -433,13 +544,21 @@ UPG_APPEND = ('\n; ' + '-' * 76 + f'\n; {TAG}: three per-bunker purchases for th
               '; bought on the bunker itself, one bunker at a time, Overlord-add-on idiom).\n' +
     upgrade_block(UP_ARMOR, 'FortressCompositeArmor', COST_ARMOR, CAMEO_ARMOR, SND_ARMOR) + '\n\n' +
     upgrade_block(UP_PDL, 'FortressPDL', COST_PDL, CAMEO_PDL, SND_PDL) + '\n\n' +
-    upgrade_block(UP_PROP, 'FortressPropTower', COST_PROP, CAMEO_PROP, SND_PROP) + '\n')
+    upgrade_block(UP_PROP, 'FortressPropTower', COST_PROP, CAMEO_PROP, SND_PROP) + '\n\n' + '\n'.join([
+    f'Upgrade {UP_SAT} ; {TAG}: Satellite Uplink -- permanent full-map reveal (fork engine >= batch 3)',
+    '  DisplayName        = UPGRADE:SatelliteUplink',
+    '  Type               = PLAYER',
+    f'  BuildTime          = {SAT_BUILDTIME}',
+    f'  BuildCost          = {COST_SAT}',
+    f'  ButtonImage        = {CAMEO_SAT}',
+    f'  ResearchSound      = {SND_ARMOR}', 'End']) + '\n')
 check(upg_src.endswith(b'\n'), 'Upgrade.ini must end with newline to append')
 upg_new = upg_src + UPG_APPEND.encode('latin-1')
 check(upg_new.startswith(upg_src), 'Upgrade.ini not append-only')
-check(UPG_APPEND.count('\nUpgrade ') == 3 and UPG_APPEND.count('Type               = OBJECT') == 3,
-      'Upgrade append balance')
-print(f'Upgrade.ini: +3 OBJECT upgrades appended (${COST_ARMOR}/${COST_PDL}/${COST_PROP})')
+check(UPG_APPEND.count('\nUpgrade ') == 4 and UPG_APPEND.count('Type               = OBJECT') == 3
+      and UPG_APPEND.count('Type               = PLAYER') == 1, 'Upgrade append balance')
+print(f'Upgrade.ini: +3 OBJECT (${COST_ARMOR}/${COST_PDL}/${COST_PROP}) '
+      f'+1 PLAYER (${COST_SAT}) upgrades appended')
 
 # ================================================ Generals.str (append)
 def s(label, val):
@@ -467,13 +586,17 @@ STR_APPEND = ('\n' +
     s('CONTROLBAR:ToolTipUpgradeFortressPropTower',
       'Mount propaganda speakers on this bunker: projects a healing aura that\\n'
       ' continuously repairs nearby friendly troops, vehicles and structures\\n'
-      ' (including the bunker itself).'))
+      ' (including the bunker itself).') + '\n' +
+    s('UPGRADE:SatelliteUplink', 'Satellite Uplink') + '\n' +
+    s('CONTROLBAR:UpgradeSatelliteUplink', 'Satellite &Uplink') + '\n' +
+    s('CONTROLBAR:ToolTipUpgradeSatelliteUplink',
+      'Satellite Uplink: reveals the entire battlefield permanently.'))
 check(str_src.endswith(b'\n'), 'Generals.str must end with newline to append')
 str_new = str_src + STR_APPEND.encode('latin-1')
 check(str_new.startswith(str_src), 'Generals.str not append-only')
-check(str_new.decode('latin-1').count('\nEND\n') == str_src.decode('latin-1').count('\nEND\n') + 12,
-      'str append entry count (want +12)')
-print('Generals.str: +12 entries appended')
+check(str_new.decode('latin-1').count('\nEND\n') == str_src.decode('latin-1').count('\nEND\n') + 15,
+      'str append entry count (want +15)')
+print('Generals.str: +15 entries appended')
 
 # ================================================ global closure
 cb_f = cb_new.decode('latin-1'); upg_f = upg_new.decode('latin-1')
@@ -491,8 +614,16 @@ for cb, up in [(CB_ARMOR, UP_ARMOR), (CB_PDL, UP_PDL), (CB_PROP, UP_PROP)]:
     ub = get_block(upg_f, 'Upgrade', up, 'UPG').group(1)
     check('Type               = OBJECT' in ub, f'{up} not OBJECT-scoped')
     check(f'TriggeredBy   = {up}' in new_bnk_text, f'no module triggered by {up}')
-# every slot of the two new sets resolves to a defined button
-for name in [CS_MAIN, CS_UPGD]:
+# Satellite Uplink chain: button -> PLAYER upgrade -> MapRevealUpgrade module
+sb = get_block(cb_f, 'CommandButton', CB_SAT, 'CB').group(1)
+check(f'Upgrade       = {UP_SAT}' in sb, f'{CB_SAT} upgrade ref')
+sub = get_block(upg_f, 'Upgrade', UP_SAT, 'UPG').group(1)
+check('Type               = PLAYER' in sub, f'{UP_SAT} not PLAYER-scoped')
+check(f'TriggeredBy = {UP_SAT}' in pc_new_text, f'prop center has no module triggered by {UP_SAT}')
+check('Behavior = MapRevealUpgrade ModuleTag_KF_Reveal01' in pc_new_text,
+      'MapRevealUpgrade module missing from prop center')
+# every slot of the two new sets AND all 50 edited prop-center sets resolves
+for name in [CS_MAIN, CS_UPGD] + sorted(pc_sets_after):
     for _, btn in re.findall(r'^\s*(\d+)\s*=\s*(\S+)', get_block(cs_new_text, 'CommandSet', name, 'CS').group(1), re.M):
         check(re.search(r'^CommandButton\s+%s\b' % re.escape(btn), cb_f, re.M),
               f'{name}: slot button {btn} undefined')
@@ -507,9 +638,9 @@ for lab in NEW_LABELS:
 print('closure OK (construct->object->sets->buttons->upgrades->modules->weapon, labels)')
 
 # ------------------------------------------------------------------ write big
-entries = [bigfile.BigEntry(P_NEW, bnk_new), bigfile.BigEntry(P_CS, cs_new),
-           bigfile.BigEntry(P_CB, cb_new), bigfile.BigEntry(P_UPG, upg_new),
-           bigfile.BigEntry(P_STR, str_new)]
+entries = [bigfile.BigEntry(P_NEW, bnk_new), bigfile.BigEntry(P_PC, pc_new),
+           bigfile.BigEntry(P_CS, cs_new), bigfile.BigEntry(P_CB, cb_new),
+           bigfile.BigEntry(P_UPG, upg_new), bigfile.BigEntry(P_STR, str_new)]
 blob = bigfile.write_big(entries)
 rt = bigfile.read_big(blob)
 check([(e.path, e.data) for e in rt] == [(e.path, e.data) for e in entries], 'BIG round-trip mismatch')

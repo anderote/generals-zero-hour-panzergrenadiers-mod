@@ -22,7 +22,36 @@ purchases (`Type = OBJECT` upgrades, slots 2–4; Evacuate/Stop/Mines/Sell kept)
 
 Mines research swaps to `Tank_ChinaFortressBunkerCommandSetUpgrade` (EMP Mines at
 13), same as the base Tank Bunker. Cameos/sounds reuse existing assets only
-(`SNTankBunker`, `SSCompositeArmor`, `SNBlackSharkJammer`, `SSOLSpeaker`).
+(`SNTankBunker`, `SSCompositeArmor`, `SNBlackSharkJammer`, `SSOLSpeaker`,
+`SSSpySat`).
+
+## Satellite Uplink (STAGE-ONLY until fork engine ≥ batch 3)
+
+**`Tank_Upgrade_SatelliteUplink`** — a PLAYER research at Kwai's **Propaganda
+Center** (**$2500 / 45 s**, `SSSpySat` cameo) that **permanently reveals the whole
+map**, via the fork's new `Behavior = MapRevealUpgrade` UpgradeModule
+(`ModuleTag_KF_Reveal01`, standard `TriggeredBy` parsing, no other fields) added
+to `Tank_ChinaPropagandaCenter`.
+
+> **WARNING**: `MapRevealUpgrade` does **not** exist in the currently deployed
+> engine binary — an older binary **fails INI parse at startup** on this archive.
+> Do **not** install this build until the batch-3 engine is deployed; the
+> currently installed 5-file Fortress archive (no uplink) must stay in place
+> until then. `python3 build.py --stage` only rebuilds the archive here.
+
+**Command-set surgery**: the Kwai Propaganda Center has **no free UI slot** — all
+**50** command-set variants (base + Upgrade + 48 `CS_M{0,1}V{0-4}I{0-4}`
+kwai-doctrine ladder states) are 14/14 full, and every occupant is live for Kwai
+(slots 1–5 vanilla researches — Nationalism is engine-hardcoded horde logic,
+Neutron Bomb feeds the Tank command center; 6–11 doctrine/basetech; 12 Evacuate
+serves the kwai-garrisons 10-man garrison; 14 Sell). The **slot-13 per-building
+mines purchase** (`Command_UpgradeChinaMines`/`Command_UpgradeEMPMines`, the
+least-value occupant — every other Kwai structure keeps its own) is **replaced by
+the uplink button across all 50 variants**, with post-edit layout asserts that
+only slot 13 changed in each set. The prop center's mines modules
+(`GenerateMinefieldBehavior` + the M0↔M1 set dimension) stay defined but
+dormant/unreachable; mines buttons everywhere else (incl. the Fortress Bunker's
+own sets) are untouched.
 
 ## Engine-forced deviations (deployed branch `feature/veterancy-8-levels`, tip `0b3daa0c9`)
 
@@ -44,15 +73,16 @@ Mines research swaps to `Tank_ChinaFortressBunkerCommandSetUpgrade` (EMP Mines a
   (`Tank_Upgrade_BattleMasterHull`/`Shield` → `MaxHealthUpgrade` +
   `AutoHealBehavior` on `Tank_ChinaTankBattleMaster`).
 
-## Files in the archive (5, full patched copies of the effective sources)
+## Files in the archive (6, full patched copies of the effective sources)
 
 | File | Effective source (owner archive) | Change |
 |---|---|---|
 | `…\Tank\Defences\FortressBunker.ini` | **new file** (clone of `Bunker.ini`, owner Rebalance) | 5 lines swapped + 3 purchase modules inserted |
-| `Data\INI\CommandSet.ini` | `zzz-ZZZZZZZZZZZZZZZZZZZ1TankUpgrades.big` | dozer page-2 slot 8 added; +2 fortress sets appended |
-| `Data\INI\CommandButton.ini` | `zzz-ZZZZZZZZZZZZZZZZZZZ1TankUpgrades.big` | +4 buttons appended (1 construct + 3 purchases) |
-| `Data\INI\Upgrade.ini` | `zzz-ZZZZZZZZZZZZZZZZZZZ1TankUpgrades.big` | +3 OBJECT upgrades appended |
-| `Data\Generals.str` | `zzz-ZZZZZZZZZZZZZZZZZZZ1TankUpgrades.big` | +12 string entries appended (append-only) |
+| `…\Tank\Buildings\PropagandaCenter.ini` | `zzz-ZZZZZZZZZZZZZZZZZZ0Rebalance.big` | +`MapRevealUpgrade` module (3 lines) |
+| `Data\INI\CommandSet.ini` | `zzz-ZZZZZZZZZZZZZZZZZZZ1TankUpgrades.big` | dozer page-2 slot 8 added; +2 fortress sets appended; prop-center slot 13 → uplink ×50 |
+| `Data\INI\CommandButton.ini` | `zzz-ZZZZZZZZZZZZZZZZZZZ1TankUpgrades.big` | +5 buttons appended (1 construct + 3 purchases + 1 research) |
+| `Data\INI\Upgrade.ini` | `zzz-ZZZZZZZZZZZZZZZZZZZ1TankUpgrades.big` | +3 OBJECT + 1 PLAYER upgrades appended |
+| `Data\Generals.str` | `zzz-ZZZZZZZZZZZZZZZZZZZ1TankUpgrades.big` | +15 string entries appended (append-only) |
 
 `Weapon.ini` (owner Flagship) and `Emperor.ini` (owner Flagship) are **read but
 not shipped** — the PDL burst reuses `Tank_EmperorPDLWeapon`, drift-guarded.
@@ -63,7 +93,8 @@ effective INI/STR space): `Tank_ChinaFortressBunker`,
 `Tank_Command_ConstructChinaFortressBunker`,
 `Tank_Upgrade_Fortress{CompositeArmor,PDL,PropTower}`,
 `Tank_Command_UpgradeFortress{CompositeArmor,PDL,PropTower}`,
-`ModuleTag_KF_{Armor01,PDL01,Prop01}`, plus 12 `.str` labels.
+`Tank_Upgrade_SatelliteUplink`, `Tank_Command_UpgradeSatelliteUplink`,
+`ModuleTag_KF_{Armor01,PDL01,Prop01,Reveal01}`, plus 15 `.str` labels.
 
 ## Build / install
 
@@ -73,15 +104,19 @@ python3 build.py           # + install to both mod dirs (game must not be mid-se
 ```
 
 Verifies (fails loudly on any drift): sort position in both dirs; effective
-ownership (Bunker.ini → Rebalance; CommandSet/CommandButton/Upgrade/Generals.str →
-TankUpgrades; Weapon/Emperor → Flagship); both mod dirs byte-agree; new INI path
-unclaimed by every archive in both dirs; nothing above claims shipped paths;
+ownership (Bunker.ini + PropagandaCenter.ini → Rebalance;
+CommandSet/CommandButton/Upgrade/Generals.str → TankUpgrades; Weapon/Emperor →
+Flagship); both mod dirs byte-agree; new INI path unclaimed by every other
+archive in both dirs (self excluded — idempotent rebuild over an installed
+copy); nothing above claims shipped paths;
 identifier/label collision; donor-idiom drift guards (EDS PDL module, burst-weapon
 LASER/ENEMIES idiom, armour table, cameo MappedImages, AudioEvents, reused
 buttons/upgrades, BattleMasterHull OBJECT precedent); exact line-multiset diff
 audits on the clone and CommandSet.ini; append-only asserts on the other three;
-post-edit command-set layouts + sibling survival; full closure
-(construct→object→sets→buttons→upgrades→modules→weapon→labels); BIG round-trip;
+post-edit command-set layouts (dozer page 2, both fortress sets, all 50
+prop-center sets with only slot 13 changed) + sibling survival; full closure
+(construct→object→sets→buttons→upgrades→modules→weapon→labels, uplink
+button→PLAYER upgrade→MapRevealUpgrade); BIG round-trip;
 hash-idempotent rebuild; post-install effective-ownership audit + md5 match
 (install mode only).
 
@@ -116,6 +151,14 @@ reference the object — saves crossing the install/uninstall boundary may not l
   937.5 ≈ 4012 HP).
 - AI never builds or upgrades the Fortress Bunker (no AI build-list changes);
   player-facing only.
+- **The staged 6-file archive (with Satellite Uplink) requires the fork engine
+  ≥ batch 3** (`MapRevealUpgrade` INI key). The archive currently installed in
+  the mod dirs is the earlier 5-file build without the uplink — do not
+  overwrite it until the batch-3 binary is deployed.
+- The Propaganda Center can no longer buy perimeter mines (slot-13 sacrifice);
+  already-purchased mines on old saves keep working, and every other structure
+  keeps its mines button.
 - NOT verified in-game by this build (deliberately not launched); all
   verification is static against the installed bytes and the deployed engine
-  source (`feature/veterancy-8-levels` worktree).
+  source (`feature/veterancy-8-levels` worktree) — except `MapRevealUpgrade`,
+  which is taken on faith from the batch-3 fork spec.
