@@ -38,6 +38,13 @@ step "Installing engine config (SagePatch.ini)"
 mkdir -p "$APPSUP"
 cp "$REPO_DIR/config/SagePatch.ini" "$APPSUP/SagePatch.ini"
 
+step "Installing shared maps"
+if [[ -d "$REPO_DIR/maps" ]]; then
+    mkdir -p "$APPSUP/Maps"
+    cp -R "$REPO_DIR/maps/"* "$APPSUP/Maps/"
+    echo "    $(ls "$REPO_DIR/maps" | wc -l | tr -d ' ') map folders synced"
+fi
+
 step "Downloading latest play-build engine binary"
 TMP="$(mktemp -d)"
 curl -fsSL -o "$TMP/GeneralsXZH" "$RELEASE_URL" || fail "binary download failed"
