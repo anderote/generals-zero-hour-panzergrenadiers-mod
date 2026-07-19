@@ -113,6 +113,9 @@ of strict rebuild ordering (documented per layer, enforced by asserts).
 
 ## Building & installing
 
+> **Installing on a fresh Apple Silicon Mac from a copied working install?**
+> See [SETUP.md](SETUP.md) — agent-friendly guide + `./setup-macos.sh`, no source build needed.
+
 ### 1. Build the engine (once, ~15 min first time)
 
 ```bash
