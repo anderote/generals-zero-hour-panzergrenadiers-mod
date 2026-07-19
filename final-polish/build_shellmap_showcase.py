@@ -1,24 +1,35 @@
 #!/usr/bin/env python3
-"""Build zzz-ZZZZZZZZZZZZZZ0ShellKwai.big -- the FULL "awesome" showcase.
+"""Build zzz-ZZZZZZZZZZZZZZ0ShellKwai.big -- the "3 god-Emperors" shellmap.
 
-Two operations on the ShockWave main-menu shellmap
-(Maps\\ShellMapSHW\\ShellMapSHW.map), both pure-data / non-corrupting:
+The ShockWave main-menu shellmap (Maps\\ShellMapSHW\\ShellMapSHW.map) is
+rebuilt so the ONLY Chinese presence is 3 maxed-out, fully-loaded elite Emperor
+Overlords standing in a knot at the armor centroid, shrugging off a swarm of GLA
+attackers. Pure-data binary surgery (World Builder unavailable); fail-closed.
 
- (A) RECAST  -- the safe equal-length Spec_/Nuke_ -> Tank_ (Kwai) name swaps on
-     the existing China contingent (unchanged from build_shellmap_recast.py).
+OPERATIONS (all on the decompressed CkMp DataChunk buffer):
+ (1) REMOVE every China-faction Object chunk (all military units + buildings,
+     146 of them across 36 templates -- match /China|Chinee/). Deletion is safe:
+     objects reference nothing by byte offset; scripts reference units by NAME and
+     ZH tolerates a dangling NAMED reference (resolves NULL -> condition/action is
+     skipped, never crashes). Scenery / props / waypoints / civilians / all GLA &
+     USA enemy units are KEPT.
+ (2) ADD a 17-unit GLA swarm (owner teamPlyrGLA, aggressiveness=2) ringed around
+     the centroid, charging inward -- cannon fodder for the Emperors.
+ (3) ADD exactly 3 Tank_ShellEmperorElite (owner teamPlyrGLAYellow -- mutually
+     hostile to PlyrGLA) clustered tight at the centroid, facing the swarm.
 
- (B) SHOWCASE -- ADD a coherent Kwai "panzer company" of ~22 units clustered in
-     the armor centroid (~1181,575), owned by teamPlyrGLAYellow (the team that is
-     mutually hostile to PlyrGLA -- the GLA attackers -- and that already owns the
-     neighbouring China_Ravager BattleMasters / China_Hammer Nuke launchers /
-     China_Gattling, so the company fights in the same defending line). New Object
-     chunks are appended at the END of ObjectsList's data region; ObjectsList's
-     header dataSize is grown; every trailing top-level chunk stays byte-identical
-     (only shifted). Objects reference nothing by byte-offset, so this is safe.
+Tank_ShellEmperorElite is defined in a NEW INI shipped inside this same .big
+(Data\\INI\\Object\\China\\Tank\\Vehicles\\ShellEmperorElite.ini). It is a verbatim
+clone of the CURRENT effective Tank_DropEmperorFullUpgrade (full loadout: granted
+gattling, 3320-HP baked energy shield, ABM + reactive PDL + fleet aura + innate
+PDL + Shtora, 8-man Waffen crew), with exactly ONE change: its VeterancyGainCreate
+StartingLevel HEROIC -> HEROIC5 (LEVEL_HEROIC5 == LEVEL_LAST, the engine's top
+spawnable rank, 230% health; VeterancyGainCreate parses StartingLevel via
+INI::parseIndexList(TheVeterancyNames), which includes HEROIC5).
 
-Fail-closed: the output buffer is re-parsed from scratch and every structural
-invariant is asserted before anything is written. If any assert trips, nothing
-ships. Map is stored UNCOMPRESSED (engine reads raw maps fine).
+The map is stored UNCOMPRESSED (engine reads raw maps fine). The whole output
+buffer is re-parsed from scratch and every structural invariant asserted before
+anything ships.
 """
 import os, sys, struct, hashlib, re, math
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -34,43 +45,25 @@ MAP_PATH = "Maps\\ShellMapSHW\\ShellMapSHW.map"
 MAP_OWNER = "!Shw_maps.big"
 OUT_NAME = "zzz-ZZZZZZZZZZZZZZ0ShellKwai.big"
 
-# ---- (A) recast swap sets (identical to build_shellmap_recast.py) ----
-SWAP_BASES = {
- "ChinaBunker","ChinaGattlingCannon","ChinaInfantryFlameThrower",
- "ChinaInfantryRedguard","ChinaInfantryTankHunter","ChinaInternetCenter",
- "ChinaNuclearMissileLauncher","ChinaPowerPlant","ChinaPropagandaCenter",
- "ChinaSupplyCenter","ChinaTankBattleMaster","ChinaTankDragon","ChinaTankECM",
- "ChinaTankGattling","ChinaVehicleDozer","ChinaVehicleHelix",
- "ChinaVehicleInfernoCannon","ChinaVehicleListeningOutpost",
- "ChinaVehicleNukeLauncher","ChinaVehicleTroopCrawler","ChinaWarFactory",
-}
-NO_KWAI = {"ChinaHellStorm","ChinaRepairStation","ChinaVehicleSeismicTank"}
-PREFIXES = ("Spec_", "Nuke_")
+# --- new elite-Emperor object shipped inside this layer ---
+DONOR_INI = "Data\\INI\\Object\\China\\Tank\\Vehicles\\EmperorFullDrop.ini"
+DONOR_OBJ = "Tank_DropEmperorFullUpgrade"
+NEW_OBJ   = "Tank_ShellEmperorElite"
+NEW_INI_PATH = "Data\\INI\\Object\\China\\Tank\\Vehicles\\ShellEmperorElite.ini"
+MAX_VET = "HEROIC5"   # LEVEL_HEROIC5 == LEVEL_LAST (engine top spawnable rank, 230% HP)
 
-# ---- (B) showcase: a SMALL absurdly-OP elite core + a large enemy swarm. ----
-# Design: 6 near-invincible HEROIC Kwai panzers in a tight ~110x120 knot at the
-# armor centroid; ~17 basic GLA attackers ringed just outside, charging in and
-# dying. Contrast (few unkillable heroes vs many dying attackers) is the point.
+# --- removal filter: any China-faction template (military units + buildings) ---
+CHINA_RE = re.compile(r"China|Chinee")
+
+# --- the 3 god-Emperors (owner CORE_TEAM), tight knot at the armor centroid ---
 CX, CY = 1181.0, 575.0
+CORE_TEAM = "teamPlyrGLAYellow"          # PlyrGLAYellow.enemies = PlyrGLA -> swarm attacks these
+EMPERORS = [(1181, 528), (1128, 612), (1236, 612)]
 
-# CORE -- owner teamPlyrGLAYellow (mutually hostile to PlyrGLA, the swarm). Every
-# unit spawns at max rank with NO script by using the drop-ladder Heroic variants.
-#   (template, x, y).  Cluster X[1128..1238] Y[520..640] = 110x120 tight knot.
-CORE_TEAM = "teamPlyrGLAYellow"
-CORE = [
-    ("Tank_DropEmperorT3",      1150, 560),  # HEROIC + crewed (drop variant)
-    ("Tank_DropEmperorT3",      1215, 560),  # HEROIC + crewed (drop variant)
-    ("Tank_ChinaTankEmperor",   1183, 520),  # VETERAN + innate always-on PDL + Shtora
-    ("Tank_DropBattleMasterT3", 1128, 612),  # HEROIC (drop variant)
-    ("Tank_DropBattleMasterT3", 1238, 612),  # HEROIC (drop variant)
-    ("Tank_DropGattlingT3",     1183, 640),  # ELITE (highest gattling drop; no Heroic drop exists)
-]
-
-# SWARM -- owner teamPlyrGLA. PlyrGLA.enemies = "PlyrAmericaAirForceGeneral
-# PlyrGLAYellow" => hostile to our core; set aggressiveness (key139) = 2
-# (AGGRESSIVE) so they charge in. These are meant to die. (template, angle_deg, radius)
-SWARM_TEAM = "teamPlyrGLA"
-AGGRESSIVE = 2  # AttitudeType: -2 SLEEP, -1 PASSIVE, 0 NORMAL, 1 ALERT, 2 AGGRESSIVE
+# --- GLA swarm (owner SWARM_TEAM, AGGRESSIVE), ringed & charging inward ---
+SWARM_TEAM = "teamPlyrGLA"               # PlyrGLA.enemies includes PlyrGLAYellow -> hostile to Emperors
+AGGRESSIVE = 2   # AttitudeType: -2 SLEEP, -1 PASSIVE, 0 NORMAL, 1 ALERT, 2 AGGRESSIVE
+ALERT = 1        # Emperors: acquire & fire on the charging swarm while holding position (no wander)
 SWARM = [
     ("GLAInfantryRebel",           20, 150), ("GLAInfantryRebel",          70, 150),
     ("GLAInfantryRebel",          130, 150), ("GLAInfantryRebel",         200, 150),
@@ -82,9 +75,8 @@ SWARM = [
     ("GLAVehicleQuadCannon",       90, 188), ("GLAVehicleQuadCannon",     270, 188),
     ("Salv_GLAVehicleMI8Gunship",  60, 215), ("Salv_GLAVehicleMI8Gunship",300, 215),
 ]
-INFANTRY_TEMPLATES = {"GLAInfantryRebel"}  # (only matters for donor pick; dict layout is generic)
 
-# ---------------------------------------------------------------- roster
+# ---------------------------------------------------------------- roster / INI
 def roster_objects():
     objs, seen = set(), set()
     for a in ARCHIVES:
@@ -95,6 +87,37 @@ def roster_objects():
             for m in re.finditer(r"(?mi)^\s*Object\s+(\S+)", e.data.decode("latin-1", "replace")):
                 objs.add(m.group(1))
     return objs
+
+def effective_ini_text(path):
+    want = path.lower().replace("/", "\\")
+    for a in ARCHIVES:
+        for e in _CACHE[a]:
+            if e.path.lower().replace("/", "\\") == want:
+                return e.data.decode("latin-1", "replace"), a
+    return None, None
+
+def build_new_ini():
+    """Extract donor Object block verbatim, rename, bump StartingLevel to MAX_VET."""
+    txt, owner = effective_ini_text(DONOR_INI)
+    assert txt is not None, "donor INI not found: " + DONOR_INI
+    m = re.search(r"(?mi)^\s*Object\s+" + re.escape(DONOR_OBJ) + r"\s*$", txt)
+    assert m, "donor object not found: " + DONOR_OBJ
+    mend = re.search(r"(?mi)^End\s*$", txt[m.end():])
+    assert mend, "donor object End not found"
+    block = txt[m.start(): m.end() + mend.end()]
+    assert block.count(DONOR_OBJ) == 1, "donor name appears >1x; unsafe rename"
+    block2, n1 = re.subn(r"(?m)^(\s*Object\s+)" + re.escape(DONOR_OBJ) + r"\s*$",
+                         r"\g<1>" + NEW_OBJ, block)
+    assert n1 == 1, "rename count %d" % n1
+    block3, n2 = re.subn(r"(?mi)^(\s*StartingLevel\s*=\s*)HEROIC\s*$",
+                         r"\g<1>" + MAX_VET, block2)
+    assert n2 == 1, "StartingLevel replace count %d (expected 1)" % n2
+    assert ("StartingLevel = " + MAX_VET) in block3
+    assert not re.search(r"(?mi)^\s*StartingLevel\s*=\s*HEROIC\s*$", block3), "level-4 HEROIC still present"
+    header = ("; %s -- shipped by %s. Verbatim clone of %s (from %s, owner %s)\n"
+              "; with StartingLevel raised HEROIC -> %s (LEVEL_HEROIC5 = max spawnable rank).\n\n"
+              % (NEW_OBJ, OUT_NAME, DONOR_OBJ, DONOR_INI, owner, MAX_VET))
+    return (header + block3 + "\n").encode("latin-1"), owner
 
 # ---------------------------------------------------------------- dict codec
 def read_dict(b, p):
@@ -141,7 +164,6 @@ def parse_map(buf):
         pos += ln + 4
     data_start = pos
     name2id = {v: k for k, v in id2name.items()}
-    # top-level chunks
     top = []
     p = data_start
     while p + 10 <= len(buf):
@@ -156,11 +178,8 @@ def parse_map(buf):
     return id2name, name2id, data_start, top
 
 def parse_objects(buf, ol):
-    """Walk Object chunks inside an ObjectsList top-level chunk dict `ol`.
-       Returns list of dicts with hp/ds/de/tn/template offset/parsed dict."""
     objs = []
     p = ol["ds"]
-    # need id2name for the Object type id: re-derive locally
     while p + 10 <= ol["de"]:
         cid, ver, dsize = struct.unpack_from("<IHi", buf, p)
         ds = p+10; de = ds+dsize
@@ -176,21 +195,17 @@ def parse_objects(buf, ol):
         if dend != de:
             raise ValueError("dict end %d != chunk end %d (%s)" % (dend, de, tn))
         d = {k: v for (k, _, v) in pairs}
-        objs.append(dict(hp=p, ds=ds, de=de, ver=ver, tn=tn, toff=toff, slen=slen,
-                         pairs=pairs, dictmap=d))
+        objs.append(dict(hp=p, ds=ds, de=de, ver=ver, tn=tn, pairs=pairs, dictmap=d))
         p = de
     if p != ol["de"]:
         raise ValueError("Object walk ended @%d != ObjectsList data end %d" % (p, ol["de"]))
     return objs
 
-def s(v):  # decode AsciiString dict value bytes
+def s(v):
     return v.decode("latin-1") if isinstance(v, (bytes, bytearray)) else v
 
-# ---------------------------------------------------------------- build one object
+# ---------------------------------------------------------------- build object
 def build_object(name2id, donor_pairs, template, x, y, ang, uid, team, force139=None):
-    """Clone donor dict pair-layout, override 119/126/127/128 (+ blank 129 if
-    present). If force139 is not None, overwrite key 139 (aggressiveness) -- or
-    append it (as int) if the donor lacks it."""
     new_pairs = []
     saw139 = False
     for (keyid, typ, val) in donor_pairs:
@@ -198,7 +213,7 @@ def build_object(name2id, donor_pairs, template, x, y, ang, uid, team, force139=
         elif keyid == 126 and typ == 3: val = team.encode("latin-1")
         elif keyid == 127 and typ == 3: val = uid.encode("latin-1")
         elif keyid == 128 and typ == 3: val = b""
-        elif keyid == 129 and typ == 3: val = b""   # blank objectName: no script targets it
+        elif keyid == 129 and typ == 3: val = b""   # blank objectName: nothing targets it
         elif keyid == 139 and force139 is not None: val = force139; saw139 = True
         new_pairs.append((keyid, typ, val))
     if force139 is not None and not saw139:
@@ -207,8 +222,7 @@ def build_object(name2id, donor_pairs, template, x, y, ang, uid, team, force139=
     tb = template.encode("latin-1")
     body = (struct.pack("<ffff", x, y, 0.0, ang) + struct.pack("<i", 0) +
             struct.pack("<H", len(tb)) + tb + dict_bytes)
-    hdr = struct.pack("<IHi", name2id["Object"], 3, len(body))
-    return hdr + body
+    return struct.pack("<IHi", name2id["Object"], 3, len(body)) + body
 
 # ---------------------------------------------------------------- main
 def main():
@@ -230,76 +244,70 @@ def main():
 
     roster = roster_objects()
 
-    # ---- (A) plan + apply recast swaps (equal length, in place) ----
-    work = bytearray(buf)
-    n_swap = 0
+    # ---- new elite-Emperor INI (defines NEW_OBJ) ----
+    ini_bytes, donor_owner = build_new_ini()
+    print("new INI %s (%d bytes) cloned from %s @ %s ; StartingLevel=%s" %
+          (NEW_INI_PATH, len(ini_bytes), DONOR_OBJ, donor_owner, MAX_VET))
+
+    # ---- donors for cloned Dicts (read structure in-memory; source chunk may be removed) ----
+    veh_donor = next(o for o in objs if o["tn"] == "Spec_ChinaTankBattleMaster")
+    agg_donor = next(o for o in objs if any(k == 139 for (k, _, _) in o["pairs"]))
+    print("veh donor keys:", [k for (k,_,_) in veh_donor["pairs"]],
+          "| agg donor keys:", [k for (k,_,_) in agg_donor["pairs"]], "(", agg_donor["tn"], ")")
+
+    # ---- (1) partition: remove China-faction, keep the rest ----
+    kept, removed = [], []
     for o in objs:
-        tn = o["tn"]; pfx = tn[:5]
-        if pfx in PREFIXES and "China" in tn and tn[5:] in SWAP_BASES:
-            new = "Tank_" + tn[5:]
-            assert len(new) == len(tn), "swap length mismatch %r->%r" % (tn, new)
-            assert new in roster, "swap target missing: " + new
-            assert bytes(work[o["toff"]:o["toff"]+len(tn)]) == tn.encode("latin-1")
-            work[o["toff"]:o["toff"]+len(new)] = new.encode("latin-1")
-            n_swap += 1
-    print("(A) recast swaps applied in place: %d" % n_swap)
+        (removed if CHINA_RE.search(o["tn"]) else kept).append(o)
+    n_removed = len(removed)
+    named_removed = [(o["tn"], s(o["dictmap"].get(129, b"")))
+                     for o in removed if s(o["dictmap"].get(129, b""))]
+    from collections import Counter
+    rem_tmpls = Counter(o["tn"] for o in removed)
+    print("(1) removing %d China objects across %d templates (%d were NAMED, objectName!='' )" %
+          (n_removed, len(rem_tmpls), len(named_removed)))
+    kept_data = b"".join(bytes(buf[o["hp"]:o["de"]]) for o in kept)
 
-    # ---- pick donors (from the swapped buffer so we clone a valid live dict) ----
-    objs_sw = parse_objects(work, ol)  # offsets identical (equal-length swaps)
-    veh_donor = next(o for o in objs_sw if o["tn"] == "Tank_ChinaTankBattleMaster")
-    inf_donor = next(o for o in objs_sw if o["tn"] == "Tank_ChinaInfantryRedguard" and
-                     any(k == 129 for (k, _, _) in o["pairs"]))
-    # swarm donor: a real combat unit whose Dict already carries key 139 (aggressiveness)
-    agg_donor = next(o for o in objs_sw if any(k == 139 for (k, _, _) in o["pairs"]))
-    print("donor vehicle dict keys:", [k for (k, _, _) in veh_donor["pairs"]])
-    print("donor infantry dict keys:", [k for (k, _, _) in inf_donor["pairs"]])
-    print("donor aggressive dict keys:", [k for (k, _, _) in agg_donor["pairs"]],
-          "(", agg_donor["tn"], ")")
-
-    all_new = [t[0] for t in CORE] + [t[0] for t in SWARM]
-    for tmpl in all_new:
-        assert tmpl in roster, "showcase template missing from roster: " + tmpl
-
-    new_chunks = bytearray()
-    added_core, added_swarm = [], []
-    idx = 0
-
-    # ---- (B1) build the OP core (owner CORE_TEAM), facing outward at the swarm ----
-    for (tmpl, x, y) in CORE:
-        dx, dy = x - CX, y - CY
-        ang = 2.44 if (dx*dx+dy*dy) < 30*30 else math.atan2(dy, dx)   # face outward toward the ring
-        uid = "SHOWCASE_CORE_%02d_%s" % (idx, tmpl); idx += 1
-        chunk = build_object(name2id, veh_donor["pairs"], tmpl, float(x), float(y),
-                             ang, uid, CORE_TEAM)          # no forced aggressiveness: hold the knot
-        new_chunks += chunk
-        added_core.append((tmpl, x, y, round(ang, 3), uid))
-
-    # ---- (B2) build the enemy swarm (owner SWARM_TEAM, AGGRESSIVE), facing inward ----
+    # ---- (2) GLA swarm chunks ----
+    swarm_chunks = bytearray(); added_swarm = []; idx = 0
     for (tmpl, adeg, radius) in SWARM:
+        assert tmpl in roster, "swarm template missing: " + tmpl
         a = math.radians(adeg)
-        x = CX + radius * math.cos(a); y = CY + radius * math.sin(a)
-        ang = math.atan2(CY - y, CX - x)                   # face inward toward the core
+        x = CX + radius*math.cos(a); y = CY + radius*math.sin(a)
+        ang = math.atan2(CY - y, CX - x)          # face inward
         uid = "SHOWCASE_SWARM_%02d_%s" % (idx, tmpl); idx += 1
-        donor = inf_donor if tmpl in INFANTRY_TEMPLATES else agg_donor
-        chunk = build_object(name2id, donor["pairs"], tmpl, float(x), float(y),
-                             ang, uid, SWARM_TEAM, force139=AGGRESSIVE)
-        new_chunks += chunk
+        swarm_chunks += build_object(name2id, agg_donor["pairs"], tmpl, float(x), float(y),
+                                     ang, uid, SWARM_TEAM, force139=AGGRESSIVE)
         added_swarm.append((tmpl, round(x), round(y), round(ang, 3), uid))
-    N_NEW = len(CORE) + len(SWARM)
-    print("(B) built %d core + %d swarm = %d object chunks, %d bytes" %
-          (len(CORE), len(SWARM), N_NEW, len(new_chunks)))
 
-    # ---- splice: insert at end of ObjectsList data; grow ObjectsList dataSize ----
-    out = bytearray(work)
-    out[ol["de"]:ol["de"]] = new_chunks
-    new_ol_dsize = ol["dsize"] + len(new_chunks)
-    struct.pack_into("<i", out, ol["hp"]+6, new_ol_dsize)  # dsize field is at hdr+6
+    # ---- (3) three god-Emperors ----
+    emp_chunks = bytearray(); added_emp = []
+    for (x, y) in EMPERORS:
+        dx, dy = x - CX, y - CY
+        ang = math.atan2(dy, dx) if (dx*dx+dy*dy) >= 25*25 else -1.571   # face outward
+        uid = "SHOWCASE_EMPEROR_%02d_%s" % (idx, NEW_OBJ); idx += 1
+        emp_chunks += build_object(name2id, veh_donor["pairs"], NEW_OBJ, float(x), float(y),
+                                   ang, uid, CORE_TEAM, force139=ALERT)   # ALERT: fire + hold
+        added_emp.append((NEW_OBJ, x, y, round(ang, 3), uid))
+
+    n_new = len(SWARM) + len(EMPERORS)
+    new_ol_data = kept_data + bytes(swarm_chunks) + bytes(emp_chunks)
+    print("(2)+(3) added %d swarm + %d Emperors = %d new chunks (%d bytes)" %
+          (len(SWARM), len(EMPERORS), n_new, len(swarm_chunks)+len(emp_chunks)))
+
+    # ---- splice: replace ObjectsList data; patch its dataSize; shift the tail ----
+    out = bytearray()
+    out += buf[:ol["ds"]]
+    out += new_ol_data
+    out += buf[ol["de"]:]
+    new_ol_dsize = len(new_ol_data)
+    struct.pack_into("<i", out, ol["hp"]+6, new_ol_dsize)
     out = bytes(out)
     print("spliced; ObjectsList dataSize %d -> %d ; buffer %d -> %d" %
           (ol["dsize"], new_ol_dsize, len(buf), len(out)))
 
     # ================= HARD VERIFY (fail-closed) =================
-    id2b, name2b, ds2, top2 = parse_map(out)             # full top-level walk, ends exactly at len(out)
+    _, _, _, top2 = parse_map(out)
     seq2 = [t["nm"] for t in top2]
     assert seq2 == top_seq, "top-level sequence changed: %s" % seq2
     for a, b in zip(top, top2):
@@ -310,76 +318,80 @@ def main():
     print("VERIFY top-level: sequence & every dataSize consistent; walk ends exactly at EOF")
 
     ol2 = [t for t in top2 if t["nm"] == "ObjectsList"][0]
-    objs2 = parse_objects(out, ol2)                       # every Object + dict parses cleanly
-    assert len(objs2) == n_orig + N_NEW, \
-        "object count %d != %d+%d" % (len(objs2), n_orig, N_NEW)
-    print("VERIFY ObjectsList: %d -> %d Object chunks (all dicts parse cleanly)" %
-          (n_orig, len(objs2)))
+    objs2 = parse_objects(out, ol2)
+    expect = n_orig - n_removed + n_new
+    assert len(objs2) == expect, "object count %d != %d-%d+%d=%d" % (
+        len(objs2), n_orig, n_removed, n_new, expect)
+    print("VERIFY ObjectsList: %d -> %d Object chunks (removed %d, added %d; all Dicts parse cleanly)" %
+          (n_orig, len(objs2), n_removed, n_new))
 
-    # every NEW template resolves; every Tank_China*/Tank_Drop* placement resolves
+    # no China-faction template remains (except our NEW_OBJ, which is China-named by path only)
+    leftover = sorted({o["tn"] for o in objs2 if CHINA_RE.search(o["tn"]) and o["tn"] != NEW_OBJ})
+    assert not leftover, "China templates still present: %s" % leftover
+    assert sum(1 for o in objs2 if o["tn"] == NEW_OBJ) == len(EMPERORS)
+    print("VERIFY removal: zero China-faction units/buildings remain (only %d %s)" % (len(EMPERORS), NEW_OBJ))
+
+    # templates resolve: swarm in effective roster; Emperor in the INI we ship
+    ini_objs = set(re.findall(r"(?mi)^\s*Object\s+(\S+)", ini_bytes.decode("latin-1")))
+    assert NEW_OBJ in ini_objs, "new INI does not define " + NEW_OBJ
+    roster_plus = roster | ini_objs
     for o in objs2:
-        if o["tn"].startswith("Tank_China") or o["tn"].startswith("Tank_Drop"):
-            assert o["tn"] in roster, "unresolved template: " + o["tn"]
-    for tmpl in all_new:
-        assert tmpl in roster, "new template unresolved: " + tmpl
-    # confirm the swarm units really carry aggressiveness=2
+        if o["tn"].startswith("GLA") or o["tn"].startswith("Salv_") or o["tn"] == NEW_OBJ:
+            assert o["tn"] in roster_plus, "unresolved new template: " + o["tn"]
     n_agg = sum(1 for o in objs2 if s(o["dictmap"].get(127, b"")).startswith("SHOWCASE_SWARM_")
                 and o["dictmap"].get(139) == AGGRESSIVE)
-    assert n_agg == len(SWARM), "not all swarm units aggressive: %d/%d" % (n_agg, len(SWARM))
-    print("VERIFY roster: all %d new templates resolve (core Tank_Drop*/Tank_China* + swarm GLA*); "
-          "%d/%d swarm units carry aggressiveness=%d" % (len(set(all_new)), n_agg, len(SWARM), AGGRESSIVE))
+    assert n_agg == len(SWARM), "swarm aggressiveness %d/%d" % (n_agg, len(SWARM))
+    n_alert = sum(1 for o in objs2 if s(o["dictmap"].get(127, b"")).startswith("SHOWCASE_EMPEROR_")
+                  and o["dictmap"].get(139) == ALERT)
+    assert n_alert == len(EMPERORS), "emperor ALERT %d/%d" % (n_alert, len(EMPERORS))
+    print("VERIFY roster: %d swarm GLA templates resolve; %s resolves in shipped INI; "
+          "%d/%d swarm objectAggressiveness=%d (AGGRESSIVE); %d/%d Emperor objectAggressiveness=%d (ALERT)" %
+          (len({t[0] for t in SWARM}), NEW_OBJ, n_agg, len(SWARM), AGGRESSIVE,
+           n_alert, len(EMPERORS), ALERT))
 
-    # I must introduce NO NEW uniqueID collision. (The stock map already reuses
-    # some "Waypoint N" uids -- harmless & pre-existing; I only guarantee my adds
-    # collide with nothing and that the duplicate-set is otherwise unchanged.)
-    from collections import Counter
-    uids_before = [s(o["dictmap"].get(127, b"")) for o in objs]
-    uids_after  = [s(o["dictmap"].get(127, b"")) for o in objs2]
-    orig_uidset = set(u for u in uids_before if u)
-    my_uids = [u for u in uids_after if u.startswith("SHOWCASE_")]
-    assert len(my_uids) == N_NEW and len(set(my_uids)) == N_NEW, "SHOWCASE uid not unique"
-    assert not (set(my_uids) & orig_uidset), "SHOWCASE uid collides with an existing uid!"
-    dup_before = {k for k, v in Counter(u for u in uids_before if u).items() if v > 1}
-    dup_after  = {k for k, v in Counter(u for u in uids_after  if u).items() if v > 1}
-    assert dup_after == dup_before, "introduced a NEW duplicate uniqueID: %s" % (dup_after - dup_before)
-    names_before = sorted(x for x in (s(o["dictmap"].get(129, b"")) for o in objs) if x)
-    names_after  = sorted(x for x in (s(o["dictmap"].get(129, b"")) for o in objs2) if x)
-    assert names_before == names_after, "objectName set changed (new dup name introduced?)"
-    print("VERIFY ids: %d SHOWCASE uids unique & disjoint from %d originals; "
-          "duplicate-uid set unchanged (%d pre-existing Waypoint dups); objectName set unchanged (%d named)" %
-          (len(my_uids), len(orig_uidset), len(dup_before), len(names_after)))
+    # uniqueIDs: my adds unique & disjoint from survivors; introduce no new duplicate
+    uids_kept = [s(o["dictmap"].get(127, b"")) for o in objs2
+                 if not s(o["dictmap"].get(127, b"")).startswith("SHOWCASE_")]
+    my_uids = [s(o["dictmap"].get(127, b"")) for o in objs2
+               if s(o["dictmap"].get(127, b"")).startswith("SHOWCASE_")]
+    assert len(my_uids) == n_new and len(set(my_uids)) == n_new, "SHOWCASE uid not unique"
+    assert not (set(my_uids) & set(u for u in uids_kept if u)), "SHOWCASE uid collides!"
+    dup_now = {k for k, v in Counter(u for u in uids_kept if u).items() if v > 1}
+    assert not any(u.startswith("SHOWCASE_") for u in dup_now)
+    assert all(not s(o["dictmap"].get(129, b"")) for o in objs2
+               if s(o["dictmap"].get(127, b"")).startswith("SHOWCASE_")), "a SHOWCASE unit has a non-empty objectName"
+    print("VERIFY ids: %d SHOWCASE uids unique & disjoint from survivors; every new unit has blank objectName" % n_new)
 
-    # trailing top-level chunks byte-identical to originals (just shifted)
-    orig_tail = bytes(buf[ol["de"]:])            # PolygonTriggers+GlobalLighting+WaypointsList (unswapped region)
-    new_tail  = out[ol["de"] + len(new_chunks):]
+    # trailing chunks byte-identical (PolygonTriggers+GlobalLighting+WaypointsList), just shifted
+    orig_tail = bytes(buf[ol["de"]:])
+    new_tail  = out[ol["ds"] + len(new_ol_data):]
     assert new_tail == orig_tail, "trailing chunks NOT byte-identical!"
-    print("VERIFY tail: PolygonTriggers+GlobalLighting+WaypointsList byte-identical (%d bytes, shifted +%d)" %
-          (len(orig_tail), len(new_chunks)))
+    print("VERIFY tail: PolygonTriggers+GlobalLighting+WaypointsList byte-identical (%d bytes, shifted)" %
+          len(orig_tail))
 
-    # the recast region before ObjectsList is byte-identical to the swapped work
-    # buffer, EXCEPT the 4-byte ObjectsList dataSize field (hdr+6..hdr+10) which we
-    # legitimately grew. Everything before it, and all original object data, match.
-    assert out[:ol["hp"]+6] == bytes(work[:ol["hp"]+6]), "region before ObjectsList dsize altered"
-    assert out[ol["hp"]+10:ol["de"]] == bytes(work[ol["hp"]+10:ol["de"]]), "original object data altered"
-    print("VERIFY head: all bytes up to ObjectsList data-end identical to swapped buffer "
-          "(only the 4-byte ObjectsList dataSize field grew, %d->%d)" % (ol["dsize"], new_ol_dsize))
+    # head: everything up to ObjectsList data-start identical except the 4-byte dsize field
+    assert out[:ol["hp"]+6] == bytes(buf[:ol["hp"]+6]), "pre-ObjectsList bytes altered"
+    assert out[ol["hp"]+10:ol["ds"]] == bytes(buf[ol["hp"]+10:ol["ds"]]), "ObjectsList header tail altered"
+    print("VERIFY head: all bytes before ObjectsList data identical (only the 4-byte dataSize changed, %d->%d)"
+          % (ol["dsize"], new_ol_dsize))
 
-    # ================= package (UNCOMPRESSED) + install =================
-    out_entry = BigEntry(MAP_PATH, out)
-    big_bytes = write_big([out_entry])
+    # ================= package (map UNCOMPRESSED + new INI) + install =================
+    entries = [BigEntry(MAP_PATH, out), BigEntry(NEW_INI_PATH, ini_bytes)]
+    big_bytes = write_big(entries)
     rt = read_big(big_bytes)
-    assert len(rt) == 1 and find_entry(rt, MAP_PATH).data == out, "BIG round-trip failed"
-    print("BIG round-trip byte-identical (1 entry, uncompressed map)")
+    assert len(rt) == 2, "expected 2 entries"
+    assert find_entry(rt, MAP_PATH).data == out, "map round-trip failed"
+    assert find_entry(rt, NEW_INI_PATH).data == ini_bytes, "INI round-trip failed"
+    print("BIG round-trip OK (2 entries: uncompressed map + %s)" % NEW_INI_PATH)
 
-    # sort-position guard
+    # sort-position guard: no higher-sorting archive may own the map path OR the INI path
     for d in (SPE, SHW):
         for f in os.listdir(d):
-            if not f.lower().endswith(".big"): continue
-            if f.lower() > OUT_NAME.lower():
-                for e in read_big(os.path.join(d, f)):
-                    assert e.path.lower() != MAP_PATH.lower(), \
-                        "archive %s sorts above us and owns the map!" % f
-    print("sort-position OK: no higher archive claims the shellmap path")
+            if not f.lower().endswith(".big") or f.lower() <= OUT_NAME.lower(): continue
+            for e in read_big(os.path.join(d, f)):
+                assert e.path.lower() != MAP_PATH.lower(), "%s sorts above us and owns the map!" % f
+                assert e.path.lower() != NEW_INI_PATH.lower(), "%s sorts above us and owns the new INI!" % f
+    print("sort-position OK: no higher archive owns the map or the new INI path")
 
     with open(os.path.join(HERE, OUT_NAME), "wb") as fh:
         fh.write(big_bytes)
@@ -391,17 +403,23 @@ def main():
         md5s[d] = hashlib.md5(open(p, "rb").read()).hexdigest()
         inst = read_big(p)
         assert find_entry(inst, MAP_PATH).data == out
+        assert find_entry(inst, NEW_INI_PATH).data == ini_bytes
     assert len(set(md5s.values())) == 1, "installed archives differ!"
     print("installed to both mod dirs; md5 match: %s" % list(md5s.values())[0])
     print("OUT: %s (%d bytes)" % (OUT_NAME, len(big_bytes)))
 
-    print("\n=== OP CORE (owner=%s) -- small elite Heroic knot ===" % CORE_TEAM)
-    for (tmpl, x, y, ang, uid) in added_core:
-        print("   %-26s (%4d,%4d) ang=%6.3f  %s" % (tmpl, x, y, ang, uid))
-    print("=== ENEMY SWARM (owner=%s, aggressiveness=%d) -- ringed, charging inward ===" %
-          (SWARM_TEAM, AGGRESSIVE))
+    # ---- report ----
+    print("\n=== REMOVED China templates (all military/buildings) ===")
+    for tn, k in rem_tmpls.most_common():
+        print("   -%-40s x%d" % (tn, k))
+    print("named units removed (objectName): %d  e.g. %s" %
+          (len(named_removed), ", ".join(sorted({n for _, n in named_removed})[:8])))
+    print("\n=== 3 GOD-EMPERORS (%s, StartingLevel=%s, owner=%s) ===" % (NEW_OBJ, MAX_VET, CORE_TEAM))
+    for (tmpl, x, y, ang, uid) in added_emp:
+        print("   %-24s (%4d,%4d) ang=%6.3f  %s" % (tmpl, x, y, ang, uid))
+    print("=== GLA SWARM (owner=%s, aggressiveness=%d) ===" % (SWARM_TEAM, AGGRESSIVE))
     for (tmpl, x, y, ang, uid) in added_swarm:
-        print("   %-26s (%4d,%4d) ang=%6.3f  %s" % (tmpl, x, y, ang, uid))
+        print("   %-24s (%4d,%4d) ang=%6.3f  %s" % (tmpl, x, y, ang, uid))
 
 if __name__ == "__main__":
     main()
