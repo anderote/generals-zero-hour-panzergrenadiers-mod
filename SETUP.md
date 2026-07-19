@@ -165,6 +165,20 @@ cd ~/GeneralsX/GeneralsZH && ./run.sh -fullscreen -xres 3440 -yres 1440 \
    **Panzergrenadier** in slot 1 (not Red Guard) and the Tank Hunter button
    reads **Panzerjäger**.
 
+## Updating an existing install (no drive needed)
+
+Once installed, all future updates flow through git + GitHub Releases:
+
+```bash
+cd ~/src/generalsx-mods && ./update.sh
+```
+
+That pulls the latest mod layers and SagePatch from this repo, downloads the
+latest play-build engine binary from
+[GeneralsX Releases](https://github.com/anderote/GeneralsX/releases), and
+re-signs everything. Quit the game first. **Before any LAN session, BOTH
+players must run it** — builds must match exactly.
+
 ## Troubleshooting
 
 | Symptom | Cause / fix |
