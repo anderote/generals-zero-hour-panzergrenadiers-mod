@@ -55,6 +55,39 @@ P_PGREN = 'Data\\INI\\Object\\China\\Tank\\Infantry\\Panzergrenadier.ini'
 PG_WEAPONS = ['Tank_PanzergrenadierRifle', 'Tank_PanzergrenadierGrenade']
 PG_RANGE_OLD, PG_RANGE_NEW = '135', '175'
 PG_VISION_NEW = '220'
+# HEROIC6 bounty flag (fork engine >= 2026-07-19 batch 2: ThingTemplate key MaxRankBounty)
+P_BMASTER = 'Data\\INI\\Object\\China\\Tank\\Vehicles\\Battlemaster.ini'
+P_REDGUARD = 'Data\\INI\\Object\\China\\Tank\\Infantry\\Redguard.ini'
+BOUNTY_OBJECTS = {P_BMASTER: 'Tank_ChinaTankBattleMaster',
+                  P_REDGUARD: 'Tank_ChinaInfantryRedguard',
+                  P_PGREN: 'Tank_ChinaInfantryPanzergrenadier'}
+# DEATH-DEFIANCE data half: inert countdown proxy the engine looks up by name
+P_MARKER = 'Data\\INI\\Object\\VeterancyRespawnMarker.ini'
+MARKER_INI = '\n'.join([
+    '; %s: data half of the DEATH-DEFIANCE max-rank perk. RespawnAtBuildingDie' % TAG,
+    '; spawns this invisible proxy by name (GameData VeterancyMaxRankRespawnMarkerName,',
+    '; default "VeterancyRespawnMarker"); RespawnMarkerUpdate carries the countdown and',
+    '; recreates the fallen unit. The template itself needs no INI configuration.',
+    'Object VeterancyRespawnMarker',
+    '  EditorSorting = SYSTEM',
+    '  KindOf = IMMOBILE INERT UNATTACKABLE NO_COLLIDE',
+    '  RadarPriority = NOT_ON_RADAR',
+    '  Draw = W3DModelDraw ModuleTag_Draw01',
+    '    DefaultConditionState',
+    '      Model = NONE',
+    '    End',
+    '  End',
+    '  Body = InactiveBody ModuleTag_Body01',
+    '  End',
+    '  Behavior = RespawnMarkerUpdate ModuleTag_Respawn01',
+    '  End',
+    '  Behavior = DestroyDie ModuleTag_Die01',
+    '  End',
+    '  Geometry = Sphere',
+    '  GeometryIsSmall = Yes',
+    '  GeometryMajorRadius = 1.0',
+    'End',
+    ''])
 
 def die(msg): print('BUILD FAILED:', msg); sys.exit(1)
 def check(c, msg):
@@ -85,8 +118,10 @@ def effective_below(d):
 
 eff0 = effective_below(MODDIRS[0])
 eff1 = effective_below(MODDIRS[1])
-for p in (P_EMP, P_WEAP, P_PGREN):
-    check(eff0[p.lower()][0] == OWNER, f'{p} owner is {eff0[p.lower()][0]} not {OWNER}')
+EXPECTED_OWNER = {P_EMP: OWNER, P_WEAP: OWNER, P_PGREN: OWNER, P_REDGUARD: OWNER,
+                  P_BMASTER: 'zzz-ZZZZZZZZZZZZZZZZZZZ1TankUpgrades.big'}
+for p in (P_EMP, P_WEAP, P_PGREN, P_BMASTER, P_REDGUARD):
+    check(eff0[p.lower()][0] == EXPECTED_OWNER[p], f'{p} owner is {eff0[p.lower()][0]} not {EXPECTED_OWNER[p]}')
     check(eff0[p.lower()][1] == eff1[p.lower()][1], f'{p} differs between mod dirs')
     # nothing above us may claim our paths
     for d in MODDIRS:
@@ -97,6 +132,8 @@ for p in (P_EMP, P_WEAP, P_PGREN):
 emp_src = eff0[P_EMP.lower()][1].decode('latin-1')
 weap_src = eff0[P_WEAP.lower()][1].decode('latin-1')
 pgren_src = eff0[P_PGREN.lower()][1].decode('latin-1')
+bounty_src = {p: eff0[p.lower()][1].decode('latin-1') for p in (P_BMASTER, P_REDGUARD)}
+check(P_MARKER.lower() not in eff0, 'VeterancyRespawnMarker.ini already exists in effective space')
 print('effective sources OK (both dirs agree; owner Rebalance; nothing above claims)')
 
 # ================================================================ Emperor.ini
@@ -201,6 +238,23 @@ check(n == 1, f'PG ShroudClearingRange 200 not found exactly once (got {n})')
 pgren_new = t
 print('Panzergrenadier.ini patched (VisionRange -> %s, ShroudClearingRange -> %s)' % (PG_VISION_NEW, PG_VISION_NEW))
 
+# =================================================== MaxRankBounty flags (3 units)
+def add_bounty_flag(src, objname, label):
+    new, n = re.subn(r'^(Object %s[ \t\r]*)$' % re.escape(objname),
+                     r'\g<1>\n  MaxRankBounty = Yes ; %s: HEROIC6 kill bounty (fork engine key, batch 2)' % TAG,
+                     src, flags=re.M)
+    check(n == 1, f'{label}: Object {objname} header not found exactly once (got {n})')
+    return new
+bounty_new = {}
+for p, objname in BOUNTY_OBJECTS.items():
+    src = pgren_new if p == P_PGREN else bounty_src[p]
+    out = add_bounty_flag(src, objname, p.split('\\')[-1])
+    if p == P_PGREN:
+        pgren_new = out
+    else:
+        bounty_new[p] = out
+print('MaxRankBounty = Yes flagged on %d unit objects' % len(BOUNTY_OBJECTS))
+
 # ------------------------------------------------------------------ diff audit
 def lines_multiset_diff(old, new):
     from collections import Counter
@@ -220,7 +274,10 @@ for name in ['Tank_EmperorTankGun', 'Tank_EmperorTankGun_Dummy']:
 # ------------------------------------------------------------------ write big
 entries = [bigfile.BigEntry(P_EMP, emp_new.encode('latin-1')),
            bigfile.BigEntry(P_WEAP, weap_new.encode('latin-1')),
-           bigfile.BigEntry(P_PGREN, pgren_new.encode('latin-1'))]
+           bigfile.BigEntry(P_PGREN, pgren_new.encode('latin-1')),
+           bigfile.BigEntry(P_BMASTER, bounty_new[P_BMASTER].encode('latin-1')),
+           bigfile.BigEntry(P_REDGUARD, bounty_new[P_REDGUARD].encode('latin-1')),
+           bigfile.BigEntry(P_MARKER, MARKER_INI.encode('latin-1'))]
 blob = bigfile.write_big(entries)
 rt = bigfile.read_big(blob)
 check(len(rt) == len(entries) and all(rt[k].data == entries[k].data for k in range(len(entries))),
