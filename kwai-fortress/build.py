@@ -105,6 +105,10 @@ PROP_HEAL_DELAY  = 1000    # msec between pulses
 PROP_RADIUS      = 150     # aura radius (matches the speaker-tower envelope)
 COST_SAT         = 2500    # Satellite Uplink research cost
 SAT_BUILDTIME    = 45.0    # seconds, Satellite Uplink research time
+COST_BB          = 2000    # Expanded Battle Bunkers research cost
+BB_BUILDTIME     = 40.0    # seconds, Expanded Battle Bunkers research time
+BB_EMP_ADD       = 4       # Emperor HelixContain bay: 8 -> 12
+BB_OVL_ADD       = 3       # Overlord battle-bunker rider TransportContain: 5 -> 8
 
 # ---- paths + expected effective owners ------------------------------------
 P_BNK = 'Data\\INI\\Object\\China\\Tank\\Defences\\Bunker.ini'          # clone source
@@ -115,14 +119,17 @@ P_CB  = 'Data\\INI\\CommandButton.ini'
 P_UPG = 'Data\\INI\\Upgrade.ini'
 P_STR = 'Data\\Generals.str'
 P_WPN = 'Data\\INI\\Weapon.ini'                                # reference only
-P_EMP = 'Data\\INI\\Object\\China\\Tank\\Vehicles\\Emperor.ini'  # reference only
+P_EMP = 'Data\\INI\\Object\\China\\Tank\\Vehicles\\Emperor.ini'  # SHIPPED (bay +4)
+P_MISC = 'Data\\INI\\Object\\China\\Vanilla\\ChinaMisc.ini'      # SHIPPED (rider +3)
 
 OWN_REB = 'zzz-ZZZZZZZZZZZZZZZZZZ0Rebalance.big'
 OWN_TU  = 'zzz-ZZZZZZZZZZZZZZZZZZZ1TankUpgrades.big'
 OWN_FLG = 'zzz-ZZZZZZZZZZZZZZZZZZZZ0Flagship.big'
+OWN_PS  = 'zzz-ZZZZZZZZZZPassengerSurvival.big'
 EXPECT_OWNER = {P_BNK: OWN_REB, P_PC: OWN_REB, P_CS: OWN_TU, P_CB: OWN_TU,
-                P_UPG: OWN_TU, P_STR: OWN_TU, P_WPN: OWN_FLG, P_EMP: OWN_FLG}
-SHIPPED = [P_NEW, P_PC, P_CS, P_CB, P_UPG, P_STR]
+                P_UPG: OWN_TU, P_STR: OWN_TU, P_WPN: OWN_FLG, P_EMP: OWN_FLG,
+                P_MISC: OWN_PS}
+SHIPPED = [P_NEW, P_PC, P_CS, P_CB, P_UPG, P_STR, P_EMP, P_MISC]
 
 # ---- new identifiers ------------------------------------------------------
 OBJ_NEW  = 'Tank_ChinaFortressBunker'
@@ -137,14 +144,16 @@ CB_PDL   = 'Tank_Command_UpgradeFortressPDL'
 CB_PROP  = 'Tank_Command_UpgradeFortressPropTower'
 UP_SAT   = 'Tank_Upgrade_SatelliteUplink'
 CB_SAT   = 'Tank_Command_UpgradeSatelliteUplink'
+UP_BB    = 'Tank_Upgrade_ExpandedBattleBunkers'
+CB_BB    = 'Tank_Command_UpgradeExpandedBattleBunkers'
 MODTAGS  = ['ModuleTag_KF_Armor01', 'ModuleTag_KF_PDL01', 'ModuleTag_KF_Prop01',
-            'ModuleTag_KF_Reveal01']
+            'ModuleTag_KF_Reveal01', 'ModuleTag_KF_Bay01', 'ModuleTag_KF_Bay02']
 NEW_IDS  = [OBJ_NEW, CS_MAIN, CS_UPGD, CB_BUILD, UP_ARMOR, UP_PDL, UP_PROP,
-            CB_ARMOR, CB_PDL, CB_PROP, UP_SAT, CB_SAT] + MODTAGS
+            CB_ARMOR, CB_PDL, CB_PROP, UP_SAT, CB_SAT, UP_BB, CB_BB] + MODTAGS
 NEW_LABELS = ['OBJECT:FortressBunker', 'CONTROLBAR:ConstructChinaFortressBunker',
               'CONTROLBAR:ToolTipChinaBuildFortressBunker']
 for base in ['FortressCompositeArmor', 'FortressPDL', 'FortressPropTower',
-             'SatelliteUplink']:
+             'SatelliteUplink', 'ExpandedBattleBunkers']:
     NEW_LABELS += ['UPGRADE:' + base, 'CONTROLBAR:Upgrade' + base,
                    'CONTROLBAR:ToolTipUpgrade' + base]
 
@@ -208,6 +217,8 @@ print('effective sources OK (owners Rebalance/TankUpgrades/Flagship; dirs byte-a
 
 bnk_src = eff0[P_BNK.lower()][1].decode('latin-1')
 pc_src  = eff0[P_PC.lower()][1].decode('latin-1')
+emp_src = eff0[P_EMP.lower()][1].decode('latin-1')
+misc_src = eff0[P_MISC.lower()][1].decode('latin-1')
 cs_src  = eff0[P_CS.lower()][1]
 cb_src  = eff0[P_CB.lower()][1]
 upg_src = eff0[P_UPG.lower()][1]
@@ -393,6 +404,66 @@ check(len(re.findall(r'Behavior = CommandSetUpgrade', pc_new_text))
 pc_new = pc_new_text.encode('latin-1')
 print('PropagandaCenter.ini patched (+MapRevealUpgrade gated by Satellite Uplink)')
 
+# ================================================ Emperor.ini (bay 8 -> 12)
+# Expanded Battle Bunkers: fork ContainCapacityUpgrade (deployed -- engine tip
+# 'hard-AI scaling keys; unit hover tooltips; ContainCapacityUpgrade'; the bonus
+# funnels through OpenContain::m_bonusSlots / getContainMax()).
+EMP_SURVIVE = ['Behavior = HelixContain ModuleTag_06', 'Slots                   = 8',
+               'ModuleTag_EDS_PDL01', 'ModuleTag_EDS_ABM01', 'ModuleTag_EDS_Shield01',
+               'ModuleTag_EDS_Fleet01', 'ModuleTag_EmperorInnatePDL', 'InterceptBallistics',
+               'BuildCost', '19200', 'Tank_EmperorTankGun', 'ModuleTag_GP_Crew01',
+               'ModuleTag_KPDL_Mount01', 'ModulePropaganda_15']
+for n in EMP_SURVIVE:
+    check(n in emp_src, f'Emperor prior-layer hunk missing before edit: {n!r}')
+EMP_BAY_MODS = [
+    f'  Behavior = ContainCapacityUpgrade ModuleTag_KF_Bay01 ; {TAG}: Expanded Battle Bunkers -- Emperor bay 8 -> {8 + BB_EMP_ADD} (fork ContainCapacityUpgrade)',
+    f'    TriggeredBy = {UP_BB}',
+    f'    AddSlots    = {BB_EMP_ADD}',
+    '  End',
+]
+geo = list(re.finditer(r'^[ \t]*Geometry[ \t]*=[ \t]*BOX[ \t\r]*$', emp_src, re.M))
+check(len(geo) == 1, f'Emperor: need exactly one Geometry=BOX anchor (found {len(geo)})')
+emp_new_text = emp_src[:geo[0].start()] + '\n'.join(EMP_BAY_MODS) + '\n' + emp_src[geo[0].start():]
+audit('Emperor.ini (+ContainCapacityUpgrade bay module)', emp_src, emp_new_text, [], EMP_BAY_MODS)
+for n in EMP_SURVIVE:
+    check(n in emp_new_text, f'Emperor prior-layer hunk lost after edit: {n!r}')
+emp_new = emp_new_text.encode('latin-1')
+print(f'Emperor.ini patched (HelixContain bay +{BB_EMP_ADD} via {UP_BB})')
+
+# ================================================ ChinaMisc.ini (Overlord rider +3)
+# The Kwai Overlord is a KwaiRoster BuildVariations stub for the VANILLA
+# ChinaTankOverlord, whose battle-bunker purchase spawns the shared rider
+# ChinaTankOverlordBattleBunker (OCL_OverlordBattleBunker,
+# ContainInsideSourceObject). The module lives on the RIDER object: PLAYER
+# upgrades trigger on every owned object, so existing riders upgrade on
+# research completion and post-research riders upgrade at spawn. Other
+# generals' AIs never own this Kwai-only research -- module stays dormant.
+RIDER_RX = re.compile(r'^Object ChinaTankOverlordBattleBunker\b.*?\nEnd', re.M | re.S)
+rm = RIDER_RX.search(misc_src)
+check(rm, 'ChinaTankOverlordBattleBunker object missing from ChinaMisc.ini')
+rider = rm.group(0)
+check(rider.count('Behavior = TransportContain ModuleTag_03') == 1,
+      'rider TransportContain anchor not unique inside the rider block')
+check('Slots                 = 5' in rider, 'rider bunker Slots=5 drifted')
+check('DamagePercentToUnits  = 15%' in rider, 'PassengerSurvival rider hunk drifted')
+RIDER_MODS = [
+    f'  Behavior = ContainCapacityUpgrade ModuleTag_KF_Bay02 ; {TAG}: Expanded Battle Bunkers -- Overlord battle bunker 5 -> {5 + BB_OVL_ADD} (fork ContainCapacityUpgrade)',
+    f'    TriggeredBy = {UP_BB}',
+    f'    AddSlots    = {BB_OVL_ADD}',
+    '  End',
+]
+rider_anchor = '  Behavior = TransportContain ModuleTag_03'
+rider_new = rider.replace(rider_anchor, '\n'.join(RIDER_MODS) + '\n' + rider_anchor, 1)
+misc_new_text = misc_src[:rm.start()] + rider_new + misc_src[rm.end():]
+audit('ChinaMisc.ini (+rider bay module)', misc_src, misc_new_text, [], RIDER_MODS)
+for n in ['Object ChinaHelixBattleBunker', 'Object ChinaTankOverlordGattlingCannon',
+          'Object ChinaTankOverlordPropagandaTower']:
+    check(n in misc_new_text, f'ChinaMisc sibling object lost: {n!r}')
+check(misc_new_text.count('DamagePercentToUnits  = 15%') == misc_src.count('DamagePercentToUnits  = 15%'),
+      'PassengerSurvival hunk count changed')
+misc_new = misc_new_text.encode('latin-1')
+print(f'ChinaMisc.ini patched (Overlord battle-bunker rider +{BB_OVL_ADD} via {UP_BB})')
+
 # ================================================ CommandSet.ini
 cs_text = cs_src.decode('latin-1')
 DOZER2 = 'Tank_ChinaDozerCommandSet_Down'
@@ -460,9 +531,31 @@ def _swap13(mm):
     return body.replace(lines[0], SAT_LINE, 1)
 cs_new_text = PC_SET_RX.sub(_swap13, cs_new_text)
 check(len(sat_removed) == 50, f'slot-13 replacements: {len(sat_removed)} != 50')
-audit('CommandSet.ini (dozer slot 8 + 2 fortress sets + prop-center slot 13 x50)',
+
+# --- Expanded Battle Bunkers button: War Factory page 2 slot 13. All three WF
+# sets (page 1, its vestigial mines variant, page 2) are 14/14 full, but page 2
+# slot 13 duplicates page 1's Command_Evacuate (the kwai-garrisons 10-man
+# garrison keeps its page-1 Evacuate) -- the only zero-loss occupant anywhere
+# on the two candidate hosts, so it is the sacrifice.
+WF2 = 'Tank_ChinaWarFactoryCommandSet_Down'
+wfm = get_block(cs_new_text, 'CommandSet', WF2, 'CS')
+wf_before = dict(re.findall(r'^\s*(\d+)\s*=\s*(\S+)', wfm.group(1), re.M))
+check(len(wf_before) == 14, f'{WF2}: expected 14/14 full, got {len(wf_before)}')
+for s, want in [('8', 'Tank_Command_UpgradeEmperorPDL'), ('12', 'Command_ChinaButtonCommandSetOneUp'),
+                ('13', 'Command_Evacuate'), ('14', 'Command_Sell')]:
+    check(wf_before.get(s) == want, f'{WF2}: slot {s} expected {want}, got {wf_before.get(s)}')
+WF_EVAC_LINE = '  13 = Command_Evacuate'
+BB_LINE = f'  13 = {CB_BB} ; {TAG}: Expanded Battle Bunkers (page-1 Evacuate keeps serving the garrison)'
+wf_block = wfm.group(0)
+check(len(re.findall(r'^%s$' % re.escape(WF_EVAC_LINE), wf_block, re.M)) == 1,
+      f'{WF2}: expected exactly one {WF_EVAC_LINE!r} line')
+wf_block_new = re.sub(r'^%s$' % re.escape(WF_EVAC_LINE), BB_LINE, wf_block, count=1, flags=re.M)
+cs_new_text = cs_new_text[:wfm.start()] + wf_block_new + cs_new_text[wfm.end():]
+
+audit('CommandSet.ini (dozer slot 8 + 2 fortress sets + prop-center slot 13 x50 + WF2 slot 13)',
       cs_text, cs_new_text,
-      sat_removed, [SLOT8] + CS_APPEND_LINES + [''] + [SAT_LINE] * 50)  # '' = blank joiner
+      sat_removed + [WF_EVAC_LINE],
+      [SLOT8] + CS_APPEND_LINES + [''] + [SAT_LINE] * 50 + [BB_LINE])  # '' = blank joiner
 # post-edit layouts
 sl = dict(re.findall(r'^\s*(\d+)\s*=\s*(\S+)', get_block(cs_new_text, 'CommandSet', DOZER2, 'CS').group(1), re.M))
 check(sl == {'1': 'Tank_Command_ConstructChinaIndustrialPlant', '7': 'Tank_Command_ConstructChinaBunker',
@@ -485,6 +578,14 @@ for n, after in pc_sets_after.items():
 pc_chunk = '\n'.join(mm.group(0) for mm in PC_SET_RX.finditer(cs_new_text))
 check('Command_UpgradeChinaMines' not in pc_chunk and 'Command_UpgradeEMPMines' not in pc_chunk,
       'mines buttons still referenced by prop-center sets')
+# WF page-2 post-edit: only slot 13 changed; page 1 keeps its garrison Evacuate
+wf_after = dict(re.findall(r'^\s*(\d+)\s*=\s*(\S+)', get_block(cs_new_text, 'CommandSet', WF2, 'CS').group(1), re.M))
+wf_want = dict(wf_before); wf_want['13'] = CB_BB
+check(wf_after == wf_want, f'{WF2} post-edit layout wrong: {wf_after}')
+for name in ['Tank_ChinaWarFactoryCommandSet', 'Tank_ChinaWarFactoryCommandSetUpgrade']:
+    sl = dict(re.findall(r'^\s*(\d+)\s*=\s*(\S+)', get_block(cs_new_text, 'CommandSet', name, 'CS').group(1), re.M))
+    check(sl.get('13') == 'Command_Evacuate' and sl.get('6') == 'Tank_Command_ConstructChinaTankEmperor',
+          f'{name}: page-1 layout drifted: {sl}')
 # sibling survival (spot checks on sets other layers own; mines buttons stay
 # live everywhere OUTSIDE the prop center, incl. our own fortress sets)
 for name, need in [('ChinaTankBunkerCommandSet', 'Command_UpgradeChinaMines'),
@@ -496,7 +597,7 @@ for name, need in [('ChinaTankBunkerCommandSet', 'Command_UpgradeChinaMines'),
           f'survival: {name} lost {need}')
 cs_new = cs_new_text.encode('latin-1')
 print(f'CommandSet.ini patched (dozer page-2 slot 8 = {CB_BUILD}; +2 fortress sets; '
-      f'prop-center slot 13 = {CB_SAT} across 50 sets)')
+      f'prop-center slot 13 = {CB_SAT} across 50 sets; WF page-2 slot 13 = {CB_BB})')
 
 # ================================================ CommandButton.ini (append)
 def upg_button(name, upgrade, base, cameo):
@@ -527,12 +628,22 @@ CB_APPEND = ('\n; ' + '-' * 76 + f'\n; {TAG}: Fortress Bunker construct button (
     '  ButtonBorderType        = UPGRADE',
     '  DescriptLabel           = CONTROLBAR:ToolTipUpgradeSatelliteUplink',
     '  PurchasedLabel          = CONTROLBAR:ToolTipUpgradeSatelliteUplink',
+    '  UnitSpecificSound = MoneyWithdraw', 'End']) + '\n\n' + '\n'.join([
+    f'CommandButton {CB_BB} ; {TAG}: Expanded Battle Bunkers research (War Factory page-2 slot 13)',
+    '  Command       = PLAYER_UPGRADE',
+    f'  Upgrade       = {UP_BB}',
+    '  Options       = OK_FOR_MULTI_SELECT',
+    '  TextLabel     = CONTROLBAR:UpgradeExpandedBattleBunkers',
+    f'  ButtonImage   = {CAMEO_BUNKER}',
+    '  ButtonBorderType        = UPGRADE',
+    '  DescriptLabel           = CONTROLBAR:ToolTipUpgradeExpandedBattleBunkers',
+    '  PurchasedLabel          = CONTROLBAR:ToolTipUpgradeExpandedBattleBunkers',
     '  UnitSpecificSound = MoneyWithdraw', 'End']) + '\n')
 check(cb_src.endswith(b'\n'), 'CommandButton.ini must end with newline to append')
 cb_new = cb_src + CB_APPEND.encode('latin-1')
 check(cb_new.startswith(cb_src), 'CommandButton.ini not append-only')
-check(CB_APPEND.count('\nCommandButton ') == 5, 'CB append balance')
-print('CommandButton.ini: +5 buttons appended (1 construct + 3 purchases + 1 research)')
+check(CB_APPEND.count('\nCommandButton ') == 6, 'CB append balance')
+print('CommandButton.ini: +6 buttons appended (1 construct + 3 purchases + 2 researches)')
 
 # ================================================ Upgrade.ini (append)
 def upgrade_block(name, base, cost, cameo, snd):
@@ -551,14 +662,21 @@ UPG_APPEND = ('\n; ' + '-' * 76 + f'\n; {TAG}: three per-bunker purchases for th
     f'  BuildTime          = {SAT_BUILDTIME}',
     f'  BuildCost          = {COST_SAT}',
     f'  ButtonImage        = {CAMEO_SAT}',
+    f'  ResearchSound      = {SND_ARMOR}', 'End']) + '\n\n' + '\n'.join([
+    f'Upgrade {UP_BB} ; {TAG}: Expanded Battle Bunkers -- Emperor bay +{BB_EMP_ADD}, Overlord bunker +{BB_OVL_ADD} (fork ContainCapacityUpgrade)',
+    '  DisplayName        = UPGRADE:ExpandedBattleBunkers',
+    '  Type               = PLAYER',
+    f'  BuildTime          = {BB_BUILDTIME}',
+    f'  BuildCost          = {COST_BB}',
+    f'  ButtonImage        = {CAMEO_BUNKER}',
     f'  ResearchSound      = {SND_ARMOR}', 'End']) + '\n')
 check(upg_src.endswith(b'\n'), 'Upgrade.ini must end with newline to append')
 upg_new = upg_src + UPG_APPEND.encode('latin-1')
 check(upg_new.startswith(upg_src), 'Upgrade.ini not append-only')
-check(UPG_APPEND.count('\nUpgrade ') == 4 and UPG_APPEND.count('Type               = OBJECT') == 3
-      and UPG_APPEND.count('Type               = PLAYER') == 1, 'Upgrade append balance')
+check(UPG_APPEND.count('\nUpgrade ') == 5 and UPG_APPEND.count('Type               = OBJECT') == 3
+      and UPG_APPEND.count('Type               = PLAYER') == 2, 'Upgrade append balance')
 print(f'Upgrade.ini: +3 OBJECT (${COST_ARMOR}/${COST_PDL}/${COST_PROP}) '
-      f'+1 PLAYER (${COST_SAT}) upgrades appended')
+      f'+2 PLAYER (${COST_SAT}/${COST_BB}) upgrades appended')
 
 # ================================================ Generals.str (append)
 def s(label, val):
@@ -590,13 +708,18 @@ STR_APPEND = ('\n' +
     s('UPGRADE:SatelliteUplink', 'Satellite Uplink') + '\n' +
     s('CONTROLBAR:UpgradeSatelliteUplink', 'Satellite &Uplink') + '\n' +
     s('CONTROLBAR:ToolTipUpgradeSatelliteUplink',
-      'Satellite Uplink: reveals the entire battlefield permanently.'))
+      'Satellite Uplink: reveals the entire battlefield permanently.') + '\n' +
+    s('UPGRADE:ExpandedBattleBunkers', 'Expanded Battle Bunkers') + '\n' +
+    s('CONTROLBAR:UpgradeExpandedBattleBunkers', 'E&xpanded Battle Bunkers') + '\n' +
+    s('CONTROLBAR:ToolTipUpgradeExpandedBattleBunkers',
+      'Enlarge the battle bunkers of the fleet: Emperor bunker bays hold 4 more\\n'
+      ' soldiers and Overlord battle bunkers hold 3 more.'))
 check(str_src.endswith(b'\n'), 'Generals.str must end with newline to append')
 str_new = str_src + STR_APPEND.encode('latin-1')
 check(str_new.startswith(str_src), 'Generals.str not append-only')
-check(str_new.decode('latin-1').count('\nEND\n') == str_src.decode('latin-1').count('\nEND\n') + 15,
-      'str append entry count (want +15)')
-print('Generals.str: +15 entries appended')
+check(str_new.decode('latin-1').count('\nEND\n') == str_src.decode('latin-1').count('\nEND\n') + 18,
+      'str append entry count (want +18)')
+print('Generals.str: +18 entries appended')
 
 # ================================================ global closure
 cb_f = cb_new.decode('latin-1'); upg_f = upg_new.decode('latin-1')
@@ -622,8 +745,19 @@ check('Type               = PLAYER' in sub, f'{UP_SAT} not PLAYER-scoped')
 check(f'TriggeredBy = {UP_SAT}' in pc_new_text, f'prop center has no module triggered by {UP_SAT}')
 check('Behavior = MapRevealUpgrade ModuleTag_KF_Reveal01' in pc_new_text,
       'MapRevealUpgrade module missing from prop center')
-# every slot of the two new sets AND all 50 edited prop-center sets resolves
-for name in [CS_MAIN, CS_UPGD] + sorted(pc_sets_after):
+# Expanded Battle Bunkers chain: button -> PLAYER upgrade -> 2 capacity modules
+bb = get_block(cb_f, 'CommandButton', CB_BB, 'CB').group(1)
+check(f'Upgrade       = {UP_BB}' in bb, f'{CB_BB} upgrade ref')
+bub = get_block(upg_f, 'Upgrade', UP_BB, 'UPG').group(1)
+check('Type               = PLAYER' in bub, f'{UP_BB} not PLAYER-scoped')
+check('Behavior = ContainCapacityUpgrade ModuleTag_KF_Bay01' in emp_new_text
+      and f'TriggeredBy = {UP_BB}' in emp_new_text, 'Emperor bay module missing/unwired')
+check('Behavior = ContainCapacityUpgrade ModuleTag_KF_Bay02' in misc_new_text
+      and f'TriggeredBy = {UP_BB}' in misc_new_text, 'rider bay module missing/unwired')
+check(f'AddSlots    = {BB_EMP_ADD}' in emp_new_text and f'AddSlots    = {BB_OVL_ADD}' in misc_new_text,
+      'AddSlots values missing')
+# every slot of the new/edited sets resolves
+for name in [CS_MAIN, CS_UPGD, WF2] + sorted(pc_sets_after):
     for _, btn in re.findall(r'^\s*(\d+)\s*=\s*(\S+)', get_block(cs_new_text, 'CommandSet', name, 'CS').group(1), re.M):
         check(re.search(r'^CommandButton\s+%s\b' % re.escape(btn), cb_f, re.M),
               f'{name}: slot button {btn} undefined')
@@ -639,6 +773,7 @@ print('closure OK (construct->object->sets->buttons->upgrades->modules->weapon, 
 
 # ------------------------------------------------------------------ write big
 entries = [bigfile.BigEntry(P_NEW, bnk_new), bigfile.BigEntry(P_PC, pc_new),
+           bigfile.BigEntry(P_EMP, emp_new), bigfile.BigEntry(P_MISC, misc_new),
            bigfile.BigEntry(P_CS, cs_new), bigfile.BigEntry(P_CB, cb_new),
            bigfile.BigEntry(P_UPG, upg_new), bigfile.BigEntry(P_STR, str_new)]
 blob = bigfile.write_big(entries)
@@ -672,8 +807,8 @@ for d in MODDIRS:
         check(posteff[e.path.lower()] == (ARCHIVE, e.data),
               f'{d}: {e.path} not effectively ours post-install')
     # spot-check: lower layers keep their non-overlapping ownership
+    # (Emperor.ini is now OURS post-install -- covered by the entries loop above)
     check(posteff[P_WPN.lower()][0] == OWN_FLG, f'{d}: Weapon.ini ownership regressed')
-    check(posteff[P_EMP.lower()][0] == OWN_FLG, f'{d}: Emperor.ini ownership regressed')
     print(f'installed + post-install effective audit OK: {dst}')
 check(md5s[0] == md5s[1], f'archives differ across mod dirs: {md5s}')
 print('both archives md5-match:', md5s[0])
