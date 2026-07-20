@@ -654,11 +654,20 @@ m = re.search(r'^ {2}Behavior = CommandSetUpgrade ModuleTag_CU_Page02\b.*?^ {2}E
               wf_src, re.M | re.S)
 check(m, 'WarFactory ChaosUnits page-flip anchor missing')
 wf_new_text = wf_src[:m.end()] + '\n' + '\n'.join(WF_ADD) + wf_src[m.end():]
-audit('WarFactory.ini (+page-3 flip modules)', wf_src, wf_new_text, [], WF_ADD)
-for need in ['ModuleTag_CU_Page01', 'ModuleTag_KG_Garrison01', 'Behavior = ProductionUpdate ModuleTag_12']:
+# Tank pairs: QuantityModifier inside the WF ProductionUpdate (stub/concrete
+# names matched at queue time, same engine evidence as the barracks pairs).
+WF_QM = [f'    QuantityModifier = Tank_ChinaTankBattleMaster   2 ; {TAG}: Battlemaster pairs, two per click',
+         f'    QuantityModifier = Tank_ChinaTankGattling   2 ; {TAG}: Gattling Tank pairs, two per click']
+pm = re.search(r'^( {2}Behavior = ProductionUpdate ModuleTag_12[^\n]*\n)', wf_new_text, re.M)
+check(pm, 'WarFactory ProductionUpdate anchor missing')
+wf_new_text = wf_new_text[:pm.end()] + '\n'.join(WF_QM) + '\n' + wf_new_text[pm.end():]
+audit('WarFactory.ini (+page-3 flip modules, +tank pairs)', wf_src, wf_new_text, [], WF_ADD + WF_QM)
+for need in ['ModuleTag_CU_Page01', 'ModuleTag_KG_Garrison01', 'Behavior = ProductionUpdate ModuleTag_12',
+             'QuantityModifier = Tank_ChinaTankBattleMaster   2',
+             'QuantityModifier = Tank_ChinaTankGattling   2']:
     check(need in wf_new_text, f'WarFactory lost hunk: {need!r}')
 wf_new = wf_new_text.encode('latin-1')
-print('WarFactory.ini: +2 page-3 flip modules (chain 1<->2<->3)')
+print('WarFactory.ini: +2 page-3 flip modules (chain 1<->2<->3), +Battlemaster/Gattling x2')
 
 # ================================================ Barracks.ini (page flips)
 bar_src = SRC[P_BAR]
@@ -695,11 +704,13 @@ bar_new_text = bar_src[:m.end()] + '\n' + '\n'.join(BAR_ADD) + bar_src[m.end():]
 QM_ANCHOR = '  QuantityModifier = Tank_ChinaInfantryPanzergrenadier   2 ; flagship-emperor: PG squads, two per click'
 QM_LINE = (f'  QuantityModifier = Tank_ChinaInfantryTankHunter   2 ; {TAG}: Panzerjaeger pairs '
            '(stub name -- matched at queue time, pre-BuildVariations; ProductionUpdate.cpp)')
+QM_HACKER = f'  QuantityModifier = Tank_ChinaInfantryHacker   4 ; {TAG}: hacker cells, four per click (stub name, queue-time match)'
 check(bar_new_text.count(QM_ANCHOR + '\n') == 1, 'Barracks PG QuantityModifier anchor missing')
-bar_new_text = bar_new_text.replace(QM_ANCHOR + '\n', QM_ANCHOR + '\n' + QM_LINE + '\n', 1)
-audit('Barracks.ini (+3 page-flip modules, +TankHunter x2)', bar_src, bar_new_text,
-      [], BAR_ADD + [QM_LINE])
+bar_new_text = bar_new_text.replace(QM_ANCHOR + '\n', QM_ANCHOR + '\n' + QM_LINE + '\n' + QM_HACKER + '\n', 1)
+audit('Barracks.ini (+3 page-flip modules, +TankHunter x2, +Hacker x4)', bar_src, bar_new_text,
+      [], BAR_ADD + [QM_LINE, QM_HACKER])
 for need in ['QuantityModifier = Tank_ChinaInfantryPanzergrenadier   2',
+             'QuantityModifier = Tank_ChinaInfantryHacker   4',
              'Behavior = ProductionUpdate ModuleTag_10', 'Tank_ChinaBarracksCommandSetUpgrade']:
     check(need in bar_new_text, f'Barracks lost hunk: {need!r}')
 bar_new = bar_new_text.encode('latin-1')
