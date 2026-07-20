@@ -141,7 +141,34 @@ over: 12+4=16, asserted), `Scale = 1.15`, `MaxSimultaneousOfType = 3`
 doctrine tiers incl. new tier V, crew, propaganda) and the Emperor command set.
 Built from WF page 3 slot 8, `SNEmpTank` cameo.
 
-## Files (49) / identifiers / verification
+## 8 — Panzerjäger (Tank Hunter follow-up)
+
+- **Build 2 per click**: `QuantityModifier = Tank_ChinaInfantryTankHunter 2` on
+  the Kwai Barracks (this layer's copy, inserted next to Flagship's PG ×2 line —
+  Flagship must be rebuilt first if it changes Barracks.ini). **The STUB name is
+  correct**: matching happens at queue time against the queued template
+  (`ProductionUpdate.cpp` `queueCreateUnit`, `isEquivalentTo(unitType)` — the
+  construct button's Object), while `BuildVariations` resolves later per spawned
+  unit inside `ThingFactory::newObject` (`ProductionUpdate.cpp:815`), and
+  `isEquivalentTo` covers identity/override/reskin only
+  (`ThingTemplate.cpp:1547-1561`) — never BuildVariations. Flagship's stub-named
+  Redguard modifier is the same pattern.
+- **Kwai-scoped horde bonus**: new file `…\Tank\Infantry\Panzerjager.ini` with
+  **`Tank_ChinaInfantryPanzerjager`** — a concrete clone of the fully-patched
+  effective vanilla `ChinaInfantryTankHunter` (module census 31+1: inherits the
+  4 doctrine tiers, InfantryDoctrine hook, Body Armor I/II, WP-II XP, tier V)
+  plus `HordeUpdate ModuleTag_KA_Horde01` (Panzergrenadier config: RubOffRadius
+  60 / Radius 30 / UpdateRate 1000 / KindOf INFANTRY / Count 5 / HORDE),
+  `DisplayName = OBJECT:TankPanzerjager` (label exists since the
+  panzergrenadier layer — asserted), `Side = ChinaTankGeneral`. The shared
+  weapon (`ChinaInfantryTankHunterMissileLauncher`) and vanilla command set are
+  deliberate reuse. The Kwai stub (`…\Tank\Infantry\TankHunter.ini`, owner
+  Rebalance, now shipped) repoints `BuildVariations` to the clone; its own
+  Scale/art/DisplayName/cost overrides are untouched, and every external
+  reference (construct button, quantity modifier, command sets) keeps the stub
+  name — the shared vanilla unit is untouched for other generals.
+
+## Files (51) / identifiers / verification
 
 Top copies of `CommandSet.ini` / `CommandButton.ini` / `Upgrade.ini` /
 `Generals.str` (from Fortress) and `Weapon.ini` (from Flagship; +2 sniper lines,
@@ -151,7 +178,9 @@ DropLadder, ShellKwai, PassengerSurvival, GrenadierResearch, zz_SPE — recorded
 per file at build time); 2 new object files (`BattleBunker.ini`,
 `DragonEmperor.ini`, both asserted unclaimed stack-wide).
 
-61 new identifiers + 48 str labels, all word-boundary collision-checked. 16
+2 new object files became 4 (`BattleBunker.ini`, `DragonEmperor.ini`,
+`Panzerjager.ini` new paths + the Tank Hunter stub file). 63 new identifiers +
+48 str labels, all word-boundary collision-checked. 16
 button→upgrade→module chains closed; 5 `RequiredUpgrade` chains; page 1↔2↔3 and
 barracks 1↔2 reachability; exact line-multiset diff audits on every modified
 file; append-only asserts on CB/UPG/STR; post-edit layout asserts on 13 command

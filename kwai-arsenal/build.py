@@ -182,6 +182,8 @@ P_JS  = 'Data\\INI\\Object\\China\\Tank\\Vehicles\\JS7.ini'
 P_OV  = 'Data\\INI\\Object\\China\\Vanilla\\Vehicles\\Overlord.ini'
 P_EMP = 'Data\\INI\\Object\\China\\Tank\\Vehicles\\Emperor.ini'      # Dragon clone source (tier-V pass ships it)
 P_DE  = 'Data\\INI\\Object\\China\\Tank\\Vehicles\\DragonEmperor.ini'  # NEW path
+P_THS = 'Data\\INI\\Object\\China\\Tank\\Infantry\\TankHunter.ini'   # the Kwai STUB
+P_PJ  = 'Data\\INI\\Object\\China\\Tank\\Infantry\\Panzerjager.ini'  # NEW path (clone)
 OWN_KPDL = 'zzz-ZZZZZZZKwaiPDL.big'
 
 EXPECT_OWNER = {P_CS: OWN_FORT, P_CB: OWN_FORT, P_UPG: OWN_FORT, P_STR: OWN_FORT,
@@ -189,10 +191,11 @@ EXPECT_OWNER = {P_CS: OWN_FORT, P_CB: OWN_FORT, P_UPG: OWN_FORT, P_STR: OWN_FORT
                 P_WF: OWN_REB, P_GT: OWN_REB, P_RP: OWN_REB, P_GC: OWN_REB,
                 P_TH: OWN_REB, P_HK: OWN_REB, P_BL: OWN_REB, P_SS: OWN_REB,
                 P_SH: OWN_REB, P_ST: OWN_THP, P_IB: OWN_SPE,
-                P_WM: OWN_REB, P_JS: OWN_KPDL, P_OV: OWN_REB, P_EMP: OWN_FORT}
+                P_WM: OWN_REB, P_JS: OWN_KPDL, P_OV: OWN_REB, P_EMP: OWN_FORT,
+                P_THS: OWN_REB}
 SHIPPED = [P_CS, P_CB, P_UPG, P_STR, P_WPN, P_BM, P_WF, P_BAR, P_GT, P_RP, P_GC,
            P_PG, P_TH, P_HK, P_BL, P_SS, P_SH, P_ST, P_BB, P_WM, P_JS, P_OV,
-           P_EMP, P_DE]
+           P_EMP, P_DE, P_THS, P_PJ]
 # NOTE: the doctrine tier-V pass at the end dynamically extends the shipped set
 # with a full copy of EVERY effective file carrying a tier-IV module (exact
 # tier-IV coverage parity); those extra paths get the same above-claim guard.
@@ -252,7 +255,9 @@ NEW_IDS = [UP_FTOWER, UP_FPDL, UP_BAYS, UP_G2, UP_G3, UP_BA1, UP_BA2, UP_WP1,
            CB_FTOWER, CB_FPDL, CB_BAYS, CB_G2, CB_G3, CB_BA1, CB_BA2, CB_WP1,
            CB_WP2, CB_T3D, CB_T3U, CB_BBBLD, CB_BBARM, CB_BBPDL, CB_BBSPK,
            OBJ_BB, CS_WF3, CS_BAR2, CS_BBM, CS_BBU,
-           UP_VA5, UP_IA5, CB_VA5, CB_IA5, OBJ_DE, CB_DEBLD, W_DEGUN, W_DEGUND] + MODTAGS
+           UP_VA5, UP_IA5, CB_VA5, CB_IA5, OBJ_DE, CB_DEBLD, W_DEGUN, W_DEGUND,
+           'Tank_ChinaInfantryPanzerjager', 'ModuleTag_KA_Horde01'] + MODTAGS
+OBJ_PJ = 'Tank_ChinaInfantryPanzerjager'
 LABEL_BASES = ['FleetSpeakerTowers', 'FleetPointDefense', 'ExpandedCrewBays',
                'GattlingDoctrineII', 'GattlingDoctrineIII', 'KwaiBodyArmorI',
                'KwaiBodyArmorII', 'KwaiWeaponsPackageI', 'KwaiWeaponsPackageII',
@@ -316,7 +321,7 @@ for d in MODDIRS:
         if b.lower() == ARCHIVE.lower():
             continue
         claimed = {e.path.lower() for e in bigfile.read_big(os.path.join(d, b))}
-        for pnew in (P_BB, P_DE):
+        for pnew in (P_BB, P_DE, P_PJ):
             check(pnew.lower() not in claimed, f'{d}/{b} already claims new path {pnew}')
         if b.lower() > ARCHIVE.lower():
             for p in SHIPPED:
@@ -324,7 +329,7 @@ for d in MODDIRS:
 print('effective sources OK (19 files; owners as expected; dirs byte-agree; '
       'new path unclaimed; nothing above claims shipped paths)')
 
-SRC = {p: eff0[p.lower()][1].decode('latin-1') for p in SHIPPED if p not in (P_BB, P_DE)}
+SRC = {p: eff0[p.lower()][1].decode('latin-1') for p in SHIPPED if p not in (P_BB, P_DE, P_PJ)}
 SRC[P_IB] = eff0[P_IB.lower()][1].decode('latin-1')
 
 # ------------------------------------------ collision check
@@ -680,7 +685,20 @@ m = re.search(r'^ {2}Behavior = CommandSetUpgrade ModuleTag_25\b.*?^ {2}End[ \t\
               bar_src, re.M | re.S)
 check(m, 'Barracks mines CommandSetUpgrade anchor missing')
 bar_new_text = bar_src[:m.end()] + '\n' + '\n'.join(BAR_ADD) + bar_src[m.end():]
-audit('Barracks.ini (+3 page-flip modules)', bar_src, bar_new_text, [], BAR_ADD)
+# Panzerjaeger pairs: QuantityModifier referencing the STUB name -- correct
+# because matching happens at QUEUE time against the queued template
+# (ProductionUpdate.cpp queueCreateUnit: isEquivalentTo(unitType), the button's
+# Object), while BuildVariations only resolves later per spawned unit inside
+# ThingFactory::newObject (ProductionUpdate.cpp:815); isEquivalentTo covers
+# identity/override/reskin only (ThingTemplate.cpp:1547), never BuildVariations.
+# Same pattern as Flagship's stub-named Redguard modifier.
+QM_ANCHOR = '  QuantityModifier = Tank_ChinaInfantryPanzergrenadier   2 ; flagship-emperor: PG squads, two per click'
+QM_LINE = (f'  QuantityModifier = Tank_ChinaInfantryTankHunter   2 ; {TAG}: Panzerjaeger pairs '
+           '(stub name -- matched at queue time, pre-BuildVariations; ProductionUpdate.cpp)')
+check(bar_new_text.count(QM_ANCHOR + '\n') == 1, 'Barracks PG QuantityModifier anchor missing')
+bar_new_text = bar_new_text.replace(QM_ANCHOR + '\n', QM_ANCHOR + '\n' + QM_LINE + '\n', 1)
+audit('Barracks.ini (+3 page-flip modules, +TankHunter x2)', bar_src, bar_new_text,
+      [], BAR_ADD + [QM_LINE])
 for need in ['QuantityModifier = Tank_ChinaInfantryPanzergrenadier   2',
              'Behavior = ProductionUpdate ModuleTag_10', 'Tank_ChinaBarracksCommandSetUpgrade']:
     check(need in bar_new_text, f'Barracks lost hunk: {need!r}')
@@ -1343,7 +1361,65 @@ for p_low, (owner, data) in sorted(eff0.items()):
     audit(f'tier-V: {canon.split(chr(92))[-1]}', base_text, new_text, [], added)
     shipped_texts[canon] = new_text
     tier5_files += 1; tier5_mods += len(added) // 5
-# the two NEW objects (BattleBunker, Dragon) are not in eff0 -- pass them too
+# ============================================ Panzerjaeger clone (post-passes)
+# Kwai-scoped concrete clone of the vanilla ChinaInfantryTankHunter so a
+# HordeUpdate can be added without touching the shared unit. Built from OUR
+# fully-patched vanilla text (so it inherits doctrine tiers, InfantryDoctrine
+# hook, Body Armor I/II, WP2 XP -- and tier V via the pass below). The Kwai
+# stub's BuildVariations is repointed; every external reference (construct
+# button, QuantityModifier, command sets) keeps the STUB name.
+th_text = shipped_texts[P_TH]
+om = object_span(th_text, 'ChinaInfantryTankHunter')
+pj = om.group(0)
+n_beh_src = len(re.findall(r'^\s*Behavior\s*=', pj, re.M))
+pj = re.sub(r'^Object ChinaInfantryTankHunter\b',
+            f'Object {OBJ_PJ} ; {TAG}: Kwai Panzerjaeger (clone of ChinaInfantryTankHunter + horde discipline)',
+            pj, count=1)
+check(pj.count('  DisplayName      = OBJECT:TankHunter') == 1, 'clone DisplayName anchor')
+pj = pj.replace('  DisplayName      = OBJECT:TankHunter',
+                f'  DisplayName      = OBJECT:TankPanzerjager ; {TAG}: selected units read Panzerjaeger', 1)
+sm = re.search(r'^ {2}Side\s*=\s*China[ \t\r]*$', pj, re.M)
+check(sm, 'clone Side anchor')
+pj = pj[:sm.start()] + f'  Side = ChinaTankGeneral ; {TAG}: Kwai-scoped (was China)' + pj[sm.end():]
+PJ_HORDE = [f'  Behavior = HordeUpdate ModuleTag_KA_Horde01 ; {TAG}: Panzerjaeger horde discipline (Panzergrenadier config)',
+            '    RubOffRadius = 60',
+            '    UpdateRate = 1000',
+            '    Radius = 30',
+            '    KindOf = INFANTRY',
+            '    AlliesOnly = Yes',
+            '    ExactMatch = No',
+            '    Count = 5',
+            '    Action = HORDE',
+            '  End']
+bm2 = re.search(r'^ {2}Body\s*=.*?^ {2}End[ \t\r]*$', pj, re.M | re.S)
+check(bm2, 'clone Body block missing')
+pj = pj[:bm2.end()] + '\n' + '\n'.join(PJ_HORDE) + pj[bm2.end():]
+check(len(re.findall(r'^\s*Behavior\s*=', pj, re.M)) == n_beh_src + 1,
+      'clone module census != source + 1 (HordeUpdate)')
+# label exists since the panzergrenadier layer (drift guard)
+check(re.search(r'^OBJECT:TankPanzerjager\s*$',
+                eff0[P_STR.lower()][1].decode('latin-1'), re.M),
+      'OBJECT:TankPanzerjager label missing from effective str')
+pj_file = (f'; {TAG}: Kwai Panzerjaeger -- concrete clone of the effective vanilla\n'
+           f'; ChinaInfantryTankHunter (incl. all arsenal/doctrine hooks) + HordeUpdate.\n'
+           f'; The Kwai stub Tank_ChinaInfantryTankHunter BuildVariations-resolves here.\n\n'
+           + pj + '\n')
+shipped_texts[P_PJ] = pj_file
+print(f'Panzerjager.ini built ({OBJ_PJ}: clone census {n_beh_src}+1 modules, horde discipline)')
+# stub repoint
+ths_src = SRC[P_THS]
+OLD_BV = '  BuildVariations = ChinaInfantryTankHunter'
+NEW_BV = f'  BuildVariations = {OBJ_PJ} ; {TAG}: was ChinaInfantryTankHunter (shared vanilla unit untouched)'
+check(ths_src.count(OLD_BV + '\r\n') == 1, 'stub BuildVariations line drifted')
+ths_new_text = ths_src.replace(OLD_BV + '\r\n', NEW_BV + '\r\n', 1)
+audit('TankHunter.ini stub (BuildVariations repoint)', ths_src, ths_new_text, [OLD_BV], [NEW_BV])
+for need in ['Scale = 0.95', 'DisplayName            = OBJECT:TankPanzerjager',
+             'Side = ChinaTankGeneral', 'BuildCost             = 320']:
+    check(need in ths_new_text, f'stub lost override hunk: {need!r}')
+shipped_texts[P_THS] = ths_new_text
+print('TankHunter.ini stub: BuildVariations -> Panzerjaeger clone (art/scale/name overrides kept)')
+
+# the NEW objects (BattleBunker, Dragon, Panzerjaeger) are not in eff0 -- pass them too
 for p in [P_BB, P_DE]:
     new_text, added = tier5_pass(shipped_texts[p], p)
     check(added, f'{p}: expected tier-V coverage on the new object')
@@ -1402,6 +1478,23 @@ for w in [W_DEGUN, W_DEGUND]:
     check(re.search(r'^Weapon %s\b' % w, shipped_texts[P_WPN], re.M), f'{w} not defined')
     check(w in shipped_texts[P_DE], f'Dragon does not reference {w}')
 check(f'MaxSimultaneousOfType = {DRAGON_MAX_SIMUL}' in shipped_texts[P_DE], 'Dragon cap missing')
+# Panzerjaeger chain: stub -> clone; QuantityModifier -> stub; clone hooks intact
+check(re.search(r'^\s*BuildVariations = %s\b' % OBJ_PJ, shipped_texts[P_THS], re.M),
+      'stub does not resolve to the Panzerjaeger clone')
+check(re.search(r'^Object %s\b' % OBJ_PJ, shipped_texts[P_PJ], re.M), f'{OBJ_PJ} undefined')
+check(re.search(r'QuantityModifier = Tank_ChinaInfantryTankHunter\s+2\b', bar_new_text),
+      'TankHunter QuantityModifier missing from Barracks')
+check(re.search(r'^Object Tank_ChinaInfantryTankHunter\b', shipped_texts[P_THS], re.M),
+      'QuantityModifier target (the stub) undefined')
+for hook in ['ModuleTag_KD_Armor4', 'ModuleTag_KD_Doctrine01', 'ModuleTag_KA_BA1',
+             'ModuleTag_KA_BA2', 'ModuleTag_KA_WP2XP', 'ModuleTag_KA_IA5',
+             'ModuleTag_KA_Horde01']:
+    check(hook in shipped_texts[P_PJ], f'Panzerjaeger clone lost hook: {hook}')
+# word-boundary: the shared ChinaInfantryTankHunterMissileLauncher weapon and
+# ChinaInfantryTankHunterCommandSet are deliberate reuse, not staleness
+check(not re.search(r'\bChinaInfantryTankHunter\b',
+                    '\n'.join(l.split(';', 1)[0] for l in shipped_texts[P_PJ].split('\n'))),
+      'stale vanilla object reference in Panzerjaeger clone (non-comment)')
 # page-3/page-2 reachability: sets referenced by WF modules exist; flip buttons on the right pages
 check(f'CommandSet      = {CS_WF3}' in wf_new_text, 'WF module does not open page 3')
 check('CommandSet      = Tank_ChinaWarFactoryCommandSet_Down' in wf_new_text, 'WF page-3 return target')
@@ -1431,8 +1524,8 @@ ship_bytes = {P_CS: cs_new, P_CB: cb_new, P_UPG: upg_new, P_STR: str_new}
 for p, txt in shipped_texts.items():
     ship_bytes[p] = txt.encode('latin-1')
 entries = [bigfile.BigEntry(p, ship_bytes[p]) for p in sorted(ship_bytes)]
-check(len(entries) == 24 + len(tier5_dynamic),
-      f'entry count: {len(entries)} != 24 + {len(tier5_dynamic)} dynamic tier-V files')
+check(len(entries) == 26 + len(tier5_dynamic),
+      f'entry count: {len(entries)} != 26 + {len(tier5_dynamic)} dynamic tier-V files')
 blob = bigfile.write_big(entries)
 rt = bigfile.read_big(blob)
 check([(e.path, e.data) for e in rt] == [(e.path, e.data) for e in entries], 'BIG round-trip mismatch')
