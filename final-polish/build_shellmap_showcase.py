@@ -414,8 +414,8 @@ def walk_script_tree(buf, id2name, start, end, sink):
             parms = []
             for _ in range(nparms):
                 (ptype,) = struct.unpack_from("<i", buf, q); q += 4
-                if ptype == 17:                  # COORD3D: 3 floats
-                    q += 12
+                if ptype == 16:                  # COORD3D: 3 floats (Scripts.h: UNIT=14,
+                    q += 12                      # OBJECT_TYPE=15, COORD3D=16, ANGLE=17)
                     parms.append((ptype, None, None, None))
                 else:
                     (pi,) = struct.unpack_from("<i", buf, q); q += 4
