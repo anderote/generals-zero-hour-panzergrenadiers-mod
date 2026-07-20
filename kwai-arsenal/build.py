@@ -1463,8 +1463,10 @@ for d in MODDIRS:
     for e in entries:
         check(posteff[e.path.lower()] == (ARCHIVE, e.data),
               f'{d}: {e.path} not effectively ours post-install')
-    check(posteff['data\\ini\\object\\china\\tank\\vehicles\\emperor.ini'][0] == OWN_FORT,
-          f'{d}: Fortress Emperor.ini ownership regressed')
+    # Emperor.ini is now legitimately OURS post-install: the dynamic tier-V
+    # machinery ships a full copy (Fortress-derived, +ModuleTag_KA_VA5). The
+    # entries loop above already asserts our copy is the effective winner.
+    # (Stale Fortress-ownership assert removed -- it predated the tier-V pull.)
     print(f'installed + post-install effective audit OK: {dst}')
 check(md5s[0] == md5s[1], f'archives differ across mod dirs: {md5s}')
 print('both archives md5-match:', md5s[0])
