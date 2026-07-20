@@ -17,6 +17,26 @@ OPERATIONS (all on the decompressed CkMp DataChunk buffer):
      the centroid, charging inward -- cannon fodder for the Emperors.
  (3) ADD exactly 3 Tank_ShellEmperorElite (owner teamPlyrGLAYellow -- mutually
      hostile to PlyrGLA) clustered tight at the centroid, facing the swarm.
+ (4) ETERNAL WAVES: the battle must never end.  Adds 3 reinforcement teams
+     (PlyrGLA, 8 mixed units each, mirroring the swarm composition) + 7 map
+     scripts on PlyrGLA's ScriptList (1 one-shot init, 3 repeating wave
+     spawners, 3 rearm subroutines).  Loop per lane X in {A,B,C}:
+       init:   SET_MILLISECOND_TIMER SW_EW_TimerX = 5/25/45 s   (staggered)
+       wave:   TIMER_EXPIRED(SW_EW_TimerX) -> CREATE_REINFORCEMENT_TEAM at an
+               ORIGINAL GLA entry waypoint + TEAM_HUNT + re-set timer to 240 s
+               (failsafe only)
+       rearm:  the team dict's teamOnDestroyedScript fires SW_EW_Rearm_X when
+               the wave is 75% destroyed (teamDestroyedThreshold) -> timer 20 s
+     Population is hard-capped: a lane cannot respawn until its newest team
+     instance is >=75% dead (engine GCs empty team instances every frame --
+     TeamPrototype::updateState -- so gating on TEAM_DESTROYED conditions would
+     deadlock at zero instances; the onDestroyed hook fires while the instance
+     still exists, which is why it is used instead).  Steady-state live GLA
+     from waves <= 3 lanes x 8 units + <=2 stragglers each ~= 30 (< ~40 target).
+     All action/condition enums+NameKeys and chunk versions (ScriptList v1,
+     Script v2, OrCondition v1, Condition v4, ScriptAction v2) were harvested
+     from this map's own existing chunks; one new map symbol is appended
+     (teamOnDestroyedScript, engine key from WellKnownKeys.h DEFINE_KEY).
 
 Tank_ShellEmperorElite is defined in a NEW INI shipped inside this same .big
 (Data\\INI\\Object\\China\\Tank\\Vehicles\\ShellEmperorElite.ini). It is a verbatim
@@ -100,6 +120,30 @@ SWARM = [
     ("GLAVehicleQuadCannon",       90, 188), ("GLAVehicleQuadCannon",     270, 188),
     ("Salv_GLAVehicleMI8Gunship",  60, 215), ("Salv_GLAVehicleMI8Gunship",300, 215),
 ]
+
+# --- (4) ETERNAL WAVES: endless respawning GLA attack lanes -------------------
+GLA_SIDE   = "PlyrGLA"                   # side index owns the wave scripts
+GLA_LIST_IDX = 2                         # ScriptList index of PlyrGLA (asserted)
+WAVE_UNITS = [("GLAInfantryRebel", 4),   # mirrors the swarm mix: inf/veh/air
+              ("GLAVehicleRocketBuggy", 1), ("GLAVehicleTechnical", 1),
+              ("GLAVehicleQuadCannon", 1), ("Salv_GLAVehicleMI8Gunship", 1)]
+# lane id, ORIGINAL GLA entry waypoint (must exist in ObjectsList), first-wave delay s
+WAVES = [("A", "Spawn Team Cycles ", 5.0),    # east  approach (ang ~12, d~731)
+         ("B", "Starthiplanding",    25.0),   # NW    approach (ang ~115, d~627)
+         ("C", "Spawnsab",           45.0)]   # SW    approach (ang ~221, d~417)
+WAVE_TEAM   = "teamSWEternalWave%s"
+WAVE_TIMER  = "SW_EW_Timer%s"
+WAVE_SCRIPT = "SW_EW_Wave_%s"
+REARM_SCRIPT = "SW_EW_Rearm_%s"
+INIT_SCRIPT  = "SW_EW_Init"
+REARM_SECONDS    = 20.0     # next wave this long after previous is 75% dead
+FAILSAFE_SECONDS = 240.0    # lane self-heals even if onDestroyed never fires
+DESTROY_THRESH   = 0.75     # fraction destroyed that counts as wave death
+NEW_TEAM_KEY = "teamOnDestroyedScript"   # appended to the map symbol table
+# enums + parameter types harvested from THIS map's existing chunks
+COND_TRUE, COND_TIMER_EXPIRED = 3, 4
+ACT_CREATE_REINFORCEMENT_TEAM, ACT_TEAM_HUNT, ACT_SET_MSEC_TIMER = 34, 60, 20
+P_INT, P_REAL, P_TEAM, P_COUNTER, P_WAYPOINT = 0, 1, 3, 4, 7
 
 # ---------------------------------------------------------------- roster / INI
 def roster_objects():
@@ -273,6 +317,308 @@ def build_object(name2id, donor_pairs, template, x, y, ang, uid, team, force139=
     body = (struct.pack("<ffff", x, y, 0.0, ang) + struct.pack("<i", 0) +
             struct.pack("<H", len(tb)) + tb + dict_bytes)
     return struct.pack("<IHi", name2id["Object"], 3, len(body)) + body
+
+# ------------------------------------------------- (4) eternal-wave machinery
+def enc_ascii(txt):
+    b = txt.encode("latin-1")
+    return struct.pack("<H", len(b)) + b
+
+def rd_ascii(buf, p):
+    (n,) = struct.unpack_from("<H", buf, p); p += 2
+    return buf[p:p+n].decode("latin-1"), p + n
+
+def enc_chunk(name2id, nm, ver, payload):
+    return struct.pack("<IHi", name2id[nm], ver, len(payload)) + payload
+
+def enc_parm(ptype, i=0, r=0.0, s=""):
+    return struct.pack("<i", ptype) + struct.pack("<i", i) + struct.pack("<f", r) + enc_ascii(s)
+
+def enc_content(name2id, chunk_nm, ver, enum, type_name, parms):
+    """Condition (v4) / ScriptAction (v2): i32 enum, u32 (nameId<<8)|3, i32 n, parms."""
+    payload = (struct.pack("<i", enum) + struct.pack("<I", (name2id[type_name] << 8) | 3) +
+               struct.pack("<i", len(parms)) + b"".join(parms))
+    return enc_chunk(name2id, chunk_nm, ver, payload)
+
+def enc_script(name2id, name, active, oneshot, subroutine, conditions, actions):
+    """Script v2 chunk: 4 strings, 6 flag bytes (active,oneshot,e,n,h,sub), i32 delay,
+    one OrCondition v1 wrapping `conditions`, then ScriptAction chunks."""
+    orc = enc_chunk(name2id, "OrCondition", 1, b"".join(conditions))
+    payload = (enc_ascii(name) + enc_ascii("") * 3 +
+               bytes([active, oneshot, 1, 1, 1, subroutine]) + struct.pack("<i", 0) +
+               orc + b"".join(actions))
+    return enc_chunk(name2id, "Script", 2, payload)
+
+def walk_sides(buf, sl, id2name):
+    """Parse SidesList v3 data: sides (+empty buildlists), teams, PlayerScriptsList."""
+    assert sl["ver"] == 3, "SidesList version %d" % sl["ver"]
+    p = sl["ds"]
+    (nsides,) = struct.unpack_from("<i", buf, p); p += 4
+    sides = []
+    for _ in range(nsides):
+        pairs, p = read_dict(buf, p)
+        (nb,) = struct.unpack_from("<i", buf, p); p += 4
+        assert nb == 0, "non-empty buildlist unsupported"
+        sides.append({id2name.get(k, k): v for (k, _, v) in pairs})
+    teams_cnt_off = p
+    (nteams,) = struct.unpack_from("<i", buf, p); p += 4
+    teams = []
+    for _ in range(nteams):
+        t0 = p
+        pairs, p = read_dict(buf, p)
+        teams.append((t0, p, pairs))
+    psl_hp = p
+    cid, psl_ver, dsize = struct.unpack_from("<IHi", buf, p)
+    assert id2name.get(cid) == "PlayerScriptsList", "expected PlayerScriptsList @%d" % p
+    psl_ds, psl_de = p + 10, p + 10 + dsize
+    assert psl_de == sl["de"], "PlayerScriptsList must end SidesList"
+    lists = []
+    q = psl_ds
+    while q < psl_de:
+        cid2, lver, ds2 = struct.unpack_from("<IHi", buf, q)
+        assert id2name.get(cid2) == "ScriptList", "expected ScriptList @%d" % q
+        lists.append(dict(hp=q, ver=lver, ds=q + 10, de=q + 10 + ds2))
+        q = q + 10 + ds2
+    assert q == psl_de, "ScriptList walk ended @%d != %d" % (q, psl_de)
+    return sides, teams_cnt_off, teams, dict(hp=psl_hp, ver=psl_ver, ds=psl_ds, de=psl_de), lists
+
+def walk_script_tree(buf, id2name, start, end, sink):
+    """Recursively validate every Script/OrCondition/Condition/ScriptAction chunk;
+    collect script names/flags and condition/action contents into sink."""
+    p = start
+    while p < end:
+        cid, ver, dsize = struct.unpack_from("<IHi", buf, p)
+        nm = id2name.get(cid)
+        ds, de = p + 10, p + 10 + dsize
+        assert de <= end and dsize >= 0, "chunk overrun @%d" % p
+        q = ds
+        if nm == "ScriptGroup":
+            _gname, q = rd_ascii(buf, q)
+            q += 1 + (1 if ver >= 2 else 0)     # active [, subroutine]
+            walk_script_tree(buf, id2name, q, de, sink)
+        elif nm == "Script":
+            sname, q = rd_ascii(buf, q)
+            for _ in range(3):
+                _c, q = rd_ascii(buf, q)
+            flags = bytes(buf[q:q+6]); q += 6
+            assert ver >= 2, "Script chunk v%d" % ver
+            (_delay,) = struct.unpack_from("<i", buf, q); q += 4
+            sink["scripts"].append((sname, flags, ds, de))
+            walk_script_tree(buf, id2name, q, de, sink)
+        elif nm == "OrCondition":
+            walk_script_tree(buf, id2name, q, de, sink)
+        elif nm in ("Condition", "ScriptAction", "ScriptActionFalse"):
+            (enum,) = struct.unpack_from("<i", buf, q); q += 4
+            (keyraw,) = struct.unpack_from("<I", buf, q); q += 4
+            assert keyraw & 0xFF == 3, "namekey low byte %d" % (keyraw & 0xFF)
+            (nparms,) = struct.unpack_from("<i", buf, q); q += 4
+            parms = []
+            for _ in range(nparms):
+                (ptype,) = struct.unpack_from("<i", buf, q); q += 4
+                if ptype == 17:                  # COORD3D: 3 floats
+                    q += 12
+                    parms.append((ptype, None, None, None))
+                else:
+                    (pi,) = struct.unpack_from("<i", buf, q); q += 4
+                    (pr,) = struct.unpack_from("<f", buf, q); q += 4
+                    ps, q = rd_ascii(buf, q)
+                    parms.append((ptype, pi, pr, ps))
+            assert q == de, "%s payload end %d != chunk end %d" % (nm, q, de)
+            sink["contents"].append((nm, enum, id2name.get(keyraw >> 8), parms))
+        else:
+            raise AssertionError("unexpected chunk %r in script tree @%d" % (nm, p))
+        p = de
+    assert p == end, "script tree walk ended @%d != %d" % (p, end)
+
+def build_wave_team_dict(name2id, key_ondestroyed, lane):
+    """Team Dict mirroring the map's own team encodings (see 'Team Cycles')."""
+    n = name2id
+    pairs = [(n["teamName"], 3, WAVE_TEAM % lane), (n["teamOwner"], 3, GLA_SIDE),
+             (n["teamIsSingleton"], 0, 0), (n["teamProductionPriority"], 1, 0)]
+    for i in range(7):
+        cnt = WAVE_UNITS[i][1] if i < len(WAVE_UNITS) else 0
+        pairs += [(n["teamUnitMaxCount%d" % (i + 1)], 1, cnt),
+                  (n["teamUnitMinCount%d" % (i + 1)], 1, cnt)]
+    pairs += [(n["teamDescription"], 3, "SW eternal wave lane %s" % lane),
+              (n["teamMaxInstances"], 1, 5),
+              (n["teamProductionPrioritySuccessIncrease"], 1, 0),
+              (n["teamProductionPriorityFailureDecrease"], 1, 0),
+              (n["teamInitialIdleFrames"], 1, 0),
+              (n["teamExecutesActionsOnCreate"], 0, 0),
+              (n["teamDestroyedThreshold"], 2, DESTROY_THRESH)]
+    for i, (tmpl, _cnt) in enumerate(WAVE_UNITS):
+        pairs.append((n["teamUnitType%d" % (i + 1)], 3, tmpl))
+    pairs += [(n["teamHome"], 3, ""), (n["teamReinforcementOrigin"], 3, ""),
+              (n["teamAggressiveness"], 1, 2), (n["teamIsAIRecruitable"], 0, 0),
+              (key_ondestroyed, 3, REARM_SCRIPT % lane)]
+    return enc_dict(pairs)
+
+def build_wave_scripts(name2id):
+    """The 7 Script chunks appended to PlyrGLA's ScriptList."""
+    def msec(timer, seconds):
+        return enc_content(name2id, "ScriptAction", 2, ACT_SET_MSEC_TIMER,
+                           "SET_MILLISECOND_TIMER",
+                           [enc_parm(P_COUNTER, s=timer), enc_parm(P_REAL, r=seconds)])
+    out = []
+    out.append(enc_script(name2id, INIT_SCRIPT, 1, 1, 0,
+        [enc_content(name2id, "Condition", 4, COND_TRUE, "CONDITION_TRUE", [])],
+        [msec(WAVE_TIMER % lane, delay) for (lane, _wp, delay) in WAVES]))
+    for (lane, wp, _delay) in WAVES:
+        team, timer = WAVE_TEAM % lane, WAVE_TIMER % lane
+        out.append(enc_script(name2id, WAVE_SCRIPT % lane, 1, 0, 0,
+            [enc_content(name2id, "Condition", 4, COND_TIMER_EXPIRED, "TIMER_EXPIRED",
+                         [enc_parm(P_COUNTER, s=timer)])],
+            [enc_content(name2id, "ScriptAction", 2, ACT_CREATE_REINFORCEMENT_TEAM,
+                         "CREATE_REINFORCEMENT_TEAM",
+                         [enc_parm(P_TEAM, s=team), enc_parm(P_WAYPOINT, s=wp)]),
+             enc_content(name2id, "ScriptAction", 2, ACT_TEAM_HUNT, "TEAM_HUNT",
+                         [enc_parm(P_TEAM, s=team)]),
+             msec(timer, FAILSAFE_SECONDS)]))
+    for (lane, _wp, _delay) in WAVES:
+        out.append(enc_script(name2id, REARM_SCRIPT % lane, 1, 0, 1,
+            [enc_content(name2id, "Condition", 4, COND_TRUE, "CONDITION_TRUE", [])],
+            [msec(WAVE_TIMER % lane, REARM_SECONDS)]))
+    return out
+
+def add_eternal_waves(buf):
+    """Splice teams + scripts into SidesList and append the one new symbol."""
+    id2name, name2id, data_start, top = parse_map(buf)
+    assert NEW_TEAM_KEY not in name2id, "symbol already present?"
+    sides, teams_cnt_off, teams, psl, lists = walk_sides(
+        buf, [t for t in top if t["nm"] == "SidesList"][0], id2name)
+    assert s(sides[GLA_LIST_IDX].get("playerName", b"")) == GLA_SIDE, \
+        "side[%d] is not %s" % (GLA_LIST_IDX, GLA_SIDE)
+    assert len(lists) > GLA_LIST_IDX
+    # new symbol id = max existing + 1
+    new_id = max(id2name) + 1
+    name2id2 = dict(name2id); name2id2[NEW_TEAM_KEY] = new_id
+    sym_entry = bytes([len(NEW_TEAM_KEY)]) + NEW_TEAM_KEY.encode("latin-1") + struct.pack("<I", new_id)
+    # payload pieces
+    team_bytes = b"".join(build_wave_team_dict(name2id2, new_id, lane) for (lane, _w, _d) in WAVES)
+    script_bytes = b"".join(build_wave_scripts(name2id2))
+    sl = [t for t in top if t["nm"] == "SidesList"][0]
+    gl = lists[GLA_LIST_IDX]
+    (nteams,) = struct.unpack_from("<i", buf, teams_cnt_off)
+    # rebuild PlayerScriptsList: lists before GLA verbatim, GLA list + our scripts, rest verbatim
+    new_gl_data = bytes(buf[gl["ds"]:gl["de"]]) + script_bytes
+    new_psl_data = (bytes(buf[psl["ds"]:gl["hp"]]) +
+                    struct.pack("<IHi", name2id["ScriptList"], gl["ver"], len(new_gl_data)) +
+                    new_gl_data + bytes(buf[gl["de"]:psl["de"]]))
+    new_sl_data = (bytes(buf[sl["ds"]:teams_cnt_off]) + struct.pack("<i", nteams + len(WAVES)) +
+                   bytes(buf[teams_cnt_off + 4:psl["hp"]]) + team_bytes +
+                   struct.pack("<IHi", name2id["PlayerScriptsList"], psl["ver"], len(new_psl_data)) +
+                   new_psl_data)
+    (sym_count,) = struct.unpack_from("<i", buf, 4)
+    out = (bytes(buf[:4]) + struct.pack("<i", sym_count + 1) + bytes(buf[8:data_start]) + sym_entry +
+           bytes(buf[data_start:sl["hp"]]) +
+           struct.pack("<IHi", name2id["SidesList"], sl["ver"], len(new_sl_data)) + new_sl_data +
+           bytes(buf[sl["de"]:]))
+    return out, new_id
+
+def verify_eternal_waves(before, after, roster):
+    """Fail-closed structural + semantic verification of the wave splice."""
+    id1, n1, dstart1, top1 = parse_map(before)
+    id2, n2, dstart2, top2 = parse_map(after)
+    # symbols: exactly one appended, everything else identical
+    assert len(id2) == len(id1) + 1 and id2[max(id2)] == NEW_TEAM_KEY
+    assert all(id2[k] == v for k, v in id1.items())
+    assert bytes(after[8:dstart1]) == bytes(before[8:dstart1])  # original entries prefix-identical
+    # top-level: same sequence; only SidesList changed, all other chunk DATA identical
+    assert [t["nm"] for t in top2] == [t["nm"] for t in top1]
+    for a, b in zip(top1, top2):
+        if a["nm"] != "SidesList":
+            assert bytes(before[a["ds"]:a["de"]]) == bytes(after[b["ds"]:b["de"]]), \
+                "%s data changed" % a["nm"]
+    sl1 = [t for t in top1 if t["nm"] == "SidesList"][0]
+    sl2 = [t for t in top2 if t["nm"] == "SidesList"][0]
+    sides1, tco1, teams1, psl1, lists1 = walk_sides(before, sl1, id1)
+    sides2, tco2, teams2, psl2, lists2 = walk_sides(after, sl2, id2)
+    # sides identical; teams: +3 appended, originals byte-identical
+    assert sides1 == sides2 and len(lists1) == len(lists2)
+    assert bytes(before[sl1["ds"]:tco1]) == bytes(after[sl2["ds"]:tco2])
+    assert len(teams2) == len(teams1) + len(WAVES)
+    for (a0, a1, _), (b0, b1, _) in zip(teams1, teams2):
+        assert bytes(before[a0:a1]) == bytes(after[b0:b1]), "original team dict changed"
+    new_teams = teams2[len(teams1):]
+    team_names, ondestroyed = [], []
+    for (_t0, _t1, pairs), (lane, _wp, _d) in zip(new_teams, WAVES):
+        d = {id2.get(k, k): v for (k, _typ, v) in pairs}
+        assert s(d["teamName"]) == WAVE_TEAM % lane and s(d["teamOwner"]) == GLA_SIDE
+        assert d["teamIsSingleton"] == 0 and d["teamAggressiveness"] == 2
+        assert abs(d["teamDestroyedThreshold"] - DESTROY_THRESH) < 1e-6
+        assert s(d[NEW_TEAM_KEY]) == REARM_SCRIPT % lane
+        for i, (tmpl, cnt) in enumerate(WAVE_UNITS):
+            assert s(d["teamUnitType%d" % (i + 1)]) == tmpl and tmpl in roster
+            assert d["teamUnitMaxCount%d" % (i + 1)] == cnt == d["teamUnitMinCount%d" % (i + 1)]
+        team_names.append(s(d["teamName"])); ondestroyed.append(s(d[NEW_TEAM_KEY]))
+    # script lists: all except GLA byte-identical; GLA = old bytes + our chunks
+    for i, (a, b) in enumerate(zip(lists1, lists2)):
+        if i != GLA_LIST_IDX:
+            assert bytes(before[a["ds"]:a["de"]]) == bytes(after[b["ds"]:b["de"]]), \
+                "ScriptList[%d] changed" % i
+    ga, gb = lists1[GLA_LIST_IDX], lists2[GLA_LIST_IDX]
+    old_len = ga["de"] - ga["ds"]
+    assert bytes(after[gb["ds"]:gb["ds"] + old_len]) == bytes(before[ga["ds"]:ga["de"]])
+    # full recursive walk of BOTH trees (validates every chunk boundary + payload);
+    # NOTE: our scripts sit at the END of ScriptList[GLA_LIST_IDX], which is in the
+    # MIDDLE of the whole-tree walk -- so compare per-list, not flat.
+    sink1 = dict(scripts=[], contents=[])
+    sink2 = dict(scripts=[], contents=[])
+    for L, snk, bb, idm in ((lists1, sink1, before, id1), (lists2, sink2, after, id2)):
+        for l in L:
+            walk_script_tree(bb, idm, l["ds"], l["de"], snk)
+    g1 = dict(scripts=[], contents=[])
+    g2 = dict(scripts=[], contents=[])
+    walk_script_tree(before, id1, ga["ds"], ga["de"], g1)
+    walk_script_tree(after, id2, gb["ds"], gb["de"], g2)
+    names1 = [x[0] for x in g1["scripts"]]
+    names2 = [x[0] for x in g2["scripts"]]
+    mine = [INIT_SCRIPT] + [WAVE_SCRIPT % l for (l, _w, _d) in WAVES] + \
+           [REARM_SCRIPT % l for (l, _w, _d) in WAVES]
+    assert names2 == names1 + mine, "GLA script roster mismatch"
+    assert not set(mine) & {x[0] for x in sink1["scripts"]}, "wave script name collision"
+    assert len(sink2["scripts"]) == len(sink1["scripts"]) + len(mine)
+    # our scripts' flags: init one-shot, waves repeating, rearms subroutine (runScript needs it)
+    flags = {nm: fl for (nm, fl, _a, _b) in g2["scripts"]}
+    assert flags[INIT_SCRIPT][:2] == b"\x01\x01" and flags[INIT_SCRIPT][5] == 0
+    for (lane, _w, _d) in WAVES:
+        assert flags[WAVE_SCRIPT % lane][:2] == b"\x01\x00" and flags[WAVE_SCRIPT % lane][5] == 0
+        assert flags[REARM_SCRIPT % lane][:2] == b"\x01\x00" and flags[REARM_SCRIPT % lane][5] == 1
+    assert ondestroyed == [REARM_SCRIPT % l for (l, _w, _d) in WAVES]
+    # semantic checks on the NEW condition/action contents (tail of the GLA list walk)
+    new_contents = g2["contents"][len(g1["contents"]):]
+    waypoint_names = set()
+    ol2 = [t for t in top2 if t["nm"] == "ObjectsList"][0]
+    for o in parse_objects(after, ol2):
+        wp = o["dictmap"].get(131)
+        if wp: waypoint_names.add(s(wp))
+    old_counters = {p[3] for (_n, _e, _k, parms) in sink1["contents"]
+                    for p in parms if p[0] == P_COUNTER}
+    n_create = n_hunt = 0
+    for (nm, enum, keyname, parms) in new_contents:
+        if keyname == "CREATE_REINFORCEMENT_TEAM":
+            n_create += 1
+            assert enum == ACT_CREATE_REINFORCEMENT_TEAM
+            assert parms[0][0] == P_TEAM and parms[0][3] in team_names
+            assert parms[1][0] == P_WAYPOINT and parms[1][3] in waypoint_names, \
+                "spawn waypoint %r not on map" % parms[1][3]
+        elif keyname == "TEAM_HUNT":
+            n_hunt += 1
+            assert enum == ACT_TEAM_HUNT and parms[0][3] in team_names
+        elif keyname == "SET_MILLISECOND_TIMER":
+            assert enum == ACT_SET_MSEC_TIMER and parms[0][0] == P_COUNTER
+            assert parms[0][3].startswith("SW_EW_") and parms[0][3] not in old_counters
+            assert parms[1][0] == P_REAL and parms[1][2] > 0
+        elif keyname == "TIMER_EXPIRED":
+            assert enum == COND_TIMER_EXPIRED and parms[0][3].startswith("SW_EW_")
+        else:
+            assert keyname == "CONDITION_TRUE" and enum == COND_TRUE and not parms
+    assert n_create == len(WAVES) and n_hunt == len(WAVES)
+    print("VERIFY waves: symbol +1 (%s); teams %d->%d (3 lanes x %d units, thresh %.2f, "
+          "onDestroyed hooks wired); scripts %d->%d (+init/3 wave/3 rearm-sub); all other "
+          "chunks + ScriptLists byte-identical; every chunk in both script trees re-parses "
+          "to exact boundaries; spawn waypoints + team refs + fresh SW_EW_ counters verified"
+          % (NEW_TEAM_KEY, len(teams1), len(teams2), sum(c for _t, c in WAVE_UNITS),
+             DESTROY_THRESH, len(names1), len(names2)))
 
 # ---------------------------------------------------------------- main
 def main():
@@ -450,6 +796,14 @@ def main():
     print("VERIFY head: all bytes before ObjectsList data identical (only the 4-byte dataSize changed, %d->%d)"
           % (ol["dsize"], new_ol_dsize))
 
+    # ================= (4) ETERNAL WAVES: teams + scripts into SidesList ==========
+    out2, wave_sym_id = add_eternal_waves(out)
+    print("(4) eternal waves spliced: +%d teams, +%d scripts, +1 symbol (%s=id %d); "
+          "buffer %d -> %d" % (len(WAVES), 1 + 2 * len(WAVES), NEW_TEAM_KEY,
+                               wave_sym_id, len(out), len(out2)))
+    verify_eternal_waves(out, out2, roster)
+    out = out2
+
     # ================= package (map UNCOMPRESSED + new INI) + install =================
     entries = [BigEntry(MAP_PATH, out), BigEntry(NEW_INI_PATH, ini_bytes)]
     big_bytes = write_big(entries)
@@ -501,6 +855,12 @@ def main():
     print("=== GLA SWARM (owner=%s, aggressiveness=%d) ===" % (SWARM_TEAM, AGGRESSIVE))
     for (tmpl, x, y, ang, uid) in added_swarm:
         print("   %-24s (%4d,%4d) ang=%6.3f  %s" % (tmpl, x, y, ang, uid))
+    print("=== ETERNAL WAVES (%d lanes, %d units each, owner=%s) ===" %
+          (len(WAVES), sum(c for _t, c in WAVE_UNITS), GLA_SIDE))
+    for (lane, wp, delay) in WAVES:
+        print("   lane %s: first wave t=%2.0fs @ %-22r team=%s rearm=%.0fs after %.0f%% destroyed"
+              % (lane, delay, wp, WAVE_TEAM % lane, REARM_SECONDS, DESTROY_THRESH * 100))
+    print("   mix: %s" % ", ".join("%dx %s" % (c, t) for (t, c) in WAVE_UNITS))
 
 if __name__ == "__main__":
     main()
