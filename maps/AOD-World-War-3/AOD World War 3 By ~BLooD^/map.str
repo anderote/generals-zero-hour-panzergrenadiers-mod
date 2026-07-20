@@ -1,0 +1,59 @@
+MapCreator
+"Map made by ~BLooD^ \n Map Was Created on 5/21/2023"
+END
+
+ContactMessage
+"If You Have Any Question Please Contact With Me \n On This Discord discord.gg/RMBet5Re6V Or UserName -Abod Craft#1572-"
+END
+
+instruction1
+"GLA Team Should At The Fifths Spot And At The Top Right Corner"
+END
+
+instruction2
+"In case you wonder what is T and M on the heart,\n T stands for Taha and M for Maher they're both noobs and gays :DD"
+END
+
+Lose
+"You're noob :("
+END
+
+Win
+"GooD Job Wining This :DD"
+END
+
+Warning 5
+"The Enemy Has Opened Two More Paths To Attack, Please Be Careful And Secure Those Paths!!"
+END
+
+Warning 4
+"Be Carfull From Base Attacks"
+END
+
+Warning 3
+"Be carfull of the train!! \n next wave will start after 60 seconds"
+END
+
+Warning 2
+"Be carful of base attacks!!"
+END
+
+Warning 1
+"The Blue Zone is a medium risk area in which construction is at your own risk"
+END
+
+Have Fun
+"Have Fun :DD"
+END
+
+SCRIPT:Countdown
+"Next Wave Coming in:"
+END
+
+SCRIPT:CountdownBoss
+"Time to kill the Boos:"
+END
+
+SCRIPT:Wave
+"Wave:"
+END

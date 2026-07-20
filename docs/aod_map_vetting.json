@@ -1,0 +1,42 @@
+{
+ "AOD - Noobzillas Gambit v12.map": {
+  "total": 50,
+  "missing": 2,
+  "hard": 2
+ },
+ "AOD Pasha Challanges You (4P) v_00 [pashacnc com].map": {
+  "total": 100,
+  "missing": 5,
+  "hard": 3
+ },
+ "AOD Pasha's Pentagram (CnCLabs.com).map": {
+  "total": 90,
+  "missing": 19,
+  "hard": 10
+ },
+ "AOD SWARM by wWw (CNC LABS).map": {
+  "total": 266,
+  "missing": 32,
+  "hard": 21
+ },
+ "AOD World War 3 By ~BLooD^.map": {
+  "total": 186,
+  "missing": 8,
+  "hard": 7
+ },
+ "river_divided_v5.map": {
+  "total": 246,
+  "missing": 37,
+  "hard": 3
+ },
+ "ttk_neomaurice.map": {
+  "total": 464,
+  "missing": 180,
+  "hard": 138
+ },
+ "ttk_testing.map": {
+  "total": 260,
+  "missing": 233,
+  "hard": 0
+ }
+}
